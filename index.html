@@ -294,9 +294,13 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   <li><code>spellcheck: {true/false}</code> - specify whether you want the spell checker to be on</li>
   <li><code>contenteditable</code> - allow content to be editable by user (boolean)</li>
   
-  <li><code>title</code> - specify a custom message to help users identify what is expected for the current input. Without title or type attribute, its hard to know for users what to type in. </li>
+  <li><code>title</code> - specify a custom message to help users identify what is expected for the current input. Without title or type attribute, its hard to know for users what to type in.</li>
   <li><code>pattern = "ex:[a-z0-5]{8,}"</code> - specify a pattern for the input</li>
-  
+  <hr>
+  <h2>Methods and Properties</h2>
+  <ul>
+    <li><code>setCustomValidity(message)</code> - specify a custom validity message for an input element (define a custom validation message for form elements.)(This is different from the title attribute as it merely displays a tooltip to the user when it is hovered over, except when used with the pattern attribute)</li>
+  </ul>
   <hr>
   <h2>Form Data - comes in name & value pairs </h2>
   <li><code>name</code> = (not unique) passed to the server in form data with name and value; useful for naming your inputs and also groups radio buttons into one group for 1 selection of that group, useful for POST form data</li>
@@ -1422,8 +1426,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <ul>
       <li><code>:horizontal</code> - The horizontal pseudo-class applies to any scrollbar pieces that have a horizontal orientation.</li>
       <li><code>:vertical</code> - The vertical pseudo-class applies to any scrollbar pieces that have a vertical orientation.</li>
-      <li><code>:decrement</code> - The decrement pseudo-class applies to buttons and track pieces. It indicates whether or not the button or track piece will decrement the view’s position when used (e.g., up on a vertical scrollbar, left on a horizontal scrollbar). </li>
-      <li><code>:increment</code> - The increment pseudo-class applies to buttons and track pieces. It indicates whether or not a button or track piece will increment the view’s position when used (e.g., down on a vertical scrollbar, right on a horizontal scrollbar). It means selecting down or the right scroll button</li>
+      <li><code>:decrement</code> - The decrement pseudo-class applies to buttons and track pieces. It indicates whether or not the button or track piece will decrement the view's position when used (e.g., up on a vertical scrollbar, left on a horizontal scrollbar). </li>
+      <li><code>:increment</code> - The increment pseudo-class applies to buttons and track pieces. It indicates whether or not a button or track piece will increment the view's position when used (e.g., down on a vertical scrollbar, right on a horizontal scrollbar). It means selecting down or the right scroll button</li>
       <li><code>:start</code> - The start pseudo-class applies to buttons and track pieces. It indicates whether the object is placed before the thumb.</li>
       <li><code>:end</code> - The end pseudo-class applies to buttons and track pieces. It indicates whether the object is placed after the thumb.</li>
       <li><code>:double-button</code> - The double-button pseudo-class applies to buttons and track pieces. It is used to detect whether a button is part of a pair of buttons that are together at the same end of a scrollbar. For track pieces it indicates whether the track piece abuts a pair of buttons.</li>
@@ -1431,6 +1435,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <li><code>:no-button</code> - Applies to track pieces and indicates whether or not the track piece runs to the edge of the scrollbar, i.e., there is no button at that end of the track.</li>
       <li><code>:corner-present</code> - Applies to all scrollbar pieces and indicates whether or not a scrollbar corner is present.</li>
       <li><code>:window-inactive</code> - Applies to all scrollbar pieces and indicates whether or not the window containing the scrollbar is currently active. (In recent nightlies, this pseudo-class now applies to ::selection as well. We plan to extend it to work with any content and to propose it as a new standard pseudo-class.)</li>
+      <li><code>:invalid</code> - Applies to any element that is invalid</li>
     </ul>
 
   </ul>
@@ -3833,11 +3838,10 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <li><code>mousedown</code> - an event for when the mouse is clicked on</li>
         <li><code>mouseup</code> - an event for when the mouse is clicked off</li>
         <li><code>mouseout</code> - an event when exiting a hover </li>
-        <li><code>submit</code> - an event for form elements</li>
+        <li><code>submit</code> - an event for form elements, triggered when the form is submitted through the use of a submit button or by pressing enter. Note this event only triggers when inside the form element. Utilize form data object and pass your form data into, to grab its data from js alone. </li>
         <li><code>transitionend</code> - an event for when transition ends</li>
-        <li><code>input</code> - any change recorded on an input's value triggers the event (not fired when changing value programmatically)</li>
-        <li><code>change</code> - only triggers an event when its value is committed or completed, like pressing a key or selecting a value from a list of options. Other examples are when a string is finished typing into, and the user moves on, only then the event is triggered</li>
-        <li><code>submit</code> - fires when the user submits the form through the use of a submit button or by pressing enter. Note this event only triggers when inside the form element. Utilize formdata object and pass your form data into, to grab its data from js alone. </li>
+        <li><code>input</code> - any change recorded on an input's value triggers the event (not fired when changing value programmatically), (oninput is the same as input but it is an attribute used in the HTML, and its parameter takes in the action returned from the event trigger)</li>
+        <li><code>change</code> - only triggers an event when its value is committed or completed, like pressing a key or selecting a value from a list of options. Other examples are when a string is finished typing into, and the user moves on, only then the event is triggered (onchange)</li>
         <li><code>progress</code> - used to track the loading progress of a media data, event is triggered when the user is downloading media data. For example, when buffering a video, the progress event is fired to indicate the loading of more media data. Its often used to update visual representation of the loading progress, such as a loading bar or spinner.</li>
         <li><code>timeupdate</code> - used to track the playback time as the media plays. Triggers during playback, and several times per second, and indicated the current playback time of the media. It is often used to update the user interface with the current playback time, such as updating a progress bar or displaying the elapsed time</li>
         <li><code>canplay</code> - this event is triggered when the browser starts playing the following media (when it has buffered enough to begin)</li>
@@ -3850,6 +3854,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <li><code>event.currentTarget</code> - target the element that the event bubbles or captures to (for event propagation)</li>
       <li><code>event.target</code> - targets the element that the event is on (can also be found on the event attributes when consoled) (You can use .localName to find the actual element tag.)</li>
       <p>You can always target the inside of an event itself, for other things like <code>.target</code> for example which outputs the event element itself.</p>
+      <li><code>event.type</code> - returns the type of event (read only)</li>
+
       <li><code>.preventDefault()</code> - prevents the event from its default behavior (useful if the event is behaving not the way you want)</li>
       <li><code>setTimeout(() => {action}, {1 sec = 1000ms - dont add units in})</code> - time function for timing things</li>
       <pre id="practice-code-for-javascript">
@@ -3895,12 +3901,21 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <ul>
         <li><code>.closed</code> - returns true is window is closed</li>
         <li style ="text-decoration: line-through"><code>.defaultStatus</code> - set the text on the status bar. **DEPRECIATED** </li>
-        <li><code>.innerHeight</code> - returns the height of the window's content area</li>
-        <li><code>.innerWidth</code> - returns the width of a window's content area</li>
-        <li><code>.outerHeight</code> - returns the outer height, which includes toolbars/scrollbars</li>
-        <li><code>.outerWidth</code> - returns the outer width, which includes toolbars/scrollbars</li>
+        <li><code>.innerHeight</code> - The inner height of the page (excludes toolbar, other tabs, etc).</li>
+        <li><code>.innerWidth</code> - The inner width (excludes toolbar, other tabs, etc.).</li>
+        <li><code>.outerHeight</code> - The outer height of a window (including toolbar, other tabs, etc).</li>
+        <li><code>.outerWidth</code> - The outer width of a window (including toolbar, other tabs, etc).</li>
         <li><code>.scrollY</code> - returns the numbers of pixels that the document is currently scrolled to vertically</li>
         <li><code>.scrollX</code> -  returns the number of pixels that the document is currently scrolled to horizontally</li>
+        <li><code>.location</code> - The window's current URL.</li>
+        <li><code>.name</code> - Name of the window.</li>
+        <li><code>.pageXOffset</code> - The number of pixels user has scrolled horizontally from the upper-left corner of document.</li>
+        <li><code>.pageYOffset</code> - The number of pixels the user has been scrolled vertically.</li>
+        <li><code>.screenX</code> - Horizontal coordinate of the window relative to the screen.</li>
+        <li><code>.screenY</code> - Vertical coordinate of the window relative to the screen.</li>
+        <li><code>.parent</code> - Returns the immediate parent of a window. Reference to the window that the current window came from. (refers to the browser that opened sub windows)</li>
+        <li><code>.top</code> - The top-most parent window.</li>
+        <li><code>.self</code> - referencing the current window itself. </li>
       </ul>
       <h3>Methods</h3>
       <ul>
@@ -3914,7 +3929,74 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <li><code>window.print()</code> - Presents the print dialog box to print the window contents.</li>
         <li><code>window.scroll(xCoord(top), yCoord(left), behavior(for animation)(smooth, instant, auto))</code> - Scrolls the document to the specified coordinates.</li>
         <li><code>window.stop()</code> - Stops the document from loading.</li>
+        <li><code>window.setInterval(function, interval)</code> - Executes a function at specified intervals.</li>
+        <li><code>window.setTimeout(function, timeout)</code> - Executes a function after a specified number of milliseconds.</li>
+        <li><code>window.clearTimeout(timeout)</code> - Cancels a previously set timeout.</li>
 
+      </ul>
+    </fieldset>
+    <fieldset id="location">
+      <h2>Location Object</h2>
+      <p>The Location Object represents the URL of the current page</p>
+      <ul>
+        <li><code>location.protocol</code> - The protocol of the current URL.</li>
+        <li><code>location.hostname</code> - The hostname of the current URL.</li>
+        <li><code>location.pathname</code> - The pathname of the current URL.</li>
+        <li><code>location.host</code> - The host of the current URL, server name and port number</li>
+        <li><code>location.port</code> - The port number of the current URL.</li>
+        <li><code>location.search</code> - The query string of the current URL.</li>
+        <li><code>location.hash</code> - The hash of the current URL, the element you scroll to with the <code>#</code></li>
+        <li><code>location.reload()</code> - Reloads the current page.</li>
+        <li><code>location.assign()</code> - Assigns a new URL.</li>
+        <li><code>location.replace()</code> - Replaces the current URL.</li>
+        <li><code>location.reload()</code> - Reloads the current page.</li>
+      </ul>
+    </fieldset>
+    <fieldset id="screen">
+      <h2>Screen Object</h2>
+      <p>The Screen Object provides information about the screen of the browser, like the width and height, color depth, display, number of pixels available, etc. </p>
+      <h2>Properties</h2>
+      <ul>
+        <li><code>screen.availHeight</code> - Returns the height of the screen, in pixels, minus permanent or semi-permanent user interface features displayed by the operating system (such as the taskbar).</li>
+        <li><code>screen.availWidth</code> - Returns the amount of horizontal space available, in pixels.</li>
+        <li><code>screen.colorDepth</code> - Returns the color depth of the screen.</li>
+        <li><code>screen.height</code> - Returns the height of the screen in pixels.</li>
+        <li><code>screen.width</code> - Returns the width of the screen in pixels.</li>
+      </ul>
+    </fieldset>
+    <fieldset id="history">
+      <h2>History Object</h2>
+      <p>The History Object provides information about the browser's history</p>
+      <h2>Properties</h2>
+      <ul>
+        <li><code>history.length</code> - Returns the number of entries in the browser's history.</li>
+        <li><code>history.state</code> - Returns the state of the current page.</li>
+      </ul>
+      <h2>Methods</h2>
+      <ul>
+        <li><code>history.back()</code> - Goes back in the browser's history.</li>
+        <li><code>history.forward()</code> - Goes forward in the browser's history.</li>
+        <li><code>history.go(index)</code> - Goes back or forward in the browser's history.</li>
+        <li><code>history.pushState(state, title, url)</code> - Adds a new page to the browser's history.</li>
+        <li><code>history.replaceState(state, title, url)</code> - Replaces the current page in the browser's history.</li>
+      </ul>
+    </fieldset>
+    <fieldset id="navigator">
+      <h2>Navigator Object</h2>
+      <p>The Navigator Object provides information about the user's browser, like vendor, version, plugins, etc.</p>
+      <ul>
+        <h2>Properties</h2>
+        <ul>
+          <li><code>navigator.appCodeName</code> - The code name of the browser.</li>
+          <li><code>navigator.appCodeVersion</code> - The code version of the browser.</li>
+          <li><code>navigator.userAgent</code> - The user-agent string of the browser.</li>
+          <li><code>navigator.platform</code> - The platform of the browser.</li>
+          <li><code>navigator.plugins</code> - The plugins of the browser.</li>
+          <li><code>navigator.appName</code> - The name of the browser.</li>
+          <li><code>navigator.appVersion</code> - The version of the browser.</li>
+          <li><code>navigator.userAgent</code> - The user-agent string of the browser.</li>
+          <li><code>navigator.platform</code> - The platform of the browser.</li>
+          <li><code>navigator.language</code> - The language of the browser.</li>
       </ul>
     </fieldset>
   </fieldset>
