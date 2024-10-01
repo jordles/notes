@@ -3147,7 +3147,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
 
       <li><code>.scrollHeight</code> - returns the height of the scroll element including padding</li>
       <li><code>.scrollWidth</code> - returns the width of the scroll element including padding</li>
-      <li><code>.scrollIntoView()</code> - scrolls to an element of the browser window</li>
+      <li><code>.scrollIntoView({ block: 'start' | 'center' | 'end' | 'nearest' | 'auto', behavior: 'auto' | 'smooth' })</code> - scrolls to an element of the browser window</li>
       <li><code>.scrollLeft</code> - set or return the number of pixels an elements content has scrolled horizontally</li>
       <li><code>.scrollTop</code> - set or return the number of pixels an elements content has scrolled vertically</li>
 
@@ -3453,7 +3453,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li>Error handling: Asynchronous operations can fail for various reasons (e.g. network errors, invalid input). Error handling is important as its like a fallback mechanism if the code doesn't work.</li>
     <li>Async/await: Async/await is a syntactic feature that makes it easier to write asynchronous code that looks like synchronous code. It allows us to write code that "waits" for a Promise to resolve before continuing execution.</li>
     <li><code>setInterval({func}, {interval})</code> - a method thats calls a function at specified intervals (in milliseconds)</li>
-    <li><code>clearInterval</code> - a method meant to stop an interval</li>
+    <li><code>clearInterval({interval})</code> - a method meant to stop an interval</li>
     <li>Cancellable Promises:
       There are a few different ways to implement cancellable promises in JavaScript. <br>
       One way is to use the Promise class's then() method to create a new promise that will be resolved when the original promise is resolved or rejected. <br>
