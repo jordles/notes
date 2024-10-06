@@ -281,7 +281,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   <li><code>input</code> => input element for adding different types of input </li>
   <li><code>select</code> = a dropdown for your form, followed by <code>option</code> = to pick options in your dropdown</li>
   <li><code>textarea</code> = adds a text area </li>
-
+  <li><code>.reset()</code> - to reset the form</li>
 <hr>
   <h2>Attributes</h2>
   <li><code>action</code> = indicates where the form data should be sent ex:<code><form action="/submit-url"></form></code> is sent to the path of /submit-url</li>
@@ -2101,7 +2101,9 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <legend>Objects</legend>
     <p>Object store a keyed collection of variables(properties) and functions(methods)</p>
     <p>Each key-value pair is considered a property</p>
-    <p>**ADDING FUNCTIONS IN OBJECTS** We can add methods to our object literals using key-value syntax with anonymous function expressions as values(key: func(){}) or by using the new ES6 method shorthand syntax (func(){}; doesn't use the function keyword or colon for key value pairs). (USING ARROW FUNCTIONS WILL NOT WORK, SINCE 'THIS' WILL REFERENCE THE GLOBAL SCOPE)</p>
+    <p>**ADDING FUNCTIONS IN OBJECTS** We can add methods to our object literals using key-value syntax with anonymous function expressions as values(key: func(){}) or <br>
+      
+    by using the new ES6 method shorthand syntax (func(){}; doesn't use the function keyword or colon for key value pairs). (USING ARROW FUNCTIONS WILL NOT WORK, SINCE 'THIS' WILL REFERENCE THE GLOBAL SCOPE)</p>
     <p>An empty object can be created the object constructor or object literal syntax.</p>
     <p>**similar to Arrays, Objects can be accessed through their data known as properties (key:value pairs). Organizes data in a structured way</p>
     <pre>
@@ -2779,6 +2781,11 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <p>Remember if you want to loop by object hierarchy make the var you're searching for go into the hierarchy's properties </p>
     <hr>
     <h2>Create new objects with a Constructor Function and <code>class</code> keyword</h2>
+    <ul>
+      <li>JS creates a new object that is empty and assigns it to this keyword.</li>
+      <li>The constructor function is invoked with the new keyword</li>
+      <li>After the constructor function is invoked, the object is returned</li>
+    </ul>
     <p>We don't use 'this' in methods for classes, because the methods are automatically added to the prototype of the class.</p>
     <p>In ES6, a class declaration has a constructor method that is invoked with the new keyword. <br>
     If the constructor method is not explicitly defined, then it is implicitly defined with no arguments.
@@ -3047,7 +3054,9 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <p>**ONLY FOR FUNCTIONS INSIDE OBJECTS**
       thanks to ES6, you can remove the function keyword and colon altogether => functionName() 
     </p>
-    <li>instance vs static methods - instance methods are methods that are called on an instance of a class, while static methods are called on the class itself (ex: static -> Array.isArray(arr) vs </li>
+    <li>instance vs static methods - instance methods are methods that are called on an instance of a class (prototypes), while static methods are called on the class itself (class)(ex: static -> Array.isArray(arr) vs </li>
+    <li>Instantiate - defining a class to create a new object (we use the constructor method to do this; new {className} ())</li>
+    <li>Instantiation - the process of creating an object</li>
     <p>Parameters => are variables that act as placeholders for the values that are to be input to a function when it is called. </p>
     <p>Arguments => The actual values that are input (or "passed") into a function when it is called.</p>
     <p> You can use a <code>return</code>  statement to send a value back out of a function. Any code after <code>return</code> is not executed.</p>
