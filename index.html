@@ -3383,99 +3383,149 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <h2>Concise Declarative Functions</h2>
     <p>You can declare functions within objects without using <code>function</code> keyword and the colon</p>
   <hr>
+  <fieldset id="AJAX and JS Async">
+    <legend>AJAX Requests - JS Async</legend>
     <h2>JS Async</h2>
-    <h1>JavaScript Promise Object</h1>
-    <p>The Point of a promise is to remove callback functions, its removes the need to nest callbacks</p>
-    <p>useful for things that take awhile to run and it prevents other processes from wasting time waiting for your process.</p>
-    <p>Promises are most useful when you have a process that takes an unknown amount of time in your code (i.e. something asynchronous), often a server request. <br>
-    then and catch help execute immediately after knowing whether the promise is fulfilled or rejected</p>
-    <p>Promise has three states: pending, fulfilled, and rejected</p>
-    <img src="https://www.freecodecamp.org/news/content/images/2020/06/Ekran-Resmi-2020-06-06-12.21.27.png" alt="promise diagram">
-    <a href="https://javascript.info/promise-basics#comments">promise javascript.info</a>
-    <a href="https://www.freecodecamp.org/news/javascript-es6-promises-for-beginners-resolve-reject-and-chaining-explained/">promise freecodecamp</a>
-    <a href="https://www.youtube.com/watch?v=DHvZLI7Db8E">promise by web dev simplified</a>
+    <fieldset id="Promises">
+      <legend>Promise</legend>
+      <h1>JavaScript Promise Object</h1>
+      <p>The Point of a promise is to remove callback functions, its removes the need to nest callbacks</p>
+      <p>useful for things that take awhile to run and it prevents other processes from wasting time waiting for your process.</p>
+      <p>Promises are most useful when you have a process that takes an unknown amount of time in your code (i.e. something asynchronous), often a server request. <br>
+      then and catch help execute immediately after knowing whether the promise is fulfilled or rejected</p>
+      <p>Promise has three states: pending, fulfilled, and rejected</p>
+      <img src="https://www.freecodecamp.org/news/content/images/2020/06/Ekran-Resmi-2020-06-06-12.21.27.png" alt="promise diagram">
+      <a href="https://javascript.info/promise-basics#comments">promise javascript.info</a>
+      <a href="https://www.freecodecamp.org/news/javascript-es6-promises-for-beginners-resolve-reject-and-chaining-explained/">promise freecodecamp</a>
+      <a href="https://www.youtube.com/watch?v=DHvZLI7Db8E">promise by web dev simplified</a>
+      <img src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png" alt="promise diagram">
+      <a href="https://www.youtube.com/watch?v=eiC58R16hb8"> Video explaining the event loop</a>
+      <li>The event loop itself is an event-driven non-blocking I/O model. </li>
+      <li>------- TIMELINE OF PROMISES - callbacks => promises => async -----</li>
+      <p>A callback is a function passed as an argument to another function. ex: then & catch</p>
+      <pre>
+        const numCheck = (callback, errorCallback) => {
+          let a = 1 + 2;
+          if(a == 2){
+            callback('Success');
+          } else {
+            errorCallback('Error');
+          }
+        })
 
-    <li>------- TIMELINE OF PROMISES - callbacks => promises => async -----</li>
-    <p>A callback is a function passed as an argument to another function. ex: then & catch</p>
-    <pre>
-      const numCheck = (callback, errorCallback) => {
-        let a = 1 + 2;
-        if(a == 2){
-          callback('Success');
-        } else {
-          errorCallback('Error');
-        }
-      })
+        numCheck((message) => {
+          console.log(message);
+        }, (error) => {
+          console.log(error);
+        })
 
-      numCheck((message) => {
-        console.log(message);
-      }, (error) => {
-        console.log(error);
-      })
+        //transformed to the promise syntax using .then and .catch
 
-      //transformed to the promise syntax using .then and .catch
+        const numCheck = new Promise((resolve, reject) => {
+          let a = 1 + 2;
+          if(a == 2){
+            resolve('Success');
+          } else {
+            reject('Error');
+          }
+        })
 
-      const numCheck = new Promise((resolve, reject) => {
-        let a = 1 + 2;
-        if(a == 2){
-          resolve('Success');
-        } else {
-          reject('Error');
-        }
-      })
+        numCheck.then((message) => {
+          console.log(message);
+        }).catch((error) => {
+          console.log(error);
+        })
+      </pre>
 
-      numCheck.then((message) => {
-        console.log(message);
-      }).catch((error) => {
-        console.log(error);
-      })
-    </pre>
+      <pre>
+        //making a new promise
+        const makeServerRequest = new Promise((resolve, reject) => {
+          // responseFromServer is set to true to represent a successful response from a server
+          let responseFromServer = true;
+          
+          if(responseFromServer) {
+          resolve("We got the data");
+          } else {  
+          reject("Data not received");
+          }
+        });
+        //You can treat resolve and reject like the 'return' and the 'throw' of a function
+      </pre>
 
-    <pre>
-      //making a new promise
-      const makeServerRequest = new Promise((resolve, reject) => {
-        // responseFromServer is set to true to represent a successful response from a server
-        let responseFromServer = true;
-        
-        if(responseFromServer) {
-        resolve("We got the data");
-        } else {  
-        reject("Data not received");
-        }
-      });
-      //You can treat resolve and reject like the 'return' and the 'throw' of a function
-    </pre>
+      <p>When you make a server request it takes some amount of time, 
+        and after it completes you usually want to do something with the response from the server. <br>
+      </p>
+      
+      <li><code>myPromise.then(result => {});</code> : a method to use when the promise is successful or resolved, define what you do when it resolves. The then() method is called after the promise itself is resolved. It can also accept 2 arguments, with the 2nd for catching errors. However keep in mind, the 2nd argument will always be for the rejected case of the promise and not the later resolved case from then handlers. <a href="https://dmitripavlutin.com/javascript-promises-then-vs-then-catch/" target="_blank">Dmitri Pavlutin</a></li>
+      <li><code>myPromise.catch(error => {});</code> : a method to use when the promise fails or rejected, define what you do when it rejects. Catch is based on the scope of the promise. It also catches errors on the then handler.</li>
+      <li><code>Promise.any([PROMISE1, PROMISE2, ...])</code> this method is similar to Promise.all, but it only returns the first fulfilled promise, rejecting when all promises in the array are rejected and throws an AggregateError.</li>
+      <li><code>Promise.race([PROMISE1, PROMISE2, ...])</code> - settles when any of the promises in the array is settled (fulfilled or rejected) and returns one promise</li>
 
-    <p>When you make a server request it takes some amount of time, 
-      and after it completes you usually want to do something with the response from the server. <br>
-    </p>
+      <li>The difference between resolve and reject, and .then and .catch is that resolve and reject is used to set the state of the promise while .then and .catch is used to set the result/ or what you want to happen of the promise. One is used to construct a promise, and the other is used to consume/interact with the promise.</li>
+      <li><code>Promise.resolve()</code> - creates a promise that returns a resolved promise; useful when we need to ensure the logic uses a resolved promise</li>
+      <li><code>Promise.reject()</code> - creates as promise that returns a rejected promise</li>
+      <li><code>.then()</code> - handles the result of the promise</li>
+
+      <li><code>Promise.all([promise1, promise2, ...])</code> - take an array of promises and returns only one promise</li>
+      <li><code>Promise.allSettled([promise1, promise2, ...])</code> - fulfills when all promises in the array are settled</li>
+      <li>Asynchronous functions: The question specifies that the sleep function should be an asynchronous function. In simple terms, Asynchronous functions allow code to execute non-blocking I/O operations and other time-consuming tasks without blocking the main thread.</li>
+      <li>Promises: Asynchronous operations typically return a Promise object. Promises are a way of handling asynchronous operations and specifying what should happen when the operation completes (either successfully or with an error).</li>
+      <li>setTimeout: The setTimeout function is a built-in function that can be used to schedule a function to run after a certain amount of time has elapsed. In our question we will use setTimeout to implement the sleep function.</li>
+      <li>Error handling: Asynchronous operations can fail for various reasons (e.g. network errors, invalid input). Error handling is important as its like a fallback mechanism if the code doesn't work.</li>
+      <li>Async/await: Async/await is a syntactic feature that makes it easier to write asynchronous code that looks like synchronous code. It allows us to write code that "waits" for a Promise to resolve before continuing execution.</li>
+      <li><code>setInterval({func}, {interval})</code> - a method thats calls a function at specified intervals (in milliseconds)</li>
+      <li><code>clearInterval({interval})</code> - a method meant to stop an interval</li>
+      <li>Cancellable Promises:
+        There are a few different ways to implement cancellable promises in JavaScript. <br>
+        One way is to use the Promise class's then() method to create a new promise that will be resolved when the original promise is resolved or rejected. <br>
+        The then() method takes two arguments: a callback function that will be called when the original promise is resolved, <br>
+        and an error callback function that will be called when the original promise is rejected.
+
+        Another way to implement cancellable promises is to use the Promise class's catch() method. <br>
+        The catch() method takes a single argument: a callback function that will be called when the original promise is rejected.
+      </li>
+    </fieldset>
+    <fieldset id="async and await">
+      <legend>async/await</legend>
+      <p>Personal Note: Since async is really a promise, both version return a response object. This response object has access to the json() method to parse the response.</p>
+      <p>KEY DIFFERENCES: 
+        <ul>
+          <li>WE USE TRY...CATCH in async/await, replacing then() and catch()</li>
+          <li>code is written/looks sequential even though it is still asynchronous</li>
+          <li>using await automatically handles the promise when it resolves (like a then()), which means we dont need a then()</li>
+        </ul>
+      </p>
+      <li>Async/await: Async/await is a syntactic feature that makes it easier to write asynchronous code that looks like synchronous code. It allows us to write code that "waits" for a Promise to resolve before continuing execution.</li>
+      <li>Async/await is a syntactic sugar that simplifies the use of promises. It is a syntactic sugar that makes writing asynchronous code much easier. It makes the code look more synchronous, and avoids the need to create promise chains. 
+      <li>Await pauses the execution of the function until the promise settles like then() and catch() do.</li>
+      <li>any returns in an async function wraps them in a Promise.resolve() or Promise.reject() 
+        <pre>
+          async function example() {
+            return "Hello";
+          }
+          
+          function example2() {
+              return Promise.resolve("Hello");
+          }
+        </pre>
+      </li>
+      <li>Await fetch() - waits for the fetch() request to complete and returns the response object. Await response.json() waits for the JSON parsing to complete and returns the parsed data directly. </li>
+      <li>Trampolines - a way to reduce the amount of frames on your call stack. We must wrap the returned recursion call on each iteration inside another function. Our trampoline will run that delayed function. 
+        <pre>
+          const trampoline = (f, ...args) => {
+            let result = f(...args);
+            while (typeof result === "function") {
+              result = result();
+            }
+            return result;
+          }
+        </pre>
+      </li>
+    </fieldset>
     
-    <li><code>myPromise.then(result => {});</code> : a method to use when the promise is successful or resolved, define what you do when it resolves. The then() method is called after the promise itself is resolved. It can also accept 2 arguments, with the 2nd for catching errors. However keep in mind, the 2nd argument will always be for the rejected case of the promise and not the later resolved case from then handlers. <a href="https://dmitripavlutin.com/javascript-promises-then-vs-then-catch/" target="_blank">Dmitri Pavlutin</a></li>
-    <li><code>myPromise.catch(error => {});</code> : a method to use when the promise fails or rejected, define what you do when it rejects. Catch is based on the scope of the promise. It also catches errors on the then handler.</li>
-    <li><code>Promise.any([PROMISE1, PROMISE2, ...])</code> this method is similar to Promise.all, but it only returns the first fulfilled promise, rejecting when all promises in the array are rejected and throws an AggregateError.</li>
-    <li><code>Promise.race([PROMISE1, PROMISE2, ...])</code> - settles when any of the promises in the array is settled (fulfilled or rejected) and returns one promise</li>
-
-    <li>The difference between resolve and reject, and .then and .catch is that resolve and reject is used to set the state of the promise while .then and .catch is used to set the result/ or what you want to happen of the promise. One is used to construct a promise, and the other is used to consume/interact with the promise.</li>
-
-    <li><code>Promise.all([promise1, promise2, ...])</code> - take an array of promises and returns only one promise</li>
-    <li><code>Promise.allSettled([promise1, promise2, ...])</code> - fulfills when all promises in the array are settled</li>
-    <li>Asynchronous functions: The question specifies that the sleep function should be an asynchronous function. In simple terms, Asynchronous functions allow code to execute non-blocking I/O operations and other time-consuming tasks without blocking the main thread.</li>
-    <li>Promises: Asynchronous operations typically return a Promise object. Promises are a way of handling asynchronous operations and specifying what should happen when the operation completes (either successfully or with an error).</li>
-    <li>setTimeout: The setTimeout function is a built-in function that can be used to schedule a function to run after a certain amount of time has elapsed. In our question we will use setTimeout to implement the sleep function.</li>
-    <li>Error handling: Asynchronous operations can fail for various reasons (e.g. network errors, invalid input). Error handling is important as its like a fallback mechanism if the code doesn't work.</li>
-    <li>Async/await: Async/await is a syntactic feature that makes it easier to write asynchronous code that looks like synchronous code. It allows us to write code that "waits" for a Promise to resolve before continuing execution.</li>
-    <li><code>setInterval({func}, {interval})</code> - a method thats calls a function at specified intervals (in milliseconds)</li>
-    <li><code>clearInterval({interval})</code> - a method meant to stop an interval</li>
-    <li>Cancellable Promises:
-      There are a few different ways to implement cancellable promises in JavaScript. <br>
-      One way is to use the Promise class's then() method to create a new promise that will be resolved when the original promise is resolved or rejected. <br>
-      The then() method takes two arguments: a callback function that will be called when the original promise is resolved, <br>
-      and an error callback function that will be called when the original promise is rejected.
-
-      Another way to implement cancellable promises is to use the Promise class's catch() method. <br>
-      The catch() method takes a single argument: a callback function that will be called when the original promise is rejected.
-    </li>
-    <hr>
+    
+  </fieldset>
+  <hr>
   <fieldset>
     <h2>Regular Expressions : Regex</h2>
     <a href="https://regexlearn.com">Learn Regex here</a>
@@ -3764,6 +3814,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <p>The relative file path (./) and file extension (.js) are required when using import in the same directory as the current file</p>
     <li><code>import * as object from "file";</code> : import all contents from a current file
     <br> <code>object.function();</code>
+    <p>as keyword basically renames the imported object/variable</p>
     </li>
   </fieldset>
   <fieldset id="js-debugging">
