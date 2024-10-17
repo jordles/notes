@@ -1642,6 +1642,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
           <li>camelCase => first word in lowercase and the first letter of subsequent words capitalized</li>
           <li>PascalCase => first word in uppercase and the first letter of subsequent words capitalized</li>
           <li>snake_case => all lowercase words separated by underscores</li>
+          <li>kebab-case => all lowercase words separated by dashes</li>
         </ul>
         <li>reserved words - let, class, return, function are words that cannot be used because they have meaning already</li>
       </li>
@@ -4063,6 +4064,74 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       </ul>
     </fieldset>
   </fieldset>
+</fieldset>
+<fieldset id="typescript">
+  <h2>TypeScript</h2>
+  <p>Statically-Typed languages allow you to specify the type of a variable (C++, C#, and Java)</p>
+  <p>Dynamically-Typed Languages allows variables to change their type at runtime and are not fixed. (Javascript, Python, Ruby)</p>
+  <p>TypeScript is a superset of JavaScript.</p>
+  <h2>Benefits of TypeScript</h2>
+  <ul>
+    <li>Strict Typing - enforces type checking</li>
+    <li>Structural Typing - if functions or objects have the same 'shape', they are considered the same type on the ts compiler.</li>
+    <li>Type Annotations - very simple, intuitive type annotations <code>var: {data type}</code></li>
+    <li>Type Inference - TS compiler can determine types on its own, and performs implicit typing so that developers do not need to provide types everywhere</li>
+    <li>Editor Integration - see potential runtime errors within the code editor before runtime, increases development efficiency</li>
+    <li>Predictability - ts allows developer to define predictable behavior by restricting types on elements and catching errors before runtime </li>
+    <hr>
+    <li>Static Typing</li>
+    <li>Code Completion</li>
+    <li>Refactoring</li>
+    <li>Shorthand Notations</li>
+    <li>Readability - great for team projects who can understand your code and the typing it needs</li>
+  </ul>
+
+  <h2>Drawbacks of TypeScript</h2>
+  <ul>
+    <li>Transpilation - we need to compile our code to JavaScript before we can run it</li>
+  </ul>
+
+  <h2>Type Annotations</h2>
+  <ul>
+    <li><code>var: {data type}</code> - this syntax is used to annotate the type of a variable</li>
+    <li><code>var: {data type}[]</code> - this syntax is used to annotate the type of an array (and all of the elements inside it)</li>
+  </ul>
+
+  <h2>Structural Typing (Functions and Objects)</h2>
+  <p>All these methods are ways to specify the shapes of functions and objects: </p>
+  <ul>
+    <li>Anonymous Typing - the typing of your parameter is not named but directly assigned to the parameter
+      <pre>
+        function greet(person: {name: string, age: number}) {
+          console.log("Hello " + person.name);
+        }
+      </pre>
+    </li>
+    <li>Interfaces - a template for a shape
+      <pre>
+        interface Person {
+          name: string;
+          age: number;
+        }
+
+        function greet(person: Person) {
+          return "Hello " + person.name;
+        }
+      </pre>
+    </li>
+    <li>type Alias - we make a new type alias and set it equal to an existing type like objects
+      <pre>
+        type Person = {
+          name: string;
+          age: number;
+        };
+
+        function greet(person: Person) {
+          return "Hello " + person.name;
+        }
+      </pre>
+    </li>
+  </ul>
 </fieldset>
 <fieldset id="console commands">
   <legend>Console</legend>
