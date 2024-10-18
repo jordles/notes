@@ -4095,6 +4095,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   <ul>
     <li><code>var: {data type}</code> - this syntax is used to annotate the type of a variable</li>
     <li><code>var: {data type}[]</code> - this syntax is used to annotate the type of an array (and all of the elements inside it)</li>
+    <li><code>var: [data type, data type] | type var = [data type, data type]</code> - Tuples are arrays with a fixed length, where we can specify the type of each element. </li>
+    <li><code>type var = {data type}</code> - a form of type alias</li>
   </ul>
 
   <h2>Structural Typing (Functions and Objects)</h2>
@@ -4132,6 +4134,166 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       </pre>
     </li>
   </ul>
+
+  <h2>Enum</h2>
+  <ul>
+    <li><code>enum {data type}</code> - this syntax is used to create an enum, which is a list of constants that we group together. Enums are a data type that has a fixed number of possible values.
+      <pre>
+        enum Size {Small= 1, Medium, Large};
+        let mySize: Size = Size.Medium;
+        console.log(mySize); // → Medium
+      </pre>
+    </li>
+  </ul>
+  <h2>Type Assertion</h2>
+  <p>Type assertions provides a way to specify a more specific type of data that is not known by TypeScript. They can basically override the original type of a variable (assuming it makes sense to)</p>
+  <ul>
+    <li><code>&lt;{datatype}&gt;value</code> - this syntax is older</li>
+    <li><code>value as {datatype}</code> - this syntax is modern and best practice
+      <pre>
+        //This syntax also applies to objects like so:
+
+        interface MyObject {
+          id: number;
+          name: string;
+        }
+        
+        let obj: any = { id: 1, name: "Alice" };
+        let myObj = obj as MyObject;
+        console.log(myObj.id);  // Output: 1
+
+        //this syntax also applied to union types (to narrow the type of a variable):
+        let input: string | number;
+        input = "42";
+        let numericInput = input as number; 
+
+        //this syntax also applied to DOM elements:
+        let myInput = document.getElementById("input-field") as HTMLInputElement;
+        myInput.value = "Hello";  // Safely access the 'value' property
+      </pre>
+    </li>
+  </ul>
+
+  <h2>Decorators</h2>
+  <p>Decorators allow us to add functionality to our classes, functions, and properties. They are experimental and must have its property "experimentalDecorators" set to true on the tsconfig.json file. it uses the <code>@expression</code> syntax
+    <ul>
+      <li><code>target: {data type}</code> - this syntax is used to specify the target of the decorator. It refers to the class constructor or its prototype (for instance methods)</li>
+      <li><code>propertyKey: {data type}</code> - refers to the name of the method</li>
+      <li><code>descriptor: {data type}</code> - refers to the method descriptor</li>
+
+    </ul>
+  </p>
+  <h2>Access Modifiers</h2>
+  <p>These are modifiers thats restrict the use of variables; usually used in context of classes </p>
+  <ul>
+    <li><code>public</code> - this is default behavior; public members of a class are accessible anywhere. </li>
+    <li><code>protected</code> - Protected members are only accessible within that class or its subclasses</li>
+    <li><code>private</code> - Private members are only accessible within that class</li>
+    <li><code>readonly</code> - readonly members are not changeable once initialized. these are like const except arrays and objects are also immutable </li>
+  </ul>
+
+  <h2>Alias</h2>
+  <p><code>type var = {data type}</code>Alias is a way to give a new name to an existing type</p>
+
+  <h2>Literals</h2>
+  <p>We use specific strings and numbers themselves to define a type, instead of assigning a type to an existing data type. 
+    <pre>
+      let anotherString: "Hello" = "Hello"; //we set a literal type that only accepts the string "Hello" and not any other string. We then assigned that variable to the string "Hello". 
+    </pre>
+  </p>
+
+  <h2>Type Composition</h2>
+  <p>Union - define a type that can be many types through the pipe operator. This is helpful for defining a set of string or number literals that a value should be. Keep in mind, if you use a union on a variable by itself, it will cause an error since ts cannot infer the type until you assign it. 
+    <pre>
+      let var = "Hello" | "World"; //there will be an error since ts compiler cannot infer the type
+      let var: "Hello" | "World" = "Hello"; //this will work
+
+      function greet(person: "Hello" | "World") {} //this will work since a parameter of type "Hello" | "World" is passed in, so ts compiler doesn't have to guess what the type is at runtime. 
+
+      //this is not an issue if you use type aliases:
+      type CourseNAme = "CS" | "Math" | "English";
+    </pre>
+  </p>
+  <p>Generics allow us to apply variable types through the <code>&lt;Type&gt;</code> notation. The generic acts like a parameter that accept types as its argument.
+    <pre>
+      //Array Generics
+      const arr = new Array&lt;number&gt;(1,2,3,4,5); 
+      const arr2 = new Array&lt;string&gt;("1", "2", "3", "4", "5")
+
+      //Function Generics
+      function identity<Type>(arg: Type): Type {
+        return arg;
+      }
+      let output = identity&lt;string&gt;("myString");
+      //however this is not necessary, since whatever argument you give to your function call, ts compiler will infer the type.
+
+      //Class Generics
+      class TypedList<TypeParam> {
+        public list: TypeParam[] = []
+        constructor(arr: TypeParam[]) {
+          this.list = [...arr]
+        }
+      
+      }
+      
+      const numTypedList = new TypedList<number>([1,2,3,4,5])
+      
+    </pre>
+  </p>
+
+  <h2>Narrowing</h2>
+  <p>Narrowing is the process of narrowing down the type of a variable to a more specific type.This is due to ts compiler not knowing what type the variable is.</p>
+  <ul>
+    <li>Type Guard - its a conditional statement that checks the type of a variable. TS recognizes the type of a variable </li>
+    <li>Type Narrowing - narrowing down the type of a variable to a more specific type. for example a repeat method only accepts numbers. In cases with null (which is treated like an object) we can use <code>!== null</code> conditionals</li>
+    <li>Truthy Narrowing - a way to handle null and undefined values, we use truthy values and type narrowing to ensure we dont encounter a null (because null is a falsy value)
+      <pre>
+        if (strs && typeof strs === 'object'){
+      </pre>
+    </li>
+    <li>Equality Narrowing - uses <code>===</code> to check if two values are equal, including its type. Because its checking for type match implicitly its a type narrowing</li>
+    <li>Property Narrowing - uses <code>in</code> to check if a property exists or not
+      <pre>
+        function study(person: Instructor | PerScholasLearner) {
+          if ('teach' in person) {
+            return person.teach()
+          } else {
+            return person.learn()
+          }
+        }
+      </pre>
+    </li>
+    <li>Class Narrowing - uses <code>instanceof</code> to check if an object is an instance of a class
+      <pre>
+        function logValue(x: Date | string) {
+          if (x instanceof Date) {
+            console.log(x.toUTCString())
+          } else {
+            console.log(x.toUpperCase())
+          }
+        }
+      </pre>
+    </li>
+  </ul>
+
+  <h2>Function Type Expressions</h2>
+  <p>Function type expressions are used to define a function type, they are syntactically similar to arrow functions, but declared as types.
+    <pre>
+      type StringToNumber = (a: string) => number
+
+      function string2Num(a: string): void {
+        console.log(Number(a))
+      }
+
+      function takesAnotherFunction(fn: StringToNumber) {
+        const num = fn("12344")
+        const mathIsValid = num / 2 + 3 * 10;
+        return mathIsValid
+      }
+
+      takesAnotherFunction(string2Num)
+    </pre>
+  </p>
 </fieldset>
 <fieldset id="console commands">
   <legend>Console</legend>
