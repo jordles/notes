@@ -4067,9 +4067,12 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
 </fieldset>
 <fieldset id="typescript">
   <h2>TypeScript</h2>
+  <p><code>//@ts-check</code> - tells the compiler to perform type checking</p>
+  <p><code>npm i -D typescript</code> - install typescript</p>
+  <p>We have a tsconfig.json file in the root of our project. This file is to configure our ts, and if strict property is set to true, we will enforce type checking. </p>
   <p>Statically-Typed languages allow you to specify the type of a variable (C++, C#, and Java)</p>
   <p>Dynamically-Typed Languages allows variables to change their type at runtime and are not fixed. (Javascript, Python, Ruby)</p>
-  <p>TypeScript is a superset of JavaScript.</p>
+  <p>TypeScript language is a superset of JavaScript.</p>
   <h2>Benefits of TypeScript</h2>
   <ul>
     <li>Strict Typing - enforces type checking</li>
@@ -4099,10 +4102,10 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>type var = {data type}</code> - a form of type alias</li>
   </ul>
 
-  <h2>Structural Typing (Functions and Objects)</h2>
+  <h2>Structural Typing (Functions and Objects)(Shaping)</h2>
   <p>All these methods are ways to specify the shapes of functions and objects: </p>
   <ul>
-    <li>Anonymous Typing - the typing of your parameter is not named but directly assigned to the parameter
+    <li>Anonymous Typing - the typing of your parameter is not named but directly assigned to the parameter. This also means normal objects can be used to specify the shape.
       <pre>
         function greet(person: {name: string, age: number}) {
           console.log("Hello " + person.name);
@@ -4137,7 +4140,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
 
   <h2>Enum</h2>
   <ul>
-    <li><code>enum {data type}</code> - this syntax is used to create an enum, which is a list of constants that we group together. Enums are a data type that has a fixed number of possible values.
+    <li><code>enum {constants...}</code> - this syntax is used to create an enum, which is a list of constants that we group together in an object. Enums are a convenient way to group related values together and are a data type in TypeScript. Enums are different from objects because they offer: type-safety, readability, reverse mapping (bracket notation on the assignment works), immutability, and more.
       <pre>
         enum Size {Small= 1, Medium, Large};
         let mySize: Size = Size.Medium;
@@ -4202,8 +4205,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </pre>
   </p>
 
-  <h2>Type Composition</h2>
-  <p>Union - define a type that can be many types through the pipe operator. This is helpful for defining a set of string or number literals that a value should be. Keep in mind, if you use a union on a variable by itself, it will cause an error since ts cannot infer the type until you assign it. 
+  <h2>Type Composition - make complex types by combining simple types</h2>
+  <p>Union - define a type that can be many types through the pipe operator (or). This is helpful for defining a set of string or number literals that a value should be. Keep in mind, if you use a union on a variable by itself, it will cause an error since ts cannot infer the type until you assign it. 
     <pre>
       let var = "Hello" | "World"; //there will be an error since ts compiler cannot infer the type
       let var: "Hello" | "World" = "Hello"; //this will work
@@ -4212,6 +4215,24 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
 
       //this is not an issue if you use type aliases:
       type CourseNAme = "CS" | "Math" | "English";
+    </pre>
+  </p>
+  <p>Intersection - define a type that can be many types through the ampersand operator (AND). It makes no sense for a type to be both a string and a number, however, when using type aliases we can have cases where they can be both. 
+    <pre>
+      type Draggable = {
+        drag: () => void
+      }
+
+      type Resizable = {
+        resize: () => void
+      }
+
+      type UIWidget = Draggable & Resizable //this is an intersection type
+
+      let textBox: UIWidget = {
+        drag: () => {},
+        resize: () => {}
+      }
     </pre>
   </p>
   <p>Generics allow us to apply variable types through the <code>&lt;Type&gt;</code> notation. The generic acts like a parameter that accept types as its argument.
@@ -4241,12 +4262,18 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </pre>
   </p>
 
+  <h2>Optional Parameters</h2>
+  <p>Optional parameters are parameters that are marked with a <code>?:</code> at the end of the parameter name. This might not be best practice, since we would need to narrow down the undefined value or use an || operator. However, just assigning the parameter to a variable solves the problem as well since it becomes a default parameter. </p>
+
+  <h2>Optional Properties/Arrays/Indexes</h2>
+  <p>Optional properties are properties that are marked with a <code>?.</code> at the end of the property name. They are helpful if accessing the property is not possible, due to ts checking for multiple types like null or undefined for example. But you can optionally also narrow the type of the property in such cases. </p>
+
   <h2>Narrowing</h2>
   <p>Narrowing is the process of narrowing down the type of a variable to a more specific type.This is due to ts compiler not knowing what type the variable is.</p>
   <ul>
     <li>Type Guard - its a conditional statement that checks the type of a variable. TS recognizes the type of a variable </li>
     <li>Type Narrowing - narrowing down the type of a variable to a more specific type. for example a repeat method only accepts numbers. In cases with null (which is treated like an object) we can use <code>!== null</code> conditionals</li>
-    <li>Truthy Narrowing - a way to handle null and undefined values, we use truthy values and type narrowing to ensure we dont encounter a null (because null is a falsy value)
+    <li>Truthy Narrowing - a way to handle null and undefined values, we use truthy values and/or type narrowing to ensure we dont encounter a null (because null is a falsy value)
       <pre>
         if (strs && typeof strs === 'object'){
       </pre>
@@ -4294,6 +4321,51 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       takesAnotherFunction(string2Num)
     </pre>
   </p>
+</fieldset>
+<fieldset id="nodejs">
+  <legend>NodeJS</legend>
+  <ul>
+    <li>What is node.js?
+      <ul>
+        <li>A Javascript runtime is not a language or a framework, it is a runtime/running on a machine as a server environment. </li>
+        <li>Node vs Browser runtime - Node does not have access to the browser, so they dont have access to document or window objects. However node does provide its own environment variables to provide information and methods relevant to the environment. (process variable is similar to the window object in browser runtime environment)</li>
+        <li>It is built on the V8 Javascript engine (same as Google Chrome). </li>
+        <li>Written in c++, and essentially allows use to run javascript code on the server. </li>
+        <li>Mostly used for developing server-side and networking apps/apis. </li>
+        <li>It takes the javascript out of the browser.</li>
+        <li>It is fast, scalable, and popular in many areas of the industry. </li>
+      </ul>
+    </li>
+    <li>How does node.js work?
+      <ul>
+        <li>it runs on the V8 javascript engine</li>
+        <li>This V8 javascript engine is responsible for converting javascript code into machine code and executing it. </li>
+        <li>Node takes that engine and make it run on the server side.</li>
+        <li>Node.js is nonblocking, so it doesn't block the rest of the code by using events and callbacks to run asynchronous code.</li>
+        <li>In node.js, there is a single main thread that executes all the code. (thread being the code itself)</li>
+        <li>Node.js uses the event loop to manage asynchronous code. When a request is fulfilled, it triggers a callback and is added to the event loop. The event loop will pick up the callback and run it.</li>
+      </ul>
+    </li>
+    <li>What is Node.js used for?
+      <ul>
+        <li>used for developing APIs / server rendered apps</li>
+        <li>Real-time applications like chat or multiplayer game apps</li>
+        <li>Microservices - independent components that communicate with each other</li>
+        <li>Command Line Tools like CLI command line interfaces </li>
+        <li>Bots to automate tasks like twitter, slack, and discord</li>
+        <li>Web Scraping - web scraping is the process of extracting data from websites</li>
+        <li>Web Servers - sophisticated web servers, handling complex routing, serving dynamic content, or a simple static file server</li>
+        <li>Node.js is not good for CPU-intensive tasks like computations (better using server-side languages) </li>
+      </ul>
+    </li>
+    <li>Installation
+      <ul>
+        <li>Go to nodejs.org/en and download</li>
+        <li>go to terminal and check the versions of node and npm with commands <code>node -v</code> and <code>npm -v</code></li>
+      </ul>
+    </li>
+
+  </ul>
 </fieldset>
 <fieldset id="console commands">
   <legend>Console</legend>
