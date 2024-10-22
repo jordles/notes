@@ -4324,6 +4324,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
 </fieldset>
 <fieldset id="nodejs">
   <legend>NodeJS</legend>
+  <p>Remember to use <code>npm i</code> to download the proper node_modules if your directory doesn't have it when cloning from github. </p>
   <ul>
     <li>What is node.js?
       <ul>
@@ -4366,6 +4367,86 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </li>
 
   </ul>
+</fieldset>
+<fieldset id="express">
+  <legend>Express</legend>
+  
+  <li>Installation
+    <ul>
+      <li><code>npm i express</code> - installs express</li>
+      <li><code>const express = require('express')</code> - imports express</li>
+      <li><code>const app = express()</code> - creates an express app</li>
+      <li><code>app.listen()</code> - starts the server by telling it what port to listen on; this is similar to node's built in http module's createServer() method</li>
+    </ul>
+  </li>
+
+  <ul>
+    <li>Express is a framework for Node.js, creating and scaling web applications through its HTTP utility methods and middleware. It manages the HTTP server.</li>
+    <li>Express adds to the nodejs</li>
+    <li>Express requires us to define routes. By edfault the web client asks for the base route using an HTTP GET request</li>
+    <li><code>app.{method}(path, handler)</code> - define the express route
+      <ul>
+        <li><code>app</code> - is the instance of Express</li>
+        <li><code>method</code> - GET, POST, PUT, PATCH, DELETE</li>
+        <li><code>path</code> - URL path of the server</li>
+        <li><code>handler = (req,res) => res.send()</code> - function executed when the route is matched</li>
+      </ul>
+    </li>
+    <li><code>app.route()</code> - defines a route, allowing us to chain route handlers. This basically defines the route first then pair the type of the request with the handler parameters. </li>
+    <li>Response status, headers, or end-call is set to default or other automatic values by node or express.</li>
+    <li>We can create multiple types of request routes at the same endpoint</li>
+  </ul>
+
+  <li>Route Paths - we can match patterns of routes using regex.
+    <ul> For <code>'/{regex}'</code>
+      <li><code>? + * ()</code> - ? for optional, + for 1 or more, * for wildcard chars, and () for grouping</li>
+      <li><code> - . </code> - </li>
+    </ul>
+    <ul>For <code>/{regex}/</code>
+      <li>You can use normal regex for the route paths instead</li>
+    </ul>
+  </li>
+
+  <li>Router Parameters
+    <ul>
+      <li><code>:{route parameter}</code>Route parameters are parameters that are defined in the path of a route. They allow us to be creative how our routes are handled. They are named segments of a URL, preceded by a colon (:) and used to cache certain values, specified at their position in the URL.</li>
+      <li>Values are cached in the req.params object, with the name of the route parameter as the key used to access its value.</li>
+    </ul>
+  </li>
+
+  <li>Middleware - functions that occur between the middle of the request being received and the response being sent. Have access to the request and response objects, and the next function in the request-response cycle. 
+    <ul>
+      <li>Execute any code</li>
+      <li>Make changes to the request and response objects</li>
+      <li>End the request-response cycle</li>
+      <li>Call the next piece of middleware in the stack</li>
+    </ul>
+    <ul>
+      <li><code>app.use(middleware)</code></li>
+      <li><code>const middleware = (req, res, next) => { ... next()}</code> - this is our middleware function, remember that order matters in middleware. So whatever is loaded into the application will be called first. Calling next method moves to the next function/middleware</li>
+      <li>The middleware will not run properly if its called after the route handler.</li>
+      <li>Middleware is useful for handling anything that needs to be repeated for every request-response cycle. </li>
+    </ul>
+    <li>Error Handling Middleware
+      <ul>
+        <li>Always takes in 4 arguments. You must specify the next method parameter, otherwise the next object will be interpreted as middleware and will fail to handle errors. </li>
+      </ul>
+    </li>
+    <li>Third-Party Middleware - utilizing third-party middleware like the cookie-parser module. It is common to use pre-packaged modules to increase work efficiency. </li>
+    <li>Use Cases - 
+      <ul>
+        <li>User Authentication - If you have a section of a web application that requires users to be logged in, or that requires a certain level of permissions, you can use middleware to redirect unqualified users.</li>
+      </ul>
+    </li>
+    <li>Express Router organization
+      <ul>
+        <li><code>express.Router</code> class that is used to create modular, mountable route handlers. </li>
+        <li>Each instance of router is a complete middleware and routing system, just like the express app </li>
+        <li>It is common to package routes into individual files depending on their commonalities, and export those routes to be used in the main application.</li>
+        <li>You must app.use() the Router in the main application</li>
+      </ul>
+    </li>
+  </li>
 </fieldset>
 <fieldset id="console commands">
   <legend>Console</legend>
@@ -5655,7 +5736,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   <ul>
     <p>**IF YOU EVER FORGOT TYPING -M FOR COMMIT THE TERMINAL LANDS YOU IN AN EDITOR TO TYPE A LONGER MESSAGE; TO LEAVE TYPE: i {your message}{esc}:wq{enter} to leave the editor</p>
     <li><code>git commit -m "{description/comment}"</code> - create a commit to place on git record, and git status will show there is nothing to commit anymore</li>
-    <li><code>git commit -m "{description/comment}" --amend</code> - amend/fix an entry text you previous committed</li>
+    <li><code>git commit -m "{description/comment}" --amend</code> - change commit message you previous committed</li>
     <li><code>git diff</code> - see what changed were made on your modified files</li>
     <li><code>git add {modified file}</code> - if you made a change to any of your files, git status will show a modified file and you can once again commit</li>
     <li><code>git restore --staged {filename}</code> - moves a staged file back to working file </li>
