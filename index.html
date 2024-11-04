@@ -4378,6 +4378,16 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <li><code>const app = express()</code> - creates an express app</li>
       <li><code>app.listen()</code> - starts the server by telling it what port to listen on; this is similar to node's built in http module's createServer() method</li>
       <li><code>npm i -D nodemon</code> - nodemon can be used to auto restart the server, but also we can use <code>node --watch {file}.js</code> (which is still experimental atm) which uses the watch flag</li>
+      <li><code>npm i express</code> - installs express</li>
+      <li><code>npm i dotenv</code> <code>import "dotenv/config"</code>- installs dotenv; this allows us to use environment variables</li>
+      <li><code>.gitignore</code> - ignore the node_modules and .env files</li>
+    </ul>
+  </li>
+  <li>Inside our package.json 
+    <ul>
+      <li><code>"scripts": {"dev": "nodemon"}</code> - running nodemon through a script</li>
+      <li><code>"type": "module"</code> - allows us to use es modules</li>
+
     </ul>
   </li>
   <li>Methods
@@ -4462,13 +4472,140 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </li>
     <li>Express Router organization
       <ul>
-        <li><code>express.Router</code> class that is used to create modular, mountable route handlers. </li>
+        <li><code>express.Router()</code> class that is used to create modular, mountable route handlers. </li>
         <li>Each instance of router is a complete middleware and routing system, just like the express app </li>
         <li>It is common to package routes into individual files depending on their commonalities, and export those routes to be used in the main application.</li>
         <li>You must app.use() the Router in the main application</li>
       </ul>
     </li>
+    <li>Rendering View Templates - With Express, we can utilize a template engine similar to like an article in html to render dynamic templates to send to the client. Some template engines includes: Pug, Mustache, EJS
+      <ul>
+        <li><code>app.engine(extension, callback)</code> -defines a template engine; extension is the file extension of the template, and the callback is the function that will render the template which accepts the location, options object, and the next() function</li>
+        <li><code>app.set('view engine', 'extension')</code> - sets the template engine</li>
+        <li><code>app.render(location, options, callback)</code> - renders the template; location is the location of your template inside the views directory, and options is an object that defines your placeholders inside the template</li>
+      </ul>
+    </li>
   </li>
+</fieldset>
+<fieldset id="restful apis">
+  <legend>Restful APIs</legend>
+  <p>Representational State Transfer (REST) is an architectural style for Application Programming Interfaces (APIs) that serves to provide guiding principles for building robust, scalable APIs. REST is used throughout the software industry, and is the standard for creating reliable web APIs. RESTful web APIs utilize HTTP methods to access resources via URL-encoded parameters, and send data in JSON (or XML) format.</p>
+  <p>URIs - Uniform Resource Identifier are route paths known as resources (in the url) that are used to access data.</p>
+
+
+</fieldset>
+<fieldset id="mongodb">
+  <legend>MongoDB</legend>
+  <h2>MongoDB</h2>
+
+  <li>Getting Started
+      <pre>
+        import {MongoClient} from 'mongodb';
+        const connectionString = process.env.ATLAS_URI || "";
+        const client = new MongoClient(connectionString);
+
+        let conn;
+        try{
+          conn = await client.connect();
+        }catch (e){
+          console.error(e);
+        }
+
+        let db = conn.db("mydb");
+
+        export default db; //since we export the db, we can use it in other files like our routers / routes. 
+      </pre>
+  </li>
+
+  <p>Databases are used to store persistent data for an application, they provide a centralized location for this data to be placed, accessed, and manipulated. </p>
+
+  <li>Types of Databases
+    <ul>
+      <li>Hierarchical Databases - stores data in a family tree structure</li>
+      <li>Relational Databases - stores data in a table, which are joined together by fields known as "foreign keys". SQL (Structured Query Language) is commonly used for data operations</li>
+      <li>Non-Relational Databases - stores data in a variety of ways, and are often the most flexible of the three. They are referred to as NoSQL databases</li>
+    </ul>
+  </li>
+  
+  <li>Types of NoSQL Databases
+    <ul>
+      <li>Document Databases - store data in JSON, Binary JSON (BSON), or XML. </li>
+      <li>Key-value Stores - store data in individual key-value pairs. Often used for simple data and quick access</li>
+      <li>Column-Oriented Databases - store data similarly to a traditional relational database, but instead of organizing in row, they do it in columns. This allows for faster retrieval of data since columns can read specific pieces of data without requiring entire table entries.</li>
+      <li>Graph Databases - store data as nodes, and focuses on relationships between those nodes. These connections allow graph databases easily search through the data.</li>
+    </ul>
+  </li>
+
+  <li>SQL Advantages
+    <ul>
+      <li>Have been in use since the 1970s, maintaining a steady user base.</li>
+      <li>Are optimized for working with well-structured data.</li>
+      <li>Provide a strong guarantee of data normalization.</li>
+      <li>Use a well-known querying language, SQL.</li>
+    </ul>
+  </li>
+
+  <li>NoSQL Advantages
+    <ul>
+      <li>Are more flexible and easier to manage than traditional SQL databases.</li>
+      <li>Can work with semi-structured and unstructured data.</li>
+      <li>Allow for a scaling architecture that can handle levels of traffic that traditional SQL databases find troublesome.</li>
+      <li>Can provide zero-downtime solutions.</li>
+      <li>Are fault-tolerant.</li>
+      <li>Are highly performant at scale, even for large sets of data that could not be served efficiently from a SQL database.</li>
+    </ul>
+  </li>
+
+  <li>Advantages of MongoDB
+    <ul>
+      <li>Full cloud-based developer data platform - with mongodb atlas, the cloud offering by mongodb, you have access to a collection of services to integrate nicely with your database. </li>
+      <li>Flexible Document Schemas - MongoDB's document model is flexible. BSON data format, allows you to have object in one collection with different sets of fields. MongoDB support creating explicit schemas and validating data.</li>
+      <li>Widely supported and code native access - MongoDB allows us to store and represent data in a document format that is compatible with any programming language. Compared to other databases, you need ORMs to get data into object form for us in programs. (python, java, javascript)</li>
+      <li>Change-friendly design - MongoDB is designed to be scalable, fault-tolerant, and easy to use. No downtime requires to change schemas without interrupting operations </li>
+      <li>Powerful Querying and Analytics - MongoDB supports a wide range of querying and analytics capabilities. MongoDB Query API - query deep into documents and perform complex analytics pipelines with just a few lines of code. </li>
+      <li>Easy horizontal scale-out with sharding - MongoDB is designed to be a distributed database, create clusters with real-time replication, and shard large or high-throughput collections across multiple clusters to sustain performance and scale horizontally.</li>
+      <li>High Performance - information can be embedded inside a single document rather than relying on expensive join operations from traditional relational databases. This makes queries much faster, and returns all of the necessary information in a single call to the database.</li>
+      <li>Simple Installation - MongoDB is easy to install and use.</li>
+    </ul>
+  </li>
+  <li>MongoDB Commands / query (remember mongodb operations are asynchronous)
+    <ul> (get, post, update, delete)
+
+      <li><code>db.collection.find()</code> - finds documents in a collection</li>
+      <li><code>db.collection.findOne()</code> - finds the first document in a collection </li>
+      
+      <li><code>db.collection.insertOne()</code> - inserts a document into a collection</li>
+      <li><code>db.collection.insertMany()</code> - inserts multiple documents into a collection</li>
+      
+      <li><code>db.collection.updateOne({query filter}, {updates})</code> - updates a document in a collection, matches the first document based on the given filter</li>
+      <li><code>db.collection.updateMany({filter})</code> - updates multiple documents in a collection</li>
+
+      <li><code>db.collection.deleteOne({filter})</code> - deletes a document in a collection, matches the first document based on the given filter</li>
+      <li><code>db.collection.deleteMany({filter})</code> - deletes multiple documents in a collection</li>
+
+      <li><code>db.collection.createIndex({ key: index type }, (err, result) => {})</code> - creates a index on javascript; uses nodejs driver</li>
+      
+      <li><code>sort()</code> - sort results by the given fields in either ascending or descending order.</li>
+      <li><code>limit()</code> - limits the number of results to the specified number</li>
+      <li><code>skip()</code> - skips the first number of specified results</li>
+
+      <li>Update Operators
+        <ul>
+          <li><code>$currentDate</code> - sets the value of a field to the current date</li>
+          <li><code>$inc</code> - increments the value of a field by a specified amount</li>
+          <li><code>$mul</code> - multiplies the value of a field by a specified amount</li>
+          <li><code>$set</code> - sets the value of a field to a specified value</li>
+          <li><code>$unset</code> - removes the field from a document</li>
+          <li><code>$rename</code> - renames a field in a document</li>
+          <li><code>$min</code> - sets the value of a field to the minimum of the current value and the specified value</li>
+          <li><code>$max</code> - sets the value of a field to the maximum of the current value and the specified value</li>
+          <li><code>$push</code> - pushes an element to an array field</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <p>Getting Data by _id - ObjectId is a unique identifier for each document and a special data type, used as a default value for the _id field. If you don't create one yourself, MongoDB will create one for you. If you want to query a _id field, you must use ObjectId to query. Adding <code>.createFromHexString</code> - converts a string to an ObjectId</p>
 </fieldset>
 <fieldset id="console commands">
   <legend>Console</legend>
@@ -5830,6 +5967,10 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   </ul>
 </fieldset>
 <hr>
+<fieldset id="python">
+  <h2>Python</h2>
+  
+</fieldset>
 <script>
   /*
   var sc = document.getElementsByClassName('converthtml');
