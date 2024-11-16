@@ -1960,7 +1960,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>.find(function ex: num => num % 2 === 0)</code> => return the first element that satisfies the provided testing function</li>
     <li><code>.findIndex(function ex: num => num % 2 === 0)</code> ==> return the index of the first element that satisfies the provided testing function</li>
     <li><code>.sort(compareFunction ex: (a,b) => a-b )</code> => sort by comparing two values consecutively (MUTATES ORIGINAL ARRAY)<br>
-      If the returned value is negative, we will know a is less than b (ascending order; a-b (numerical comparison); a > b (boolean comparison for strings))  <br>
+      If the returned value is negative, we will know a is less than b (ascending order; a-b (numerical comparison); a > b |OR| a.localCompare(b) (boolean comparison for strings))  <br>
       if the returned value is positive, we will know a is more than b (descending order; b-a; a < b) <br>
       (Alphabetical)The function is based off of numeric values, negative means < 0 values, positive means > 0 values <br>
       0 means the values remain unchanged. <br>
@@ -4606,6 +4606,151 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   </li>
 
   <p>Getting Data by _id - ObjectId is a unique identifier for each document and a special data type, used as a default value for the _id field. If you don't create one yourself, MongoDB will create one for you. If you want to query a _id field, you must use ObjectId to query. Adding <code>.createFromHexString</code> - converts a string to an ObjectId</p>
+</fieldset>
+<fieldset id="react">
+  <li>React
+    <p>When things run twice, we might have strict mode turned on, which is for debugging</p>
+    <ul>
+      <li>React is a JavaScript library for building user interfaces.</li>
+      <li>Components are self-contained code meant to be reused. Treat them like legos.</li>
+      <li>React's syntax uses an extension of JavaScript called JSX (Javascript XML), allowing us to write html code in our javascript.
+        <ul>
+          <li>return statements are always wrapped in parenthesis and can only return one element or a fragment</li>
+          <li>(IN THE RETURN STATEMENT) any javascript code, including variables etc. must be wrapped in curly braces</li>
+          <li>classes are named className, because jsx reserves the class keyword</li>
+        </ul>
+      </li>
+      <li>React uses a virtual DOM to keep track of changes to the DOM. It compared the virtual DOM with the real DOM and updates the real DOM accordingly. We improve performance by only updating the parts of the DOM that have changed through this process.</li>
+      <li>props - a read only javascript object that is passed into a component. When you send any key value pair to a component, it sends it to props. A parent can send data to a child component. </li>
+      <li><code>{function}.propTypes</code>We can add type checking to our components using PropTypes. The following prop types include: String, Number, Bool, Array, Object, Symbol, and Node.
+        <pre>
+          import PropTypes from 'prop-types';
+          myComponent.propTypes = {
+            prop1: PropTypes.string.isRequired,
+            prop2: PropTypes.number,
+            prop3: PropTypes.arrayOf(PropTypes.string),
+            prop4: PropTypes.arrayOf(PropTypes.shape({ //shape is for objects
+              name: PropTypes.string,
+              age: PropTypes.number
+            }))
+          }
+        </pre>
+      </li>
+      <li><code>{function}.defaultProps</code> - set default values for your props
+        <pre>
+          import PropTypes from 'prop-types';
+          myComponent.defaultProps = {
+            prop1: 'default value',
+            prop2: 0,
+            prop3: [],
+          }
+        </pre>
+      </li>
+      <li>We can use any methods that does not mutate the state or props. This includes methods like map and filter</li>
+      <li>When using any event listeners, we have to function / callback wrap the function so it doesn't trigger on page load</li>
+    </ul>
+  </li>
+  <li>React technologies and important keywords
+    <ul>
+      <li>Node.js - Reminder we need node.js which is a backend JavaScript runtime environment which helps us execute JavaScript code on the server side and away from the browser. We use the node package manager (npm) to install React and its dependencies.</li>
+      <li>Vite is a build tool that allows us to create a development server / environment for React.</li>
+      <li>Module - a collection of related code imported and exported from a file</li>
+      <li>Package - a collection of modules, files, and other resources</li>
+      <li>Library - a collection of packages or modules</li>
+      <li>Dependencies - A needed functionality, so it can be a module, package, or library</li>
+      <li>node modules - a directory/folder where we store our dependencies</li>
+      <li>Assets folder is very similar to the public folder, except assets folder is bundled with the code while public folder is not and are generally available via a url in the browser </li>
+      <li>main.jsx - the entry point of our application which holds the root component and our app is rendered here</li>
+      <li>index.css - styles the root component</li>
+      <li>App.jsx - the root component</li>
+      <li>App.css - styles the root component</li>
+      <li>index.html - an actual html file containing the main.jsx file which is the entry point of our application</li>
+      <li>package.json - contains information about the project</li>
+      
+    </ul>
+  </li>
+  <li>React Setup
+    <ul>
+      
+      <li><code>npm create vite@latest</code> - create a vite project and installs the latest version. Is is a modern replacement for <code>npm create-react-app</code>. Select your profile name, framework, variant language</li>
+      <li>cd to your project</li>
+      <li><code>npm install</code> - installs dependencies, they are already listed in package.json and created when we created the vite project</li>
+      <li><code>npm run dev</code> - uses the dev script to start the development server</li>
+      <li>components - a folder where we store our react components</li>
+    </ul>
+  </li>
+  <li>React hooks
+    <p>Hooks are functions that lets components you use state and other features of React without writing a class. Functional components use hooks, and class components are deprecated</p>
+    <ul>
+      <li><code>useState</code> - Create a stateful variable. React will rerender its virtual DOM of only the component whenever the state changes and its children. This helps you avoid unnecessary re-renders and keeps your application performant.
+        
+      When using normal javascript variables, React will not update the DOM, unless you trigger a re-render like calling a function. 
+        <li><code>setState( (prevState) => prevState... ) </code> - 
+        <ul>
+          <li>updater functions are functions that are passed to setState. The parameter passed in the updater function is the previous state, in which we can update it. You can name this previous state anything you want.</li>\
+          <li>They are used for multiple state updates and async functions. Because React batches together state updates for performance reasons, the latest state update is the one that is rendered instead.With updater functions, it allows us to update the state multiple times in a row. React places the updater function in a queue, and will call everything in the queue in the same order since its FIFO.</li>
+          <li>States are immutable. When updating array or object states, because they are pass by reference, we must use the spread operator to update the state. Its convention to use an updater function as well, to make sure we target the last most updated state. </li>
+          <li>When removing an element from an array, we must use the filter method to filter out the element we want to remove. Other alternatives that are also immutable are the slice and reduce methods</li>
+        </ul>
+      </li>
+      </li>
+      <li><code>useEffect</code> - tells React to do some code when the component mounts, updates, or unmounts (mounting is when you render the component for the first time and apply it to the DOM. So basically adding a component to the DOM).
+        <ul>
+          <li><code>import { useEffect } from 'react'</code> - imports the useEffect hook</li>
+          <li><code>useEffect(function, [dependencies]) / useEffect(() => {}, [])</code> - dependencies are the stateful variables</li>
+          <li>useEffect is good for: 
+            <ul>
+              <li>Event Listeners</li>
+              <li>DOM Manipulation</li>
+              <li>Subscriptions (real-time-updates)</li>
+              <li>Fetching data from an api</li>
+              <li>Clean up when a component unmounts</li>
+            </ul>
+          </li>
+          <li>Its important to know usually you can do your functionality outside of the useEffect hook, but its still useful to organize, ensure clarity, and make your code more readable. And with the dependencies array it has a built in condition to check when the function should run. And finally you can return a cleanup function which helps to avoid memory leaks like removing an event listener. This return function will run on the next re-render if there are no dependencies(this includes the empty dependencies array) or when the component unmounts. 
+            <pre>
+              useEffect(() => {
+                window.addEventListener('click', eventListener)
+                return () => {
+                  window.removeEventListener('click', eventListener)
+                }
+              }, [])
+            </pre>
+          </li>
+        </ul>
+        <pre>
+          useEffect(() => {}) //runs after every re-render
+          useEffect(() => {}, []) //runs only on mount or when the application loads
+          useEffect(() => {}, [dependencies/value]) //runs when the dependencies change and checks if the component is mounted
+        </pre>
+      </li>
+      <li><code>useReducer</code> - pass functions, handles more complex states, for removes prop drilling, pass information. It is conventional to use switches for your reducer function. It is more specifically for functions. 
+        <ul>
+          <li><code>const [state, dispatch] = useReducer(reducer, initialState)</code> - returns the state and the dispatch function. The dispatch function is used to send actions to update the state (function setter). </li>
+          <li>dispatch(type, payload) - specify the type, payload (user input) and sends an action to the reducer function
+          </li>
+          <li>reducer(state, action) - the reducer function, whatever we place in the action will be passed from the dispatch function. </li>
+          <li>action.type - the type of the action </li>
+          <li>action.payload - the payload of the action (updater), it is basically a parameter you pass in the dispatch, to go to to your reducer function</li>
+          <li>dispatch - global of functions passed to child components. </li>
+          <li> useReducer does stuff to the state, whatever the functionality may be. The function is the same as a setter. </li>
+        </ul>
+        <pre>
+          const [state, dispatch] = useReducer(reducer, {count: 0});
+          Same as: 
+          const [count, setCount] = useState(0);
+        </pre>  
+      </li>
+      <li><code>useContext</code> - save a state globally, across the entire application. Share states between multiple levels of components, it removes the need for prop drilling.
+        <ul>
+          <li><code>const context = createContext()</code> - declared globally like in a context folder with a default value</li>
+          <li>.Provider value={value} - wraps the targeted parent component and update that group with the value for your createContext. </li>
+          <li>useContext(context) - inside the targeted child component, </li>
+        </ul>
+        
+      </li>
+    </ul>
+  </li>
 </fieldset>
 <fieldset id="console commands">
   <legend>Console</legend>
