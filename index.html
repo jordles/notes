@@ -4607,6 +4607,9 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
 
   <p>Getting Data by _id - ObjectId is a unique identifier for each document and a special data type, used as a default value for the _id field. If you don't create one yourself, MongoDB will create one for you. If you want to query a _id field, you must use ObjectId to query. Adding <code>.createFromHexString</code> - converts a string to an ObjectId</p>
 </fieldset>
+<fieldset id="mongoose">
+  <p>Mongoose creates a collection name based on the Model Name, to lowercase and pluralizes it</p>
+</fieldset>
 <fieldset id="react">
   <li>React
     <p>When things run twice, we might have strict mode turned on, which is for debugging</p>
@@ -4648,7 +4651,16 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       </li>
       <li>We can use any methods that does not mutate the state or props. This includes methods like map and filter</li>
       <li>When using any event listeners, we have to function / callback wrap the function so it doesn't trigger on page load</li>
+      <li>Pure components - are components that don't mutate the state or props. It prevents a render if props and state haven't changed. </li>
     </ul>
+  </li>
+  <li>React Render Cycle - Trigger, Render, Commit
+    <ul>
+      <li>Trigger - the event that triggers the render (delivering the guest's order to the kitchen). Happens when the component triggers an initial render, or the component's state is rendered, or a prop changes </li>
+      <li>Render - rendering/calling the component (preparing the order in the kitchen), triggered by setting the state.</li>
+      <li>Commit - committing to the DOM (placing the order on the table), react will compare the virtual DOM to the real DOM and update the real DOM accordingly</li>
+    </ul>
+    <p><code>root.render(element)</code> - This code is triggering the initial render by giving our entire application's JSX to the DOM's root node and calling its render method, provided by react-dom/client.</p>
   </li>
   <li>React technologies and important keywords
     <ul>
@@ -4686,13 +4698,32 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         
       When using normal javascript variables, React will not update the DOM, unless you trigger a re-render like calling a function. 
         <li><code>setState( (prevState) => prevState... ) </code> - 
-        <ul>
-          <li>updater functions are functions that are passed to setState. The parameter passed in the updater function is the previous state, in which we can update it. You can name this previous state anything you want.</li>\
-          <li>They are used for multiple state updates and async functions. Because React batches together state updates for performance reasons, the latest state update is the one that is rendered instead.With updater functions, it allows us to update the state multiple times in a row. React places the updater function in a queue, and will call everything in the queue in the same order since its FIFO.</li>
-          <li>States are immutable. When updating array or object states, because they are pass by reference, we must use the spread operator to update the state. Its convention to use an updater function as well, to make sure we target the last most updated state. </li>
-          <li>When removing an element from an array, we must use the filter method to filter out the element we want to remove. Other alternatives that are also immutable are the slice and reduce methods</li>
-        </ul>
+          <ul>
+            <li>updater functions are functions that are passed to setState. The parameter passed in the updater function is the previous state, in which we can update it. You can name this previous state anything you want.</li>\
+            <li>They are used for multiple state updates and async functions. Because React batches together state updates for performance reasons, the latest state update is the one that is rendered instead.With updater functions, it allows us to update the state multiple times in a row. React places the updater function in a queue, and will call everything in the queue in the same order since its FIFO.</li>
+            <li>States are immutable. When updating array or object states, because they are pass by reference, we must use the spread operator to update the state. Its convention to use an updater function as well, to make sure we target the last most updated state. </li>
+            <li>When removing an element from an array, we must use the filter method to filter out the element we want to remove. Other alternatives that are also immutable are the slice and reduce methods</li>
+          </ul>
+        </li>
+        <li>Lazy Initialization - we initialize the state when the component mounts with a callback function in the argument of the useState hook. This use case is for functions, because without a callback our function will run every time the component re-renders. But now with lazy initialization, our function will only run when the component mounts</li>
       </li>
+      <li><code>useRef</code> - allows you to persist values without causing a re-render. When the stored value changes, it does not cause a re-render. We can think of it as not having a setting function like useState, so it will never have a need to re-render in the first place. It is useful for: 
+        <ul>
+          <li>Accessing / Interacting with DOM elements (referencing them)</li>
+          <li>Handling Focus, Animations, and Transitions</li>
+          <li>Managing Timers and Intervals</li>
+        </ul>
+        <ul>
+          <li><code>import { useRef } from 'react'</code> - imports the useRef hook</li>
+          <li><code> const elementRef = useRef(initialValue)</code> - useRef returns an object with one property of current. The current property is initialized to the initial value.</li>
+          <li><code>ref = {elementRef}</code> - when using the ref attribute, the element's reference points to the actual DOM element, so elementRef.current points to the DOM element</li>
+        </ul>
+        <ul>Core Differences between useRef and useState
+          <li>useRef returns an object with one property of current, useState returns an array with two properties of state and setState</li>
+          <li>useRef doesn't trigger re-renders, useState does</li>
+          <li>userRef is mutable while useState is immutable unless you use setState</li>
+          <li>You shouldn't read or write the current value during rendering for useRef, but on useState you can read state at any time.</li>
+        </ul>
       </li>
       <li><code>useEffect</code> - tells React to do some code when the component mounts, updates, or unmounts (mounting is when you render the component for the first time and apply it to the DOM. So basically adding a component to the DOM).
         <ul>
@@ -4725,14 +4756,20 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         </pre>
       </li>
       <li><code>useReducer</code> - pass functions, handles more complex states, for removes prop drilling, pass information. It is conventional to use switches for your reducer function. It is more specifically for functions. 
+        <a href="https://dev.to/emmaccen/react-usereducer-dhn" target="_blank">Usereducer Explained</a>
         <ul>
-          <li><code>const [state, dispatch] = useReducer(reducer, initialState)</code> - returns the state and the dispatch function. The dispatch function is used to send actions to update the state (function setter). </li>
+          <li><code>const [state, dispatch] = useReducer(reducer, initialState, init)</code> - returns the state and the dispatch function. The dispatch function is used to send actions to update the state (function setter). </li>
+          <li><code>init</code> - lazy initialization; we initialize the state when the component mounts</li>
           <li>dispatch(type, payload) - specify the type, payload (user input) and sends an action to the reducer function
           </li>
           <li>reducer(state, action) - the reducer function, whatever we place in the action will be passed from the dispatch function. </li>
-          <li>action.type - the type of the action </li>
-          <li>action.payload - the payload of the action (updater), it is basically a parameter you pass in the dispatch, to go to to your reducer function</li>
-          <li>dispatch - global of functions passed to child components. </li>
+          <li>action - An action is simply a JavaScript object that describes what change we want to happen.</li>
+          <li>action.type - the type of the action; what to do </li>
+          <li>action.payload - the payload of the action (updater), it is basically an argument you pass in the dispatch, to go to your reducer function. It provides a way to pass specific data with each action, making your actions more flexible and reusable; What it needs to do the job provided.</li>
+          <li>dispatch - a function that is used to set the state by dispatching actions; Dispatch in React is simply a function that takes an instruction about what to do, then passes that instruction to the reducer as an "action". In simple terms, see dispatch as a friendly boss that likes to tell the reducer what to do and is happy about it 😎. global of functions passed to child components. 
+
+          React guarantees that dispatch function identity is stable and won't change on "re-renders". This is why it's safe to omit from the useEffect or useCallback hook dependency list.
+          </li>
           <li> useReducer does stuff to the state, whatever the functionality may be. The function is the same as a setter. </li>
         </ul>
         <pre>
@@ -4743,14 +4780,69 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       </li>
       <li><code>useContext</code> - save a state globally, across the entire application. Share states between multiple levels of components, it removes the need for prop drilling.
         <ul>
-          <li><code>const context = createContext()</code> - declared globally like in a context folder with a default value</li>
-          <li>.Provider value={value} - wraps the targeted parent component and update that group with the value for your createContext. </li>
-          <li>useContext(context) - inside the targeted child component, </li>
+          <li>Providing Component - the component that provides the state value
+            <ul>
+              <li><code>import { createContext } from 'react'</code> - imports the createContext hook</li>
+              <li><code>export const ContextName = createContext()</code> -  ;can be declared globally like in a context folder with a default value</li>
+              <li><code>ContextName.Provider value={value}</code> - wraps the targeted component that would be passing the state initially to its children, and update that group with the value for your createContext. So component A would have first contact and becomes the Provider component, who provides a value for the latter nested components. </li>
+            </ul>
+          </li>
+          <li>Consumer Component - the component that consumes the state value
+            <ul>
+              <li><code>import {useContext} from 'react</code> - imports the useContext hook</li>
+              <li><code>import {ContextName} from './ContextName</code> - import the context from the context folder or the component holding the context</li>
+              <li>useContext(context) - inside the targeted child component, who successfully consumes the state value to use it.</li>
+            </ul>
+          </li>
         </ul>
         
       </li>
     </ul>
   </li>
+  <li>React Routers
+    <ul>
+      <li><code>npm install react-router-dom</code> - installs the react router dom</li>
+      <li><code>import { BrowserRouter } from 'react-router-dom'</code> - BrowserRouter provides context and tools to the entire application</li>
+      <li><code>import { Route, Routes } from 'react-router-dom'</code> - Two components: Routes is a wrapper component that contains the Route components. Route components have two attributes that must be set in order to create working routes.</li>
+      <li>Route - is a component that defines a route, it holds the path and the element attribute. The element attribute tells the route which page component to render when the path is reached. </li>
+      <li><code>import { Link } from 'react-router-dom'</code> - Link is a component that renders an <a> element and sets the href attribute to the location of the route to a 'to' attribute. We cannot use a tags in react, because it will trigger the browser to make a request and refresh the page, but React does not have a server to respond to (the URL is a simulation of multiple pages)
+        <pre>
+          function Nav(){
+            return(
+              <Link to="/about">About</Link>
+            )
+          }
+          
+          export default Nav
+        </pre>
+      We place these links in a nav component we make, and conventionally the nav components goes under the components folder. The route path components go in the pages folder. 
+      </li>
+      <li><code>import { useParams } from 'react-router-dom'</code> - allows route components to use route url parameters. 
+        <ul>
+          <li><code>const params = useParams()</code> - we access parts of the URL using the useParams hook</li>
+          <li><code>...{params.paramName}...</code> - we can now place and access the paramName inside any of our code logic. </li>
+        </ul>
+      </li>
+      <li><code>import { useSearchParams } from 'react-router-dom'</code> - allows route components to use query parameters</li>
+    </ul>
+  </li>
+</fieldset>
+<fieldset id="Javascript Web Tokens">
+  <legend>JWT</legend>
+  <p>JSON Web Token (JWT) is an open standard for securely transmitting information between parties as JSON object. It is a string made of three parts: header, payload, and signature. </p>
+  <li>JWT or Json Web Token, is an open standard used to share security information between two parties - the client and the server. It can be used to authenticate and authorize user access.</li>
+  <li>JWT is an encrypted token that is digitally signed using a secret key. It can store user information, permissions, and other data.</li>
+  <li>User => [Interaction] => React App => [Request] => Server, if user is in the database and correct, consider user logged in => makes a refresh token - this is never sent to the client, only accessed by the database on the http cookie.</li>
+  <li>An access token is a short-lived token created from a refresh token, that is used to authenticate a user and grant access to a resource from the server database. This access token is sent through every requests, and helps the server identify the user.</li>
+  <li>An access token must be placed in the state of a react application instead of localStorage. As localStorage is accessible through javascript for hackers to manipulate.
+    <pre>
+      const [token, setToken] = useState();
+    </pre>
+  </li>
+  <li>Should a user refresh or have their access token expired, the server will look for a refresh token in its database, and if that has not expired, it will generate a new access token for react to be used. This prevents a user from being signed out every time they refresh for example. </li>
+  <li>So access token is for security, and refresh tokens as a backup. </li>
+  <li><code>jwt.sign(response object, secret key, options)</code> - used for creating a new access token. </li>
+  <li><code>jwt.verify(token, secret key)</code> - used for verifying an access token. The secret key is matching to token to see if the token is valid</li>
 </fieldset>
 <fieldset id="console commands">
   <legend>Console</legend>
