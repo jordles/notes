@@ -4728,7 +4728,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
           <li>You shouldn't read or write the current value during rendering for useRef, but on useState you can read state at any time.</li>
         </ul>
       </li>
-      <li><code>useEffect</code> - tells React to do some code when the component mounts, updates, or unmounts (mounting is when you render the component for the first time and apply it to the DOM. So basically adding a component to the DOM).
+      <li><code>useEffect</code> - tells React to do some code (side effects) when the component mounts, updates, or unmounts (mounting is when you render the component for the first time and apply it to the DOM. So basically adding a component to the DOM). Effects are executed after rendering but before the browser paints the UI. 
         <ul>
           <li><code>import { useEffect } from 'react'</code> - imports the useEffect hook</li>
           <li><code>useEffect(function, [dependencies]) / useEffect(() => {}, [])</code> - dependencies are the stateful variables</li>
@@ -4762,7 +4762,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <a href="https://dev.to/emmaccen/react-usereducer-dhn" target="_blank">Usereducer Explained</a>
         <ul>
           <li><code>const [state, dispatch] = useReducer(reducer, initialState, init)</code> - returns the state and the dispatch function. The dispatch function is used to send actions to update the state (function setter). </li>
-          <li><code>init</code> - lazy initialization; we initialize the state when the component mounts</li>
+          <li><code>init</code> - lazy initialization; we initialize the state when the component mounts. It is a function in which we can do some logic to get the initial state. So its different from initialState because you simply set the initial state.</li>
           <li>dispatch(type, payload) - specify the type, payload (user input) and sends an action to the reducer function
           </li>
           <li>reducer(state, action) - the reducer function, whatever we place in the action will be passed from the dispatch function. </li>
@@ -4786,9 +4786,20 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
           <li>Providing Component - the component that provides the state value
             <ul>
               <li><code>import { createContext } from 'react'</code> - imports the createContext hook</li>
-              <li><code>export const ContextName = createContext()</code> -  ;can be declared globally like in a context folder with a default value</li>
+              <li><code>export const ContextName = createContext(initialValue)</code> -  ;can be declared globally like in a context folder with a default value</li>
               <li><code>ContextName.Provider value={value}</code> - wraps the targeted component that would be passing the state initially to its children, and update that group with the value for your createContext. So component A would have first contact and becomes the Provider component, who provides a value for the latter nested components. </li>
             </ul>
+            <pre>
+              export default function Section({ level, children }) {
+                return (
+                  <section className="section">
+                    <LevelContext.Provider value={level}>
+                      {children}
+                    </LevelContext.Provider>
+                  </section>
+                );
+              }
+            </pre>
           </li>
           <li>Consumer Component - the component that consumes the state value
             <ul>
@@ -4796,9 +4807,25 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
               <li><code>import {ContextName} from './ContextName</code> - import the context from the context folder or the component holding the context</li>
               <li>useContext(context) - inside the targeted child component, who successfully consumes the state value to use it.</li>
             </ul>
+            <pre>
+              export default function Heading({ children }) {
+                const level = useContext(LevelContext);
+                // ...
+              }
+            </pre>
           </li>
         </ul>
-        
+        <p>You can also nest contexts together like this for section (assuming the section elements are nested themselves) The closest provider's value is used instead:
+          <pre>
+            return (
+              <section className="section">
+                <LevelContext.Provider value={level + 1}>
+                  {children}
+                </LevelContext.Provider>
+              </section>
+            );
+          </pre>
+        </p>
       </li>
     </ul>
   </li>
