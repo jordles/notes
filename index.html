@@ -4658,9 +4658,9 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   </li>
   <li>React Render Cycle - Trigger, Render, Commit
     <ul>
-      <li>Trigger - the event that triggers the render (delivering the guest's order to the kitchen). Happens when the component triggers an initial render, or the component's state is rendered, or a prop changes </li>
-      <li>Render - rendering/calling the component (preparing the order in the kitchen), triggered by setting the state.</li>
-      <li>Commit - committing to the DOM (placing the order on the table), react will compare the virtual DOM to the real DOM and update the real DOM accordingly</li>
+      <li>Trigger - the event that triggers the render (delivering the guest's order to the kitchen). Happens when the component triggers an initial render, or the component's state is rendered, or a prop changes. After triggering a render, React will call any nested components that need to be rendered </li>
+      <li>Render - rendering/calling the component (preparing the order in the kitchen), triggered by setting the state. The react update cycle may be interrupted here. </li>
+      <li>Commit - committing to the DOM (placing the order on the table), react will compare the virtual DOM to the real DOM and update the real DOM accordingly. DOM updates and side effects happen here</li>
     </ul>
     <p><code>root.render(element)</code> - This code is triggering the initial render by giving our entire application's JSX to the DOM's root node and calling its render method, provided by react-dom/client.</p>
   </li>
@@ -4694,9 +4694,9 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </ul>
   </li>
   <li>React hooks
-    <p>Hooks are functions that lets components you use state and other features of React without writing a class. Functional components use hooks, and class components are deprecated</p>
+    <p>Hooks are special functions that lets components you use state and other features of React without writing a class. They are only available while React is rendering. Functional components use hooks, and class components are deprecated.</p>
     <ul>
-      <li><code>useState</code> - Create a stateful variable. React will rerender its virtual DOM of only the component whenever the state changes and its children. This helps you avoid unnecessary re-renders and keeps your application performant.
+      <li><code>useState</code> - Create a stateful variable. React will rerender its virtual DOM of only the component whenever the state changes and its children. This helps you avoid unnecessary re-renders and keeps your application performant. Remember states are local, isolated, and private.  
         
       When using normal javascript variables, React will not update the DOM, unless you trigger a re-render like calling a function. 
         <li><code>setState( (prevState) => prevState... ) </code> - 
@@ -4705,6 +4705,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
             <li>They are used for multiple state updates and async functions. Because React batches together state updates for performance reasons, the latest state update is the one that is rendered instead.With updater functions, it allows us to update the state multiple times in a row. React places the updater function in a queue, and will call everything in the queue in the same order since its FIFO.</li>
             <li>States are immutable. When updating array or object states, because they are pass by reference, we must use the spread operator to update the state. Its convention to use an updater function as well, to make sure we target the last most updated state. </li>
             <li>When removing an element from an array, we must use the filter method to filter out the element we want to remove. Other alternatives that are also immutable are the slice and reduce methods</li>
+            <li>State updates are always asynchronous</li>
           </ul>
         </li>
         <li>Lazy Initialization - we initialize the state when the component mounts with a callback function in the argument of the useState hook. This use case is for functions, because without a callback our function will run every time the component re-renders. But now with lazy initialization, our function will only run when the component mounts</li>
@@ -4723,7 +4724,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <ul>Core Differences between useRef and useState
           <li>useRef returns an object with one property of current, useState returns an array with two properties of state and setState</li>
           <li>useRef doesn't trigger re-renders, useState does</li>
-          <li>userRef is mutable while useState is immutable unless you use setState</li>
+          <li>useRef is mutable while useState is immutable unless you use setState</li>
           <li>You shouldn't read or write the current value during rendering for useRef, but on useState you can read state at any time.</li>
         </ul>
       </li>
