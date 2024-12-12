@@ -80,7 +80,7 @@ Arrays - allocate the appropriate space in memory and they hold a fixed number o
 
 Linked List - a data structure that contains a series of nodes, each node contains a value and a reference to the next node. Each item stores the address of the next item in the list. If you want to read each node one at a time, linked lists are great for that because theyre all next to each other. Arrays are on the other hand are great if you want to read random elements, since they all have predetermined indexes and address.
 
-Array of Linked Lists - when you search, its slower than arrays, but its faster than linked lists alone because you searched the array first and then the linked list, reducing the search time.
+Array of Linked Lists - when you search, its slower than arrays, but its faster than linked lists alone because you searched the array first and then the linked list, reducing the search time. When you insert, its faster than arrays, and the same amount of time for linked lists because you insert at the end. When you delete, its faster than arrays, and the same amount of time for linked lists because you delete at the end.
 
 | | Arrays | Linked Lists |
 | --- | --- | --- |

@@ -4368,12 +4368,24 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <li><code>npm init -y</code> - initialize the node project</li>
         <li><code>const http = require('http') / import http from 'http'</code> - import http module </li>
         <li><code>http.createServer((req, res) => ).listen(3000)</code> - create a server with the http module with the http module and listen on port 3000</code></li>
-        <pre> Response object allows us to set the HTTP status code, headers, content, and more. 
+        <pre> Response object allows us to set the HTTP status code, headers, content, and more. We use the url property to create different endpoints, but this can be simplified with express routes. 
           http
             .createServer((req, res) => {
               res.statusCode = 200;
               res.setHeader("Content-Type", "text/html");
-              res.write("Hello World");
+              switch (req.url) {
+                case "/":
+                  res.write("Hello World");
+                  break;
+                case "/test":
+                  res.write("You've reached the test endpoint.");
+                  break;
+                default:
+                  res.statusCode = 404;
+                  res.write("Error: 404 Not Found");
+                  break;
+              }
+          
               res.end();
             }).listen(3000, () => {
               console.log(`Server running.`);
