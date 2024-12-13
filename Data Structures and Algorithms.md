@@ -53,7 +53,7 @@ number of steps now? 128, 64, 32, 16, 8, 4, 2, 1 = 8 steps or 2^8^ = 256
 
 ## Selection Sort 
 
-Since the algorithm is linear time, but also runs an n number of times each time, its O(n^2^). It should be noted the actual runtime is O(n * 1/2 * n) because we reduce the number of elements in each iteration by one. But constants are ignored on Big O notation. 
+Since the algorithm is linear time, but also runs an n number of times each time, its O(n^2^). It should be noted the actual runtime is O(n * 1/2 * n) because we reduce the number of elements in each iteration by one leaving about half of the comparisons made at the end. But constants are ignored on Big O notation. 
 
 <code>
   <pre>
