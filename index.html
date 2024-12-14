@@ -1876,7 +1876,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <hr>
     <li><code>arr.indexOf("")</code> => check for a presence of an element in the array and return its index, return -1 if element is not found</li>
     <li><code>arr.includes(elem, index)</code> => return true or false if the elem is found (optional: search at the index specifically)</li>
-    <li><code>.map(var => expression/function )</code> => create a new array with the results of calling a function on every element of the array <br>
+    <li><code>arr.map(var => expression/function )</code> => create a new array with the results of calling a function on every element of the array <br>
       When the callback is used, it is passed three arguments. The first argument is the current element being processed. <br>
       The second is the index of that element and the third is the array upon which the map method was called. <br>
       If there is no callback function, any function used is applied to each element of the array (as the first parameter); <br>
@@ -1903,7 +1903,17 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         }
         //because we immediately pass each array element into the callback function, we can explicitly define a function beforehand.
         groceries.forEach(printGrocery);
-      </pre> <br>
+      </pre> 
+      <pre> //our custom map function
+        Array.prototype.customMap = function(callback){
+          let arr = []; //initialize an empty array
+          for(let i = 0; i < this.length; i++){
+            arr.push(callback(this[i], i, this)); // push the value into the new array
+          }
+          return arr;
+        }
+      </pre>
+      <br>
       <a href="https://www.freecodecamp.org/news/javascript-map-how-to-use-the-js-map-function-array-method/">more about map callback syntax</a><br>
       <a href="https://dev.to/dhilipkmr/implementing-our-own-array-map-method-in-javascript-553m">a clearer explanation on how the method manipulates one of the 3 parameters to return the desired output on each index</a>
     

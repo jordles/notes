@@ -55,8 +55,7 @@ number of steps now? 128, 64, 32, 16, 8, 4, 2, 1 = 8 steps or 2^8^ = 256
 
 Since the algorithm is linear time, but also runs an n number of times each time, its O(n^2^). It should be noted the actual runtime is O(n * 1/2 * n) because we reduce the number of elements in each iteration by one leaving about half of the comparisons made at the end. But constants are ignored on Big O notation. 
 
-<code>
-  <pre>
+```js
     const selectionSort = (arr) => {
       for (let i = 0; i < arr.length; i++) {
         let min = i;
@@ -71,12 +70,11 @@ Since the algorithm is linear time, but also runs an n number of times each time
       }
       return arr;
     }
-  </pre>
-</code>
+``` 
 
 ## Data Structures
 
-Arrays - allocate the appropriate space in memory and they hold a fixed number of items. When you add to an array, you have to shift all the elements over to make space for the new element and make sure all the elements are still in order and indexed next to each other in memory. 
+[[Arrays]] - allocate the appropriate space in memory and they hold a fixed number of items. When you add to an array, you have to shift all the elements over to make space for the new element and make sure all the elements are still in order and indexed next to each other in memory. 
 
 Linked List - a data structure that contains a series of nodes, each node contains a value and a reference to the next node. Each item stores the address of the next item in the list. If you want to read each node one at a time, linked lists are great for that because theyre all next to each other. Arrays are on the other hand are great if you want to read random elements, since they all have predetermined indexes and address.
 
