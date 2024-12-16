@@ -6,7 +6,7 @@
 - [Algorithms](#algorithms)
 - [Data Structures](#data-structures)
 
-## [[Big O Notation]]
+## [Big O Notation](Big%20O%20Notation.md)
 Big O notation is a way of expressing the time complexity / running time of an algorithm and tells us how fast an algorithm is. Big O notation lets you compare the number of operations. It tells you how fast the algorithm grows, because they grow at different rates.
 
 To calculate on a calculator using log~10~ use log~10~number / log~10~base with our base being 2. 
