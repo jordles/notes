@@ -7,6 +7,7 @@
 - [Data Structures](#data-structures)
 
 ## [Big O Notation](Big%20O%20Notation.md)
+
 Big O notation is a way of expressing the time complexity / running time of an algorithm and tells us how fast an algorithm is. Big O notation lets you compare the number of operations. It tells you how fast the algorithm grows, because they grow at different rates.
 
 To calculate on a calculator using log~10~ use log~10~number / log~10~base with our base being 2. 
@@ -17,6 +18,8 @@ Algorithms involve time complexity which uses [[Logarithms]]
 | Algorithm | Description | Time Complexity |
 | --- | --- | --- |
 | [Reversing a String](Reverse%20String.md) | a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear. | O(n) |
+| [Reversing an Integer](<Reverse Integer>) | a string reversal algorithm that reverses an integer by swapping each digit with its corresponding digit at the end of the integer. The running time is linear. | O(n) |
+| [[Palindrome]] | a string reversal algorithm that checks if a string is a palindrome by reversing the string and comparing it to the original string. The running time is linear. | O(n) |
 | Simple Search | a search algorithm that finds the position of a target value within an array by comparing each element of the array with the target value until the target value is found. The running time is linear.| O(n) |
 | [Binary Search](#binary-search) | a search algorithm that finds the position of a target value within a sorted array by dividing the search interval in half on each iteration and checking if the target value is less than or greater than the middle element. The running time is logarithmic. | O(log n) |
 | [Selection Sort](#selection-sort) | a sorting algorithm that sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The running time is quadratic. | O(n<sup>2</sup>) |
