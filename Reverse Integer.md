@@ -1,5 +1,7 @@
 # Reverse Integer
 
+**remember leading and trailing zeros are not preserved when converting to a number**
+
 ```js
 // using array methods
 function reverseInteger(num){
@@ -10,22 +12,52 @@ function reverseInteger(num){
 ```js
 // swapping pointers
 function reverseInteger(num){
-  let reversed = 0;
-  while(num > 0){
-    reversed = reversed * 10 + num % 10;
-    num = Math.floor(num / 10);
+  const str = num.toString().split('');
+  let left = 0;
+  let right = str.length - 1;
+  
+  while (left < right) {
+    [str[left], str[right]] = [str[right], str[left]];
+    left++;
+    right--;
   }
-  return reversed;
+  return +(str.join(''));
 }
+
+function reverseInteger(str) {
+  str = str.toString().split('');
+  let left = 0;
+  let right = str.length - 1;
+  while (left < right) {
+    let temp = str[left];
+    str[left] = str[right];
+    str[right] = temp;
+    left++;
+    right--;
+  }
+  return +(str.join(''));
+}
+
+function reverseInteger(str){
+  str = str.toString().split('');
+  for( let i = 0; i < Math.floor(str.length / 2); i++){
+    let temp = str[i];
+    str[i] = str[str.length - 1 - i];
+    str[str.length - 1 - i] = temp;
+  }
+  return +(str.join(''));
+}
+
 ```
 
 ```js
 // concat strings
 function reverseInteger(num){
-  let reversed = '';
-  for(let i = num.toString().length - 1; i >= 0; i--){
-    reversed += num.toString()[i];
+  const str = num.toString();
+  let newStr = '';
+  for(let i = str.length - 1; i >= 0; i--){
+      newStr += str[i];
   }
-  return parseInt(reversed);
+  return +newStr;
 }
 ```
