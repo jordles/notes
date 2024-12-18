@@ -5,7 +5,7 @@
 ```js
 // using array methods
 function reverseInteger(num){
-  return parseInt(num.toString().split("").reverse().join(""));
+  return parseInt(num.toString().split("").reverse().join("")) * Math.sign(num);
 }
 ```
 
