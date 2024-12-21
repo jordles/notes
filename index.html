@@ -2904,7 +2904,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
 
     <li><code>get</code> => keyword for obtaining values from an object; return the value of an object's private variable without the user directly accessing it.</li>
     <li><code>set</code> => keyword for setting the value of a property within an object; modify the value of an object's private variable. Of course users can still modify the private variable itself instead of through a setter. </li>
-    <p>Getters and setters are important because they hide internal implementation details (like conditional logic). They also dont require parenthesis syntactically, so it looks like your accessing/assigning a property (which is what we want). Overall, they make code more cleaner and elegant, and makes api cleaner and intuitive, while providing controlled access to properties. </p>
+    <p>Getters and setters are important because they hide internal implementation details (like conditional logic). They also dont require parenthesis syntactically, so it looks like your accessing/assigning a property (which is what we want). Overall, they make code more cleaner and elegant, and makes api cleaner and intuitive, while providing controlled access to properties. 
+      **IMPORTANT if we use the same name for the getter function and the property itself, there will be a conflict, resulting in a infinite recursive call stack error because for example: get name() { return this.name; } has a this.name, which '.name' will again call the getter function resulting in that loop. The only solution to this is to use a different name for the getter function or private variable.** </p>
     <a href="https://www.google.com/search?q=are+getters+and+setters+necessary+if+you+have+a+constructor+javascript&sca_esv=575745431&rlz=1C1RXQR_enUS1034US1034&sxsrf=AM9HkKm6Z11TizqF-Yy8fzleA62skFrzQw%3A1698056277702&ei=VUg2ZczEKrPxkPIP3eaSkAo&ved=0ahUKEwiMw_bJ-IuCAxWzOEQIHV2zBKIQ4dUDCBA&uact=5&oq=are+getters+and+setters+necessary+if+you+have+a+constructor+javascript&gs_lp=Egxnd3Mtd2l6LXNlcnAiRmFyZSBnZXR0ZXJzIGFuZCBzZXR0ZXJzIG5lY2Vzc2FyeSBpZiB5b3UgaGF2ZSBhIGNvbnN0cnVjdG9yIGphdmFzY3JpcHQyBBAjGCcyCBAAGIoFGIYDMggQABiKBRiGAzIIEAAYigUYhgNI-BxQmAVY1htwAXgBkAEAmAGaAaABqQKqAQMwLjK4AQPIAQD4AQHCAgoQABhHGNYEGLAD4gMEGAAgQYgGAZAGCA&sclient=gws-wiz-serp"></a>
     <a href="https://stackoverflow.com/questions/74117082/rangeerror-maximum-call-stack-size-exceeded-on-constructor">Having a constructor on your class, already invoked the setter function.</a>
     <a href="https://medium.com/@apalshah/javascript-class-difference-between-es5-and-es6-classes-a37b6c90c7f8">CLASS DIFFERENCES BETWEEN ES5 & ES6</a>
@@ -4945,7 +4946,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>console.error</code> - prints an error ( with a red x icon)</li>
     <li><code>console.info</code> - prints an info (with a blue info icon)</li>
     <li><code>console.assert</code> - prints a statement if the condition is false</li>
-    <li><code>console.dir</code> - prints an object</li>
+    <li><code>console.dir</code> - prints an object and its properties, you can add an object inside of it to customize the output, like depth and color. Depth is the number of nested objects to print (null means infinite). Color is the color of the output (boolean)</li>
     <li><code>console.group/groupCollapsed({groupname})</code> - prints a group of statements</li>
     <li><code>console.groupEnd</code> - closes a group</li>
     <li><code>console.count</code> - counts how many times something has been called in the console</li>

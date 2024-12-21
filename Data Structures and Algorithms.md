@@ -17,7 +17,7 @@ Algorithms sometimes involve time complexity which uses [Logarithms](logarithms.
 
 | Algorithm | Description | Time Complexity |
 | --- | --- | --- |
-| [Reversing a String](Reverse%20String.md) | a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear. | O(n) |
+| [Reversing a String](<Reverse String.md>) | a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear. | O(n) |
 | [Reversing an Integer](Reverse%20Integer.md) | a string reversal algorithm that reverses an integer by swapping each digit with its corresponding digit at the end of the integer. The running time is linear. | O(n) |
 | [Sentence Capitalization](Sentence%20Capitalization.md) | an algorithm that capitalizes the first letter of each word in a sentence. The running time is linear. | O(n) |
 | [Palindrome](Palindrome.md) | a string reversal algorithm that checks if a string is a palindrome by reversing the string and comparing it to the original string. The running time is linear. | O(n) |
@@ -83,7 +83,7 @@ const selectionSort = (arr) => {
 
 [Arrays](Arrays.md) - allocate the appropriate space in memory and they hold a fixed number of items. When you add to an array, you have to shift all the elements over to make space for the new element and make sure all the elements are still in order and indexed next to each other in memory. 
 
-[Linked List](Linked%20List.md) - a data structure that contains a series of nodes, each node contains a value and a reference to the next node. Each item stores the address of the next item in the list. If you want to read each node one at a time, linked lists are great for that because theyre all next to each other. Arrays are on the other hand are great if you want to read random elements, since they all have predetermined indexes and address.
+[Linked List](<Linked Lists.md>) - a data structure that contains a series of nodes, each node contains a value and a reference to the next node. Each item stores the address of the next item in the list. If you want to read each node one at a time, linked lists are great for that because theyre all next to each other. Arrays are on the other hand are great if you want to read random elements, since they all have predetermined indexes and address.
 
 Array of Linked Lists - when you search, its slower than arrays, but its faster than linked lists alone because you searched the array first and then the linked list, reducing the search time. When you insert, its faster than arrays, and the same amount of time for linked lists because you insert at the end. When you delete, its faster than arrays, and the same amount of time for linked lists because you delete at the end.
 
@@ -105,3 +105,6 @@ Usually Arrays and Linked Lists are the building blocks for much more complex hy
 
 [HuXn](https://www.youtube.com/watch?v=wBtPGnVnA9g)
 Grokking Algorithms by Aditya Bhargava
+
+
+
