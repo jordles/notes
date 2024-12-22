@@ -1,4 +1,6 @@
 # Linked Lists
+***
+## Singly Linked Lists
 
 ```js
 // making our own singly linked list
@@ -21,11 +23,12 @@ class LinkedList{
     if(!this.head){
       this.head = node;
       this.tail = node;
-      this.length++;
-      return;
     }
-    this.tail.next = node;
-    this.tail = node;
+    else{
+      this.tail.next = node;
+      this.tail = node;
+    }
+    
     this.length++;
     return;
   }
@@ -36,7 +39,7 @@ class LinkedList{
     }
     let current = this.head;
     let newTail = current;
-    while(current.next){
+    while(current.next){ // we have to start from the head, since we can only traverse a singly linked list backwards
       newTail = current;
       current = current.next;
     }
@@ -71,7 +74,7 @@ class LinkedList{
     }
     let node = this.head;
     this.head = this.head.next;
-    node.next = null;
+    node.next = null; // we are deleting the node, but garbage collector will not be able to delete it from memory if we don't remove any pointers to it
     this.length--;
 
     if(this.length === 0){
@@ -136,6 +139,192 @@ class LinkedList{
     this.tail = null;
     this.length = 0;
   }
+
+  reverse(){
+    //reverse the head and tail
+    const temp = this.head;
+    this.head = this.tail;
+    this.tail = temp;
+
+    // reverse the arrow direction of each node
+    let prev = null;
+    let current = temp;
+    while(current){ //current and temp follow each other
+      current = temp.next; // current moves to the next node
+      temp.next = prev; //original head gets the values of null initially
+      prev = temp; //the prev now becomes the next node, so our next node can point to the previous node
+      temp = current; // the original head now becomes the next node
+    }
+    return this;
+
+  }
 }
 
+```
+
+***
+
+## Doubly Linked Lists
+```js
+class ListNode{
+  constructor(val){
+    this.prev = null;
+    this.value = val;
+    this.next = null;
+  }
+}
+
+class DoublyLinkedList{
+  constructor(val){
+    this.head = new ListNode(val);
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  push(val){
+    const node = new ListNode(val);
+    if(!this.head){
+      this.head = node;
+      this.tail = node;
+      this.length++;  
+      return 
+    }
+    this.tail.next = node;
+    node.prev = this.tail;
+    this.tail = node; 
+    this.length++;
+
+    return node;
+  }
+
+  pop(){
+    if(!this.head){
+      return null;
+    }
+    
+    const node = this.tail;
+
+    if(this.length === 1){
+      this.head = null;
+      this.tail = null;
+    }
+    else{
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+    }
+    
+    this.length--;
+    return node;
+  }
+
+  unshift(val){
+    const node = new ListNode(val);
+    if(!this.head){
+      this.head = node;
+      this.tail = node;
+    }
+    else{
+      this.head.prev = node;
+      node.next = this.head;
+      this.head = node;
+    }
+    
+    this.length++;
+    return;
+  }
+
+  shift(){
+    if(!this.head){
+      return null;
+    }
+    const node = this.head;
+
+    if(this.length === 1){
+      this.head = null;
+      this.tail = null;
+    }
+    this.head = this.head.next;
+    this.head.prev = null;
+
+    node.next = null; // we are deleting the node, but garbage collector will not be able to delete it from memory if we don't remove the any pointers attached to it. 
+    this.length--;
+    return node;
+  }
+
+  get(index){
+    if(index < 0 || index >= this.length){
+      return 'index out of range';
+    }
+    let current = this.head;
+    for(let i = 0; i < index; i++){
+      current = current.next;
+    }
+    return current;
+  }
+
+  set(index, val){
+    if(index < 0 || index >= this.length){
+      return 'index out of range'
+    }
+    let current = this.get(index);
+    current.value = val;
+    return current;
+  }
+
+  insert(index, val){
+    if(index < 0 || index >= this.length){
+      return 'index out of range'
+    }
+
+    if(index === 0){
+      return this.unshift(val);
+    }
+
+    if(index === this.length - 1){
+      return this.push(val);
+    }
+
+    const node = new ListNode(val);
+    let current = this.get(index);
+    let prevNode = current.prev;
+    prevNode.next = node;
+    current.prev = node;
+    node.prev = prevNode;
+    node.next = current;
+    length++;
+    return;
+  }
+
+  get getHead(){
+    return this.head;
+  }
+  
+  get getTail(){
+    return this.tail;
+  }
+
+  get size(){
+    return this.length;
+  }
+
+  clear(){
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  reverse(){
+    let current = this.head;
+    let prev = null;
+    while(current){
+      let next = current.next;
+      current.next = prev;
+      current.prev = next;
+      prev = current;
+      current = next;
+    }
+    this.head = prev;
+    return this;
+  }
+}
 ```

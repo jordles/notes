@@ -6,28 +6,32 @@
 - [Algorithms](#algorithms)
 - [Data Structures](#data-structures)
 
-## [Big O Notation](Big%20O%20Notation.md)
+## [Big O Notation](<Big O Notation.md>)
 
-Big O notation is a way of expressing the time complexity / running time of an algorithm and tells us how fast an algorithm is. Big O notation lets you compare the number of operations. It tells you how fast the algorithm grows, because they grow at different rates.
+Big O notation is a way of expressing the time complexity / running time of an algorithm and tells us how fast an algorithm is. Big O notation lets you compare the number of operations. It tells you how fast the algorithm grows, because they grow at different rates. Space complexity is not included in Big O notation, but focuses on memory usage and efficiency. 
 
 To calculate on a calculator using log<sub>10</sub> use log<sub>10</sub>number / log<sub>10</sub>base with our base being 2. 
 
 ## Algorithms
-Algorithms sometimes involve time complexity which uses [Logarithms](logarithms.md)
+Algorithms sometimes involve time complexity which uses [Logarithms](Logarithms.md)
 
 | Algorithm | Description | Time Complexity |
 | --- | --- | --- |
-| [Reversing a String](<Reverse String.md>) | a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear. | O(n) |
-| [Reversing an Integer](Reverse%20Integer.md) | a string reversal algorithm that reverses an integer by swapping each digit with its corresponding digit at the end of the integer. The running time is linear. | O(n) |
-| [Sentence Capitalization](Sentence%20Capitalization.md) | an algorithm that capitalizes the first letter of each word in a sentence. The running time is linear. | O(n) |
-| [Palindrome](Palindrome.md) | a string reversal algorithm that checks if a string is a palindrome by reversing the string and comparing it to the original string. The running time is linear. | O(n) |
-| [Fizz Buzz](Fizz%20Buzz.md) | an algorithm that checks if a number is divisible by 3 and 5. The running time is linear. | O(n) |
-| [Array Chunking](Array%20Chunking.md) | an algorithm that splits an array into smaller chunks. The running time is linear. | O(n) |
-| [Max Profit](Max%20Profit.md) | an algorithm that finds the maximum profit by comparing the prices of consecutive days through buying low and selling high only once. The running time is linear. | O(n) |
-| [Two Sum](Two%20Sum.md) | an algorithm that finds two numbers in an array that sum up to a target value. The running time is linear. | O(n) |
 | Simple Search | a search algorithm that finds the position of a target value within an array by comparing each element of the array with the target value until the target value is found. The running time is linear.| O(n) |
 | [Binary Search](#binary-search) | a search algorithm that finds the position of a target value within a sorted array by dividing the search interval in half on each iteration and checking if the target value is less than or greater than the middle element. The running time is logarithmic. | O(log n) |
 | [Selection Sort](#selection-sort) | a sorting algorithm that sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The running time is quadratic. | O(n<sup>2</sup>) |
+
+
+## Interview Questions
+[Reversing a String](<Reverse String.md>) - a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear.
+[Reversing an Integer](<Reverse Integer.md>) - a string reversal algorithm that reverses an integer by swapping each digit with its corresponding digit at the end of the integer. The running time is linear.
+[Sentence Capitalization](<Sentence Capitalization.md>) - an algorithm that capitalizes the first letter of each word in a sentence. The running time is linear. 
+[Palindrome](Palindrome.md) - a string reversal algorithm that checks if a string is a palindrome by reversing the string and comparing it to the original string. The running time is linear. 
+[Fizz Buzz](<Fizz Buzz.md>) - an algorithm that checks if a number is divisible by 3 and 5. The running time is linear. 
+[Array Chunking](<Array Chunking.md>) - an algorithm that splits an array into smaller chunks. The running time is linear. 
+[Max Profit](<Max Profit.md>) - an algorithm that finds the maximum profit by comparing the prices of consecutive days through buying low and selling high only once. The running time is linear. 
+[Two Sum](<Two Sum.md>) - an algorithm that finds two numbers in an array that sum up to a target value. The running time is linear. 
+[Reverse Linked List](<Linked Lists.md>) - an algorithm that reverses a linked list by swapping the next and previous pointers of each node. The running time is linear.
 
 ## Binary Search
 
