@@ -103,7 +103,9 @@ With Linked Lists its easier to insert and delete because you can just point the
 
 Usually Arrays and Linked Lists are the building blocks for much more complex hybrid data structures. 
 
+[Stacks](Stacks) - a linear data structure that allows you to push and pop elements from the top of the stack. It follows the LIFO (Last In First Out) principle.
 
+[Queues](Queues.md) - a linear data structure that allows you to enqueue and dequeue elements from the front of the queue, and acts like a waiting line. It follows the FIFO (First In First Out) principle.
 
 ## Sources
 

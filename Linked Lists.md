@@ -59,11 +59,11 @@ class LinkedList{
     if(!this.head){
       this.head = node;
       this.tail = node;
-      this.length++;
-      return;
     }
-    node.next = this.head;
-    this.head = node;
+    else{
+      node.next = this.head;
+      this.head = node;
+    }
     this.length++;
     return;
   }
@@ -72,14 +72,18 @@ class LinkedList{
     if(!this.head){
       return null;
     }
-    let node = this.head;
-    this.head = this.head.next;
-    node.next = null; // we are deleting the node, but garbage collector will not be able to delete it from memory if we don't remove any pointers to it
-    this.length--;
 
-    if(this.length === 0){
+    let node = this.head;
+    if(this.length === 1){
+      this.head = null;
       this.tail = null;
     }
+    else{
+      this.head = this.head.next;
+      node.next = null; // we are deleting the node, but garbage collector will not be able to delete it from memory if we don't remove any pointers to it
+    }
+    
+    this.length--;
     return node;
   }
 
