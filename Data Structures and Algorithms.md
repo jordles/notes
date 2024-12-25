@@ -4,6 +4,7 @@
 
 - [Big O Notation](#big-o-notation)
 - [Algorithms](#algorithms)
+- [Interview Questions](#interview-questions)
 - [Data Structures](#data-structures)
 
 ## [Big O Notation](<Big O Notation.md>)
@@ -32,6 +33,8 @@ Algorithms sometimes involve time complexity which uses [Logarithms](Logarithms.
 [Max Profit](<Max Profit.md>) - an algorithm that finds the maximum profit by comparing the prices of consecutive days through buying low and selling high only once. The running time is linear. 
 [Two Sum](<Two Sum.md>) - an algorithm that finds two numbers in an array that sum up to a target value. The running time is linear. 
 [Reverse Linked List](<Linked Lists.md>) - an algorithm that reverses a linked list by swapping the next and previous pointers of each node. The running time is linear.
+[Min Stack](Stacks) - an algorithm that keeps track of the minimum element in a stack. The running time is linear or constant for optimized implementations.
+[Valid Parentheses](<Valid Parentheses>) - an algorithm that checks if a string of parentheses is valid. The running time is linear.
 
 ## Binary Search
 
@@ -107,6 +110,7 @@ Usually Arrays and Linked Lists are the building blocks for much more complex hy
 
 [Queues](Queues.md) - a linear data structure that allows you to enqueue and dequeue elements from the front of the queue, and acts like a waiting line. It follows the FIFO (First In First Out) principle.
 
+[Hash Tables](<Hash Tables>) - a data structure that uses key-value pairs. It allows you to store and retrieve data in constant time. It also allows you to delete and update data in constant time.
 ## Sources
 
 [HuXn](https://www.youtube.com/watch?v=wBtPGnVnA9g)

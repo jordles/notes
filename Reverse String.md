@@ -64,3 +64,19 @@ function reverseString(s) {
   return reverseString(s.slice(1)) + s[0];
 }
 ```
+
+```js
+// using stack 
+
+function reverseString(str) {
+  let stack = [];
+  for(let char of str){
+    stack.push(char);
+  }
+  let reversed = '';
+  while(stack.length){
+    reversed += stack.pop();
+  }
+  return reversed;
+}
+```
