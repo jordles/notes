@@ -43,5 +43,28 @@ function twoSum(arr, sum){
 ```
 
 ```js
+// JavaScript Objects O(n)
+function twoSum(arr, sum){
+  let obj = {};
+  for(let i = 0; i < arr.length; i++){
+    const complement = sum - arr[i];
+    if(complement in obj && obj[complement] !== i) return [obj[complement], i];
+    obj[arr[i]] = i; // we map the key to the index of the array
+  }
+  return 'no sum found'
+}
 
+function twoSum(arr, sum){
+  arr.reduce((acc, val, i) => {
+    const complement = sum - val;
+    if(complement in acc && acc[complement] !== i) return [acc[complement], i];
+    acc[val] = i;
+    return acc;
 
+  }, {})
+}
+```
+
+```js
+// hash table O(n)
+```

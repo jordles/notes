@@ -12,6 +12,11 @@ C++ | Unordered Maps (hash tables) |
 * **Hashing Process** - The hash function takes the input and turns it into a hash code. The function will perform a series of mathematical operations on the input data, scrambling it up in a unique way.
 * **Fixed-Size Output** - Regardless of the input size, the hash function always spits out a fixed-size value, like a short string of characters or a number. 
 
+## Terminology 
+* Map - a data structure that stores key-value pairs.
+* Bucket - a container that holds key-value pairs.
+* Pair - a key-value pair.
+
 ```js
 // creating our own hash table
 class HashTable {
@@ -80,19 +85,22 @@ class HashTable {
         pairs.push(...bucket);
       }
     }
+    return pairs; 
   }
 
-  delete(key){
+  delete(key){ 
     const index = this.hashFunction(key);
     if (this.keyMap[index]) {
-      for(let pair of this.keyMap[index]) {
-        if (pair[0] === key) {
-          this.keyMap[index].splice(this.keyMap[index].indexOf(pair), 1);
+      for(let i = 0; i < this.keyMap[index].length; i++) {
+        if (this.keyMap[index][i][0] === key) {
+          for(let j = index; j < this.keyMap[index].length - 1; j++){ //basically the same as splice
+            this.keyMap[index][j] = this.keyMap[index][j + 1];
+            delete this.keyMap[index][this.keyMap[index].length - 1];
+          }
+          //this.keyMap[index].splice(i, 1);
         }
       }
     }
   }
-
-
 }
 ```
