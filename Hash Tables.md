@@ -20,7 +20,7 @@ C++ | Unordered Maps (hash tables) |
 ```js
 // creating our own hash table
 class HashTable {
-  constructor(size) {
+  constructor(size = 53) {
     this.keyMap = new Array(size);
   }
 

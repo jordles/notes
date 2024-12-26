@@ -54,6 +54,7 @@ function twoSum(arr, sum){
   return 'no sum found'
 }
 
+//reduce
 function twoSum(arr, sum){
   arr.reduce((acc, val, i) => {
     const complement = sum - val;
@@ -65,6 +66,33 @@ function twoSum(arr, sum){
 }
 ```
 
+[Hash Tables](<Hash Tables.md>)
 ```js
 // hash table O(n)
+function twoSum(arr, sum) {
+  const hashMap = new HashTable(); // Use a Map to store seen values and their indices
+
+  for (let i = 0; i < arr.length; i++) {
+    const complement = sum - arr[i];
+    if (hashMap.get(complement) !== undefined && hashMap.get(complement) !== i) return [hashMap.get(complement), i];
+    hashMap.set(arr[i], i); // Store the current value and its index
+  }
+
+  return 'no sum found';
+}
+
+//reduce
+function twoSum(arr, sum) {
+  let result;
+  arr.reduce((acc, val, i) => {
+    const complement = sum - val;
+    if (acc.get(complement) !== undefined && acc.get(complement) !== i) {
+      result = [acc.get(complement), i];
+    } else {
+      acc.set(val, i);
+    }
+    return acc;
+  }, new Map());
+  return result; // Return the result after the reduce completes
+}
 ```
