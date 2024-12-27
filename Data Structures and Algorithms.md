@@ -14,6 +14,7 @@ Big O notation is a way of expressing the time complexity / running time of an a
 To calculate on a calculator using log<sub>10</sub> use log<sub>10</sub>number / log<sub>10</sub>base with our base being 2. 
 
 ## Algorithms
+A process or set of steps to solve a problem/accomplish a certain task. 
 Algorithms sometimes involve time complexity which uses [Logarithms](Logarithms.md)
 
 | Algorithm | Description | Time Complexity |
@@ -24,6 +25,7 @@ Algorithms sometimes involve time complexity which uses [Logarithms](Logarithms.
 
 
 ## Interview Questions
+[Adding Up to a Number](<Adding Up to a Number>) - an algorithm that adds up all the numbers from 1 to a given number. 
 [Reversing a String](<Reverse String.md>) - a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear.
 [Reversing an Integer](<Reverse Integer.md>) - a string reversal algorithm that reverses an integer by swapping each digit with its corresponding digit at the end of the integer. The running time is linear.
 [Sentence Capitalization](<Sentence Capitalization.md>) - an algorithm that capitalizes the first letter of each word in a sentence. The running time is linear. 
@@ -92,17 +94,20 @@ const selectionSort = (arr) => {
 
 [Arrays](Arrays.md) - allocate the appropriate space in memory and they hold a fixed number of items. When you add to an array, you have to shift all the elements over to make space for the new element and make sure all the elements are still in order and indexed next to each other in memory. 
 
+[Objects](Objects) - allocate the appropriate space in memory and they hold a key-value pair. Objects have no order, so they must be read one at a time makign it linear time. 
+
 [Linked Lists](<Linked Lists.md>) - a data structure that contains a series of nodes, each node contains a value and a reference to the next node. Each item stores the address of the next item in the list. If you want to read each node one at a time, linked lists are great for that because theyre all next to each other. Arrays are on the other hand are great if you want to read random elements, since they all have predetermined indexes and address.
 
 Array of Linked Lists - when you search, its slower than arrays, but its faster than linked lists alone because you searched the array first and then the linked list, reducing the search time. When you insert, its faster than arrays, and the same amount of time for linked lists because you insert at the end. When you delete, its faster than arrays, and the same amount of time for linked lists because you delete at the end.
 
-| | Arrays | Linked Lists |
-| --- | --- | --- |
-| Read | O(1) | O(n) |
-| Insert | O(n) | O(1) |
-| Delete | O(n) | O(1) |
+| | Arrays | Linked Lists | Objects |
+| --- | --- | --- | --- |
+| Read/Access (read by index or order of position) | O(1) | O(n) | O(1) |
+| Searching (looking for the value itself)| O(n) | O(n) | O(n)(by value) O(1) (by key) |
+| Insert | O(n) | O(1) | O(1) |
+| Delete | O(n) | O(1) | O(1) |
 
-With Arrays its easier to read because you can just access the element by its index allowing random access, rather than sequential access.
+With Arrays its easier to read because you can just access the element by its index allowing random access, rather than sequential access (which is where we need to sequentially access each node).
 
 With Linked Lists its easier to insert and delete because you can just point the next node to the new node's address. With arrays its linear time because you have to shift all the elements over to make space for the new element.
 
@@ -113,6 +118,9 @@ Usually Arrays and Linked Lists are the building blocks for much more complex hy
 [Queues](Queues.md) - a linear data structure that allows you to enqueue and dequeue elements from the front of the queue, and acts like a waiting line. It follows the FIFO (First In First Out) principle.
 
 [Hash Tables](<Hash Tables.md>) - a data structure that uses key-value pairs. It allows you to store and retrieve data in constant time. It also allows you to delete and update data in constant time.
+
+[Trees](Trees) - a data structure that stores data in a hierarchical way. It represents a collection of elements called nodes, connected by edges called links or branches that form a tree-like structure. It allows you to store and retrieve data in constant time. It also allows you to delete and update data in constant time.
+
 ## Sources
 
 [HuXn](https://www.youtube.com/watch?v=wBtPGnVnA9g)

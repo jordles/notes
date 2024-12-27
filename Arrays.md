@@ -1,5 +1,18 @@
 # Arrays
 
+| Methods | Time Complexity |
+| --- | --- |
+| push | O(1) |
+| pop | O(1) |
+| shift | O(n) |
+| unshift | O(n) |
+| concat | O(n) |
+| slice | O(n) |
+| splice | O(n) |
+| indexOf | O(n) |
+| includes | O(n) |
+| sort | O(n<sup>2</sup>) or nlogn |
+| forEach/map/filter/reduce/etc. | O(n) |
 <!-- create our own custom array -->
 
 ```js
