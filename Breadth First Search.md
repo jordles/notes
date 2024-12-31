@@ -1,8 +1,6 @@
-# Binary Search Tree
+# Breadth First Search
 
-A type of binary tree used to organize data in a sorted way. It works like a filing cabinet where you can efficiently search, add, or remove items.
-
-The logic is we go left of the node if the value is less than the node, and we go right if the value is greater than the node. If that parent node is already full, then we go to the next child node to check if the value is less than or greater than the node.
+An algorithm that explores/searches the entire tree level by level.
 
 ```js
 // making our own binary tree
@@ -61,6 +59,23 @@ class BinarySearchTree {
     }
 
     return false;
+  }
+
+  BFS(){ // Breadth First Search, meant to be used for traversing the tree and getting the values of each node
+    let current = this.root;
+    let data = [];
+    let queue = [];
+
+    queue.push(current);
+
+    while(queue.length){
+      current = queue.shift();
+      data.push(current.value);
+      if(current.left) queue.push(current.left);
+      if(current.right) queue.push(current.right);
+    }
+
+    return data;
   }
 }
 ```
