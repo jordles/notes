@@ -1,10 +1,13 @@
-# Breadth First Search
+# Depth First Search
 
-An algorithm that explores/searches the entire tree level by level.
+| Traversal	| Sequence | Root Position | Common Use Case | 
+| --- | --- | --- |--- |
+| Preorder | Root → Left → Right | First | Copying a tree, prefix expression evaluation
+| Inorder	| Left → Root → Right	| Middle | Sorted traversal of a BST
+| Postorder | Left → Right → Root	| Last | Deleting a tree, postfix expression evaluation 
+
 
 ```js
-// making our own binary tree
-
 class TreeNode { //binary tree
 	constructor(val) {
 		this.value = val;
@@ -60,21 +63,29 @@ class BinarySearchTree {
 
     return false;
   }
+  // DFS (PreOrder)
 
-  bfs(){ // Breadth First Search, meant to be used for traversing the tree and getting the values of each node
-    let current = this.root;
-    let data = [];
-    let queue = [];
+  dfsPreOrder(current = this.root, data = []){
+    if(!current) return data;
+    data.push(current.value);
+    this.dfsPreOrder(current.left, data);
+    this.dfsPreOrder(current.right, data);
+    return data;
+  }
 
-    queue.push(current);
+  dfsInOrder(current = this.root, data = []){
+    if(!current) return data;
+    this.dfsInOrder(current.left, data);
+    data.push(current.value);
+    this.dfsInOrder(current.right, data);
+    return data;
+  }
 
-    while(queue.length){
-      current = queue.shift();
-      data.push(current.value);
-      if(current.left) queue.push(current.left);
-      if(current.right) queue.push(current.right);
-    }
-
+  dfsPostOrder(current = this.root, data = []){
+    if(!current) return data;
+    this.dfsPostOrder(current.left, data);
+    this.dfsPostOrder(current.right, data);
+    data.push(current.value);
     return data;
   }
 }

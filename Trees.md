@@ -12,6 +12,8 @@ Balance - All the leaf nodes are at the same level (distance from the root) This
 Almost Full Levels - All levels except possibly the last one are completely filled with nodes.
 Left Leaning Last Level - The last level is filled with nodes from the left side as much as possible. There might be empty spaces on the right side. 
 
-[Binary Search Tree (BST)](<Binary Search Tree>) - a type of binary tree used to organize data in a sorted way. It works like a filing cabinet where you can efficiently search, add, or remove items.
+[Binary Search Tree (BST)](<Binary Search Tree.md>) - a type of binary tree used to organize data in a sorted way. It works like a filing cabinet where you can efficiently search, add, or remove items.
 
-[Breadth First Search (BFS)](<Breadth First Search>) - an algorithm that explores/searches the entire tree level by level. The running time is linear.
+[Breadth First Search (BFS)](<Breadth First Search.md>) - an algorithm that explores/searches the entire tree level by level. The running time is linear.
+
+[Depth First Search (DFS)](<Depth First Search.md>) - an algorithm that explores/searches the entire tree level by level. The running time is linear.
