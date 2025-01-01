@@ -119,8 +119,9 @@ Usually Arrays and Linked Lists are the building blocks for much more complex hy
 
 [Hash Tables](<Hash Tables.md>) - a data structure that uses key-value pairs. It allows you to store and retrieve data in constant time. It also allows you to delete and update data in constant time.
 
-[Trees](Trees) - a data structure that stores data in a hierarchical way. It represents a collection of elements called nodes, connected by edges called links or branches that form a tree-like structure. It allows you to store and retrieve data in constant time. It also allows you to delete and update data in constant time.
+[Trees](Trees.md) - a data structure that stores data in a hierarchical way. It represents a collection of elements called nodes, connected by edges called links or branches that form a tree-like structure. It allows you to store and retrieve data in constant time. It also allows you to delete and update data in constant time.
 
+[Graphs](Graphs.md) - a non-linear data structure that models relationships between objects. It consists of two main components: Vertices (nodes) and Edges. 
 ## Sources
 
 [HuXn](https://www.youtube.com/watch?v=wBtPGnVnA9g)
