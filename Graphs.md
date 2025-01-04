@@ -33,7 +33,7 @@ class Graph{
   addVertex(vertex){ //O(1)
     if(!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
   }
-  removeVertex(vertex){
+  removeVertex(vertex){ 
     while(this.adjacencyList[vertex].length){
       const adjacentVertex = this.adjacencyList[vertex].pop();
       this.removeEdge(vertex, adjacentVertex);
