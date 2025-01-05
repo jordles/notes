@@ -21,8 +21,9 @@ Algorithms sometimes involve time complexity which uses [Logarithms](Logarithms.
 | --- | --- | --- |
 | Simple Search | a search algorithm that finds the position of a target value within an array by comparing each element of the array with the target value until the target value is found. The running time is linear.| O(n) |
 | [Binary Search](#binary-search) | a search algorithm that finds the position of a target value within a sorted array by dividing the search interval in half on each iteration and checking if the target value is less than or greater than the middle element. The running time is logarithmic. | O(log n) |
-| [Selection Sort](#selection-sort) | a sorting algorithm that sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The running time is quadratic. | O(n<sup>2</sup>) |
+| [Selection Sort](<Selection Sort.md>) | a sorting algorithm that sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The running time is quadratic. | O(n<sup>2</sup>) |
 | [Bubble Sort](<Bubble Sort.md>) | a sorting algorithm that sorts an array by repeatedly swapping adjacent elements if they are in the wrong order. The running time is quadratic. | O(n<sup>2</sup>) |
+| [Insertion Sort](<Insertion Sort.md>) | [[Insertion Sort]] | O(n<sup>2</sup>) |
 
 
 ## Interview Questions
@@ -69,27 +70,6 @@ const binarySearch = (arr, target) => {
   return -1;
 }
 ```
-
-## Selection Sort 
-
-Since the algorithm is linear time, but also runs an n number of times each time, its O(n<sup>2</sup>). It should be noted the actual runtime is O(n * 1/2 * n) because we reduce the number of elements in each iteration by one leaving about half of the comparisons made at the end. But constants are ignored on Big O notation. 
-
-```js
-const selectionSort = (arr) => {
-  for (let i = 0; i < arr.length; i++) {
-    let min = i;
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] < arr[min]) {
-        min = j;
-      }
-    }
-    if (min !== i) {
-      [arr[i], arr[min]] = [arr[min], arr[i]];
-    }
-  }
-  return arr;
-}
-``` 
 
 ## Data Structures
 
