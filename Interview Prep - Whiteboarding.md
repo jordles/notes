@@ -1,4 +1,4 @@
-# Interview Prep
+# Interview Prep (Whiteboard Questions)
 
 ## Understand the Problem
 1. Can I restate the problem in my own words?
@@ -16,3 +16,8 @@ Unit Test - Input -> Expected Output
 * Progress to more complex examples
 * Explore with empty inputs
 * Explore with invalid inputs
+
+## Break it Down
+Write out the steps you need to take (psuedo code)
+
+## Solve/Simplify
