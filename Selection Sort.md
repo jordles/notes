@@ -1,6 +1,6 @@
 # Selection Sort 
 
-`(Select => swap once per index if smaller than min ~ loop on iterating index)`
+`(swap once per iterative index with min, min is found by looping through the whole array per iterative index)`
 
 Since the algorithm is linear time, but also runs an n number of times each time, its O(n<sup>2</sup>). It should be noted the actual runtime is O(n * 1/2 * n) because we reduce the number of elements in each iteration by one leaving about half of the comparisons made at the end. But constants are ignored on Big O notation. So running time is quadratic.
 
