@@ -18,6 +18,11 @@ Unit Test - Input -> Expected Output
 * Explore with invalid inputs
 
 ## Break it Down
-Write out the steps you need to take (psuedo code)
+Write out the steps you need to take (pseudo code)
 
 ## Solve/Simplify
+If we can solve the problem, solve a simpler problem. Ignore the part thats giving you a hard time, and focus on the parts that are easy to solve. (make any progress to showcase your problem solving skills, which is much better than showing you're stuck and not making any progress)
+
+If you truly don't know, don't be afraid to ask questions on how you would solve it to your interviewer, because at least you are solving your problem solving skills. 
+
+## Look Back and Refactor
