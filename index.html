@@ -2046,6 +2046,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
             obj[pet]++;
           }
           (or use : obj[pet] = (obj[pet] || 0) + 1)
+          (or use : obj[pet] = ++obj[pet] || 1)
           obj[pet] will check for truthy value, but if the property does not exist, it will return undefined, which means it will be 0, which initializes it. 
           return obj; // return the modified object to be used as accumulator in the next iteration
         }, {}); // initialize the accumulator as an empty object

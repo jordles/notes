@@ -26,3 +26,14 @@ If we can solve the problem, solve a simpler problem. Ignore the part thats givi
 If you truly don't know, don't be afraid to ask questions on how you would solve it to your interviewer, because at least you are solving your problem solving skills. 
 
 ## Look Back and Refactor
+When you have the finished code, try to keep the code DRY and refactor it.
+
+Can you check the result?
+Can you derive the result differently?
+Can you understand it at a glance?
+Can you use the result or method for some other problem?
+Can you improve the performance of your solution?
+Can you think of other ways to refactor the codE?
+How have other people solved this problem?
+
+Might be a good idea to also ask the interview how they would go about solving the problem.
