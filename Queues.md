@@ -7,7 +7,8 @@ Enqueue is adding to our queue at the end.
 Dequeue is removing the first element at the front.
 
 ```js
-//using objects O(1)
+// using objects O(1)
+// the first and last is keeping track of how many elements are being added and removed to the queue
 class Queue{
   constructor(){
     this.queue = {};
@@ -22,10 +23,11 @@ class Queue{
   }
 
   dequeue(){
-    if(!first) return null;
+    if(this.first === this.last) return null;
     const node = this.queue[this.first];
     delete this.queue[this.first];
     this.first++;
+    if(this.first === this.last) { this.first = 0; this.last = 0}
     return node;
   }
 

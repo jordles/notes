@@ -2567,7 +2567,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>delete</code> - delete properties from objects</li>
     <li><code>.hasOwnProperty()/Object.hasOwn(object, property) (intended to replace hasOwnProperty)</code> => check if the property of a given object exists or not; returns true or false  (ignores the prototype)<br>
     Own properties are defined directly from an instance object</li>
-    <li><code>'{property}' in {obj}</code> => You can also use the 'in OPERATOR' to check the existence of a property; returns true or false</li>
+    <li><code>'{property}' in object</code> => You can also use the 'in OPERATOR' to check the existence of a property; returns true or false and is constant time</li>
     <li><code>for (let {key} in {object})(For in loop)</code> => loop / iterates through every key or value of an object. The var represents all first level keys (and only keys, meaning if you want to target the keys' own properties you must call from the start of the object) <br>
       The order these come in, may vary because numbers are least to greatest, while non-integer keys are listed by creation order.
     </li>

@@ -1,7 +1,7 @@
 # Two Sum
 
 ```js
-// array methods O(n)
+// array methods O(n^2)
 function twoSum(arr, sum){
   for(let i = 0; i < arr.length; i++){
     let foundIndex = arr.indexOf(sum-arr[i])
