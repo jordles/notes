@@ -53,7 +53,7 @@ function isAnagramFrequency(str1, str2) {
 ```
 ```js
 // using arrays
-function validAnagram(str1, str2){ //O(n)
+function validAnagram(str1, str2){ //O(n^2)
   
   if(str1.length !== str2.length) return false;
   for(let i = 0; i < str1.length; i++){
@@ -74,28 +74,19 @@ function validAnagram(str1, str2){
 ```
 ```js
 // Character Count with charCodes Time: O(n) Space: O(1)
-function validAnagram(str1, str2){
-  if(str1.length !== str2.length) return false;
-
-  let counter = 0;
-  for(let i = 0; i < str1.length; i++){
-    counter += Math.abs(str1.charCodeAt(i) - str2.charCodeAt(i));
-  }
-  return counter === 0;
-}
 
 function isAnagramArray(str1, str2) {
   if (str1.length !== str2.length) return false;
 
-  const count = new Array(26).fill(0);
+  const count = new Array(26).fill(0); // O(1) 26 is always the length of the alphabet
 
   for (let char of str1) {
     count[char.charCodeAt(0) - 97]++;
   }
 
   for (let char of str2) {
+    if (!count[char.charCodeAt(0) - 97]) return false;
     count[char.charCodeAt(0) - 97]--;
-    if (count[char.charCodeAt(0) - 97] < 0) return false;
   }
 
   return true;
