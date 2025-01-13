@@ -1,4 +1,4 @@
-# Objects
+# Javascript Objects
 
 | Methods | Time Complexity |
 | --- | --- |
@@ -8,7 +8,13 @@
 | hasOwnProperty() | O(1) |
 
 
-## Maps
+# JavaScript Maps
+**When to Use Map Over Object?**
+* When keys are not guaranteed to be strings or symbols.
+* When insertion order of keys must be preserved.
+* When frequent additions and deletions are required.
+* When you need a more predictable structure with no prototype interference.
+
 
 | Feature	| Object | Map |
 | --- | --- | --- |
@@ -20,3 +26,16 @@
 | Default keys | Comes with default keys like "toString", "hasOwnProperty", etc. | No default keys; only what you explicitly set. |
 | Size retrieval | Need to calculate manually with Object.keys(obj).length.	| Use the size property (constant time). |
 | Serialization | Can easily convert to/from JSON. | Requires manual conversion for serialization. |
+
+| Methods | Description |
+| --- | --- |
+| `map.get(key)` | returns the value associated with the key |
+| `map.set(key, value)` | sets the value associated with the key | 
+| `map.size()` | returns the number of entries in the map |
+| `map.has(key)` | returns true if the key is in the map |
+| `map.delete(key)` | deletes the entry with the given key |
+| `map.clear()` | deletes all entries in the map |
+| `map.keys()` | returns an iterator of keys in the map |
+| `map.values()` | returns an iterator of values in the map |
+| `map.entries()` | returns an iterator of key-value pairs in the map |
+| `map.forEach(callback)` | applies a callback to each entry in the map |

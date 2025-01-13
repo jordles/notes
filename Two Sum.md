@@ -12,8 +12,8 @@ function twoSum(arr, sum){
   return 'no sum found'
 }
 
-// multiple sums solution
-function twoSum(arr, sum){
+// multiple sums solution O(n^2)
+function twoSum(arr, sum){ 
   let solutions = [];
   for(let i = 0; i < arr.length; i++){
     let foundIndex = arr.indexOf(sum-arr[i])
@@ -81,7 +81,7 @@ function twoSum(arr, sum) {
   return 'no sum found';
 }
 
-//reduce
+//reduce O(n)
 function twoSum(arr, sum) {
   let result;
   arr.reduce((acc, val, i) => {
