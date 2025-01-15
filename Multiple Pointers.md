@@ -4,6 +4,7 @@ Creating pointers or values that correspond to an index or position and move tow
 
 Its very efficient for solving problems with minimal space complexity as well. 
 
+Sorting is required if were comparing adjacent values.
 ## Challenges
 ```js
 // O(n) i and j are our pointers

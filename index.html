@@ -1974,7 +1974,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>.sort(compareFunction ex: (a,b) => a-b )</code> => sort by comparing two values consecutively (MUTATES ORIGINAL ARRAY)<br>
       If the returned value is negative, we will know a is less than b (ascending order; a-b (numerical comparison); a > b |OR| a.localCompare(b) (boolean comparison for strings))  <br>
       if the returned value is positive, we will know a is more than b (descending order; b-a; a < b) <br>
-      (Alphabetical)The function is based off of numeric values, negative means < 0 values, positive means > 0 values <br>
+      (Alphabetical)The function is based off of numeric unicode values, negative means < 0 values, positive means > 0 values <br>
       0 means the values remain unchanged. <br>
       With this in mind, you can do alphabetical order as well. 
       Alphabetical : just use the default sort function with no parameters. 
@@ -1985,6 +1985,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       If the result is 0, no changes are done with the sort order of the two values.
 
       **Remember sort is expecting a number being returned, to indicate the order of elements.
+
+      ** REMEMBER that using boolean statements only have outcomes of 1 and 0, meaning duplicates would not be sorted properly. If we include duplicates we must explicitly provide negative values to indicate the order of elements instead of just using 0. **
     </li>
     <li><code>.reduce(function (accumulator(totalValue/return value of the function), currentValue,index, array), initialValue(passed to accumulator on first call)])</code> => 
       apply functions to accumulator and each value of an array to reduce to a single value <br>
