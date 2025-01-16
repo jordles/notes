@@ -3224,6 +3224,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </pre>
     <hr>
     <h2>Rest Parameters(syntax)<code>(...args)</code> => a parameter for taking unlimited number of arguments as an array (replaces the <code>arguments</code> 'array' - This is useful for function that have unknown multiple parameters. However this is not ideal, since arguments are not actually an array so it doesnt have access to array methods. We can instead use rest parameters which has the same syntax as the spread operator)</h2>
+    <p>You can also use the <code>arguments</code> keyword to get the arguments passed to a function. arguments is an array-like object</p>
     <p>It helps eliminate the need to check the args array and apply map() filter() reduce() etc. to the array</p>
     <pre>
       function howMany(...args) {

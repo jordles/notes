@@ -9,7 +9,7 @@ Using multiple for loops instead of nested loops is much more efficient.
 ## Challenges
 
 * [Write a function to determine if the second string is an anagram of the first.](#valid-anagram)
-
+* [Check whether there are any duplicate arguments in the function](#are-there-duplicates)
 
 ## Valid Anagram
 ```js
@@ -90,5 +90,19 @@ function isAnagramArray(str1, str2) {
   }
 
   return true;
+}
+```
+
+## Are There Duplicates?
+
+```js
+function areThereDuplicates(...args){
+  let obj = {}
+  for(let char of args){
+
+    obj[char] = ++obj[char] || 1;
+    if(obj[char] > 1) return true;
+  }
+  return false;
 }
 ```

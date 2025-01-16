@@ -5,7 +5,15 @@ Creating pointers or values that correspond to an index or position and move tow
 Its very efficient for solving problems with minimal space complexity as well. 
 
 Sorting is required if were comparing adjacent values.
+
+
+
 ## Challenges
+
+* [Write a function to count the number of unique values in an array](#count-unique-values)
+* [Write a function to check if there are duplicates in the arguments for the function](#are-there-duplicates)
+
+## Count Unique Values
 ```js
 // O(n) i and j are our pointers
 function countUniqueValues(arr){
@@ -18,5 +26,19 @@ function countUniqueValues(arr){
     }
   }
   return count; 
+}
+```
+
+## Are There Duplicates?
+```js
+// O(nlogn)
+function areThereDuplicates(...args){
+  args.sort((a,b) => a > b ? 1 : -1)
+  let i = 0;
+  for(j = 1; j < args.length; j++){
+    if(arr[i] === arr[j]) return true;
+    i = j;
+  }
+  return false;
 }
 ```
