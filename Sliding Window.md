@@ -9,9 +9,8 @@ Very useful for keeping track of a subset of data in an array/string etc.
 ## Challenges
 * [Find the maximum sum of a subarray that has length num](#max-subarray-sum)
 * [Return the minimal length of a contiguous subarray in which its sum is greater than or equal to the target integer passed](#min-subarray-length)
-```js
-// find the length of the longest substring without repeating characters
-```
+* [Find the longest substring with all distinct characters](#find-longest-substring)
+
 
 ## Max Subarray Sum
 ```js
@@ -47,7 +46,7 @@ function maxSubarraySum(arr, num){ // O(n) sliding window
 
 ## Min Subarray Length
 ```js
-// O(n)
+// O(n) since the pointers go through the array only once
 function minSubArrayLen(arr, target){
   let left = 0; // pointer for our starting window 
   let right = 0; //pointer for our ending window
@@ -64,3 +63,23 @@ function minSubArrayLen(arr, target){
   }
   return minLen === Infinity ? 0 : minLen;
 }
+```
+
+## Find Longest Substring
+```js
+function findLongestSubstring(str){
+  let maxLength = 0;
+  let seen = {}; //we use the seen object to keep track of the last index of each character
+  let start = 0;
+
+  for(let end = 0; end < str.length; end++){
+    let char = str[end];
+    if(seen[char]){
+      start = Math.max(start, seen[char] + 1);
+    }
+    seen[char] = end;
+    maxLength = Math.max(maxLength, end - start + 1);
+  }
+  return maxLength;
+}
+```
