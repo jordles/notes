@@ -7,11 +7,13 @@ Depending on a certain condition, the window either increases or closes (and a n
 Very useful for keeping track of a subset of data in an array/string etc. 
 
 ## Challenges
-
+* [Find the maximum sum of a subarray that has length num](#max-subarray-sum)
+* [Return the minimal length of a contiguous subarray in which its sum is greater than or equal to the target integer passed](#min-subarray-length)
 ```js
 // find the length of the longest substring without repeating characters
 ```
 
+## Max Subarray Sum
 ```js
 // find the maximum sum of a subarray with length num O(n^2) 
 function maxSubarraySum(arr, num){
@@ -42,3 +44,23 @@ function maxSubarraySum(arr, num){ // O(n) sliding window
   return maxSum;
 }
 ```
+
+## Min Subarray Length
+```js
+// O(n)
+function minSubArrayLen(arr, target){
+  let left = 0; // pointer for our starting window 
+  let right = 0; //pointer for our ending window
+  let total = 0; //total to compare with our target
+  let minLen = Infinity; //keep track of the minimum length to return later.
+  while(right < arr.length){
+    total += arr[right];
+    while(total >= target){
+      minLen = Math.min(minLen, right - left + 1);
+      total -= arr[left];
+      left++;
+    }
+    right++;
+  }
+  return minLen === Infinity ? 0 : minLen;
+}

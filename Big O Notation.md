@@ -14,7 +14,7 @@ We usually look for:
 ![Big O Graph Comparison](https://miro.medium.com/v2/resize:fit:678/0*ouBkTMgA_yg_Etfz.png)
 ## Shortcuts
 * Assignment, Arithmetic, Array/Object Access, Math.min (the trend will be a flat line the more we add to it) => O(1)
-* 1 loop, touching every element => O(n)
+* 1 loop aka touching every element => O(n)
 * 2 loops => O(n<sup>2</sup>)
 
 ---
@@ -27,7 +27,7 @@ O(1) is constant time, and will always be the standard for the best case run tim
 
 O(n) is linear time, and will always be the standard for the worst case run time of an algorithm. Remember that O(n) time means you touch every element in a list once. Some examples include searching a list for an element, or adding an element to a list. The graph will be a straight line with a slope of 1.
 
-O(log n) is logarithmic time, represented by binary search, divide and conquer, and recursion. As the input size increases, the time it takes to run the algorithm also increases slowly. Some examples include searching a sorted list for an element.
+O(log n) is logarithmic time, represented by binary search, divide and conquer, and recursion. As the input size increases, the time it takes to run the algorithm also increases slowly. Some examples include searching a sorted list for an element, or dividing something in half. The graph will show a parabolic curve.
 
 O(n<sup>2</sup>) is quadratic time, represented by nested loops. Some examples include a nested for loop, or a for loop within a for loop, comparing each item with every other item. The graph will show a quadratic, exponential, parabolic curve
 
