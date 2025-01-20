@@ -66,7 +66,7 @@ function twoSum(arr, sum){
 }
 ```
 
-[Hash Tables](<Hash Tables.md>)
+[Hash Tables](<Data_Structures_and_Algorithms/Hash Tables.md>)
 ```js
 // hash table O(n)
 function twoSum(arr, sum) {

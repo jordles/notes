@@ -1,5 +1,5 @@
 # Array Chunking
-
+<!-- Chunking an array into subarrays of a given size -->
 ```js
 // loops
 function chunk(arr, size) {

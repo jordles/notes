@@ -15,7 +15,7 @@ To calculate on a calculator using log<sub>10</sub> use log<sub>10</sub>number /
 
 ## Algorithms
 A process or set of steps to solve a problem/accomplish a certain task. 
-Algorithms sometimes involve time complexity which uses [Logarithms](Logarithms.md)
+Algorithms sometimes involve time complexity which uses [Logarithms](../Logarithms.md)
 
 | Algorithm | Description | Time Complexity |
 | --- | --- | --- |
@@ -23,23 +23,23 @@ Algorithms sometimes involve time complexity which uses [Logarithms](Logarithms.
 | [Binary Search](#binary-search) | a search algorithm that finds the position of a target value within a sorted array by dividing the search interval in half on each iteration and checking if the target value is less than or greater than the middle element. The running time is logarithmic. | O(log n) |
 | [Selection Sort](<Selection Sort.md>) | a sorting algorithm that sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The running time is quadratic. | O(n<sup>2</sup>) |
 | [Bubble Sort](<Bubble Sort.md>) | a sorting algorithm that sorts an array by repeatedly swapping adjacent elements if they are in the wrong order. The running time is quadratic. | O(n<sup>2</sup>) |
-| [Insertion Sort](<Insertion Sort.md>) | [[Insertion Sort]] | O(n<sup>2</sup>) |
+| [Insertion Sort](<Insertion Sort.md>) | a sorting algorithm that sorts an array by repeatedly inserting elements into their correct position. The running time is quadratic. | O(n<sup>2</sup>) |
 
 
 ## Interview Questions
-[Adding Up to a Number](<Adding Up to a Number>) - an algorithm that adds up all the numbers from 1 to a given number. 
-[Reversing a String](<Reverse String.md>) - a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear.
-[Reversing an Integer](<Reverse Integer.md>) - a string reversal algorithm that reverses an integer by swapping each digit with its corresponding digit at the end of the integer. The running time is linear.
-[Sentence Capitalization](<Sentence Capitalization.md>) - an algorithm that capitalizes the first letter of each word in a sentence. The running time is linear. 
-[Palindrome](Palindrome.md) - a string reversal algorithm that checks if a string is a palindrome by reversing the string and comparing it to the original string. The running time is linear. 
-[Fizz Buzz](<Fizz Buzz.md>) - an algorithm that checks if a number is divisible by 3 and 5. The running time is linear. 
-[Array Chunking](<Array Chunking.md>) - an algorithm that splits an array into smaller chunks. The running time is linear. 
-[Max Profit](<Max Profit.md>) - an algorithm that finds the maximum profit by comparing the prices of consecutive days through buying low and selling high only once. The running time is linear. 
-[Two Sum](<Two Sum.md>) - an algorithm that finds two numbers in an array that sum up to a target value. The running time is linear. 
-[Reverse Linked List](<Linked Lists.md>) - an algorithm that reverses a linked list by swapping the next and previous pointers of each node. The running time is linear.
-[Min Stack](Stacks.md) - an algorithm that keeps track of the minimum element in a stack. The running time is linear or constant for optimized implementations.
-[Valid Parentheses](<Valid Parentheses>) - an algorithm that checks if a string of parentheses is valid. The running time is linear.
-[Word Counter](<Word Counter>) - an algorithm that counts the frequency of each word in a string. The running time is linear.
+[Adding Up to a Number](<../Adding Up to a Number>) - an algorithm that adds up all the numbers from 1 to a given number.  
+[Reversing a String](<../Reverse String.md>) - a string reversal algorithm that reverses a string by swapping each character with its corresponding character at the end of the string. The running time is linear.  
+[Reversing an Integer](<../Reverse Integer.md>) - a string reversal algorithm that reverses an integer by swapping each digit with its corresponding digit at the end of the integer. The running time is linear.  
+[Sentence Capitalization](<../Sentence Capitalization.md>) - an algorithm that capitalizes the first letter of each word in a sentence. The running time is linear.   
+[Palindrome](../Palindrome.md) - a string reversal algorithm that checks if a string is a palindrome by reversing the string and comparing it to the original string. The running time is linear.   
+[Fizz Buzz](<../Fizz Buzz.md>) - an algorithm that checks if a number is divisible by 3 and 5. The running time is linear.   
+[Array Chunking](<../Array Chunking.md>) - an algorithm that splits an array into smaller chunks. The running time is linear.   
+[Max Profit](<../Max Profit.md>) - an algorithm that finds the maximum profit by comparing the prices of consecutive days through buying low and selling high only once. The running time is linear.   
+[Two Sum](<../Two Sum.md>) - an algorithm that finds two numbers in an array that sum up to a target value. The running time is linear.   
+[Reverse Linked List](<Linked Lists.md>) - an algorithm that reverses a linked list by swapping the next and previous pointers of each node. The running time is linear.  
+[Min Stack](../Stacks.md) - an algorithm that keeps track of the minimum element in a stack. The running time is linear or constant for optimized implementations.  
+[Valid Parentheses](<../Valid Parentheses>) - an algorithm that checks if a string of parentheses is valid. The running time is linear.  
+[Word Counter](<../Word Counter>) - an algorithm that counts the frequency of each word in a string. The running time is linear.  
 
 
 ## Binary Search
@@ -73,9 +73,9 @@ const binarySearch = (arr, target) => {
 
 ## Data Structures
 
-[Arrays](Arrays.md) - allocate the appropriate space in memory and they hold a fixed number of items. When you add to an array, you have to shift all the elements over to make space for the new element and make sure all the elements are still in order and indexed next to each other in memory. 
+[Arrays](../Arrays.md) - allocate the appropriate space in memory and they hold a fixed number of items. When you add to an array, you have to shift all the elements over to make space for the new element and make sure all the elements are still in order and indexed next to each other in memory. 
 
-[Objects](Objects) - allocate the appropriate space in memory and they hold a key-value pair. Objects have no order, so they must be read one at a time makign it linear time. 
+[Objects](../Objects) - allocate the appropriate space in memory and they hold a key-value pair. Objects have no order, so they must be read one at a time makign it linear time. 
 
 [Linked Lists](<Linked Lists.md>) - a data structure that contains a series of nodes, each node contains a value and a reference to the next node. Each item stores the address of the next item in the list. If you want to read each node one at a time, linked lists are great for that because theyre all next to each other. Arrays are on the other hand are great if you want to read random elements, since they all have predetermined indexes and address.
 
@@ -94,9 +94,9 @@ With Linked Lists its easier to insert and delete because you can just point the
 
 Usually Arrays and Linked Lists are the building blocks for much more complex hybrid data structures. 
 
-[Stacks](Stacks.md) - a linear data structure that allows you to push and pop elements from the top of the stack. It follows the LIFO (Last In First Out) principle.
+[Stacks](../Stacks.md) - a linear data structure that allows you to push and pop elements from the top of the stack. It follows the LIFO (Last In First Out) principle.
 
-[Queues](Queues.md) - a linear data structure that allows you to enqueue and dequeue elements from the front of the queue, and acts like a waiting line. It follows the FIFO (First In First Out) principle.
+[Queues](../Queues.md) - a linear data structure that allows you to enqueue and dequeue elements from the front of the queue, and acts like a waiting line. It follows the FIFO (First In First Out) principle.
 
 [Hash Tables](<Hash Tables.md>) - a data structure that uses key-value pairs. It allows you to store and retrieve data in constant time. It also allows you to delete and update data in constant time.
 
@@ -106,7 +106,9 @@ Usually Arrays and Linked Lists are the building blocks for much more complex hy
 ## Sources
 
 [HuXn](https://www.youtube.com/watch?v=wBtPGnVnA9g)
+
 Grokking Algorithms by Aditya Bhargava
+
 
 
 

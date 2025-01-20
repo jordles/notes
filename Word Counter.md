@@ -10,7 +10,7 @@ function wordCounter(str.toLowerCase()){
 }
 ```
 
-[Hash Tables](<Hash Tables.md>)
+[Hash Tables](<Data_Structures_and_Algorithms/Hash Tables.md>)
 ```js
 // using my own hash table
 function wordCounter(str.toLowerCase()){
