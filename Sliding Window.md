@@ -42,6 +42,20 @@ function maxSubarraySum(arr, num){ // O(n) sliding window
   }
   return maxSum;
 }
+
+function maxSubarraySum(arr, num){ //my version that makes more sense to me
+    if(arr.length - 1 < num) return null;
+    let total = 0;
+    for(let i = 0; i < num; i++){ //get the initial window. 
+        total += arr[i]
+    }
+    let max = total;
+    for(let j = num; j < arr.length; j++){
+        total = total - arr[j - num] + arr[j];
+        max = Math.max(max, total)
+    }
+    return max;
+}
 ```
 
 ## Min Subarray Length
@@ -67,6 +81,7 @@ function minSubArrayLen(arr, target){
 
 ## Find Longest Substring
 ```js
+//O(n)
 function findLongestSubstring(str){
   let maxLength = 0;
   let seen = {}; //we use the seen object to keep track of the last index of each character
@@ -74,12 +89,30 @@ function findLongestSubstring(str){
 
   for(let end = 0; end < str.length; end++){
     let char = str[end];
-    if(seen[char]){
-      start = Math.max(start, seen[char] + 1);
+    if(char in seen){ //cannot use seen[char] since we use 0s as an index, which is falsy. 
+      start = Math.max(start, seen[char] + 1); //we must ensure the start never moves the window backwards because sometimes the seen[char] index will be lower than our start index. 
     }
     seen[char] = end;
     maxLength = Math.max(maxLength, end - start + 1);
   }
+  return maxLength;
+}
+
+// using a set O(n)
+function findLongestSubstring(str) {
+  let start = 0;
+  let maxLength = 0;
+  const seen = new Set();
+
+  for (let end = 0; end < str.length; end++) {
+    while (seen.has(str[end])) {
+      seen.delete(str[start]);
+      start++;
+    }
+    seen.add(str[end]);
+    maxLength = Math.max(maxLength, end - start + 1);
+  }
+
   return maxLength;
 }
 ```
