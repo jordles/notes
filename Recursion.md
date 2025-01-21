@@ -73,5 +73,46 @@ function odds(arr){
 ```
 
 **Pure Recursion**
+```js
+//utilize methods that do not mutate the original array that way we dont have to worry about it being modified in recursive calls
+function odds(arr){
+  if(arr.length === 0) return [];
 
+  let current = arr.shift();
 
+  if(current % 2 === 1){
+    return [current].concat(odds(arr)); 
+  }
+
+  return odds(arr);
+}
+```
+```js
+//You can also use a default parameter to avoid mutating the original array, 
+function odds(arr, result = []){
+  if(arr.length === 0) return result;
+
+  let current = arr.shift();
+
+  if(current % 2 === 1){
+    result.push(current);
+  }
+
+  return odds(arr, result);
+}
+```
+
+**Tail Recursion** 
+* It states that a recursive call must be the last thing in a function. Tail recursion is also known as tail call optimization.
+* The runtime can reuse the same stack frame for every call, avoiding memory overhead and making recursion as efficient as looping compared to traditional recursion which uses a new stack frame for each call.
+```js
+function odds(arr){
+  if(arr.length === 0) return [];
+
+  if(arr[0] % 2 === 1){
+    return [arr[0]].concat(odds(arr.slice(1)));
+  }
+
+  return odds(arr.slice(1));
+}
+```
