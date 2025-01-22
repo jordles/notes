@@ -15,23 +15,6 @@ Parts of a recursive function:
 * Base case (Where the recursion ends)
 * Recursive case (calling itself with different inputs)
 
-## Common Recursion Problems
-
-```js
-function isOdd(arr){
-  if(arr.length === 0) return false;
-
-  if(arr.shift() % 2 === 1) return true;
-  return isOdd(arr);
-}
-```
-```js
-function factorial(num){
-  if(num === 1) return 1;
-  return num * factorial(num - 1);
-}
-```
-
 Known Techniques:
 
 **Helper Method Recursion**
@@ -100,19 +83,68 @@ function odds(arr, result = []){
 
   return odds(arr, result);
 }
+//mutating the result array (via result.push(current)) means there is side-effect computation happening before the recursive call. The runtime cannot optimize this like true tail recursion because it cannot guarantee that state changes (like result.push()) are complete before the next stack frame is created.
+//In contrast, a pure tail-recursive function should not depend on mutations or other operations before the recursive call.
 ```
 
 **Tail Recursion** 
 * It states that a recursive call must be the last thing in a function. Tail recursion is also known as tail call optimization.
 * The runtime can reuse the same stack frame for every call, avoiding memory overhead and making recursion as efficient as looping compared to traditional recursion which uses a new stack frame for each call.
 ```js
-function odds(arr){
-  if(arr.length === 0) return [];
+function odds(arr, result = []) {
+  if (arr.length === 0) return result;
 
-  if(arr[0] % 2 === 1){
-    return [arr[0]].concat(odds(arr.slice(1)));
-  }
+  let current = arr.shift();
 
-  return odds(arr.slice(1));
+  return odds(arr, current % 2 === 1 ? [...result, current] : result);
+}
+```
+
+
+## Common Recursion Problems / Challenges
+
+```js
+// Recursive Is Odd
+function isOdd(arr){
+  if(arr.length === 0) return false;
+
+  if(arr.shift() % 2 === 1) return true;
+  return isOdd(arr);
+}
+```
+```js
+// Recursive Factorial
+function factorial(num){
+   if(num === 1 || num === 0) return 1;
+   return num * factorial(num - 1)
+}
+```
+```js
+// Recursive Power
+function power(base, exp){
+    if(exp === 0) return 1;
+    return base * power(base, --exp);
+}
+```
+```js
+// Recursive Product
+function productOfArray(arr){
+    if(arr.length === 0) return 1;
+    let num = arr.pop();
+    return num * productOfArray(arr);
+}
+```
+```js
+// Recursive Range
+function recursiveRange(num){
+   if(num === 0) return 0;
+   return num + recursiveRange(num - 1)
+}
+```
+```js
+// Fibonacci
+function fib(num){
+    if(num <= 2) return 1;
+    return fib(num-1) + fib(num-2)
 }
 ```
