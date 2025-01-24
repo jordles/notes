@@ -118,6 +118,10 @@ function factorial(num){
    if(num === 1 || num === 0) return 1;
    return num * factorial(num - 1)
 }
+
+function factorial(num, acc = 1){
+  if(num === 1 || num === 0) return acc;
+}
 ```
 ```js
 // Recursive Power
@@ -133,6 +137,12 @@ function productOfArray(arr){
     let num = arr.pop();
     return num * productOfArray(arr);
 }
+
+//tail recursion solution
+function productOfArray(arr, total = 1){
+  if(arr.length === 0) return total;
+  return productOfArray(arr.slice(1), total * arr[0])
+}
 ```
 ```js
 // Recursive Range
@@ -140,11 +150,35 @@ function recursiveRange(num){
    if(num === 0) return 0;
    return num + recursiveRange(num - 1)
 }
+
+//tail recursion solution
+function recursiveRange(num, total = 0){
+  if(num === 0) return total;
+  return recursiveRange(num - 1, total + num)
+}
 ```
 ```js
 // Fibonacci
 function fib(num){
     if(num <= 2) return 1;
     return fib(num-1) + fib(num-2)
+}
+```
+```js
+// Reverse a string
+function reverse(str){
+  if(str.length === 0) return '';
+  return str.slice(-1) + reverse(str.slice(0, -1))
+}
+
+function reverse(str, s = ''){
+  if(str.length === 0) return s;
+  return reverse(str.slice(0, -1), s.concat(str.slice(-1)))
+}
+
+//tail recursion solution
+function reverse(str, s = '', i = str.length-1){
+  if(i < 0) return s;
+  return reverse(str, s + str[i], i - 1)
 }
 ```
