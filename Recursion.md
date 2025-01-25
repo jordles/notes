@@ -1,6 +1,6 @@
 # Recursion
 
-A process (a function) that calls itself.
+A process (a function) that calls itself.  Arrays (like objects) are passed by reference, so all recursive calls share the same result array in memory. This is not the case with numbers and strings, which are passed by value, so they are not shared. 
 
 The [Call Stack](<Call Stack.md>) manages the function calls.
 
@@ -171,14 +171,69 @@ function reverse(str){
   return str.slice(-1) + reverse(str.slice(0, -1))
 }
 
-function reverse(str, s = ''){
+// tail recursion solution
+function reverse(str, s = ''){ 
   if(str.length === 0) return s;
   return reverse(str.slice(0, -1), s.concat(str.slice(-1)))
 }
 
 //tail recursion solution
-function reverse(str, s = '', i = str.length-1){
+function reverse(str, s = '', i = str.length-1){ //track index to avoid using array methods
   if(i < 0) return s;
   return reverse(str, s + str[i], i - 1)
 }
 ```
+
+```js
+// Palindrome
+function isPalindrome(str, s = '', i = str.length - 1){
+  if(i < 0) return str === s;
+  return isPalindrome(str, s + str[i], i - 1)
+}
+```
+```js
+// map 
+function someRecursive(arr, func, i = 0){
+  if(i > arr.length - 1) return false;
+  if(func(arr[i])) return true;
+  return someRecursive(arr, func, i + 1)
+}
+```
+```js
+// flatten
+function flatten(arr, result = []){
+  for(let item of arr){
+      Array.isArray(item) ? flatten(item, result) : result.push(item)
+  }
+  return result;
+}
+```
+```js
+// capitalize words
+function capitalizeFirst (arr, result = [], i = 0) {
+  if(i > arr.length - 1) return result;
+  let cap = arr[i][0].toUpperCase() + arr[i].slice(1);
+  return capitalizeFirst(arr, [...result, cap], i + 1)
+}
+```
+```js
+// sum all even numbers in the following nested object
+function nestedEvenSum (obj, result = 0) { 
+    //recall result (numbers) are passed by value, not reference so we must pass back the computed value back to parent call. 
+  for(let OBJ in obj){
+      let value = obj[OBJ];
+      if(typeof value === 'object') result = nestedEvenSum(value, result)
+      else if(typeof value === 'number' && value % 2 === 0) result += value;
+  }
+  return result;
+}
+```
+```js
+// capitalize all words in array
+function capitalizeWords (arr, result = [], i = 0) {
+  if(i > arr.length - 1) return result;
+  let cap = arr[i].toUpperCase();
+  return capitalizeWords(arr, [...result, cap], i + 1)
+}
+``` 
+
