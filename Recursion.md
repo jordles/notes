@@ -222,7 +222,7 @@ function nestedEvenSum (obj, result = 0) {
     //recall result (numbers) are passed by value, not reference so we must pass back the computed value back to parent call. 
   for(let OBJ in obj){
       let value = obj[OBJ];
-      if(typeof value === 'object') result = nestedEvenSum(value, result)
+      if(typeof value === 'object' && !Array.isArray(value) && value !== null) result = nestedEvenSum(value, result)
       else if(typeof value === 'number' && value % 2 === 0) result += value;
   }
   return result;
@@ -236,4 +236,49 @@ function capitalizeWords (arr, result = [], i = 0) {
   return capitalizeWords(arr, [...result, cap], i + 1)
 }
 ``` 
+```js
+// stringify all numbers in an obj
+function stringifyNumbers(obj, newObj = {}){
+    for(let key in obj){
+        let value = obj[key]
+        
+        if(typeof value === 'object' && !Array.isArray(value) && value !== null) { //remember arrays and null are technically objects in javascript 
+            newObj[key] = {}
+            stringifyNumbers(value, newObj[key]);
+        }
+        else{
+            newObj[key] = typeof obj[key] === "number" ? String(obj[key]) : obj[key]
+        }
+    }
+    return newObj;
+}
+
+// tail recursion solution
+function stringifyNumbers(obj, result = {}) {
+    function helper(currObj, currResult) {
+        for (let key in currObj) {
+            let value = currObj[key];
+            if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+                currResult[key] = {};
+                helper(value, currResult[key]); // Tail-recursive call
+            } else {
+                currResult[key] = typeof value === "number" ? String(value) : value;
+            }
+        }
+        return currResult;
+    }
+    return helper(obj, result);
+}
+```
+```js
+// collect strings from an obj and return them in an array
+function collectStrings(obj, arr = []){
+    for(let key in obj){
+        let value = obj[key]
+        if(typeof value === 'object' && !Array.isArray(value) && value !== null) collectStrings(value, arr)
+        else if(typeof value === 'string') arr.push(value)
+    }
+    return arr;
+}
+```
 

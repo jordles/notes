@@ -7,6 +7,7 @@
 | Object.entries() | O(N) |
 | hasOwnProperty() | O(1) |
 
+Arrays and null data types are considered objects in the background and will appear as so when checking its data type through `typeof`.
 
 # JavaScript Maps
 **When to Use Map Over Object?**

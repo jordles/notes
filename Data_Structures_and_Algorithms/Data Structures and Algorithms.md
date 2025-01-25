@@ -19,8 +19,8 @@ Algorithms sometimes involve time complexity which uses [Logarithms](../Logarith
 
 | Algorithm | Description | Time Complexity |
 | --- | --- | --- |
-| Simple Search | a search algorithm that finds the position of a target value within an array by comparing each element of the array with the target value until the target value is found. The running time is linear.| O(n) |
-| [Binary Search](#binary-search) | a search algorithm that finds the position of a target value within a sorted array by dividing the search interval in half on each iteration and checking if the target value is less than or greater than the middle element. The running time is logarithmic. | O(log n) |
+| [Simple/Linear Search](<Linear Search.md>) | a search algorithm that finds the position of a target value within an array by comparing each element of the array with the target value until the target value is found. The running time is linear.| O(n) |
+| [Binary Search](<Binary Search.md>) | a search algorithm that finds the position of a target value within a sorted array by dividing the search interval in half on each iteration and checking if the target value is less than or greater than the middle element. The running time is logarithmic. | O(log n) |
 | [Selection Sort](<Selection Sort.md>) | a sorting algorithm that sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The running time is quadratic. | O(n<sup>2</sup>) |
 | [Bubble Sort](<Bubble Sort.md>) | a sorting algorithm that sorts an array by repeatedly swapping adjacent elements if they are in the wrong order. The running time is quadratic. | O(n<sup>2</sup>) |
 | [Insertion Sort](<Insertion Sort.md>) | a sorting algorithm that sorts an array by repeatedly inserting elements into their correct position. The running time is quadratic. | O(n<sup>2</sup>) |
@@ -42,34 +42,6 @@ Algorithms sometimes involve time complexity which uses [Logarithms](../Logarith
 [Word Counter](<../Word Counter>) - an algorithm that counts the frequency of each word in a string. The running time is linear.  
 
 
-## Binary Search
-
-1. Suppose you have a sorted list of 128 names, and you’re searching
-through it using binary search. What’s the maximum number of
-steps it would take? 64, 32, 16, 8, 4, 2, 1 = 7 steps or 2^7^ = 128
-
-2. Suppose you double the size of the list. What’s the maximum
-number of steps now? 128, 64, 32, 16, 8, 4, 2, 1 = 8 steps or 2^8^ = 256
-
-
-```js
-const binarySearch = (arr, target) => {
-  arr.sort((a, b) => a - b);
-  let left = 0;
-  let right = arr.length - 1;
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    if (arr[mid] === target) {
-      return mid;
-    } else if (arr[mid] < target) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
-    }
-  }
-  return -1;
-}
-```
 
 ## Data Structures
 
