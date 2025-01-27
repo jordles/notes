@@ -21,6 +21,7 @@ Algorithms sometimes involve time complexity which uses [Logarithms](../Logarith
 | --- | --- | --- |
 | [Simple/Linear Search](<Linear Search.md>) | a search algorithm that finds the position of a target value within an array by comparing each element of the array with the target value until the target value is found. The running time is linear.| O(n) |
 | [Binary Search](<Binary Search.md>) | a search algorithm that finds the position of a target value within a sorted array by dividing the search interval in half on each iteration and checking if the target value is less than or greater than the middle element. The running time is logarithmic. | O(log n) |
+| [String Search](<String Search.md>) | a search algorithm that searches for a substring within a string. The running time is linear. | O(n) |
 | [Selection Sort](<Selection Sort.md>) | a sorting algorithm that sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. The running time is quadratic. | O(n<sup>2</sup>) |
 | [Bubble Sort](<Bubble Sort.md>) | a sorting algorithm that sorts an array by repeatedly swapping adjacent elements if they are in the wrong order. The running time is quadratic. | O(n<sup>2</sup>) |
 | [Insertion Sort](<Insertion Sort.md>) | a sorting algorithm that sorts an array by repeatedly inserting elements into their correct position. The running time is quadratic. | O(n<sup>2</sup>) |
