@@ -1,4 +1,4 @@
-# Interview Prep (Whiteboard Questions)
+# Interview Prep - Data Structures and Algorithms
 
 ## Understand the Problem
 1. Can I restate the problem in my own words?
@@ -37,3 +37,17 @@ Can you think of other ways to refactor the codE?
 How have other people solved this problem?
 
 Might be a good idea to also ask the interview how they would go about solving the problem.
+
+
+🔹 If you're preparing for web dev interviews (junior/mid-level), focus on:
+
+Naive String Search (brute-force approach)
+Multiple Pointers (like your solution)
+KMP Algorithm (only if you want to go deeper)
+🔹 If you're aiming for Big Tech (FAANG), Competitive Programming, or Backend-heavy roles, then:
+
+Learn KMP for O(n) guaranteed search
+Learn Rabin-Karp for hashing-based search
+Learn Trie for O(1) guaranteed search
+Learn Aho-Corasick for O(1) guaranteed search
+

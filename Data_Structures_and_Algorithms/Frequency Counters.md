@@ -30,7 +30,7 @@ function validAnagram(str1, str2){
   return true;
 }
 
-function isAnagramFrequency(str1, str2) {
+function validAnagram(str1, str2) {
   if (str1.length !== str2.length) return false;
 
   const frequency1 = {};
