@@ -4,7 +4,7 @@
 
 A sorting algorithm that sorts an array by repeatedly swapping adjacent elements if they are in the wrong order, per loop iteration. The running time is quadratic.
 
-Its called a bubble sort because we bubble the largest element to the end of the array. Then we bubble the second largest element to the end of the array. We continue this until we reach the end of the array. Bubbling is the process of swapping elements in the array
+Its called a bubble sort because we bubble the largest element (or smallest element) to the end of the array. Then we bubble the second largest element to the end of the array. We continue this until we reach the end of the array. Bubbling is the process of swapping elements in the array
 ```js
 // O(n^2)
 function bubbleSort(arr) {
