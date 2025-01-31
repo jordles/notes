@@ -6,6 +6,8 @@ a sorting algorithm that sorts an array by repeatedly inserting elements into th
 
 We insert the element into its correct position by comparing it with all the elements before it, so that always leaves one side of the array sorted. We continue this until we reach the end of the array.
 
+We gradually place element on the sorted portion of our array. Depending on your direction, commonly its the left. This means for problems that require inserting new elements in an array we can use insertion sort.
+
 ```js
 function insertionSort(arr) {
   for(let i = 1; i < arr.length; i++){

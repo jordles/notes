@@ -1,4 +1,4 @@
-# Selection Sort 
+# Selection Sort (selection swap)
 
 `(swap once per iterative index with min, min is found by looping through the whole array per iterative index)`
 
@@ -15,7 +15,7 @@ const selectionSort = (arr) => {
         minIndex = j;
       }
     }
-    if (minIndex !== i) {
+    if (minIndex !== i) { //if there was no new minimum, we dont need to swap
       [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
     }
   }

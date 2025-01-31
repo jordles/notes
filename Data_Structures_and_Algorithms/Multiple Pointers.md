@@ -14,7 +14,7 @@ Sorting is required if were comparing adjacent values.
 * [Write a function to check if there are duplicates in the arguments for the function](#are-there-duplicates)
 * [White a function that determines if there is a pair of values in the sorted array where the average of the pair equals the target value](#average-pair)
 * [Write a function that takes in two strings and checks whether the characters in the first string form a subsequence of the characters in the second string (in order)](#is-subsequence)
-## Count Unique Values
+## Count Unique Values (array is assumed to be sorted)
 ```js
 // O(n) i and j are our pointers
 function countUniqueValues(arr){
