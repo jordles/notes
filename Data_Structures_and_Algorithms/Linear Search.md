@@ -24,7 +24,7 @@ function linearSearch(arr, search, i = 0){
 ```js
 // using a flag / pointer
 function linearSearch(arr, val) {
-  let index = -1; // Default to -1
+  let index = -1; // Default to -1; base case for when value is not found
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === val) {
       index = i;
