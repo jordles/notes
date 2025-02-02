@@ -26,7 +26,7 @@ Algorithms sometimes involve time complexity which uses [Logarithms](../Logarith
 | [Bubble Sort](<Bubble Sort.md>) | a sorting algorithm that sorts an array by repeatedly swapping adjacent elements if they are in the wrong order. The running time is quadratic. | O(n<sup>2</sup>);  O(n) if most of the array is already sorted| O(1) |
 | [Insertion Sort](<Insertion Sort.md>) | a sorting algorithm that sorts an array by repeatedly inserting elements into their correct position. The running time is quadratic. | O(n<sup>2</sup>);  O(n) if most of the array is already sorted | O(1) |
 | [Merge Sort](<Merge Sort.md>) | a sorting algorithm that divides the array into two halves, recursively sorts each half, and then merges them back together. The running time is linear. | O(n log n) | O(n) |
-| [Quick Sort](<Quick Sort.md>) | a sorting algorithm that partitions the array into two subarrays and sorts them recursively. The running time is quadratic. | O(n log n) | O(log n) |
+| [Quick Sort](<Quick Sort.md>) | a sorting algorithm that partitions the array into two subarrays and sorts them recursively. The running time is quadratic. | O(n log n) O(n^2) if sorted already| O(log n) |
 
 
 ## Interview Questions
