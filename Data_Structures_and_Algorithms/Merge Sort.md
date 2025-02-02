@@ -3,13 +3,12 @@
 A sorting algorithm that divides the array into two halves, recursively sorts each half, and then merges them back together. The running time is linear.
 
 Pseudocode:
-```
 * Create an empty array, take a look at the smallest values in each input array.
 * While there are still values we haven't looked at...
   * If the current value in the left array is smaller than current value in the right array, push the current value in the left array into our results and move on to the next value in the left array.
   * Otherwise, push the current value in the right array into our results and move on to the next value in the right array.
 * After we run out of values in either array, push all the remaining values from the other array into our results.
-```
+
 ```js
 function merge(left, right){ //uses the multiple pointers pattern
   let result = [];
