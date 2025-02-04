@@ -49,7 +49,7 @@ Partition / Pivot Pseudocode:
 * Loop through the array from the start until the end
   * If the pivot is greater than the current element, increment the pivotIndex variable and then swap the current element with the element at the pivot index
 * Swap the pivot with the pivot index
-* Return the pivot index
+* Return the pivot index 
 
 ```js
 function pivot(arr, start = 0, end = arr.length - 1) {
@@ -57,8 +57,8 @@ function pivot(arr, start = 0, end = arr.length - 1) {
   let pivotIndex = start;
   for(let i = start + 1; i <= end; i++){
     if(arr[i] < pivot){
-      [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]]
       pivotIndex ++;
+      [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]]
     }
   }
   [pivot, arr[pivotIndex]] = [arr[pivotIndex], pivot];
