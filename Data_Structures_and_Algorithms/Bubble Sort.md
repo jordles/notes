@@ -9,8 +9,8 @@ Its called a bubble sort because we bubble the largest element (or smallest elem
 // O(n^2)
 function bubbleSort(arr) {
   let swapped = false;
-  for(let i = 0; i < arr.length; i++){
-    for(let j = 0; j < arr.length - i - 1; j++){
+  for(let i = 0; i < arr.length - 1; i++){ // remember we dont need to check the last element because its already sorted
+    for(let j = 0; j < arr.length - i - 1; j++){ 
       if(arr[j] > arr[j+1]){
         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         swapped = true;
