@@ -17,6 +17,7 @@ Quick Sort Pseudocode:
 * When the helper returns to you the updated pivot index, recursively call the pivot helper on the subarray to the left of that index, and the subarray to the right of that index.
 
 ```js
+// in place sort, time: O(nlogn) space: O(logn)
 // multiple pointers and sliding window pattern
 function quickSort(arr){
   let index = pivot(arr);
@@ -51,7 +52,22 @@ Partition / Pivot Pseudocode:
 * Swap the pivot with the pivot index
 * Return the pivot index 
 
+
+**Lomuto's partition scheme** - the pivot is always the first/last element  
+**Hoare's partition scheme** - the pivot is always somewhere in the middle, and uses two pointers
+
+| Feature | Lomuto (Swap to End/Front) | Hoare (Keep Pivot in Middle) |
+| --- | --- | --- |
+| Pivot Handling | Swaps random pivot to end or front| Leaves pivot in place | 
+| Partitioning Method	| Uses a single i pointer | Uses two pointers (i, j) |
+| Efficiency | Slightly slower (more swaps) | More efficient (fewer swaps) |
+| Index Returned | Final pivot position | Not necessarily the final pivot position |
+
+If you want simple, readable code → Lomuto (swap pivot to edge of array)  
+If you want fewer swaps and better performance → Hoare (keep pivot in place)
+
 ```js
+// Lomuto
 function pivot(arr, start = 0, end = arr.length - 1) {
   let pivot = arr[start];
   let pivotIndex = start;
@@ -63,5 +79,53 @@ function pivot(arr, start = 0, end = arr.length - 1) {
   }
   [pivot, arr[pivotIndex]] = [arr[pivotIndex], pivot];
   return pivotIndex;
+}
+```
+
+```js
+// Hoare
+function hoarePartition(arr, start = 0, end = arr.length - 1) {
+  let pivotIndex = Math.floor((start + end) / 2); //let pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
+  let pivotValue = arr[pivotIndex]; // Store pivot value
+
+  let i = start - 1;
+  let j = end + 1;
+
+  while (true) {
+    do { i++; } while (arr[i] < pivotValue); // Move i forward
+    do { j--; } while (arr[j] > pivotValue); // Move j backward
+
+    if (i >= j) return j; // When indices cross, return partition index
+
+    [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
+  }
+}
+```
+
+Alternatives: 
+
+```js
+//simple time complexity: O(nlogn) space complexity: O(n)
+function quicksort(arr) {
+    if (arr.length <= 1) {
+        return arr; // Base case: already sorted
+    }
+
+    let pivot = arr[arr.length - 1]; // Choosing the last element as pivot
+
+    // Math.floor(Math.random() * arr.length); // Pick a random pivot index
+    let left = [];  // Elements smaller than pivot
+    let right = []; // Elements greater than pivot
+
+    for (let i = 0; i < arr.length - 1; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i]); // Elements smaller than pivot go here
+        } else {
+            right.push(arr[i]); // Elements greater than pivot go here
+        }
+    }
+
+    // Recursively sort left and right arrays, and combine them with pivot
+    return [...quicksort(left), pivot, ...quicksort(right)];
 }
 ```
