@@ -18,13 +18,6 @@ Quick Sort Pseudocode:
 
 ```js
 // in place sort, time: O(nlogn) space: O(logn)
-// multiple pointers and sliding window pattern
-function quickSort(arr){
-  let index = pivot(arr);
-  if(index - 1 > 0) quickSort(arr.slice(0, index));
-  if(index + 1 < arr.length) quickSort(arr.slice(index + 1));
-  return arr;
-}
 
 function quickSort(arr, start = 0, end = arr.length - 1){
   let index = pivot(arr, start, end);
@@ -80,6 +73,22 @@ function pivot(arr, start = 0, end = arr.length - 1) {
   [pivot, arr[pivotIndex]] = [arr[pivotIndex], pivot];
   return pivotIndex;
 }
+
+// with a comparitor function
+function pivot(arr, comparator = (a, b) => a - b, start=0, end=arr.length - 1){
+  // good luck!
+  let pivotValue = arr[start];
+  let pivotIndex = start;
+  for(let i = start + 1; i <= end; i++){
+      if(comparator(arr[i], pivotValue) < 0){ //if its negative then the current element is less than the pivotValue
+          pivotIndex++;
+          [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
+      }
+      
+  }
+  [arr[start], arr[pivotIndex]] = [arr[pivotIndex], arr[start]]
+  return pivotIndex;
+}
 ```
 
 ```js
@@ -99,6 +108,25 @@ function hoarePartition(arr, start = 0, end = arr.length - 1) {
 
     [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
   }
+}
+
+function hoarePartition(arr, low, high) {
+    let pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
+    let pivot = arr[pivotIndex];
+
+    let i = low;
+    let j = high;
+
+    while (true) {
+        while (arr[i] < pivot) i++;  // Move i right
+        while (arr[j] > pivot) j--;  // Move j left
+
+        if (i >= j) return j;  // Return partition index when pointers cross
+
+        [arr[i], arr[j]] = [arr[j], arr[i]];  // Swap misplaced elements
+        i++;  // Move `i` forward after swapping
+        j--;  // Move `j` backward after swapping
+    }
 }
 ```
 
