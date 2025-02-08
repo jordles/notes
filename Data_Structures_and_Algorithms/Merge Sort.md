@@ -2,6 +2,8 @@
 
 A sorting algorithm that divides the array into two halves, recursively sorts each half, and then merges them back together. The running time is linear.
 
+Because the way we split the array each time, when we merge them, we sort them in order from smallest to largest on each side (left and right) and then continue merging the two sorted arrays. 
+
 Pseudocode:
 * Create an empty array, take a look at the smallest values in each input array.
 * While there are still values we haven't looked at...

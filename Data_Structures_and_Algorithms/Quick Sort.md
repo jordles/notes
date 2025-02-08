@@ -49,12 +49,24 @@ Partition / Pivot Pseudocode:
 **Lomuto's partition scheme** - the pivot is always the first/last element  
 **Hoare's partition scheme** - the pivot is always somewhere in the middle, and uses two pointers
 
+**For random pivot:**
+
 | Feature | Lomuto (Swap to End/Front) | Hoare (Keep Pivot in Middle) |
 | --- | --- | --- |
 | Pivot Handling | Swaps random pivot to end or front| Leaves pivot in place | 
 | Partitioning Method	| Uses a single i pointer | Uses two pointers (i, j) |
 | Efficiency | Slightly slower (more swaps) | More efficient (fewer swaps) |
 | Index Returned | Final pivot position | Not necessarily the final pivot position |
+
+In Hoare’s partition, the pivot does not necessarily end up in its final sorted position after partitioning. Instead, it simply divides the array into two parts where:
+
+* Left part: Elements are ≤ pivot
+* Right part: Elements are ≥ pivot
+
+Because of this:
+
+* The returned index is not necessarily the pivot’s final position.
+* It is safe to include it in the left partition because we haven't "locked in" the pivot's exact position. This is not the case for lomuto. 
 
 If you want simple, readable code → Lomuto (swap pivot to edge of array)  
 If you want fewer swaps and better performance → Hoare (keep pivot in place)
@@ -93,25 +105,31 @@ function pivot(arr, comparator = (a, b) => a - b, start=0, end=arr.length - 1){
 
 ```js
 // Hoare
-function hoarePartition(arr, start = 0, end = arr.length - 1) {
-  let pivotIndex = Math.floor((start + end) / 2); //let pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
-  let pivotValue = arr[pivotIndex]; // Store pivot value
+function quickSort(arr, start = 0, end = arr.length - 1) {
+    if (start < end) {
+        let pivotIndex = hoarePartition(arr, start, end);
+        quickSort(arr, start, pivotIndex);
+        quickSort(arr, pivotIndex + 1, end);
+    }
+}
 
-  let i = start - 1;
-  let j = end + 1;
+function hoarePartition(arr, start, end) {
+    let pivot = arr[Math.floor(Math.random() * (end - start + 1)) + start]; //Math.floor((start + end) / 2)
+    let i = start - 1;
+    let j = end + 1;
 
-  while (true) {
-    do { i++; } while (arr[i] < pivotValue); // Move i forward
-    do { j--; } while (arr[j] > pivotValue); // Move j backward
+    while (true) {
+        do { i++; } while (arr[i] < pivot); // Move i forward until we find a value ≥ pivot
+        do { j--; } while (arr[j] > pivot); // Move j backward until we find a value ≤ pivot
 
-    if (i >= j) return j; // When indices cross, return partition index
+        if (i >= j) return j; // Return partition index
 
-    [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
-  }
+        [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap values to keep partition correct
+    }
 }
 
 function hoarePartition(arr, low, high) {
-    let pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
+    let pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low; //adding the low offsets the random number by the low index
     let pivot = arr[pivotIndex];
 
     let i = low;
