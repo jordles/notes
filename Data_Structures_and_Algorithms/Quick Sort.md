@@ -92,7 +92,7 @@ function pivot(arr, comparator = (a, b) => a - b, start=0, end=arr.length - 1){
   let pivotValue = arr[start];
   let pivotIndex = start;
   for(let i = start + 1; i <= end; i++){
-      if(comparator(arr[i], pivotValue) < 0){ //if its negative then the current element is less than the pivotValue
+      if(comparator(arr[i], pivotValue) < 0){ //if it's negative then the current element is less than the pivotValue
           pivotIndex++;
           [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
       }
