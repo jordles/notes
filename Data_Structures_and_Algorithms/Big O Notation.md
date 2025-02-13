@@ -18,9 +18,15 @@ We usually look for:
 * 2 loops => O(n<sup>2</sup>)
 
 ---
-Our five most common run time complexities ranging from fast to slow are:
-O(1) => O(log n) => O(n) => O(n log n) => O(n<sup>2</sup>) => O(2n!)
+Our **five most common** run time complexities ranging from fast to slow are:
+O(1) => O(log n) => O(n) => O(n log n) => O(n<sup>2</sup>) => O(2n!)  
 
+
+O(d) depends on the number of digits in a number (which is usually much smaller).  
+O(n) depends on the number of elements in an array (which is usually larger).
+
+
+O(log k) is logarithmic time. If the largest number in the array is k, the number of digits d is about log₁₀(k). This means d = O(log k) and can be written as so. 
 ---
 
 O(1) is constant time, and will always be the standard for the best case run time of an algorithm because it performs the same regardless of the number of operations. Some examples include accessing a single element in an array through an index. The graph will be a straight flat line.
