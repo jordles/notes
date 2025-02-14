@@ -28,7 +28,7 @@ Algorithms sometimes involve time complexity which uses [Logarithms](../Logarith
 | [Merge Sort](<Merge Sort.md>) | a sorting algorithm that divides the array into two halves, recursively sorts each half, and then merges them back together. The running time is linear. | O(n log n) | O(n) |
 | [Quick Sort](<Quick Sort.md>) | a sorting algorithm that partitions the array into two subarrays and sorts them recursively. The running time is quadratic. | O(n log n) O(n^2) if sorted already| O(log n) |
 | [Heap Sort](<Heap Sort.md>) | a sorting algorithm that uses a heap data structure to sort an array. The running time is linear. | O(n log n) | O(1) |
-| [Radix Sort](<Radix Sort.md>) | a integer sorting algorithm that sorts an array by digit/numbers instead of using a comparison. The running time is linear. | O(d(n+k)) | O(n+k) |
+| [Radix Sort](<Radix Sort.md>) | a integer sorting algorithm that sorts an array by digit/numbers instead of using a comparison. The running time is linear. | O(n * d) ~ O(n * k) | O(n+k) |
 
 
 ## Interview Questions

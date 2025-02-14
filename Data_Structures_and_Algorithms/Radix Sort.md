@@ -15,15 +15,17 @@ Pseudocode:
 
 
 ```js
+// time: O(n * d -> n numbers in arr * d digits) can also be O(n log n) if the data is unique and randomly distributed
+// space: O(n + k -> arr + buckets)
 function radixSort(arr) {
-  for(let k = 0; k < mostDigits(arr); k++){
-    let digitBuckets = Array.from({length: 10}, () => []);
-    for(let num of arr){
+  for(let k = 0; k < mostDigits(arr); k++){ //represents the d digits of a number
+    let digitBuckets = Array.from({length: 10}, () => []); //an array of 10 empty arrays (k bucket size)
+    for(let num of arr){ //represents the n numbers in our array we have to compare 
       digitBuckets[getDigit(num, k)].push(num);
     }
-    arr = [].concat(...digitBuckets);
+    arr = [].concat(...digitBuckets); // array stores the original values (n)
   }
-  return num;
+  return arr;
 }
 ```
 -----------------------------------------------------------------------------------------------------------
