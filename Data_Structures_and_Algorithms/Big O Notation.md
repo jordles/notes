@@ -26,8 +26,19 @@ O(d) depends on the number of digits in a number (which is usually much smaller)
 O(n) depends on the number of elements in an array (which is usually larger).
 
 
-O(log k) is logarithmic time. If the largest number in the array is k, the number of digits d is ≈ log₁₀(k). This means d = O(log k) and can be written as so.
- 
+O(log k) is logarithmic time. If the largest number in the array is k, the number of digits d is ≈ log₁₀(k = max number) or d=⌊log₁₀X⌋+1 (but since 1 is just a constant we ignore it in notation). This means d = O(log k) and can be written as so 
+
+**ONLY WHEN THE LARGEST NUMBER IS CLOSE TO THE NUMBER OF ELEMENTS IN THE ARRAY. **
+
+For example: 
+```
+arr = [7, 12, 32, 5, 19] // 5 numbers
+
+Largest number: 32
+Digits in 32: d = log₁₀(32) ≈ 2
+Radix Sort Time: O(5 × 2) = O(10)
+```
+
 ---
 
 O(1) is constant time, and will always be the standard for the best case run time of an algorithm because it performs the same regardless of the number of operations. Some examples include accessing a single element in an array through an index. The graph will be a straight flat line.
