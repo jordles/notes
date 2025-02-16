@@ -26,9 +26,9 @@ O(d) depends on the number of digits in a number (which is usually much smaller)
 O(n) depends on the number of elements in an array (which is usually larger).
 
 
-O(log k) is logarithmic time. If the largest number in the array is k, the number of digits d is ≈ log₁₀(k = max number) or d=⌊log₁₀X⌋+1 (but since 1 is just a constant we ignore it in notation). This means d = O(log k) and can be written as so 
+O(log k) is logarithmic time. If the largest number in the array is k, the number of digits d is ≈ log₁₀(k = max/largest number) or d=⌊log₁₀X⌋+1 (but since 1 is just a constant we ignore it in notation). This means d = O(log n) and can be written as so **ONLY WHEN THE LARGEST NUMBER IS CLOSE TO THE NUMBER OF ELEMENTS IN THE ARRAY (in terms of the number of digits). max number ≈ n**
 
-**ONLY WHEN THE LARGEST NUMBER IS CLOSE TO THE NUMBER OF ELEMENTS IN THE ARRAY. **
+**Once n is large enough (~100 or more) and the largest number is close to n, then d follows log₁₀(n).**
 
 For example: 
 ```

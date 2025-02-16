@@ -1856,6 +1856,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       slice is also similar to <code>.substring(startIndex, endIndex (but doesnt include the endIndex))</code> except that if start > stop, it will swap its arguments, for slice this will return an empty string. If either argument is negative or NaN, it is treated as 0. 
     </li>
     <li><code>.at(index)</code> - returns the element at the given index, works with negative numbers</li>
+    <!-- ------------------------- COPYING ARRAYS -------------------------- -->
     <p>Creating new arrays / copying arrays</p>
     <li><code>var = []</code> - Using Literal Syntax</li>
     <li><code>var = new Array()</code> - using constructor (the 'new' is optional), if only one number is given, it will create that number of undefined elements in the array. You can then use <code>arr.fill(element, {position start}, {position end})</code> to fill the rest of the array with elements</li>
@@ -1873,6 +1874,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         }
       </pre>
     </li>
+    <li><code>[].concat(...arr)</code> - great for copying nested arrays since concat is a function that takes in the spreaded nested arrays and concats each of them</li>
+    <!-- ------------------------------- -- -------------------------------- -->
     <hr>
     <li><code>arr.indexOf("")</code> => check for a presence of an element in the array and return its index, return -1 if element is not found</li>
     <li><code>arr.includes(elem, index)</code> => return true or false if the elem is found (optional: search at the index specifically)</li>
