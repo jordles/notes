@@ -25,7 +25,7 @@ A non-linear data structure that models relationships between objects. It consis
 ![](https://dkq85ftleqhzg.cloudfront.net/algo_book/images/graphs/graph_10b.png)
 
 ```js
-// using objects
+// using objects (adjacency list)
 class Graph{
   constructor(){
     this.adjacencyList = {};

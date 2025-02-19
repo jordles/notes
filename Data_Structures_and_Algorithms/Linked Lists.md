@@ -1,4 +1,6 @@
 # Linked Lists
+[Singly Linked Lists](#singly-linked-lists)  
+[Doubly Linked Lists](#doubly-linked-lists)
 ***
 ## Singly Linked Lists
 

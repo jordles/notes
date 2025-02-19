@@ -124,7 +124,7 @@ function hoarePartition(arr, start, end) {
 
         if (i >= j) return j; // Return partition index
 
-        [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap values to keep partition correct
+        [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap values to keep partition correct (in this case less than pivot on left, greater than pivot on right)
     }
 }
 
