@@ -1,4 +1,7 @@
 # Linked Lists
+
+A data structure that contains a head, tail, and length property. Linked Lists consist of nodes, each node contains a value and a pointer/reference to the next node.
+
 [Singly Linked Lists](#singly-linked-lists)  
 [Doubly Linked Lists](#doubly-linked-lists)
 ***
@@ -41,7 +44,7 @@ class LinkedList{
     }
     let current = this.head;
     let newTail = current;
-    while(current.next){ // we have to start from the head, since we can only traverse a singly linked list backwards
+    while(current.next){ // we have to start from the head, since we can't only traverse a singly linked list backwards
       newTail = current;
       current = current.next;
     }
