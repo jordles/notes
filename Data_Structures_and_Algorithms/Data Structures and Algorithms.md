@@ -63,7 +63,7 @@ Array of Linked Lists - when you search, its slower than arrays, but its faster 
 | Read/Access (read by index or order of position) | O(1) | O(n) | O(1) |
 | Searching (looking for the value itself)| O(n) | O(n) | O(n)(by value) O(1) (by key) |
 | Insert | O(n) | O(1) | O(1) |
-| Delete | O(n) | O(1) | O(1) |
+| Delete | O(n) | O(1) or O(n) for deleting by end (singly linked list) | O(1) |
 
 With Arrays its easier to read because you can just access the element by its index allowing random access, rather than sequential access (which is where we need to sequentially access each node).
 

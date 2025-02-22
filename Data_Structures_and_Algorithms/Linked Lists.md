@@ -23,6 +23,14 @@ class LinkedList{
     this.length = 1;
   }
 
+  /** also viable
+   * constructor(val){
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+   */
+
   push(val){
     const node = new ListNode(val);
     if(!this.head){
@@ -103,6 +111,17 @@ class LinkedList{
     return current;
   }
 
+  search(val){
+    let current = this.head;
+    while(current){
+        if(current.value === val){
+            return current;
+        }
+        current = current.next;
+    }
+    return null;
+  }
+
   set(index, val){
     let node = this.get(index);
     if(node){
@@ -128,6 +147,24 @@ class LinkedList{
     temp.next = node;
     this.length++;
     return;
+  }
+
+  remove(index){
+    if(index < 0 || index >= this.length){
+      return 'index out of range';
+    }
+    if(index === 0){
+      return this.shift();
+    }
+    if(index === this.length - 1){
+      return this.pop();
+    }
+    const prevNode = this.get(index - 1);
+    const node = prevNode.next;
+    prevNode.next = node.next;
+    node.next = null;
+    this.length--;
+    return node;
   }
 
 
