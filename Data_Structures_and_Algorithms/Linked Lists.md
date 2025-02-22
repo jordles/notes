@@ -1,6 +1,6 @@
 # Linked Lists
 
-A data structure that contains a head, tail, and length property. Linked Lists consist of nodes, each node contains a value and a pointer/reference to the next node.
+A data structure that contains a head, tail, and length property. Linked Lists consist of nodes, each node contains a value and a pointer/reference to the next node. 
 
 [Singly Linked Lists](#singly-linked-lists)  
 [Doubly Linked Lists](#doubly-linked-lists)
