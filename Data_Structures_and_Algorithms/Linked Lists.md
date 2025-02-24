@@ -20,7 +20,7 @@ class LinkedList{
   constructor(val){
     this.head = new ListNode(val);
     this.tail = this.head;
-    this.length = 1;
+    this.length = 1; //recall that length doesnt account for 0 since we start at 1
   }
 
   /** also viable
@@ -203,7 +203,34 @@ class LinkedList{
     }
     return this;
 
-  }
+    }
+
+    // rotate(num){ //rotates the linked list but doesn't account for other scenarios and is not efficient when num passes the length of the linked list
+    //   if(!this.head || !this.head.next){
+    //     return this;
+    //   }
+    //   for(let i = 0; i < num; i++){
+    //     this.push(this.shift());
+    //   }
+    //   return this;
+    // }
+
+    rotate(num) {
+    var trueN = ((num % this.length) + this.length) % this.length; // calculate the effective number of rotations needed
+    if (trueN === 0 || this.length < 2) return this; // if no rotation is needed or list is too short, return the list as is
+    var count = 0;
+    var cur = this.tail;
+    this.tail.next = this.head; // connect the tail to the head to make it circular
+    while (count < trueN) { // move the cur pointer to the new tail position
+      cur = cur.next;
+      count++;
+    }
+    this.tail = cur; // set the new tail
+    this.head = cur.next; // set the new head
+    this.tail.next = null; // break the circular connection
+    return this;
+    }
+  ```
 }
 
 ```
