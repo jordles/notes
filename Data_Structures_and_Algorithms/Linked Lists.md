@@ -216,21 +216,19 @@ class LinkedList{
     // }
 
     rotate(num) {
-    var trueN = ((num % this.length) + this.length) % this.length; // calculate the effective number of rotations needed
-    if (trueN === 0 || this.length < 2) return this; // if no rotation is needed or list is too short, return the list as is
-    var count = 0;
-    var cur = this.tail;
-    this.tail.next = this.head; // connect the tail to the head to make it circular
-    while (count < trueN) { // move the cur pointer to the new tail position
-      cur = cur.next;
-      count++;
+      let trueN = ((num % this.length) + this.length) % this.length; // calculate the effective number of rotations needed, the extra calculations are to handle negative numbers
+      if (trueN === 0 || this.length < 2) return this; // if no rotation is needed or list is too short, return the list as is
+      let current = this.tail;
+      this.tail.next = this.head; // connect the tail to the head to make it circular
+      for(let i = 0; i < trueN; i++){
+        current = current.next;
+      }
+    
+      this.tail = current; // set the new tail
+      this.head = current.next; // set the new head
+      this.tail.next = null; // break the circular connection
+      return this;
     }
-    this.tail = cur; // set the new tail
-    this.head = cur.next; // set the new head
-    this.tail.next = null; // break the circular connection
-    return this;
-    }
-  ```
 }
 
 ```
@@ -254,6 +252,14 @@ class DoublyLinkedList{
     this.length = 1;
   }
 
+  /**
+   * constructor(){
+   *   this.head = null;
+   *   this.tail = null;
+   *   this.length = 0;
+   * }
+  */
+ 
   push(val){
     const node = new ListNode(val);
     if(!this.head){

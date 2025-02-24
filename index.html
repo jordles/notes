@@ -4397,7 +4397,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <li>Go to nodejs.org/en and download</li>
         <li>go to terminal and check the versions of node and npm with commands <code>node -v</code> and <code>npm -v</code></li>
         <li><code>npm init -y</code> - initialize the node project</li>
-        <li><code>const http = require('http') / import http from 'http'</code> - import http module </li>
+        <li><code>const http = require('http') / import http from 'http'</code> - import http module, allows node to transfer data over the HTTP protocol</li>
         <li><code>http.createServer((req, res) => ).listen(3000)</code> - create a server with the http module with the http module and listen on port 3000</code></li>
         <pre> Response object allows us to set the HTTP status code, headers, content, and more. We use the url property to create different endpoints, but this can be simplified with express routes. 
           http
@@ -4438,7 +4438,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <li><code>app.listen()</code> - starts the server by telling it what port to listen on; this is similar to node's built in http module's createServer() method</li>
       <li><code>npm i -D nodemon</code> - nodemon can be used to auto restart the server, but also we can use <code>node --watch {file}.js</code> (which is still experimental atm) which uses the watch flag</li>
       <li><code>npm i express</code> - installs express</li>
-      <li><code>npm i dotenv</code> <code>import "dotenv/config"</code>- installs dotenv; this allows us to use environment variables</li>
+      <li><code>npm i dotenv</code> <code>import "dotenv/config"</code> <code>require('dotenv').config()</code> - installs dotenv; this allows us to use environment variables (our .env file)</li>
       <li><code>.gitignore</code> - ignore the node_modules and .env files</li>
     </ul>
   </li>
