@@ -2,13 +2,11 @@
 
 ## Frontend
 
-## Backend
+## Backend (Creating our own API)
 * [Node.js](#node-js)
 * [Express.js](#express-js)
 
-Remember to:
 
-.gitignore node_modules .env
 ---
 ## Node JS
 [PerScholas Node](https://www.canva.com/design/DAFrioYleHo/n00cM_6gH8OdQXpaAxUrrA/edit)  
@@ -17,6 +15,11 @@ Remember to:
 
 *NPM (Node Package Manager) allows us to install and manage dependencies and packages, listed under package.json and located in the node_modules folder*
 
+**Remember to:**
+
+* `.gitignore` -> node_modules .env  
+* `"type": "module"` in package.json to use es modules when importing
+* `"dev": "nodemon"` in package.json to run nodemon for index.js (assuming your main attribute(entry point) on package.json is "index.js")
 # Installation
 [Node Download](https://nodejs.dev/en/download/) or the command `winget install OpenJS.NodeJS` on powershell admin
 

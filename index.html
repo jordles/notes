@@ -4459,7 +4459,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
           <li><code>handler = (req,res) => res.send()</code> - function executed when the route is matched</li>
         </ul>
       </li>
-      <li><code>express.static()</code> - serves static files; great for linking to static files; creates a static server for static files</li>
+      <li><code>express.static(rootDirectory, options)</code> - serves static files (images, css, js); great for linking to static files; creates a static server for static files</li>
       <li><code>express.urlencoded({extended: true})</code> - (form data) parses incoming requests with URL-encoded payloads, typically from HTML form submissions or bodies with the <code>content-type</code> of application/x-www-form-urlencoded into a javascript object and assigns to the req.body. If you use extended true, rich objects and arrays are also encoded.</li>
       <li><code>express.json({extended: true})</code> - (object data) parses body as JSON and assigns it to the req.body. This is good for bodies with a <code>content-type</code> of application/json. </li>
       <li><code>res.send()</code> - sends a response to the client</li>
@@ -4467,6 +4467,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <li><code>res.json()</code> - sends a json response to the client</li>
       <li><code>res.redirect()</code> - sends a redirect response to the client</li>
       <li><code>res.status()</code> - sets the status code of the response</li>
+      <li><code>res.render()</code> - renders a view to the client</li>
     </ul>
   </li>
   <ul>
@@ -4483,7 +4484,14 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <li><code>handler = (req,res) => res.send()</code> - function executed when the route is matched</li>
       </ul>
     </li>
-    <li><code>app.route()</code> - defines a route, allowing us to chain route handlers. This basically defines the route first then pair the type of the request with the handler parameters. </li>
+    <li><code>app.route()</code> - defines a route, allowing us to chain route handlers. This basically defines the route first then pair the type of the request with the handler parameters. 
+      <pre>
+        app.route('/learner')
+        .get((req, res) => res.send('Learner'))
+        .post((req, res) => res.send('Learner')) 
+        .put((req, res) => res.send('Learner'))
+      </pre>
+    </li>
     <li>Response status, headers, or end-call is set to default or other automatic values by node or express.</li>
     <li>We can create multiple types of request routes at the same endpoint</li>
   </ul>
@@ -4513,7 +4521,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <li>Call the next piece of middleware in the stack</li>
     </ul>
     <ul>
-      <li><code>app.use(middleware)</code> - load in our middleware</li>
+      <li><code>app.use(middleware)</code> - load in our middleware, this includes express routes using express's Router middleware</li>
       <li><code>const middleware = (req, res, next) => { ... next()}</code> - this is our middleware function, remember that order matters in middleware. So whatever is loaded into the application will be called first. Calling next method moves to the next function/middleware</li>
       <li>The middleware will not run properly if its called after the route handler.</li>
       <li>Middleware is useful for handling anything that needs to be repeated for every request-response cycle. </li>
@@ -4539,9 +4547,29 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </li>
     <li>Rendering View Templates - With Express, we can utilize a template engine similar to like an article in html to render dynamic templates to send to the client. Some template engines includes: Pug, Mustache, EJS
       <ul>
-        <li><code>app.engine(extension, callback)</code> -defines a template engine; extension is the file extension of the template, and the callback is the function that will render the template which accepts the location, options object, and the next() function</li>
+        <li><code>app.engine(extension, callback)</code> - defines a custom template engine; extension is the file extension of the template, and the callback is the function that will render the template which accepts the location, options object, and the next() function</li>
         <li><code>app.set('view engine', 'extension')</code> - sets the template engine</li>
         <li><code>app.render(location, options, callback)</code> - renders the template; location is the location of your template inside the views directory, and options is an object that defines your placeholders inside the template</li>
+
+        <pre>
+          app.engine("perscholas", (filePath, options, callback) => {
+            fs.readFile(filePath, (err, content) => {
+              if (err) return callback(err);
+          
+              // Here, we take the content of the template file,
+              // convert it to a string, and replace sections of
+              // it with the values being passed to the engine.
+              const rendered = content
+                .toString()
+                .replaceAll("#title#", `${options.title}`)
+                .replace("#content#", `${options.content}`);
+              return callback(null, rendered);
+            });
+          });
+          
+          app.set("views", "./views"); // specify the views directory
+          app.set("view engine", "perscholas"); // register the template engine
+        </pre>
       </ul>
     </li>
   </li>
@@ -4551,7 +4579,80 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   <p>Representational State Transfer (REST) is an architectural style for Application Programming Interfaces (APIs) that serves to provide guiding principles for building robust, scalable APIs. REST is used throughout the software industry, and is the standard for creating reliable web APIs. RESTful web APIs utilize HTTP methods to access resources via URL-encoded parameters, and send data in JSON (or XML) format.</p>
   <p>URIs - Uniform Resource Identifier are route paths known as resources (in the url) that are used to access data.</p>
 
+  <li>Principles of REST
+    <ul>
+      <li>Uniform Interface</li>
+      <li>Client-Server</li>
+      <li>Stateless</li>
+      <li>Cacheable</li>
+      <li>Layered System</li>
+      <li>Code on Demand</li>
+    </ul>
+  </li>
 
+  <li>Uniform Interface
+    <ul>
+      <li>Resource identification through requests</li>
+      <li>Resource manipulation through representations</li>
+      <li>Self-descriptive messages</li>
+      <li>Hypermedia (links) as the engine of application state. </li>
+      <li>HATEOAS - Hypermedia as the engine of application state; the final component of the RESTful uniform interface. It basically is a guide for the client to navigate and interact with the API by listing out all the available actions that can be performed on the resource</li>
+    </ul>
+  </li>
+  
+  <li>Client-Server - enforces separation of concerns: the user interface is separate from data storage and manipulations. Portability and scalability for both server and client, without affecting each other. </li>
+  <li>Stateless - "State" is the current configuration of an application. A "stateless" API does not rely on that configuration in order to successfully operate. All application states must be kept by the client, not the server. </li>
+  <li>Cacheable - a resource is cacheable if it can be stored in a cache by the client, allowing the client to reuse that data until it expires and needs to be refreshed. Caching Data helps applications scale, as it completely eliminates the need for additional client-server interactions within a time period</li>
+  <li>Layered System - A layered system is a set of APIs that are organized into layers. Separate security layers also enable a service to enforce specific security policies
+  without the need to rewrite the functional application code or reroute the client to
+  different APIs</li>
+  <li>Code on Demand - This optional principle of RESTful APIs states that servers can extend client functionality by sending executable code, scripts, or applets for download and execution.</li>
+
+  <li>RESTful API uses the HTTP methods to create CRUD application:
+    <ul>
+      <li>Create: POST</li>
+      <li>Read: GET</li>
+      <li>Update: PUT</li>
+      <li>Delete: DELETE</li>
+    </ul>
+  </li>
+
+  <li>Advantages of REST
+    <ul>
+      <li>Scalability</li>
+      <li>Portability - the same API / server can be used in different environments</li>
+      <li>Data Structure - Most REST APIs use JSON, which makes data more compact, smaller file size, easier to read, easy to parse, more flexible, and safer than XML. </li>
+      <li>Integration - easy to integrate with other APIs</li>
+    </ul>
+  </li>
+
+  <li>Disadvantages of REST
+    <ul>
+      <li>API version control and endpoint reliability. If you tell a user that the "/todos/3" endpoint locates the todo resource with the ID 3, and then a later version changes this for some reason, that can cause issues. As the API grows and evolves, maintaining older versions until they are phased out can become cumbersome.</li>
+      <li>More Data than Necessary. Some REST responses will contain far more data than a client needs for their request, especially when adhering to HATEOAS.</li>
+      <li>False Sense of Security. The "layered architecture" approach leads some developers to believe that their data is safe by default. Applications still require encryption to avoid the exposure of sensitive data!</li>
+    </ul>
+  </li>
+
+  <h2>Difference between REST API and GraphQL API</h2>
+  <li>REST API = different urls and http verbs/methods for different actions
+    <ul>
+      <li>REST is an architectural style for building APIs</li>
+      <li>REST APIs are stateless, meaning that each request is independent of the others</li>
+      <li>REST APIs use HTTP methods to perform CRUD operations</li>
+      <li>REST APIs use URL paths to access resources</li>
+      <li>REST APIs use JSON or XML to send and receive data</li>
+    </ul>
+  </li>
+
+  <li>GraphQL API = single url and single http verb that performs all actions / query commands
+    <ul>
+      <li>GraphQL is a query language for APIs and a runtime for fetching data with it</li>
+      <li>GraphQL APIs use HTTP methods to perform CRUD operations</li>
+      <li>GraphQL APIs use GraphQL queries to access resources</li>
+      <li>GraphQL APIs use JSON or XML to send and receive data</li>
+    </ul>
+  </li>
 </fieldset>
 <fieldset id="mongodb">
   <legend>MongoDB</legend>
