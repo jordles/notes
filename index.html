@@ -4468,6 +4468,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
       <li><code>res.redirect()</code> - sends a redirect response to the client</li>
       <li><code>res.status()</code> - sets the status code of the response</li>
       <li><code>res.render()</code> - renders a view to the client</li>
+      <p>These response methods send a response back to the client and terminate the request-response cycle of the server and end the middleware chain</p>
     </ul>
   </li>
   <ul>
@@ -4484,12 +4485,42 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <li><code>handler = (req,res) => res.send()</code> - function executed when the route is matched</li>
       </ul>
     </li>
-    <li><code>app.route()</code> - defines a route, allowing us to chain route handlers. This basically defines the route first then pair the type of the request with the handler parameters. 
+    <li><code>app.route()</code> - defines a route, allowing us to chain route handlers. This basically defines the route first then pair the type of the request with the handler parameters. Note that using express.Router() makes these routes more modular but can you combine both of these methods on the modulated file. 
       <pre>
         app.route('/learner')
         .get((req, res) => res.send('Learner'))
         .post((req, res) => res.send('Learner')) 
         .put((req, res) => res.send('Learner'))
+      </pre>
+
+      <pre>
+        //one of the routes in the modular file
+        import express from 'express';
+        const router = express.Router();
+
+        router.route('/')
+          .get((req, res) => {
+            res.send('Get all users');
+          })
+          .post((req, res) => {
+            res.send('Create a new user');
+          });
+
+        export default router;
+
+        //in the main file
+
+        import express from 'express';
+        import usersRouter from './usersRouter.js';
+
+        const app = express();
+        const PORT = 3000;
+
+        app.use('/users', usersRouter);
+
+        app.listen(PORT, () => {
+          console.log(`Server running on port http://localhost:${PORT}`);
+        });
       </pre>
     </li>
     <li>Response status, headers, or end-call is set to default or other automatic values by node or express.</li>
@@ -4529,6 +4560,42 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li>Error Handling Middleware
       <ul>
         <li>Always takes in 4 arguments. You must specify the next method parameter, otherwise the next object will be interpreted as middleware and will fail to handle errors. </li>
+        <li>you need to pass an error to next() to go to the error handling middleware</li>
+      </ul>
+      <ul>
+        <li>Errors in Route Handlers / Middleware
+          <pre>
+            app.get('/error', (req, res, next) => {
+              const err = new Error('Something went wrong!');
+              next(err); // Pass the error to the error-handling middleware
+            });
+            app.use((req, res, next) => {
+              const err = new Error('Middleware error!');
+              next(err); // Pass the error to the error-handling middleware
+            });
+          </pre>
+        </li>
+        <li>Errors in Asynchronous Code (try catch block) or synchronous code
+          <pre>
+            app.get('/async-error', async (req, res, next) => {
+              try {
+                const result = await someAsyncFunction();
+                res.send(result);
+              } catch (err) {
+                next(err); // Pass the error to the error-handling middleware
+              }
+            });
+          </pre>
+        </li>
+        <li>Errors in Promises 
+          <pre>
+            app.get('/promise-error', (req, res, next) => {
+              somePromiseFunction()
+                .then(result => res.send(result))
+                .catch(err => next(err)); // Pass the error to the error-handling middleware
+            });
+          </pre>
+        </li>
       </ul>
     </li>
     <li>Third-Party Middleware - utilizing third-party middleware like the cookie-parser module. It is common to use pre-packaged modules to increase work efficiency. </li>
@@ -4601,12 +4668,27 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   </li>
   
   <li>Client-Server - enforces separation of concerns: the user interface is separate from data storage and manipulations. Portability and scalability for both server and client, without affecting each other. </li>
-  <li>Stateless - "State" is the current configuration of an application. A "stateless" API does not rely on that configuration in order to successfully operate. All application states must be kept by the client, not the server. </li>
-  <li>Cacheable - a resource is cacheable if it can be stored in a cache by the client, allowing the client to reuse that data until it expires and needs to be refreshed. Caching Data helps applications scale, as it completely eliminates the need for additional client-server interactions within a time period</li>
-  <li>Layered System - A layered system is a set of APIs that are organized into layers. Separate security layers also enable a service to enforce specific security policies
-  without the need to rewrite the functional application code or reroute the client to
-  different APIs</li>
-  <li>Code on Demand - This optional principle of RESTful APIs states that servers can extend client functionality by sending executable code, scripts, or applets for download and execution.</li>
+    <li>Stateless - "State" is the current configuration/information of an application. A "stateless" API does not rely on that configuration in order to successfully operate. All application states must be kept by the client, not the server. 
+      
+    This means the client's data/information is never needed to do operations its stored on the client side but can be called by the server, so each request must contain all the information necessary to understand and process the request.</li>
+    <li>Cacheable - a resource is cacheable if it can be stored in a cache by the client, allowing the client to reuse that data until it expires and needs to be refreshed. Caching Data helps applications scale, as it completely eliminates the need for additional client-server interactions within a time period</li>
+    <li>Layered System - A layered system is a set of APIs that are organized into layers. Separate security layers also enable a service to enforce specific security policies without the need to rewrite the functional application code or reroute the client to different APIs. It means making our logic more modular and easier to reuse and maintain (separation of concerns).</li>
+    <li>Code on Demand - This optional principle of RESTful APIs states that servers can extend client functionality by sending executable code, scripts, or applets for download and execution.
+
+      <pre>
+        //server
+        app.get('/code-on-demand', (req, res) => {
+          res.sendFile(path.join(__dirname, 'client-script.js'));
+        });
+
+        //client
+        document.getElementById('loadScript').addEventListener('click', () => {
+          const script = document.createElement('script');
+          script.src = '/code-on-demand';
+          document.body.appendChild(script);
+        });
+      </pre>
+    </li>
 
   <li>RESTful API uses the HTTP methods to create CRUD application:
     <ul>

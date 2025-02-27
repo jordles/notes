@@ -74,10 +74,13 @@ Express Routers allow us to create multiple types of request routes at the same 
 
 # Installation
 
+# Setup
+* `npm init -y` - initialize a node project with default settings
 * `npm i express` - installs express
 * `npm i dotenv` - installs dotenv
+* `npm i -D nodemon` - nodemon can be used to auto restart the server
 
-# Setup
+---
 
 * `import 'dotenv/config'` - imports dotenv
 

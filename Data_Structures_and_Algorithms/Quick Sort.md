@@ -74,15 +74,14 @@ If you want fewer swaps and better performance → Hoare (keep pivot in place)
 ```js
 // Lomuto
 function pivot(arr, start = 0, end = arr.length - 1) {
-  let pivot = arr[start];
   let pivotIndex = start;
   for(let i = start + 1; i <= end; i++){
-    if(arr[i] < pivot){
+    if(arr[i] < arr[start]){
       pivotIndex ++;
       [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]]
     }
   }
-  [pivot, arr[pivotIndex]] = [arr[pivotIndex], pivot];
+  [arr[start], arr[pivotIndex]] = [arr[pivotIndex], arr[start]];
   return pivotIndex;
 }
 
