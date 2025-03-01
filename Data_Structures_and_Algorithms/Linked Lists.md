@@ -100,6 +100,20 @@ class LinkedList{
     return node;
   }
 
+  // shift(){
+  //   if(!this.head) return null;
+    
+  //   let current = this.head;
+  //   this.head = this.head.next;
+  //   current.next = null;
+  //   this.length--; 
+  //   if(this.length == 0){
+  //       this.head = null;
+  //       this.tail = null;
+  //   }
+  //   return current; 
+  // }
+
   get(index){
     if(index < 0 || index >= this.length){
       return 'index out of range';
@@ -131,7 +145,7 @@ class LinkedList{
   }
 
   insert(index, val){
-    if(index < 0 || index > this.length){
+    if(index < 0 || index > this.length){ //recall that although index is 0 based and length is 1 based, we still can accept this.length itself, since insert is not bound by the limits of the linked list compared to remove. 
       return 'index out of range';
     }
     if(index === 0){
@@ -203,17 +217,17 @@ class LinkedList{
     }
     return this;
 
-    }
+  }
 
-    // rotate(num){ //rotates the linked list but doesn't account for other scenarios and is not efficient when num passes the length of the linked list
-    //   if(!this.head || !this.head.next){
-    //     return this;
-    //   }
-    //   for(let i = 0; i < num; i++){
-    //     this.push(this.shift());
-    //   }
-    //   return this;
-    // }
+  // rotate(num){ //rotates the linked list but doesn't account for other scenarios and is not efficient when num passes the length of the linked list
+  //   if(!this.head || !this.head.next){
+  //     return this;
+  //   }
+  //   for(let i = 0; i < num; i++){
+  //     this.push(this.shift());
+  //   }
+  //   return this;
+  // }
 
   rotate(num) {
     let trueN = ((num % this.length) + this.length) % this.length; // calculate the effective number of rotations needed, the extra calculations are to handle negative numbers
