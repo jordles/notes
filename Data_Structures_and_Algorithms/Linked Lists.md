@@ -201,19 +201,19 @@ class LinkedList{
   }
 
   reverse(){
-    //reverse the head and tail
-    const temp = this.head;
+    // Swap head and tail
+    let temp = this.head;
     this.head = this.tail;
     this.tail = temp;
 
-    // reverse the arrow direction of each node
+    // Reverse pointers
     let prev = null;
-    let current = temp;
-    while(current){ //current and temp follow each other
-      current = temp.next; // current moves to the next node
-      temp.next = prev; //original head gets the values of null initially
-      prev = temp; //the prev now becomes the next node, so our next node can point to the previous node
-      temp = current; // the original head now becomes the next node
+    let current = temp; // Start from the old head (which is stored in temp)
+    while (current) {
+        let next = current.next; // Store next node
+        current.next = prev; // Reverse pointer
+        prev = current; // Move prev forward
+        current = next; // Move current forward
     }
     return this;
 
@@ -344,14 +344,39 @@ class DoublyLinkedList{
     return node;
   }
 
+  // shift(){
+  //   if(!this.head) return undefined;
+  //   let current = this.head;
+  //   this.head = this.head.next;
+    
+  //   this.length--;
+  //   if(this.length === 0){
+  //       this.head = null;
+  //       this.tail = null;
+  //   }
+  //   else{
+  //       this.head.prev = null;
+  //   }
+  //   current.next = null;
+  //   return current;
+  // }
+
   get(index){
-    if(index < 0 || index >= this.length){
-      return 'index out of range';
+    if(index < 0 || index > this.length - 1) return null;
+    let current;
+    if(index < this.length / 2 - 1){
+        current = this.head;
+        for(let i = 0; i < index; i++){
+            current = current.next;
+        }
     }
-    let current = this.head;
-    for(let i = 0; i < index; i++){
-      current = current.next;
+    else{
+        current = this.tail;
+        for(let i = this.length - 1; i > index; i--){
+            current = current.prev;
+        }
     }
+    
     return current;
   }
 
@@ -416,6 +441,7 @@ class DoublyLinkedList{
       prev = current;
       current = next;
     }
+    this.tail = this.head; //swap head and tail
     this.head = prev;
     return this;
   }
