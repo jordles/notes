@@ -63,5 +63,5 @@ VALUES
 
 -- retrieving data from our table
 SELECT * FROM cities;
-SELECT area, name, name, country FROM cities;
+SELECT area, name, name, country FROM cities; 
 ```
