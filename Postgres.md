@@ -1,13 +1,16 @@
 # Postgres (PostgreSQL)
 
-
-
 Postgres is one of the most popular open source relational databases. It is a SQL database that supports ACID transactions and is written in C. It is also known as PostgreSQL.
 
 ## Overview Directory
 
-├── [operators](#operators)           
-└── [postgres snippets](#postgres-examples)
+├── [Keys](#keys)  
+├── [Relationships](#relationships)  
+├── [Operators](#operators)  
+├── [Functions](#functions)  
+├── [Data Types](#data-types)  
+├── [Queries](#queries)
+└── [Postgres Snippets](#postgres-examples)
 
 Important questions to ask?
 
@@ -16,6 +19,30 @@ Important questions to ask?
 3. Type of data for each of those properties?
 
 Postgres uses tables to store data.
+
+## Keys
+
+**Primary Keys** - Identifies unique rows in a table.  
+**Foreign Keys** - Identifies/references unique rows in another table. It helps us connect the data between tables. Usually 'many' side gets the foreign key column of the other tables. Foreign keys are always checked for consistency, and will return an error if they are not consistent (foreign key constraints). If we dont have a foreign key ready yet, the null value can be used to indicate this relationship does not exist yet.
+
+### When we try to delete a row that has a foreign key:
+
+1. **DELETE RESTRICT** => Throws an error.
+2. **DELETE NO ACTION** => Throw an error.
+3. **DELETE CASCADE** => Delete the row that has a foreign key.
+4. **DELETE SET NULL** => Set the foreign key column to null.
+5. **DELETE SET DEFAULT** => Set the foreign key column to the default value, if one is provided.
+
+Data Consistency - Data is consistent and line up with each other.
+
+## Relationships
+
+| Relationships | Description  |
+| ------------- | ------------ |
+| 1:1           | One-to-one   |
+| 1:N           | One-to-many  |
+| N:1           | Many-to-one  |
+| N:N           | Many-to-many |
 
 ## Operators
 
@@ -62,15 +89,20 @@ Postgres uses tables to store data.
 | RIGHT()                      | Get the rightmost characters of a string             |
 | REPEAT()                     | Repeat a string a certain number of times            |
 
-| Column Data Types             | Description                                                       |
-| ----------------------------- | ----------------------------------------------------------------- |
-| SERIAL                        | A number that is automatically incremented.                       |
-| PRIMARY KEY                   | A unique identifier for each row in a table.                      |
-| VARCHAR(length of max string) | A variable-length string.                                         |
-| INTEGER                       | A number. Limits are 2 billion for positive and negative numbers. |
-| BOOLEAN                       | A true or false value.                                            |
-| DATE                          | A date.                                                           |
-| TIMESTAMP                     | A date and time.                                                  |
+## Data Types
+
+| Column Data Types                  | Description                                                                                     |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| SERIAL                             | A number that is automatically incremented.                                                     |
+| PRIMARY KEY                        | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
+| REFERENCES                         | A foreign key, which is a reference to another table in the database.                           |
+| VARCHAR(length of max string: opt) | A variable-length string.                                                                       |
+| INTEGER                            | A number. Limits are 2 billion for positive and negative numbers.                               |
+| BOOLEAN                            | A true or false value.                                                                          |
+| DATE                               | A date.                                                                                         |
+| TIMESTAMP                          | A date and time.                                                                                |
+
+## Queries
 
 | SQL Queries     | Description                              |
 | --------------- | ---------------------------------------- |
@@ -85,12 +117,15 @@ Postgres uses tables to store data.
 | CREATE SCHEMA   | Create a schema in a database.           |
 | CREATE SEQUENCE | Create a sequence in a database.         |
 | ALTER           | Alter a database.                        |
-| DROP            | Delete a database.                       |
+| DROP TABLE      | Delete a database.                       |
 | AS              | Alias/name a database, column, row, etc. |
 | ─────────────── | ──────────────────────────────────────── |
 | FROM            | Specify the table or tables to select.   |
 | WHERE           | Filter data based on a condition.        |
 | SELECT          | Retrieve data from a database.           |
+| ─────────────── | ──────────────────────────────────────── |
+| JOIN            | Join data from multiple tables.          |
+| ON              | Specify the condition for joining tables |
 | ─────────────── | ──────────────────────────────────────── |
 | INSERT          | Insert data into a database.             |
 | INTO            | Specify the table to insert data into.   |
@@ -100,14 +135,19 @@ Postgres uses tables to store data.
 | SET             | Set a value in a database.               |
 | ─────────────── | ──────────────────────────────────────── |
 | DELETE          | Delete data from a database.             |
+| ─────────────── | ──────────────────────────────────────── |
+| ON DELETE       | Specify the action to take when deleting |
+| RESTRICT        | Delete the row if it has a foreign key   |
+| CASCADE         | Delete the row if it has a foreign key   |
+
 
 When interacting with a database, theres an order that SQL follows , **FROM => WHERE => SELECT** , so it checks the database source first, then the rows that fit the condition criteria, and finally the columns.
 
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
 
-
 ## Postgres Examples
+
 ```sql
 
 -- keywords  identifiers
@@ -177,4 +217,31 @@ UPDATE cities SET population = 39505000 WHERE name = 'Tokyo';
 ```sql
 -- deleting data in our table (delete does not return the deleted row or our data)
 DELETE FROM cities WHERE name = 'Tokyo';
+```
+
+```sql
+-- create table with primary keys
+CREATE TABLE users(id SERIAL PRIMARY KEY, name VARCHAR(50));
+
+-- create table with foreign keys
+CREATE TABLE photos(
+  id SERIAL PRIMARY KEY,
+  url VARCHAR(200),
+  user_id INTEGER REFERENCES users(id)
+);
+
+-- insert values with foreign keys
+INSERT INTO
+  photos (url, user_id)
+VALUES
+  ('https://one.jpg', 4);
+  ('http://two.jpg', 1),
+  ('http://25.jpg', 1),
+  ('http://36.jpg', NULL),
+  ('http://754.jpg', 2),
+  ('http://35.jpg', 3),
+  ('http://256.jpg', 4);
+
+-- retrieve data with foreign keys
+SELECT * FROM photos WHERE user_id = 4;
 ```
