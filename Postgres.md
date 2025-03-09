@@ -9,7 +9,7 @@ Postgres is one of the most popular open source relational databases. It is a SQ
 ├── [Operators](#operators)  
 ├── [Functions](#functions)  
 ├── [Data Types](#data-types)  
-├── [Queries](#queries)
+├── [Queries](#queries--actions)  
 └── [Postgres Snippets](#postgres-examples)
 
 Important questions to ask?
@@ -23,7 +23,7 @@ Postgres uses tables to store data.
 ## Keys
 
 **Primary Keys** - Identifies unique rows in a table.  
-**Foreign Keys** - Identifies/references unique rows in another table. It helps us connect the data between tables. Usually 'many' side gets the foreign key column of the other tables. Foreign keys are always checked for consistency, and will return an error if they are not consistent (foreign key constraints). If we dont have a foreign key ready yet, the null value can be used to indicate this relationship does not exist yet.
+**Foreign Keys** - Identifies/references unique rows in another table. It helps us connect the data between tables. Usually 'many' side gets the foreign key column of the other tables. Foreign keys are always checked for consistency, and will return an error if they are not consistent (foreign key constraints). Any action will be interrupted until the foreign key is consistent. If we dont have a foreign key ready yet, the null value can be used to indicate this relationship does not exist yet. You can specify delete behavior using
 
 ### When we try to delete a row that has a foreign key:
 
@@ -102,44 +102,45 @@ Data Consistency - Data is consistent and line up with each other.
 | DATE                               | A date.                                                                                         |
 | TIMESTAMP                          | A date and time.                                                                                |
 
-## Queries
+## Queries / Actions
 
-| SQL Queries     | Description                              |
-| --------------- | ---------------------------------------- |
-| CREATE          | Create a database.                       |
-| CREATE TABLE    | Create a table in a database.            |
-| CREATE INDEX    | Create an index in a database.           |
-| CREATE VIEW     | Create a view in a database.             |
-| CREATE FUNCTION | Create a function in a database.         |
-| CREATE TRIGGER  | Create a trigger in a database.          |
-| CREATE DOMAIN   | Create a domain in a database.           |
-| CREATE ROLE     | Create a role in a database.             |
-| CREATE SCHEMA   | Create a schema in a database.           |
-| CREATE SEQUENCE | Create a sequence in a database.         |
-| ALTER           | Alter a database.                        |
-| DROP TABLE      | Delete a database.                       |
-| AS              | Alias/name a database, column, row, etc. |
-| ─────────────── | ──────────────────────────────────────── |
-| FROM            | Specify the table or tables to select.   |
-| WHERE           | Filter data based on a condition.        |
-| SELECT          | Retrieve data from a database.           |
-| ─────────────── | ──────────────────────────────────────── |
-| JOIN            | Join data from multiple tables.          |
-| ON              | Specify the condition for joining tables |
-| ─────────────── | ──────────────────────────────────────── |
-| INSERT          | Insert data into a database.             |
-| INTO            | Specify the table to insert data into.   |
-| VALUES          | Specify the data to insert.              |
-| ─────────────── | ──────────────────────────────────────── |
-| UPDATE          | Update data in a database.               |
-| SET             | Set a value in a database.               |
-| ─────────────── | ──────────────────────────────────────── |
-| DELETE          | Delete data from a database.             |
-| ─────────────── | ──────────────────────────────────────── |
-| ON DELETE       | Specify the action to take when deleting |
-| RESTRICT        | Delete the row if it has a foreign key   |
-| CASCADE         | Delete the row if it has a foreign key   |
-
+| SQL Queries           | Description                                   |
+| --------------------- | --------------------------------------------- |
+| CREATE                | Create a database.                            |
+| CREATE TABLE          | Create a table in a database.                 |
+| CREATE INDEX          | Create an index in a database.                |
+| CREATE VIEW           | Create a view in a database.                  |
+| CREATE FUNCTION       | Create a function in a database.              |
+| CREATE TRIGGER        | Create a trigger in a database.               |
+| CREATE DOMAIN         | Create a domain in a database.                |
+| CREATE ROLE           | Create a role in a database.                  |
+| CREATE SCHEMA         | Create a schema in a database.                |
+| CREATE SEQUENCE       | Create a sequence in a database.              |
+| ALTER                 | Alter a database.                             |
+| DROP TABLE            | Delete a database.                            |
+| AS                    | Alias/name a database, column, row, etc.      |
+| ───────────────       | ────────────────────────────────────────      |
+| FROM                  | Specify the table or tables to select.        |
+| WHERE                 | Filter data based on a condition.             |
+| SELECT                | Retrieve data from a database.                |
+| ───────────────       | ────────────────────────────────────────      |
+| JOIN                  | Join data from multiple tables.               |
+| ON                    | Specify the condition for joining tables      |
+| ───────────────       | ────────────────────────────────────────      |
+| INSERT                | Insert data into a database.                  |
+| INTO                  | Specify the table to insert data into.        |
+| VALUES                | Specify the data to insert.                   |
+| ───────────────       | ────────────────────────────────────────      |
+| UPDATE                | Update data in a database.                    |
+| SET                   | Set a value in a database.                    |
+| ───────────────       | ────────────────────────────────────────      |
+| DELETE                | Delete data from a database.                  |
+| ───────────────       | ────────────────────────────────────────      |
+| ON DELETE ...         | Specify the action to take when deleting      |
+| ON DELETE RESTRICT    | Delete the row if it has a foreign key        |
+| ON DELETE CASCADE     | Delete the row if it has a foreign key        |
+| ON DELETE SET NULL    | Set the foreign key to NULL                   |
+| ON DELETE SET DEFAULT | Set the foreign key to a custom DEFAULT value |
 
 When interacting with a database, theres an order that SQL follows , **FROM => WHERE => SELECT** , so it checks the database source first, then the rows that fit the condition criteria, and finally the columns.
 
@@ -223,11 +224,11 @@ DELETE FROM cities WHERE name = 'Tokyo';
 -- create table with primary keys
 CREATE TABLE users(id SERIAL PRIMARY KEY, name VARCHAR(50));
 
--- create table with foreign keys
+-- create table with foreign keys and specify delete behavior
 CREATE TABLE photos(
   id SERIAL PRIMARY KEY,
   url VARCHAR(200),
-  user_id INTEGER REFERENCES users(id)
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- insert values with foreign keys
@@ -244,4 +245,7 @@ VALUES
 
 -- retrieve data with foreign keys
 SELECT * FROM photos WHERE user_id = 4;
+
+--depending on delete behavior actions this can produce different outcomes on relational databases
+DELETE from users WHERE id = 1;
 ```
