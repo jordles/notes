@@ -104,43 +104,46 @@ Data Consistency - Data is consistent and line up with each other.
 
 ## Queries / Actions
 
-| SQL Queries           | Description                                   |
-| --------------------- | --------------------------------------------- |
-| CREATE                | Create a database.                            |
-| CREATE TABLE          | Create a table in a database.                 |
-| CREATE INDEX          | Create an index in a database.                |
-| CREATE VIEW           | Create a view in a database.                  |
-| CREATE FUNCTION       | Create a function in a database.              |
-| CREATE TRIGGER        | Create a trigger in a database.               |
-| CREATE DOMAIN         | Create a domain in a database.                |
-| CREATE ROLE           | Create a role in a database.                  |
-| CREATE SCHEMA         | Create a schema in a database.                |
-| CREATE SEQUENCE       | Create a sequence in a database.              |
-| ALTER                 | Alter a database.                             |
-| DROP TABLE            | Delete a database.                            |
-| AS                    | Alias/name a database, column, row, etc.      |
-| ───────────────       | ────────────────────────────────────────      |
-| FROM                  | Specify the table or tables to select.        |
-| WHERE                 | Filter data based on a condition.             |
-| SELECT                | Retrieve data from a database.                |
-| ───────────────       | ────────────────────────────────────────      |
-| JOIN                  | Join data from multiple tables.               |
-| ON                    | Specify the condition for joining tables      |
-| ───────────────       | ────────────────────────────────────────      |
-| INSERT                | Insert data into a database.                  |
-| INTO                  | Specify the table to insert data into.        |
-| VALUES                | Specify the data to insert.                   |
-| ───────────────       | ────────────────────────────────────────      |
-| UPDATE                | Update data in a database.                    |
-| SET                   | Set a value in a database.                    |
-| ───────────────       | ────────────────────────────────────────      |
-| DELETE                | Delete data from a database.                  |
-| ───────────────       | ────────────────────────────────────────      |
-| ON DELETE ...         | Specify the action to take when deleting      |
-| ON DELETE RESTRICT    | Delete the row if it has a foreign key        |
-| ON DELETE CASCADE     | Delete the row if it has a foreign key        |
-| ON DELETE SET NULL    | Set the foreign key to NULL                   |
-| ON DELETE SET DEFAULT | Set the foreign key to a custom DEFAULT value |
+| SQL Queries           | Description                                                                             |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| CREATE                | Create a database.                                                                      |
+| CREATE TABLE          | Create a table in a database.                                                           |
+| CREATE INDEX          | Create an index in a database.                                                          |
+| CREATE VIEW           | Create a view in a database.                                                            |
+| CREATE FUNCTION       | Create a function in a database.                                                        |
+| CREATE TRIGGER        | Create a trigger in a database.                                                         |
+| CREATE DOMAIN         | Create a domain in a database.                                                          |
+| CREATE ROLE           | Create a role in a database.                                                            |
+| CREATE SCHEMA         | Create a schema in a database.                                                          |
+| CREATE SEQUENCE       | Create a sequence in a database.                                                        |
+| ALTER                 | Alter a database.                                                                       |
+| DROP TABLE            | Delete a database.                                                                      |
+| AS                    | Alias/name a database, column, row, etc.                                                |
+| ───────────────       | ────────────────────────────────────────                                                |
+| FROM                  | Specify the table or tables to select.                                                  |
+| WHERE                 | Filter data based on a condition.                                                       |
+| SELECT                | Retrieve data from a database.                                                          |
+| ───────────────       | ────────────────────────────────────────                                                |
+| JOIN                  | Join data from multiple tables.                                                         |
+| ON                    | Specify the condition for joining tables                                                |
+| ───────────────       | ────────────────────────────────────────                                                |
+| INSERT                | Insert data into a database.                                                            |
+| INTO                  | Specify the table to insert data into.                                                  |
+| VALUES                | Specify the data to insert.                                                             |
+| ───────────────       | ────────────────────────────────────────                                                |
+| UPDATE                | Update data in a database.                                                              |
+| SET                   | Set a value in a database.                                                              |
+| ───────────────       | ────────────────────────────────────────                                                |
+| DELETE                | Delete data from a database.                                                            |
+| ───────────────       | ────────────────────────────────────────                                                |
+| ON DELETE ...         | Specify the action to take when deleting                                                |
+| ON DELETE RESTRICT    | Delete the row if it has a foreign key                                                  |
+| ON DELETE CASCADE     | Delete the row if it has a foreign key                                                  |
+| ON DELETE SET NULL    | Set the foreign key to NULL                                                             |
+| ON DELETE SET DEFAULT | Set the foreign key to a custom DEFAULT value                                           |
+| ───────────────       | ────────────────────────────────────────                                                |
+| JOINS ... ON          | Join data from multiple tables and used when needed to find data from multiple sources. |
+| AGGREGATION           | Group data and perform operations on it. (most, average, least, etc...)                 |
 
 When interacting with a database, theres an order that SQL follows , **FROM => WHERE => SELECT** , so it checks the database source first, then the rows that fit the condition criteria, and finally the columns.
 
@@ -248,4 +251,12 @@ SELECT * FROM photos WHERE user_id = 4;
 
 --depending on delete behavior actions this can produce different outcomes on relational databases
 DELETE from users WHERE id = 1;
+```
+
+```sql
+--select specifies the columns we want to retrieve from the 3rd imaginary table we created by joining tables. Select determines the order of these columns, if non are specified, then the order is based on the order states in the query. 
+SELECT contents, username FROM comments 
+-- the tables join physically side by side with all the same column names on a 3rd imaginary table.
+JOIN users ON users.id = comments.user_id; 
+
 ```
