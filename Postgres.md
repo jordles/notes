@@ -10,6 +10,8 @@ Postgres is one of the most popular open source relational databases. It is a SQ
 ├── [Functions](#functions)  
 ├── [Data Types](#data-types)  
 ├── [Queries](#queries--actions)  
+├── [Aggregate Functions](#aggregate-function)  
+├── [Execution Order](#sql-query-execution-order)  
 └── [Postgres Snippets](#postgres-examples)
 
 Important questions to ask?
@@ -91,72 +93,100 @@ Data Consistency - Data is consistent and line up with each other.
 
 ## Data Types
 
-| Column Data Types                  | Description                                                                                                          |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| SMALLSERIAL                        | A number that is automatically incremented. 1 to 32767                                                               |
-| SERIAL                             | A number that is automatically incremented. 1 to 2147483647                                                          |
-| BIGSERIAL                          | A number that is automatically incremented. 1 to 9223372036854775807                                                 |
-| PRIMARY KEY                        | A unique identifier for each row in a table. (Also increases performance when looking up by PK)                      |
-| REFERENCES                         | A foreign key, which is a reference to another table in the database.                                                |
-| VARCHAR(length of max string: opt) | A variable-length string.                                                                                            |
-| INTEGER                            | A number. Limits are ~ 2 billion for positive and negative numbers.                                                  |
-| BIGINT                             | A number. Limits are ~ 9 quintillion for positive and negative numbers. -9223372036854775808 to +9223372036854775807 |
-| BOOLEAN                            | A true or false value.                                                                                               |
-| DATE                               | A date.                                                                                                              |
-| TIMESTAMP                          | A date and time.                                                                                                     |
-| REAL                               | 6 decimal digits of precision.                                                                                       |
-| DOUBLE PRECISION                   | 15 decimal digits of precision.                                                                                      |
-| DEFAULT <default value>            | Set a default value for your data type after setting a data type, if you dont set one its default value is null      |
+| Column Data Types                  | Description                                                                                     |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| SMALLSERIAL                        | A number that is automatically incremented. 1 to 32767                                          |
+| SERIAL                             | A number that is automatically incremented. 1 to 2147483647                                     |
+| BIGSERIAL                          | A number that is automatically incremented. 1 to 9223372036854775807                            |
+| PRIMARY KEY                        | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
+| REFERENCES                         | A foreign key, which is a reference to another table in the database.                           |
+| VARCHAR(length of max string: opt) | A variable-length string.                                                                       |
+| INTEGER                            | A number. Limits are ~ 2 billion for positive and negative numbers.                             |
+| BIGINT                             | A number. -9223372036854775808 to +9223372036854775807                                          |
+| BOOLEAN                            | A true or false value.                                                                          |
+| DATE                               | A date.                                                                                         |
+| TIMESTAMP                          | A date and time.                                                                                |
+| REAL                               | 6 decimal digits of precision.                                                                  |
+| DOUBLE PRECISION                   | 15 decimal digits of precision.                                                                 |
+| DEFAULT <default value>            | Set a default value for your data type after setting a data type, null if not set.              |
 
 ## Queries / Actions
 
-| SQL Queries                   | Description                                                                                |
-| ----------------------------- | ------------------------------------------------------------------------------------------ |
-| CREATE                        | Create a database.                                                                         |
-| CREATE TABLE                  | Create a table in a database.                                                              |
-| CREATE INDEX                  | Create an index in a database.                                                             |
-| CREATE VIEW                   | Create a view in a database.                                                               |
-| CREATE FUNCTION               | Create a function in a database.                                                           |
-| CREATE TRIGGER                | Create a trigger in a database.                                                            |
-| CREATE DOMAIN                 | Create a domain in a database.                                                             |
-| CREATE ROLE                   | Create a role in a database.                                                               |
-| CREATE SCHEMA                 | Create a schema in a database.                                                             |
-| CREATE SEQUENCE               | Create a sequence in a database.                                                           |
-| ALTER                         | Alter a database.                                                                          |
-| DROP TABLE                    | Delete a database.                                                                         |
-| AS                            | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional     |
-| TO                            | Rename a table officially (used with ALTER)                                                |
-| ───────────────               | ────────────────────────────────────────                                                   |
-| SELECT                        | Retrieve data from a database.                                                             |
-| FROM                          | Specify the table or tables to select.                                                     |
-| JOINS ... ON                  | Join data from multiple tables and used when needed to find data from multiple sources.    |
-| WHERE                         | Filter data based on a condition.                                                          |
-| ───────────────               | ────────────────────────────────────────                                                   |
-| INSERT                        | Insert data into a database.                                                               |
-| INTO                          | Specify the table to insert data into.                                                     |
-| VALUES                        | Specify the data to insert.                                                                |
-| ───────────────               | ────────────────────────────────────────                                                   |
-| UPDATE                        | Update data in a database.                                                                 |
-| SET                           | Set a value in a database.                                                                 |
-| ───────────────               | ────────────────────────────────────────                                                   |
-| DELETE                        | Delete data from a database.                                                               |
-| ───────────────               | ────────────────────────────────────────                                                   |
-| ON DELETE ... (CONSTRAINTS)   | Specify the action to take when deleting                                                   |
-| ON DELETE RESTRICT            | Prevent deletion of the referenced row with foreign key                                    |
-| ON DELETE CASCADE             | Delete the row if it has a foreign key                                                     |
-| ON DELETE SET NULL            | Set the foreign key to NULL                                                                |
-| ON DELETE SET DEFAULT         | Set the foreign key to a custom DEFAULT value                                              |
-| ───────────────               | ────────────────────────────────────────                                                   |
-| JOIN / INNER JOIN             | Join data from multiple tables that share a common column. This is known as an inner join. |
-| LEFT JOIN / LEFT OUTER JOIN   | Join all the data from the left table and the matching data from the right table.          |
-| RIGHT JOIN / RIGHT OUTER JOIN | Join all the data from the right table and the matching data from the left table.          |
-| FULL JOIN / FULL OUTER JOIN   | Join all the data from the left and right tables, regardless of matching data.             |
-| ON                            | Specify the condition for joining tables / matching data                                   |
-| AGGREGATION                   | Group data and perform operations on it. (most, average, least, etc...)                    |
+| SQL Queries                              | Description                                                                                    |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| CREATE                                   | Create a database.                                                                             |
+| CREATE TABLE                             | Create a table in a database.                                                                  |
+| CREATE INDEX                             | Create an index in a database.                                                                 |
+| CREATE VIEW                              | Create a view in a database.                                                                   |
+| CREATE FUNCTION                          | Create a function in a database.                                                               |
+| CREATE TRIGGER                           | Create a trigger in a database.                                                                |
+| CREATE DOMAIN                            | Create a domain in a database.                                                                 |
+| CREATE ROLE                              | Create a role in a database.                                                                   |
+| CREATE SCHEMA                            | Create a schema in a database.                                                                 |
+| CREATE SEQUENCE                          | Create a sequence in a database.                                                               |
+| ALTER                                    | Alter a database.                                                                              |
+| DROP TABLE                               | Delete a database.                                                                             |
+| AS                                       | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional         |
+| TO                                       | Rename a table officially (used with ALTER)                                                    |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| SELECT                                   | Retrieve data from a database.                                                                 |
+| FROM                                     | Specify the table or tables to select.                                                         |
+| JOINS ... ON                             | Join data from multiple tables and used when needed to find data from multiple sources.        |
+| WHERE                                    | Filter data based on a condition.                                                              |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| INSERT                                   | Insert data into a database.                                                                   |
+| INTO                                     | Specify the table to insert data into.                                                         |
+| VALUES                                   | Specify the data to insert.                                                                    |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| UPDATE                                   | Update data in a database.                                                                     |
+| SET                                      | Set a value in a database.                                                                     |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| DELETE                                   | Delete data from a database.                                                                   |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| ON DELETE ... (CONSTRAINTS)              | Specify the action to take when deleting                                                       |
+| ON DELETE RESTRICT                       | Prevent deletion of the referenced row with foreign key                                        |
+| ON DELETE CASCADE                        | Delete the row if it has a foreign key                                                         |
+| ON DELETE SET NULL                       | Set the foreign key to NULL                                                                    |
+| ON DELETE SET DEFAULT                    | Set the foreign key to a custom DEFAULT value                                                  |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| [JOIN / INNER JOIN](#joins)              | Join data from multiple tables that share a common column. This is known as an inner join.     |
+| LEFT JOIN / LEFT OUTER JOIN              | Join all the data from the left table and the matching data from the right table.              |
+| RIGHT JOIN / RIGHT OUTER JOIN            | Join all the data from the right table and the matching data from the left table.              |
+| FULL JOIN / FULL OUTER JOIN              | Join all the data from the left and right tables, regardless of matching data.                 |
+| ON                                       | Specify the condition for joining tables / matching data                                       |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| [AGGREGATION](#grouping-and-aggregating) | Group data and perform operations on it through SELECT queries. (most, average, least, etc...) |
+| [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                      |
+| GROUP BY ... HAVING                      | Filter the grouped data                                                                        |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| SORT BY                                  | Sort data based on one or more columns.                                                        |
 
-All **[JOINS](#joins)** queries will match and fill up the combined corresponding number of rows in our combined tables with null values if there is no matching data. Order will matter for directional joins based on which table is on the left and which table is on the right of the JOIN keyword.
+### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
 
-When interacting with a database, theres an order that SQL follows , **FROM => WHERE => SELECT** , so it checks the database source first, then the rows that fit the condition criteria, and finally the columns.
+| Aggregate Functions                 | Description                                                  |
+| ----------------------------------- | ------------------------------------------------------------ |
+| COUNT()                             | Count the number of rows in a table. Does not work with NULL |
+| SUM()                               | Sum the values in a column.                                  |
+| AVG()                               | Calculate the average value in a column.                     |
+| MIN()                               | Find the minimum value in a column.                          |
+| MAX()                               | Find the maximum value in a column.                          |
+| STDDEV()                            | Calculate the standard deviation of a column.                |
+| VAR()                               | Calculate the variance of a column.                          |
+| STRING_AGG (column name, delimiter) | Aggregate data into a single string.                         |
+| ARRAY_AGG (column name)             | Aggregate data into an array.                                |
+
+### SQL Query Execution Order
+
+When interacting with a database, theres an order that SQL follows:  
+1️⃣ FROM → Determine the source tables  
+2️⃣ JOIN / ON → Apply joins between tables (ON condition comes before the JOIN keyword)  
+3️⃣ WHERE → Filter rows after joins  
+4️⃣ GROUP BY → Group rows together (Aggregate functions are applied here after grouping)  
+5️⃣ HAVING → Filter groups  
+6️⃣ SELECT → Choose columns to return  
+7️⃣ DISTINCT → Remove duplicate rows  
+8️⃣ ORDER BY → Sort the final result  
+9️⃣ LIMIT / OFFSET → Limit the number of rows
 
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
@@ -268,6 +298,10 @@ DELETE from users WHERE id = 1;
 
 ### Joins
 
+All JOINS queries will match and fill up the combined corresponding number of rows in our combined tables with null values if there is no matching data. Order will matter for directional joins based on which table is on the left and which table is on the right of the JOIN keyword.
+
+Although ON is similar to WHERE for filtering data, WHERE happens after the JOIN, which when dealing with outer joins will turn it into an inner join instead, when it detects NULL values for example. Placing the condition on ON will retain the unmatched rows with NULL values, due to ON being executed first before JOIN.
+
 ```sql
 --select specifies the columns we want to retrieve from the 3rd imaginary table we created by joining tables. Select determines the order of these columns, if non are specified, then the order is based on the table order stated in the query. Select columns must be unique, and if they are the same name, you must specify the table name with dot notation (if certain libraries are still unable to recognize the difference use the AS keyword to rename a column or even rename a table itself).
 SELECT contents, username FROM comments
@@ -291,9 +325,73 @@ SELECT url, username
 FROM PHOTOS
 FULL JOIN users ON users.id = photos.user_id;
 
--- using WHERE to filter data on our JOINed table
+-- using WHERE to filter data on our JOINed table, we are looking for the user that commented on its own photo
 SELECT url, contents
 FROM comments
 JOIN photos ON photos.id = comments.photo_id
-WHERE 
+WHERE comments.user_id = photos.user_id;
+
+-- using a three way join to combine 3 tables, we use a join condition so theres no need to use a WHERE for our use case
+-- use case is were trying to find the user that commented on their own photo and find their username.
+SELECT url, contents, username
+FROM comments
+JOIN photos ON photos.id = comments.photo_id
+JOIN users ON users.id = comments.user_id AND users.id = photos.user_id;
+```
+
+### Grouping and Aggregating
+
+**Grouping** is a way to combine data from multiple rows into a single row.
+
+Grouping names unique values as its own rows (buckets), and reorders the data to be grouped under these buckets. We can only select the newly made GROUP BY column names in our SELECT statement, any other will give an error or we can select the column produced by an aggregate function.
+
+**Aggregation** is a way to combine data from multiple rows into a single value.
+We can use the following [aggregate functions](#aggregate-function).
+
+```sql
+-- using group by to get grouped data based on user_id and aggregate to find the total count of id within the grouped data.
+-- Useful for finding a total number of something a user has done for example.
+-- We use COUNT(*) to count the number of rows in our table more accurately, than relying on the column which might have null values.
+SELECT user_id, COUNT(*) AS num_comments_created
+FROM comments
+GROUP BY user_id;
+
+-- using aggregate functions on select which produces a column with the name of the aggregate function
+SELECT MIN(user_id) FROM comments;
+
+-- Find the number of comments for each photo (comments has a photo_id foreign key)
+SELECT photo_id, COUNT(*)
+FROM comments
+GROUP BY photo_id;
+
+-- We want to print the author's name and the number of books they have written.
+-- Reminder that joining comes first, which creates the combined rows for our conjoined table, which is then grouped and later aggregated by count.
+SELECT name, COUNT(*)
+FROM books
+JOIN authors ON authors.id = books.author_id
+GROUP BY name;
+
+-- Find the photos where its photo_id is less than 3 and its total count is greater than 2.
+SELECT photo_id, COUNT(*)
+FROM comments
+WHERE photo_id < 3
+GROUP BY photo_id HAVING COUNT(*) > 2;
+
+-- find users where the user has commented on the first 2 photos and the user added more than 2 comments on those photos
+SELECT user_id, COUNT(*)
+FROM comments
+WHERE photo_id = 1 OR photo_id = 2
+GROUP BY user_id HAVING COUNT(*) > 2;
+
+-- find users where the user has commented on the first 50 photos and the user has added more than 20 comments on those photos
+
+SELECT user_id, COUNT(*)
+FROM comments
+WHERE photo_id <= 50 AND photo_id > 0
+GROUP BY user_id HAVING COUNT(*) > 20;
+
+-- Given a table of phones, print the names of manufacturers and total revenue (price * units_sold) for all phones.  Only print the manufacturers who have revenue greater than 2,000,000 for all the phones they sold.
+SELECT manufacturer, SUM(price * units_sold)
+FROM phones
+GROUP BY manufacturer HAVING SUM(price * units_sold) > 2000000;
 ```

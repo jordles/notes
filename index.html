@@ -6443,6 +6443,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>git remote set-url origin {github repository}</code> - change/rename the remote repository</li>
     <li><code>git push</code> - push your local git repository to a remote repository (like github)</li>
     <ul>
+      <li><code>git pull --set-upstream origin main</code> - pull the remote repository to your local repository for the first time with upstream</li>
       <li><code>git pull/ git pull{origin main}</code> - someone updated the remote repository, you can pull the latest version from it into your local repository</li>
       <li><code>git pull origin main --allow-unrelated-histories</code> - this allows unrelated histories for two branches that dont share a common ancestor. Common for initializing a new local repo, and pulling from a remote repo that has a different commit history. </li>
       <li><code>pull (git fetch -> git merge)</code> - fetch and downloads all remote repository tracking branches, and merge those tracking branches back to our local repository </li>
