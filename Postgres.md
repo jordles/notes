@@ -393,5 +393,5 @@ GROUP BY user_id HAVING COUNT(*) > 20;
 -- Given a table of phones, print the names of manufacturers and total revenue (price * units_sold) for all phones.  Only print the manufacturers who have revenue greater than 2,000,000 for all the phones they sold.
 SELECT manufacturer, SUM(price * units_sold)
 FROM phones
-GROUP BY manufacturer HAVING SUM(price * units_sold) > 2000000;
+GROUP BY manufacturer HAVING SUM(price * units_sold) > 2000000; 
 ```
