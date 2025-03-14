@@ -159,7 +159,16 @@ Data Consistency - Data is consistent and line up with each other.
 | [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                      |
 | GROUP BY ... HAVING                      | Filter the grouped data                                                                        |
 | ───────────────                          | ────────────────────────────────────────                                                       |
-| SORT BY                                  | Sort data based on one or more columns.                                                        |
+| ORDER BY                                 | Sort data based on one or more columns.                                                        |
+| DESC                                     | Sort data in descending order.                                                                 |
+| ASC                                      | Sort data in ascending order. (this is default)                                                |
+| NULLS FIRST                              | Sort NULL values first.                                                                        |
+| NULLS LAST                               | Sort NULL values last.                                                                         |
+| ───────────────                          | ────────────────────────────────────────                                                       |
+| LIMIT                                    | Limit the number of rows returned.                                                             |
+| OFFSET                                   | Skip the first n rows in the result set.                                                       |
+| FETCH                                    | Fetch the first n rows in the result set.                                                      |
+
 
 ### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
 
@@ -393,5 +402,14 @@ GROUP BY user_id HAVING COUNT(*) > 20;
 -- Given a table of phones, print the names of manufacturers and total revenue (price * units_sold) for all phones.  Only print the manufacturers who have revenue greater than 2,000,000 for all the phones they sold.
 SELECT manufacturer, SUM(price * units_sold)
 FROM phones
-GROUP BY manufacturer HAVING SUM(price * units_sold) > 2000000; 
+GROUP BY manufacturer HAVING SUM(price * units_sold) > 2000000;
+```
+### Order BY
+```sql
+-- order by multiple criterias on different columns. If price has the same value, order by weight in descending order
+SELECT *
+FROM products
+ORDER BY price, weight DESC;
+
+
 ```
