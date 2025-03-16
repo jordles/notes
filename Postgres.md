@@ -159,16 +159,15 @@ Data Consistency - Data is consistent and line up with each other.
 | [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                      |
 | GROUP BY ... HAVING                      | Filter the grouped data                                                                        |
 | ───────────────                          | ────────────────────────────────────────                                                       |
-| ORDER BY                                 | Sort data based on one or more columns.                                                        |
+| [ORDER BY](#order-by)                    | Sort data based on one or more columns.                                                        |
 | DESC                                     | Sort data in descending order.                                                                 |
 | ASC                                      | Sort data in ascending order. (this is default)                                                |
 | NULLS FIRST                              | Sort NULL values first.                                                                        |
 | NULLS LAST                               | Sort NULL values last.                                                                         |
 | ───────────────                          | ────────────────────────────────────────                                                       |
-| LIMIT                                    | Limit the number of rows returned.                                                             |
-| OFFSET                                   | Skip the first n rows in the result set.                                                       |
+| [LIMIT](#limits-and-offsets)             | Limit the number of rows returned.                                                             |
+| [OFFSET](#limits-and-offsets)            | Skip the first n rows in the result set.                                                       |
 | FETCH                                    | Fetch the first n rows in the result set.                                                      |
-
 
 ### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
 
@@ -195,7 +194,7 @@ When interacting with a database, theres an order that SQL follows:
 6️⃣ SELECT → Choose columns to return  
 7️⃣ DISTINCT → Remove duplicate rows  
 8️⃣ ORDER BY → Sort the final result  
-9️⃣ LIMIT / OFFSET → Limit the number of rows
+9️⃣ LIMIT / OFFSET → Limit the number of rows (by convention, limit is placed before offset)
 
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
@@ -404,7 +403,9 @@ SELECT manufacturer, SUM(price * units_sold)
 FROM phones
 GROUP BY manufacturer HAVING SUM(price * units_sold) > 2000000;
 ```
-### Order BY
+
+### Order By
+
 ```sql
 -- order by multiple criterias on different columns. If price has the same value, order by weight in descending order
 SELECT *
@@ -412,4 +413,27 @@ FROM products
 ORDER BY price, weight DESC;
 
 
+```
+
+### Limits and Offsets
+
+```sql
+-- these queries are useful for pagination, with offsets that are increased while the limit shows the number of rows to return per page
+
+-- limit the number of rows returned from a query
+SELECT *
+FROM products
+LIMIT 5;
+
+-- offset the number of rows returned from a query
+SELECT *
+FROM products
+OFFSET 5;
+
+-- order and limit to get the first 5 rows but skip the first result
+SELECT *
+FROM products
+ORDER BY price
+LIMIT 5 
+OFFSET 1;
 ```
