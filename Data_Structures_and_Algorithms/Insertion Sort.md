@@ -1,6 +1,6 @@
 # Insertion Sort
 
-`(iterate over the elements - 1 and insert them into their correct position)`
+`(iterate over the elements - 1 and insert them into their correct position by shifting elements to the right)`
 
 a sorting algorithm that sorts an array by repeatedly inserting elements into their correct position. The running time is quadratic.
 

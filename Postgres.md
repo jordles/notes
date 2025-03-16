@@ -523,7 +523,9 @@ EXCEPT
 
 ### Subqueries
 
-Place a query inside another query. You dont need a semicolon for the end of the inner query statement, but instead the end of the overall query statement.  
+Place a query inside another query. You dont need a semicolon for the end of the inner query statement, but instead the end of the overall query statement. Keep in mind, we can insert subqueries anywhere in the query, but we do have to consider what it returns for the query to make sense. 
+
+You can always place an alias for your subqueries with the AS keyword outside of the parenthesis, useful if your environment does not support columns with the same name.
 
 Why not use join or union instead?
 
@@ -536,4 +538,12 @@ Understanding the shapes of data:
 SELECT * FROM orders => many rows, many columns
 SELECT id FROM orders => Many rows, one column
 SELECT COUNT(*) FROM orders => Single value (1 row, 1 column)
+
+SELECT statements always take in single values.
+
+FROM statements must always have an alias applied to it. If you dont, you will get an error.
+
+-- example of a subquery
+SELECT name, price, price / (SELECT MAX(price) FROM phones) AS price_ratio
+FROM phones;
 ```

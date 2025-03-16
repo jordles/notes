@@ -78,7 +78,7 @@ function pivot(arr, start = 0, end = arr.length - 1) {
   for(let i = start + 1; i <= end; i++){
     if(arr[i] < arr[start]){
       pivotIndex ++;
-      [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]]
+      [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]] //remember we must swap to partition the numbers to be on the left of the pivot and the numbers to be on the right of the pivot
     }
   }
   [arr[start], arr[pivotIndex]] = [arr[pivotIndex], arr[start]];
