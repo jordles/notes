@@ -535,15 +535,19 @@ UNION is for combining results from multiple queries, but here, you only need to
 
 Understanding the shapes of data:
 ```sql
-SELECT * FROM orders => many rows, many columns
-SELECT id FROM orders => Many rows, one column
-SELECT COUNT(*) FROM orders => Single value (1 row, 1 column)
+-- SELECT * FROM orders => many rows, many columns
+-- SELECT id FROM orders => Many rows, one column
+-- SELECT COUNT(*) FROM orders => Single value (1 row, 1 column)
 
-SELECT statements always take in single values.
+-- SELECT statements always take in single values.
 
-FROM statements must always have an alias applied to it. If you dont, you will get an error.
+-- FROM statements must always have an alias applied to it. If you dont, you will get an error.
 
 -- example of a subquery
 SELECT name, price, price / (SELECT MAX(price) FROM phones) AS price_ratio
 FROM phones;
+
+-- example of using single values; make sure structure of data stays consistent. 
+SELECT *
+FROM (SELECT MAX(price) FROM products) AS p;
 ```
