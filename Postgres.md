@@ -112,62 +112,71 @@ Data Consistency - Data is consistent and line up with each other.
 
 ## Queries / Actions
 
-| SQL Queries                              | Description                                                                                    |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| CREATE                                   | Create a database.                                                                             |
-| CREATE TABLE                             | Create a table in a database.                                                                  |
-| CREATE INDEX                             | Create an index in a database.                                                                 |
-| CREATE VIEW                              | Create a view in a database.                                                                   |
-| CREATE FUNCTION                          | Create a function in a database.                                                               |
-| CREATE TRIGGER                           | Create a trigger in a database.                                                                |
-| CREATE DOMAIN                            | Create a domain in a database.                                                                 |
-| CREATE ROLE                              | Create a role in a database.                                                                   |
-| CREATE SCHEMA                            | Create a schema in a database.                                                                 |
-| CREATE SEQUENCE                          | Create a sequence in a database.                                                               |
-| ALTER                                    | Alter a database.                                                                              |
-| DROP TABLE                               | Delete a database.                                                                             |
-| AS                                       | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional         |
-| TO                                       | Rename a table officially (used with ALTER)                                                    |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| SELECT                                   | Retrieve data from a database.                                                                 |
-| FROM                                     | Specify the table or tables to select.                                                         |
-| JOINS ... ON                             | Join data from multiple tables and used when needed to find data from multiple sources.        |
-| WHERE                                    | Filter data based on a condition.                                                              |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| INSERT                                   | Insert data into a database.                                                                   |
-| INTO                                     | Specify the table to insert data into.                                                         |
-| VALUES                                   | Specify the data to insert.                                                                    |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| UPDATE                                   | Update data in a database.                                                                     |
-| SET                                      | Set a value in a database.                                                                     |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| DELETE                                   | Delete data from a database.                                                                   |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| ON DELETE ... (CONSTRAINTS)              | Specify the action to take when deleting                                                       |
-| ON DELETE RESTRICT                       | Prevent deletion of the referenced row with foreign key                                        |
-| ON DELETE CASCADE                        | Delete the row if it has a foreign key                                                         |
-| ON DELETE SET NULL                       | Set the foreign key to NULL                                                                    |
-| ON DELETE SET DEFAULT                    | Set the foreign key to a custom DEFAULT value                                                  |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| [JOIN / INNER JOIN](#joins)              | Join data from multiple tables that share a common column. This is known as an inner join.     |
-| LEFT JOIN / LEFT OUTER JOIN              | Join all the data from the left table and the matching data from the right table.              |
-| RIGHT JOIN / RIGHT OUTER JOIN            | Join all the data from the right table and the matching data from the left table.              |
-| FULL JOIN / FULL OUTER JOIN              | Join all the data from the left and right tables, regardless of matching data.                 |
-| ON                                       | Specify the condition for joining tables / matching data                                       |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| [AGGREGATION](#grouping-and-aggregating) | Group data and perform operations on it through SELECT queries. (most, average, least, etc...) |
-| [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                      |
-| GROUP BY ... HAVING                      | Filter the grouped data                                                                        |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| [ORDER BY](#order-by)                    | Sort data based on one or more columns.                                                        |
-| DESC                                     | Sort data in descending order.                                                                 |
-| ASC                                      | Sort data in ascending order. (this is default)                                                |
-| NULLS FIRST                              | Sort NULL values first.                                                                        |
-| NULLS LAST                               | Sort NULL values last.                                                                         |
-| ───────────────                          | ────────────────────────────────────────                                                       |
-| [LIMIT](#limits-and-offsets)             | Limit the number of rows returned.                                                             |
-| [OFFSET](#limits-and-offsets)            | Skip the first n rows in the result set.                                                       |
-| FETCH                                    | Fetch the first n rows in the result set.                                                      |
+| SQL Queries                              | Description                                                                                     |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| CREATE                                   | Create a database.                                                                              |
+| CREATE TABLE                             | Create a table in a database.                                                                   |
+| CREATE INDEX                             | Create an index in a database.                                                                  |
+| CREATE VIEW                              | Create a view in a database.                                                                    |
+| CREATE FUNCTION                          | Create a function in a database.                                                                |
+| CREATE TRIGGER                           | Create a trigger in a database.                                                                 |
+| CREATE DOMAIN                            | Create a domain in a database.                                                                  |
+| CREATE ROLE                              | Create a role in a database.                                                                    |
+| CREATE SCHEMA                            | Create a schema in a database.                                                                  |
+| CREATE SEQUENCE                          | Create a sequence in a database.                                                                |
+| ALTER                                    | Alter a database.                                                                               |
+| DROP TABLE                               | Delete a database.                                                                              |
+| AS                                       | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional          |
+| TO                                       | Rename a table officially (used with ALTER)                                                     |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| SELECT                                   | Retrieve data from a database.                                                                  |
+| FROM                                     | Specify the table or tables to select.                                                          |
+| JOINS ... ON                             | Join data from multiple tables and used when needed to find data from multiple sources.         |
+| WHERE                                    | Filter data based on a condition.                                                               |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| INSERT                                   | Insert data into a database.                                                                    |
+| INTO                                     | Specify the table to insert data into.                                                          |
+| VALUES                                   | Specify the data to insert.                                                                     |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| UPDATE                                   | Update data in a database.                                                                      |
+| SET                                      | Set a value in a database.                                                                      |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| DELETE                                   | Delete data from a database.                                                                    |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| ON DELETE ... (CONSTRAINTS)              | Specify the action to take when deleting                                                        |
+| ON DELETE RESTRICT                       | Prevent deletion of the referenced row with foreign key                                         |
+| ON DELETE CASCADE                        | Delete the row if it has a foreign key                                                          |
+| ON DELETE SET NULL                       | Set the foreign key to NULL                                                                     |
+| ON DELETE SET DEFAULT                    | Set the foreign key to a custom DEFAULT value                                                   |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| [JOIN / INNER JOIN](#joins)              | Join data from multiple tables that share a common column. This is known as an inner join.      |
+| LEFT JOIN / LEFT OUTER JOIN              | Join all the data from the left table and the matching data from the right table.               |
+| RIGHT JOIN / RIGHT OUTER JOIN            | Join all the data from the right table and the matching data from the left table.               |
+| FULL JOIN / FULL OUTER JOIN              | Join all the data from the left and right tables, regardless of matching data.                  |
+| ON                                       | Specify the condition for joining tables / matching data                                        |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| [AGGREGATION](#grouping-and-aggregating) | Group data and perform operations on it through SELECT queries. (most, average, least, etc...)  |
+| [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                       |
+| GROUP BY ... HAVING                      | Filter the grouped data                                                                         |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| [ORDER BY](#order-by)                    | Sort data based on one or more columns.                                                         |
+| DESC                                     | Sort data in descending order.                                                                  |
+| ASC                                      | Sort data in ascending order. (this is default)                                                 |
+| NULLS FIRST                              | Sort NULL values first.                                                                         |
+| NULLS LAST                               | Sort NULL values last.                                                                          |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| [LIMIT](#limits-and-offsets)             | Limit the number of rows returned.                                                              |
+| [OFFSET](#limits-and-offsets)            | Skip the first n rows in the result set.                                                        |
+| FETCH                                    | Fetch the first n rows in the result set.                                                       |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| [UNION](#unions)                         | Combine the result sets / rows of two or more SELECT statements.                                |
+| UNION ALL                                | Combine the result sets / rows of two or more SELECT statements without removing duplicates.    |
+| INTERSECT                                | Return the rows that are common to all SELECT statements.                                       |
+| INTERSECT ALL                            | Return the rows that are common to all SELECT statements without removing duplicates.           |
+| EXCEPT                                   | Removes commonalities between the queries, showing only unique values from the first query      |
+| EXCEPT ALL                               | Return the rows that are only unique to the first SELECT statement without removing duplicates. |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| [SUBQUERY](#subqueries)                  | Execute a SELECT statement within a SELECT statement with parentheses.                          |
 
 ### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
 
@@ -198,6 +207,13 @@ When interacting with a database, theres an order that SQL follows:
 
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
+
+| Feature                     | JOIN                                                     | UNION                                                                   |
+| --------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Purpose                     | Combines columns from multiple tables                    | Combines rows from multiple queries                                     |
+| When to Use                 | When you need data from related tables with a common key | When you need to merge results from two queries with the same structure |
+| Number of Columns in Output | Can be different for each table                          | Must be the same for both queries                                       |
+| Duplicates                  | Keeps all matching rows                                  | Removes duplicates unless UNION ALL is used                             |
 
 ## Postgres Examples
 
@@ -434,6 +450,90 @@ OFFSET 5;
 SELECT *
 FROM products
 ORDER BY price
-LIMIT 5 
+LIMIT 5
 OFFSET 1;
+```
+
+### Unions
+
+Although ORDER BY allows us to order by multiple columns, the latter columns are dependent on the previous columns. Unions orders multiple columns by combining 2 or more queries together. Parenthesis is necessary if you have multiple query keywords (ORDER BY, LIMIT, etc.) in the same line, because SQL does not know the order of the keywords or which query it is referring to.
+
+Unions must always have the same number of columns, and data types. If the columns are the same name, they will default to the first query's column(s).
+
+```sql
+-- combine 2 or more queries together and order by the combined columns
+
+SELECT manufacturer
+FROM phones
+WHERE price < 170
+
+union
+
+SELECT manufacturer
+FROM phones
+GROUP BY manufacturer
+HAVING COUNT(*) > 2
+
+(
+  SELECT *
+  FROM products
+  ORDER BY price DESC
+  LIMIT 4
+)
+UNION ALL
+(
+  SELECT *
+  FROM products
+  ORDER BY price/weight DESC
+  LIMIT 4
+);
+
+-- remember 'intersect all' implies either queries have duplicates (in itself) in order for the duplicate to show. Show commonalities between the queries.
+
+(
+  SELECT *
+  FROM products
+  ORDER BY price DESC
+  LIMIT 4
+)
+INTERSECT ALL
+(
+  SELECT *
+  FROM products
+  ORDER BY price/weight DESC
+  LIMIT 4
+);
+
+-- except removes commonalities between the queries, showing only unique values from the first query.
+
+(
+  SELECT id, name
+  FROM products
+  ORDER BY price DESC
+  LIMIT 4
+)
+EXCEPT
+(
+  SELECT id, name
+  FROM products
+  ORDER BY price/weight DESC
+  LIMIT 6
+);
+```
+
+### Subqueries
+
+Place a query inside another query. You dont need a semicolon for the end of the inner query statement, but instead the end of the overall query statement.  
+
+Why not use join or union instead?
+
+JOIN combines columns from different tables based on a condition, but you're working within a single table and only need a filtered subset of rows.
+UNION is for combining results from multiple queries, but here, you only need to filter rows from one table.
+
+
+Understanding the shapes of data:
+```sql
+SELECT * FROM orders => many rows, many columns
+SELECT id FROM orders => Many rows, one column
+SELECT COUNT(*) FROM orders => Single value (1 row, 1 column)
 ```
