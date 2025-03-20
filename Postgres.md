@@ -550,4 +550,24 @@ FROM phones;
 -- example of using single values; make sure structure of data stays consistent. 
 SELECT *
 FROM (SELECT MAX(price) FROM products) AS p;
+--find the average number of orders for all users
+
+--method 1 
+SELECT AVG(order_count)
+FROM (
+  SELECT user_id, COUNT(*) AS order_count
+  FROM orders
+  GROUP BY user_id;
+) AS p; 
+
+--method 2; 2 separate queries
+CREATE TEMP TABLE temp_order_counts AS
+SELECT user_id, COUNT(*) AS order_count
+FROM orders
+GROUP BY user_id;
+
+SELECT AVG(order_count)
+FROM temp_order_counts;
+```
+
 ```
