@@ -12,7 +12,8 @@ Postgres is one of the most popular open source relational databases. It is a SQ
 ├── [Queries](#queries--actions)  
 ├── [Aggregate Functions](#aggregate-function)  
 ├── [Execution Order](#sql-query-execution-order)  
-└── [Postgres Snippets](#postgres-examples)
+├── [Postgres Snippets](#postgres-examples)  
+└── [pg library](#pg-library)
 
 Important questions to ask?
 
@@ -73,6 +74,8 @@ Data Consistency - Data is consistent and line up with each other.
 | AND                  | logical AND                    |
 | OR                   | logical OR                     |
 | NOT                  | logical NOT                    |
+| ALL                  | logical ALL                    |
+| SOME / ANY           | logical SOME / ANY             |
 
 | String Operators / Functions | Description                                          |
 | ---------------------------- | ---------------------------------------------------- |
@@ -523,7 +526,7 @@ EXCEPT
 
 ### Subqueries
 
-Place a query inside another query. You dont need a semicolon for the end of the inner query statement, but instead the end of the overall query statement. Keep in mind, we can insert subqueries anywhere in the query, but we do have to consider what it returns for the query to make sense. 
+Place a query inside another query. You dont need a semicolon for the end of the inner query statement, but instead the end of the overall query statement. Keep in mind, we can insert subqueries anywhere in the query, but we do have to consider what it returns for the query to make sense.
 
 You can always place an alias for your subqueries with the AS keyword outside of the parenthesis, useful if your environment does not support columns with the same name.
 
@@ -532,8 +535,8 @@ Why not use join or union instead?
 JOIN combines columns from different tables based on a condition, but you're working within a single table and only need a filtered subset of rows.
 UNION is for combining results from multiple queries, but here, you only need to filter rows from one table.
 
-
 Understanding the shapes of data:
+
 ```sql
 -- SELECT * FROM orders => many rows, many columns
 -- SELECT id FROM orders => Many rows, one column
@@ -543,22 +546,31 @@ Understanding the shapes of data:
 
 -- FROM statements must always have an alias applied to it. If you dont, you will get an error.
 
+-- JOIN clauses must always have its subquery compatible with the ON clause conditions and must have a table alias applied to it.
+
+-- WHERE clauses is where subqueries are commonly used. Whatever subqueries placed in here must match the corresponding WHERE clause conditions stated. For example, IN operator only takes in one column. Sometimes a JOIN clause can do the same thing were a WHERE clause does. Performance for both are the same.
+
+-- > < >= <= = != <> are all single values
+-- IN , NOT IN, >/</>=/<=/=/ <> ALL/SOME/ANY are all single columns
+
+-------------------------
+
 -- example of a subquery
 SELECT name, price, price / (SELECT MAX(price) FROM phones) AS price_ratio
 FROM phones;
 
--- example of using single values; make sure structure of data stays consistent. 
+-- example of using single values; make sure structure of data stays consistent.
 SELECT *
 FROM (SELECT MAX(price) FROM products) AS p;
 --find the average number of orders for all users
 
---method 1 
+--method 1
 SELECT AVG(order_count)
 FROM (
   SELECT user_id, COUNT(*) AS order_count
   FROM orders
   GROUP BY user_id;
-) AS p; 
+) AS p;
 
 --method 2; 2 separate queries
 CREATE TEMP TABLE temp_order_counts AS
@@ -568,6 +580,102 @@ GROUP BY user_id;
 
 SELECT AVG(order_count)
 FROM temp_order_counts;
+
+-- calculate the average price of phones for each manufacturer, then print the highest average price.
+
+SELECT MAX(price) AS max_average_price
+FROM
+(
+    SELECT manufacturer, AVG(price) AS price
+    FROM phones
+    GROUP BY manufacturer
+);
+
+
+-- join subqueries are not common, and much more easier to deal with than nested subqueries.
+
+-- method 1 ; filters then join
+SELECT first_name
+FROM users
+JOIN (
+  SELECT user_id
+  FROM orders
+  WHERE product_id = 3
+) AS o
+ON users.id = o.user_id;
+
+-- method 2 ; join then filters
+SELECT users.first_name
+FROM users
+JOIN orders ON users.id = orders.user_id
+WHERE orders.product_id = 3;
+
+-- print out the name and price of phones where the price is greater than the S5620 Monte
+
+-- method 1
+SELECT name, price
+FROM phones
+WHERE price >
+(
+    SELECT price
+    FROM phones
+    WHERE name = 'S5620 Monte'
+);
+
+-- method 2
+SELECT p1.name, p1.price
+FROM phones p1
+JOIN phones p2 ON p2.name = 'S5620 Monte'
+WHERE p1.price > p2.price;
+
+-- using > ALL for our query
+-- Show the name, department, and price of products that are more expensive than all products in the industrial department; we could have just found the max(price) instead as well.
+SELECT name, department, price
+FROM products
+WHERE price > ALL (
+  SELECT price FROM products WHERE department = 'Industrial'
+)
+
+-- Show the name of products that are more expensive than at least one product in the industrial department. 
+
+SELECT name
+FROM products
+WHERE price > ANY (
+  SELECT price FROM products WHERE department = 'Industrial'
+)
 ```
 
+## pg library
+
+#### Connecting to the database using the pg library:
+
+```js
+import { Pool } from "pg";
+import "dotenv/config";
+
+const pool = new Pool({
+	connectionString: process.env.DATABASE_URL,
+});
+
+// const pool = new Pool({
+//   user: process.env.POSTGRES_USER,
+//   host: 'db', // This matches the service name in docker-compose.yml
+//   database: process.env.POSTGRES_DB,
+//   password: process.env.POSTGRES_PASSWORD,
+//   port: 5432,
+// });
+
+export default pool;
 ```
+
+**Client** => single database connection; executes a query one at a time and is synchronous.  
+**Pool** => multiple database connections; executes multiple queries at the same time and is asynchronous.
+
+| Feature               | Client                                                              | Pool                                                                       |
+| --------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Connection Type       | Single, dedicated connection to the database                        | Multiple connections, managed as a pool                                    |
+| Connection Management | Manual, must call client.end() to close                             | Automatic, pool manages connections internally                             |
+| Use Case              | Suitable for one-off queries or small apps                          | Ideal for apps with many simultaneous queries                              |
+| Performance           | Can be slower with many queries due to frequent connection overhead | More efficient with many simultaneous queries due to connection reuse      |
+| Overhead              | Higher overhead for each query (opens/closes connection each time)  | Lower overhead as connections are reused                                   |
+| Concurrency           | Limited to one query at a time per client instance                  | Allows multiple queries to run concurrently (through multiple connections) |

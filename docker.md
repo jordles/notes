@@ -50,3 +50,11 @@ services:
 volumes:
   db_data:
 ```
+
+
+### Commands
+
+\c - connect to a database
+\l - list databases
+\d - describe a database
+\q - quit the database
