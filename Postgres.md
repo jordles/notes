@@ -11,6 +11,7 @@ Postgres is one of the most popular open source relational databases. It is a SQ
 ├── [Data Types](#data-types)  
 ├── [Queries](#queries--actions)  
 ├── [Aggregate Functions](#aggregate-function)  
+├── [Row Level Functions](#row-level-functions)  
 ├── [Execution Order](#sql-query-execution-order)  
 ├── [Postgres Snippets](#postgres-examples)  
 └── [pg library](#pg-library)
@@ -165,6 +166,7 @@ Data Consistency - Data is consistent and line up with each other.
 | [AGGREGATION](#grouping-and-aggregating) | Group data and perform operations on it through SELECT queries. (most, average, least, etc...)  |
 | [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                       |
 | GROUP BY ... HAVING                      | Filter the grouped data                                                                         |
+| DISTINCT                                 | Remove duplicate rows. Always placed after the SELECT clause.                                   |
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | [ORDER BY](#order-by)                    | Sort data based on one or more columns.                                                         |
 | DESC                                     | Sort data in descending order.                                                                  |
@@ -183,9 +185,13 @@ Data Consistency - Data is consistent and line up with each other.
 | EXCEPT                                   | Removes commonalities between the queries, showing only unique values from the first query      |
 | EXCEPT ALL                               | Return the rows that are only unique to the first SELECT statement without removing duplicates. |
 | ───────────────                          | ────────────────────────────────────────                                                        |
-| [SUBQUERY](#subqueries)                  | Execute a SELECT statement within a SELECT statement with parentheses.                          |
+| [subqueries](#subqueries)                | Execute a SELECT statement within a SELECT statement with parentheses.                          |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                |
 
 ### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
+
+Aggregate Functions are functions that are applied to a group of data in columns. It reduces rows to a single row and therefore take in columns.
 
 | Aggregate Functions                 | Description                                                  |
 | ----------------------------------- | ------------------------------------------------------------ |
@@ -198,6 +204,15 @@ Data Consistency - Data is consistent and line up with each other.
 | VAR()                               | Calculate the variance of a column.                          |
 | STRING_AGG (column name, delimiter) | Aggregate data into a single string.                         |
 | ARRAY_AGG (column name)             | Aggregate data into an array.                                |
+
+### Row Level Functions
+
+Row Level Functions are functions that are applied to each row of data. It reads a single row at a time.
+
+| Row Level Functions               | Description                                                 |
+| --------------------------------- | ----------------------------------------------------------- |
+| [GREATEST()](#greatest-and-least) | Returns the largest value from a list of values in the row  |
+| LEAST()                           | Returns the smallest value from a list of values in the row |
 
 ### SQL Query Execution Order
 
@@ -308,11 +323,11 @@ CREATE TABLE photos(
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
--- insert values with foreign keys
+-- insert values with foreign keys, they must exist on the foreign key table otherwise place a null value or else there will be an error.
 INSERT INTO
   photos (url, user_id)
 VALUES
-  ('https://one.jpg', 4);
+  ('https://one.jpg', 4),
   ('http://two.jpg', 1),
   ('http://25.jpg', 1),
   ('http://36.jpg', NULL),
@@ -546,6 +561,9 @@ Understanding the shapes of data:
 -- SELECT id FROM orders => Many rows, one column
 -- SELECT COUNT(*) FROM orders => Single value (1 row, 1 column)
 
+-- SELECT with no FROM => Single value (1 row, 1 column)
+-- ex: SELECT(SELECT MAX(price) FROM products), (SELECT AVG(price) FROM products);
+
 -- FROM statements must always have an alias applied to it. If you dont, you will get an error.
 
 -- JOIN clauses must always have its subquery compatible with the ON clause conditions and must have a table alias applied to it.
@@ -657,18 +675,35 @@ OR price > ANY (
   SELECT price FROM products WHERE department = 'Electronics'
 )
 
+-- using only subqueries, print the max price, min price, and average price of all phones.
+
+-- method 1; w/ subqueries
+SELECT
+  (SELECT MAX(price) FROM phones) AS max_price,
+  (SELECT MIN(price) FROM phones) AS min_price,
+  (SELECT AVG(price) FROM phones) AS avg_price;
+
+
+-- method 2; w/o subqueries
+SELECT MAX(price) AS max_price, MIN(price) AS min_price, AVG(price) AS avg_price
+FROM phones;
+```
+
+### Correlated Subqueries
+
+```sql
 
 -- aliases are required for correlated subqueries when using/referencing the same table
 -- show the name, department, and price of the most expensive product in each department
 
--- method 1
+-- method 1; using a group by
 SELECT name, department, price
 FROM products
 WHERE price = ANY (
   SELECT MAX(price) FROM products GROUP BY department
 )
 
--- method 2
+-- method 2; correlated subquery
 SELECT name, department, price
 FROM products AS p1
 WHERE p1.price = ( -- reminder since conditions check every row, this acts like a loop
@@ -679,21 +714,70 @@ WHERE p1.price = ( -- reminder since conditions check every row, this acts like 
 
 -- without using a join or a group by, print the number of orders for each product
 
--- method 1
-SELECT name, (
+-- method 1;
+SELECT name, ( -- this subquery returns a full column , merely appended to the final output)
   SELECT COUNT(*)
-  FROM orders 
-  WHERE product_id = products.id;
+  FROM orders
+  WHERE product_id = products.id -- inner loop checking every order with each one product
 ) AS order_count
+FROM products; -- products acts as the outside loop, so we are looping through each product and checking with every order.
+
+-- method 2 ; using a join and a group by
+SELECT
+  products.name,
+  COUNT(orders.id) AS order_count
+FROM
+  products
+  LEFT JOIN orders ON orders.product_id = products.id
+GROUP BY
+  products.id
+ORDER BY -- we need to order by id since grouping doesn't guarantee order
+  products.id;
+```
+
+### Distincts
+
+```sql
+-- count distinct departments; Can be replaced by GROUP BY but not vice versa (they do different things)
+
+SELECT COUNT(DISTINCT department)
 FROM products;
 
-SELECT name, order_count
+-- distinct departments and names; both are distinct unique combinations between the 2 columns; you can no longer apply aggregates on these columns
+-- if you want distinct columns and apply aggregates on them, use GROUP BY instead.
+
+SELECT DISTINCT department, name
+FROM products;
+```
+
+### Greatest and Least
+
+```sql
+-- show the name, weight, and the greatest is either 30 as our minimum or twice the weight
+
+SELECT name, weight, GREATEST(30, 2 * weight)
+FROM products;
+
+-- all items are on sale! Show the name, weight, and the least is either 400 as our maximum or half the price
+
+SELECT name, price, LEAST(400, price / 2)
+
+```
+
+### Case 
+If condition is not met, the default value return is a null. case conditions are not that common to use on sql, since we can perform that using if/else statements on the front end. 
+
+```sql
+
+-- print each product, the price, and a description of the price. Price > 600 = 'high', price > 300 = 'medium', else 'cheap'
+
+SELECT name, price, CASE
+  WHEN price > 600 THEN 'high'
+  WHEN price > 300 THEN 'medium'
+  ELSE 'cheap'
+END
 FROM products
-WHERE order_count = (
-  SELECT COUNT(*)
-  FROM orders 
-  WHERE product_id = products.id;
-)
+
 ```
 
 ## pg library
