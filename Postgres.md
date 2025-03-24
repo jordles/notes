@@ -60,22 +60,26 @@ Data Consistency - Data is consistent and line up with each other.
 | @              | absolute       |
 | %              | modulus        |
 
-| Comparison Operators | Description                    |
-| -------------------- | ------------------------------ |
-| =                    | equality                       |
-| !=                   | not equal                      |
-| <>                   | not equal                      |
-| >                    | greater than                   |
-| <                    | less than                      |
-| >=                   | greater than or equal to       |
-| <=                   | less than or equal to          |
-| BETWEEN              | value between two other values |
-| IN ()                | value is in a list of values   |
-| AND                  | logical AND                    |
-| OR                   | logical OR                     |
-| NOT                  | logical NOT                    |
-| ALL                  | logical ALL                    |
-| SOME / ANY           | logical SOME / ANY             |
+| Comparison Operators | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| =                    | equality                                                     |
+| !=                   | not equal                                                    |
+| <>                   | not equal                                                    |
+| >                    | greater than                                                 |
+| <                    | less than                                                    |
+| >=                   | greater than or equal to                                     |
+| <=                   | less than or equal to                                        |
+|                      |                                                              |
+| BETWEEN              | value between two other values                               |
+| IN ()                | value is in a list of values                                 |
+| EXISTS               | checks if a value exists, performs faster than IN()          |
+| AND                  | logical AND                                                  |
+| OR                   | logical OR                                                   |
+| NOT                  | logical NOT                                                  |
+| ALL \*               | logical ALL                                                  |
+| SOME / ANY \*        | Compares a value against ANY (at least one) value in a list. |
+
+\* ALL/SOME/ANY require a comparison operator preceding them.
 
 | String Operators / Functions | Description                                          |
 | ---------------------------- | ---------------------------------------------------- |
@@ -135,7 +139,7 @@ Data Consistency - Data is consistent and line up with each other.
 | SELECT                                   | Retrieve data from a database.                                                                  |
 | FROM                                     | Specify the table or tables to select.                                                          |
 | JOINS ... ON                             | Join data from multiple tables and used when needed to find data from multiple sources.         |
-| WHERE                                    | Filter data based on a condition.                                                               |
+| WHERE                                    | Filter data/rows based on a condition.                                                          |
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | INSERT                                   | Insert data into a database.                                                                    |
 | INTO                                     | Specify the table to insert data into.                                                          |
@@ -542,8 +546,6 @@ Understanding the shapes of data:
 -- SELECT id FROM orders => Many rows, one column
 -- SELECT COUNT(*) FROM orders => Single value (1 row, 1 column)
 
--- SELECT statements always take in single values.
-
 -- FROM statements must always have an alias applied to it. If you dont, you will get an error.
 
 -- JOIN clauses must always have its subquery compatible with the ON clause conditions and must have a table alias applied to it.
@@ -636,12 +638,61 @@ WHERE price > ALL (
   SELECT price FROM products WHERE department = 'Industrial'
 )
 
--- Show the name of products that are more expensive than at least one product in the industrial department. 
+-- Show the name of products that are more expensive than at least one product in the industrial department.
 
 SELECT name
 FROM products
 WHERE price > ANY (
   SELECT price FROM products WHERE department = 'Industrial'
+)
+
+--show the name of products that are more expensive than at least one product in the 'Industrial' department or at least one product in the 'Electronics' department.
+
+SELECT name, department, price
+FROM products
+WHERE price > ANY (
+  SELECT price FROM products WHERE department = 'Industrial'
+)
+OR price > ANY (
+  SELECT price FROM products WHERE department = 'Electronics'
+)
+
+
+-- aliases are required for correlated subqueries when using/referencing the same table
+-- show the name, department, and price of the most expensive product in each department
+
+-- method 1
+SELECT name, department, price
+FROM products
+WHERE price = ANY (
+  SELECT MAX(price) FROM products GROUP BY department
+)
+
+-- method 2
+SELECT name, department, price
+FROM products AS p1
+WHERE p1.price = ( -- reminder since conditions check every row, this acts like a loop
+  SELECT MAX(price)
+  FROM products AS p2
+  WHERE p2.department = p1.department
+)
+
+-- without using a join or a group by, print the number of orders for each product
+
+-- method 1
+SELECT name, (
+  SELECT COUNT(*)
+  FROM orders 
+  WHERE product_id = products.id;
+) AS order_count
+FROM products;
+
+SELECT name, order_count
+FROM products
+WHERE order_count = (
+  SELECT COUNT(*)
+  FROM orders 
+  WHERE product_id = products.id;
 )
 ```
 
