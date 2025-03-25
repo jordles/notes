@@ -101,6 +101,13 @@ Data Consistency - Data is consistent and line up with each other.
 
 ## Data Types
 
+**General Rules:**
+- id column of any table is SERIAL.
+- Storing a number without decimals is INTEGER.
+- Storing a number with decimals and it needs to be exact is NUMERIC.
+- Storing a number with decimals and the decimal doesn't matter is DOUBLE PRECISION.
+
+On PGAdmin, the data type is defaulted to the most appropriate data type, however you can reassign it manually for ex: `SELECT (2::DECIMAL)` and postgres will throw an error if the data type is incorrect / out of range.
 | Column Data Types                  | Description                                                                                     |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
 | SMALLSERIAL                        | A number that is automatically incremented. 1 to 32767                                          |
@@ -109,13 +116,16 @@ Data Consistency - Data is consistent and line up with each other.
 | PRIMARY KEY                        | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
 | REFERENCES                         | A foreign key, which is a reference to another table in the database.                           |
 | VARCHAR(length of max string: opt) | A variable-length string.                                                                       |
+| SMALLINT                           | A number. -32768 to +32767                                                                      |
 | INTEGER                            | A number. Limits are ~ 2 billion for positive and negative numbers.                             |
 | BIGINT                             | A number. -9223372036854775808 to +9223372036854775807                                          |
 | BOOLEAN                            | A true or false value.                                                                          |
 | DATE                               | A date.                                                                                         |
 | TIMESTAMP                          | A date and time.                                                                                |
-| REAL                               | 6 decimal digits of precision.                                                                  |
-| DOUBLE PRECISION                   | 15 decimal digits of precision.                                                                 |
+| NUMERIC / DECIMAL                  | 131072 digits before the decimal point, 16383 after                                             |
+| REAL                               | 1E-37 to 1E+37, minimum of 6 decimal digits of precision.                                       |
+| DOUBLE PRECISION                   | 1E-307 to 1E+308, minimum of 15 decimal digits of precision.                                    |
+| FLOAT                              | Same as REAL or DOUBLE PRECISION                                                                |
 | DEFAULT <default value>            | Set a default value for your data type after setting a data type, null if not set.              |
 
 ## Queries / Actions
@@ -764,8 +774,9 @@ SELECT name, price, LEAST(400, price / 2)
 
 ```
 
-### Case 
-If condition is not met, the default value return is a null. case conditions are not that common to use on sql, since we can perform that using if/else statements on the front end. 
+### Case
+
+If condition is not met, the default value return is a null. case conditions are not that common to use on sql, since we can perform that using if/else statements on the front end.
 
 ```sql
 
