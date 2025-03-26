@@ -825,3 +825,36 @@ export default pool;
 | Performance           | Can be slower with many queries due to frequent connection overhead | More efficient with many simultaneous queries due to connection reuse      |
 | Overhead              | Higher overhead for each query (opens/closes connection each time)  | Lower overhead as connections are reused                                   |
 | Concurrency           | Limited to one query at a time per client instance                  | Allows multiple queries to run concurrently (through multiple connections) |
+
+
+
+INSERT INTO glucose (unit)
+VALUES
+  ('mg/dL'),
+  ('mmol/L'),
+  ('other');
+
+INSERT INTO bodily_functions (name)
+VALUES
+  ('Defecation'),
+  ('Urination');
+
+INSERT INTO dosage (unit)
+VALUES
+  ('mg'),
+  ('mL'),
+  ('tablet'),
+  ('capsule'),
+  ('tbsp'),
+  ('tsp'),
+  ('other');
+
+INSERT INTO activity_type (name)
+VALUES
+  ('Sleeping'),
+  ('Exercise'),
+  ('Eating'),
+  ('Drinking'),
+  ('Other');
+
+
