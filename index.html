@@ -1794,7 +1794,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>str.replace(num,num2)</code> => replace one string with another</li>
     <li><code>str.replaceAll(num, num2)</code> => replace all instances of one string with another string</li>
     <li><code>parseInt(string, radix)</code> => helps parse a string into an int.
-      The radex specifies the base of the number in the string. The radix can be an integer between 2 and 36. 10 would be ints. 
+      The radix specifies the base of the number in the string. The radix can be an integer between 2 and 36. 10 would be ints. 
       So for example parsedInt("11", 2) would return 3 because it is being parsed under the binary system;
       parsedInt can also find a number within a word string, and return that number. 
     </li>
@@ -6395,6 +6395,18 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>git reset {jump to value from log}</code> - jump back to the most previous commits </li>
     <a href="https://stackoverflow.com/questions/65434544/whats-the-difference-between-git-rm-cached-git-restore-staged-and-gi">Understand the difference between git rm, git restore, and git reset</a>
 
+    <li><code>git stash</code> - temporary storage of uncommitted changes so you can switch over to another branch without worry</li>
+    <li><code>git stash apply</code> - apply the last stash to current branch</li>
+    <li><code>git stash drop</code> - remove the last stash</li>
+    <li><code>git stash pop</code> - apply the last stash to current branch and remove the stash</li>
+    <li><code>git stash list</code> - list all the stashes</li>
+    <li><code>git stash show</code> - show the last stash</li>
+    <li><code>git stash clear</code> - clear all the stashes</li>
+    <li><code>git stash drop stash@{0}</code> - remove a specific stash</li>
+    <li><code>git stash save "{description}"</code> - save the current state of the working directory</li>
+    <li><code>git stash save -u "{description}"</code> - save the current state of the working directory, including untracked files</li>
+    <li><code>git stash save -k "{description}"</code> - save the current state of the working directory, including untracked files and ignore any error messages</li>
+    <hr>
     <li><code>.gitignore </code> - when you want to hide sensitive files, create a file with .gitignore type
       <li><code>#ignore all.{filetype} files</code> - tells git to ignore all types of filetype</li>
       <li><code>*{filename}.{filetype}</code> - tells git to ignore this specific file</li>

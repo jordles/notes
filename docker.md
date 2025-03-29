@@ -24,19 +24,21 @@ docker compose down -v
 ```yaml
 # an example docker compose file
 services:
-  db:
+  db: # creates a container for postgres 
     image: postgres:latest
     container_name: postgres_container
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-    ports:
+    ports: # this port maps the ports configuration from port 5432 on my local machine to port 5432 inside the container, its used to connect to the database as part of the connection string. Port 5432 is the default port for PostgreSQL, and it is used for database connectionsPort 5432 is the default port for PostgreSQL, and it is used for database connections.  
+    # It is the port used by PostgreSQL to accept database connections from clients like psql, pgAdmin, or your application (e.g., Express server). Browsers cannot directly interact with PostgreSQL because it doesn't serve HTTP traffic. 
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  pgadmin:
+  # pgadmin service in this file is creating a pgAdmin application inside the docker container. This containerized pgAdmin functions just like a standalone pgAdmin application, but its hosted in the docker environment. 
+  pgadmin: # creates a container for pgadmin 
     image: dpage/pgadmin4
     container_name: pgadmin_container
     depends_on:
@@ -44,11 +46,13 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    ports:
+    ports: # this maps the ports configuration from port 5050 on my local machine to port 80 inside the container
       - "5050:80"
-
+    volumes: # ensures the pgAdmin's configurations (like registered servers) is persisted across container restarts
+      - pgadmin_data:/var/lib/pgadmin
 volumes:
   db_data:
+  pgadmin_data:
 ```
 
 
@@ -58,3 +62,6 @@ volumes:
 \l - list databases
 \d - describe a database
 \q - quit the database
+
+docker ps - list running containers
+docker exec -it <container_name> psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} - connect to your container_name and run psql

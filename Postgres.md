@@ -2,6 +2,33 @@
 
 Postgres is one of the most popular open source relational databases. It is a SQL database that supports ACID transactions and is written in C. It is also known as PostgreSQL.
 
+PostgreSQL is the database server itself. When you install PostgreSQL locally or run it in a Docker container, you're setting up a database server that listens for connections (e.g., on localhost:5432).
+
+PostgreSQL does not come with a graphical user interface (GUI) for managing the database. Instead, you use tools like:  
+**pgAdmin**: A web-based GUI for managing PostgreSQL databases (similar to MongoDB Compass for MongoDB).  
+**psql**: A command-line tool for interacting with PostgreSQL databases.
+
+**MongoDB Compass:**  
+MongoDB Compass is a GUI tool for managing MongoDB databases. It connects to a MongoDB server, which can be running locally, in a Docker container, or on a remote cloud service like MongoDB Atlas. PostgreSQL Does Not Have a Built-In Remote Cloud Service.
+MongoDB Compass is not the database server itself—it's just a client application for interacting with the database.
+
+**Self-Hosted PostgreSQL:**
+
+Install PostgreSQL on your local machine, a virtual machine, or a Docker container.
+Manage the database yourself, including backups, scaling, and security.
+
+**Cloud-Hosted PostgreSQL:**
+
+Use a cloud provider to host your PostgreSQL database. Popular options include:
+
+- Amazon RDS for PostgreSQL (AWS)
+- Google Cloud SQL for PostgreSQL (GCP)
+- Azure Database for PostgreSQL (Microsoft Azure)
+- Heroku Postgres (Heroku)
+
+**Third-Party Services:**
+Services like ElephantSQL or Supabase provide managed PostgreSQL hosting with features like backups, scaling, and monitoring.
+
 ## Overview Directory
 
 ├── [Keys](#keys)  
@@ -102,31 +129,70 @@ Data Consistency - Data is consistent and line up with each other.
 ## Data Types
 
 **General Rules:**
+
+(There is no performance difference)
+
 - id column of any table is SERIAL.
+
+### Integer
+
 - Storing a number without decimals is INTEGER.
 - Storing a number with decimals and it needs to be exact is NUMERIC.
 - Storing a number with decimals and the decimal doesn't matter is DOUBLE PRECISION.
 
-On PGAdmin, the data type is defaulted to the most appropriate data type, however you can reassign it manually for ex: `SELECT (2::DECIMAL)` and postgres will throw an error if the data type is incorrect / out of range.
-| Column Data Types                  | Description                                                                                     |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------- |
-| SMALLSERIAL                        | A number that is automatically incremented. 1 to 32767                                          |
-| SERIAL                             | A number that is automatically incremented. 1 to 2147483647                                     |
-| BIGSERIAL                          | A number that is automatically incremented. 1 to 9223372036854775807                            |
-| PRIMARY KEY                        | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
-| REFERENCES                         | A foreign key, which is a reference to another table in the database.                           |
-| VARCHAR(length of max string: opt) | A variable-length string.                                                                       |
-| SMALLINT                           | A number. -32768 to +32767                                                                      |
-| INTEGER                            | A number. Limits are ~ 2 billion for positive and negative numbers.                             |
-| BIGINT                             | A number. -9223372036854775808 to +9223372036854775807                                          |
-| BOOLEAN                            | A true or false value.                                                                          |
-| DATE                               | A date.                                                                                         |
-| TIMESTAMP                          | A date and time.                                                                                |
-| NUMERIC / DECIMAL                  | 131072 digits before the decimal point, 16383 after                                             |
-| REAL                               | 1E-37 to 1E+37, minimum of 6 decimal digits of precision.                                       |
-| DOUBLE PRECISION                   | 1E-307 to 1E+308, minimum of 15 decimal digits of precision.                                    |
-| FLOAT                              | Same as REAL or DOUBLE PRECISION                                                                |
-| DEFAULT <default value>            | Set a default value for your data type after setting a data type, null if not set.              |
+### Boolean
+
+- `True, 'yes', on, 1, 't', 'y'` = true.
+- `False, 'no', off, 0, 'f', 'n'` = false
+- `NULL` = null
+
+### Time
+
+We can perform operations on time data types.
+
+- `TIME` = any time format w/o timezone, also accepts am or pm
+- `TIME WITH TIME ZONE` = any time format, also accepts am or pm, must include timezone ex: `01:23:23 AM UTC` outputs `01:23:23+00:00`
+- `TIMESTAMP` = any date and time, also accepts am or pm
+- `TIMESTAMP WITH TIME ZONE` = any date and time with timezone, also accepts am or pm, must include timezone ex: `NOV 20 1980 01:24 AM PST` outputs `1980-11-20 02:23:00-07`
+
+### Interval
+
+Intervals are especially useful when working or doing calculations with time. We can subtract 1 day from a specific date. You can also perform calculations on the interval itself `SELECT INTERVAL '2 days' - INTERVAL '1 day';` or `SELECT INTERVAL '2 days' * 2;`  
+We can also use it in conditions: `SELECT * FROM events WHERE duration > INTERVAL '2 days';`
+
+- `1 day` / `1d` = 1 day
+- `1 hour` = 1 hour
+- `1d 1m 1s` = 1 day 1 minute 1 second
+
+### Null
+
+Null is not an actual value, as it represents an unknown value. So equality statements do not work with null. Use IS NULL to check for null values.
+
+| Column Data Types                      | Description                                                                                     |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| SMALLSERIAL                            | A number that is automatically incremented. 1 to 32767                                          |
+| SERIAL                                 | A number that is automatically incremented. 1 to 2147483647                                     |
+| BIGSERIAL                              | A number that is automatically incremented. 1 to 9223372036854775807                            |
+| PRIMARY KEY                            | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
+| REFERENCES                             | A foreign key, which is a reference to another table in the database.                           |
+| CHAR(length of fixed string: req)      | A fixed-length string. Characters will include spaces and pad if needed                         |
+| VARCHAR(length of max string: opt)     | A variable-length string. Stores any or up to the length if specified, otherwise acts like TEXT |
+| TEXT                                   | A variable-length string. Stores any length, with no length limit                               |
+| SMALLINT                               | A number. -32768 to +32767                                                                      |
+| [INTEGER](#integer)                    | A number. Limits are ~ 2 billion for positive and negative numbers.                             |
+| BIGINT                                 | A number. -9223372036854775808 to +9223372036854775807                                          |
+| [BOOLEAN](#boolean)                    | A true or false value.                                                                          |
+| DATE                                   | A date. Accepts any date format.                                                                |
+| [TIME / TIME WITHOUT TIME ZONE](#time) | A time. Accepts any time format w/o timezone.                                                   |
+| TIME WITH TIME ZONE                    | A time with timezone. Accepts any time format.                                                  |
+| TIMESTAMP                              | A date and time.                                                                                |
+| TIMESTAMP WITH TIME ZONE               | A date and time with timezone.                                                                  |
+| INTERVAL                               | A time interval. Create a duration of time                                                      |
+| NUMERIC / DECIMAL                      | 131072 digits before the decimal point, 16383 after                                             |
+| REAL                                   | 1E-37 to 1E+37, minimum of 6 decimal digits of precision.                                       |
+| DOUBLE PRECISION                       | 1E-307 to 1E+308, minimum of 15 decimal digits of precision.                                    |
+| FLOAT                                  | Same as REAL or DOUBLE PRECISION                                                                |
+| DEFAULT <default value>                | Set a default value for your data type after setting a data type, null if not set.              |
 
 ## Queries / Actions
 
@@ -142,7 +208,18 @@ On PGAdmin, the data type is defaulted to the most appropriate data type, howeve
 | CREATE ROLE                              | Create a role in a database.                                                                    |
 | CREATE SCHEMA                            | Create a schema in a database.                                                                  |
 | CREATE SEQUENCE                          | Create a sequence in a database.                                                                |
-| ALTER                                    | Alter a database.                                                                               |
+| ALTER ...                                | Alter a part of a database.                                                                     |
+| ALTER TABLE                              | Alter a table in a database.                                                                    |
+| ALTER COLUMN                             | Alter a column in a table.                                                                      |
+| ALTER INDEX                              | Alter an index in a database.                                                                   |
+| ALTER VIEW                               | Alter a view in a database.                                                                     |
+| ALTER FUNCTION                           | Alter a function in a database.                                                                 |
+| ALTER TRIGGER                            | Alter a trigger in a database.                                                                  |
+| ALTER DOMAIN                             | Alter a domain in a database.                                                                   |
+| ALTER ROLE                               | Alter a role in a database.                                                                     |
+| ALTER SCHEMA                             | Alter a schema in a database.                                                                   |
+| ALTER SEQUENCE                           | Alter a sequence in a database.                                                                 |
+| DROP ...                                 | Delete a part of a database.                                                                    |
 | DROP TABLE                               | Delete a database.                                                                              |
 | AS                                       | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional          |
 | TO                                       | Rename a table officially (used with ALTER)                                                     |
@@ -160,12 +237,6 @@ On PGAdmin, the data type is defaulted to the most appropriate data type, howeve
 | SET                                      | Set a value in a database.                                                                      |
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | DELETE                                   | Delete data from a database.                                                                    |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| ON DELETE ... (CONSTRAINTS)              | Specify the action to take when deleting                                                        |
-| ON DELETE RESTRICT                       | Prevent deletion of the referenced row with foreign key                                         |
-| ON DELETE CASCADE                        | Delete the row if it has a foreign key                                                          |
-| ON DELETE SET NULL                       | Set the foreign key to NULL                                                                     |
-| ON DELETE SET DEFAULT                    | Set the foreign key to a custom DEFAULT value                                                   |
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | [JOIN / INNER JOIN](#joins)              | Join data from multiple tables that share a common column. This is known as an inner join.      |
 | LEFT JOIN / LEFT OUTER JOIN              | Join all the data from the left table and the matching data from the right table.               |
@@ -198,6 +269,21 @@ On PGAdmin, the data type is defaulted to the most appropriate data type, howeve
 | [subqueries](#subqueries)                | Execute a SELECT statement within a SELECT statement with parentheses.                          |
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                |
+
+| SQL CONSTRAINTS       | Description                                                           |
+| --------------------- | --------------------------------------------------------------------- |
+| ON DELETE ...         | Specify the action to take when deleting                              |
+| ON DELETE RESTRICT    | Prevent deletion of the referenced row with foreign key               |
+| ON DELETE CASCADE     | Delete the row if it has a foreign key                                |
+| ON DELETE SET NULL    | Set the foreign key to NULL                                           |
+| ON DELETE SET DEFAULT | Set the foreign key to a custom DEFAULT value                         |
+| NOT NULL              | Prevent NULL values in the column. will error if existing null values |
+| DEFAULT               | Set a default value for the column                                    |
+| SET DEFAULT           | Set a default value for the column with ALTER                         |
+| UNIQUE                | Prevent duplicate values in the column                                |
+| ADD UNIQUE            | Add a unique value for the column                                     |
+| PRIMARY KEY           | Set a unique value for the column                                     |
+| CHECK                 | Perform a conditional statement                                       |
 
 ### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
 
@@ -791,6 +877,18 @@ FROM products
 
 ```
 
+## pgAdmin
+
+On PGAdmin, the data type is defaulted to the most appropriate data type, however you can reassign it manually for ex: `SELECT (2::DECIMAL)` and postgres will throw an error if the data type is incorrect / out of range.
+
+To find your tables in database:
+
+1. Schemas
+2. Public
+3. Tables
+
+We can edit table columns and rows by clicking them, then save on the top with the grid icon. 
+
 ## pg library
 
 #### Connecting to the database using the pg library:
@@ -825,36 +923,3 @@ export default pool;
 | Performance           | Can be slower with many queries due to frequent connection overhead | More efficient with many simultaneous queries due to connection reuse      |
 | Overhead              | Higher overhead for each query (opens/closes connection each time)  | Lower overhead as connections are reused                                   |
 | Concurrency           | Limited to one query at a time per client instance                  | Allows multiple queries to run concurrently (through multiple connections) |
-
-
-
-INSERT INTO glucose (unit)
-VALUES
-  ('mg/dL'),
-  ('mmol/L'),
-  ('other');
-
-INSERT INTO bodily_functions (name)
-VALUES
-  ('Defecation'),
-  ('Urination');
-
-INSERT INTO dosage (unit)
-VALUES
-  ('mg'),
-  ('mL'),
-  ('tablet'),
-  ('capsule'),
-  ('tbsp'),
-  ('tsp'),
-  ('other');
-
-INSERT INTO activity_type (name)
-VALUES
-  ('Sleeping'),
-  ('Exercise'),
-  ('Eating'),
-  ('Drinking'),
-  ('Other');
-
-
