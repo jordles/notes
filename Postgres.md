@@ -37,10 +37,13 @@ Services like ElephantSQL or Supabase provide managed PostgreSQL hosting with fe
 ├── [Functions](#functions)  
 ├── [Data Types](#data-types)  
 ├── [Queries](#queries--actions)  
+├── [Constraints](#constraints)  
 ├── [Aggregate Functions](#aggregate-function)  
 ├── [Row Level Functions](#row-level-functions)  
 ├── [Execution Order](#sql-query-execution-order)  
+├── [Validation](#validation)  
 ├── [Postgres Snippets](#postgres-examples)  
+├── [pgAdmin](#pgadmin)  
 └── [pg library](#pg-library)
 
 Important questions to ask?
@@ -173,8 +176,6 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | SMALLSERIAL                            | A number that is automatically incremented. 1 to 32767                                          |
 | SERIAL                                 | A number that is automatically incremented. 1 to 2147483647                                     |
 | BIGSERIAL                              | A number that is automatically incremented. 1 to 9223372036854775807                            |
-| PRIMARY KEY                            | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
-| REFERENCES                             | A foreign key, which is a reference to another table in the database.                           |
 | CHAR(length of fixed string: req)      | A fixed-length string. Characters will include spaces and pad if needed                         |
 | VARCHAR(length of max string: opt)     | A variable-length string. Stores any or up to the length if specified, otherwise acts like TEXT |
 | TEXT                                   | A variable-length string. Stores any length, with no length limit                               |
@@ -270,20 +271,35 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                |
 
-| SQL CONSTRAINTS       | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| ON DELETE ...         | Specify the action to take when deleting                              |
-| ON DELETE RESTRICT    | Prevent deletion of the referenced row with foreign key               |
-| ON DELETE CASCADE     | Delete the row if it has a foreign key                                |
-| ON DELETE SET NULL    | Set the foreign key to NULL                                           |
-| ON DELETE SET DEFAULT | Set the foreign key to a custom DEFAULT value                         |
-| NOT NULL              | Prevent NULL values in the column. will error if existing null values |
-| DEFAULT               | Set a default value for the column                                    |
-| SET DEFAULT           | Set a default value for the column with ALTER                         |
-| UNIQUE                | Prevent duplicate values in the column                                |
-| ADD UNIQUE            | Add a unique value for the column                                     |
-| PRIMARY KEY           | Set a unique value for the column                                     |
-| CHECK                 | Perform a conditional statement                                       |
+### Constraints
+
+To find your constraints of a table, use pgAdmin to inspect those constraints or this query:
+
+```sql
+SELECT conname AS constraint_name, contype AS constraint_type,
+       pg_get_constraintdef(oid) AS definition
+FROM pg_constraint
+WHERE conrelid = 'your_table_name'::regclass;
+```
+
+| SQL CONSTRAINTS                   | Description                                                                                     |
+| --------------------------------- | ----------------------------------------------------------------------------------------------- |
+| PRIMARY KEY                       | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
+| REFERENCES <table(col)>           | A foreign key, which is a reference to another table in the database.                           |
+| ON DELETE ...                     | Specify the action to take when deleting                                                        |
+| ON DELETE RESTRICT                | Prevent deletion of the referenced row with foreign key                                         |
+| ON DELETE CASCADE                 | Delete the row if it has a foreign key                                                          |
+| ON DELETE SET NULL                | Set the foreign key to NULL                                                                     |
+| ON DELETE SET DEFAULT             | Set the foreign key to a custom DEFAULT value                                                   |
+| NOT NULL                          | Prevent NULL values in the column. will error if existing null values                           |
+| DEFAULT                           | Set a default value for the column                                                              |
+| SET DEFAULT                       | Set a default value for the column with ALTER                                                   |
+| [UNIQUE](#unique)                 | Prevent duplicate values in the column                                                          |
+| ADD UNIQUE                        | Add a unique value for the column with ALTER                                                    |
+| PRIMARY KEY                       | Set a unique value for the column                                                               |
+| [CHECK](#check) (condition)       | Perform a conditional statement                                                                 |
+| ADD CHECK                         | Add a conditional statement with ALTER                                                          |
+| DROP CONSTRAINT <constraint_name> | Remove a constraint from the table with ALTER                                                   |
 
 ### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
 
@@ -326,15 +342,40 @@ When interacting with a database, theres an order that SQL follows:
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
 
-| Feature                     | JOIN                                                     | UNION                                                                   |
-| --------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Purpose                     | Combines columns from multiple tables                    | Combines rows from multiple queries                                     |
-| When to Use                 | When you need data from related tables with a common key | When you need to merge results from two queries with the same structure |
-| Number of Columns in Output | Can be different for each table                          | Must be the same for both queries                                       |
-| Duplicates                  | Keeps all matching rows                                  | Removes duplicates unless UNION ALL is used                             |
+--- 
 
+## Validation
+
+| Web Server                                      | Database                                                                              |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Easier to express more complex validation       | Validation still applied even if you connect with a different client                  |
+| Far easier to apply new validation rules        | Guaranteed that validation is always applied at the database level (through a schema) |
+| Many libraryies handle validation automatically | Can only apply new validation rules if all existing rows satisfy the rule             |
+
+**Web Server:**
+- __Easier to express more complex validation__  
+Web servers can use JavaScript logic or validation libraries like Joi, Validator.js, or Express-Validator to enforce complex rules (e.g., password strength, email formats, business logic).
+
+- __Far easier to apply new validation rules__  
+Validation logic can be updated without affecting existing data in the database.  
+Example: If you want to enforce a stronger password policy, you can just update the validation logic in Express without modifying the database.
+
+- __Many libraries handle validation automatically__  
+Example: If you're using Mongoose (for MongoDB) or Sequelize (for SQL), they have built-in validation rules for schemas, making it easier to enforce consistency.
+
+
+
+**Database:**
+
+Database-level validation ensures data integrity, even if a client bypasses the web server.
+
+- __Validation is always applied__  
+If someone directly connects to PostgreSQL using psql, pgAdmin, or another tool, the database enforces constraints.
+- __Guaranteed schema enforcement__  
+Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database.
+
+---
 ## Postgres Examples
-
 ```sql
 
 -- keywords  identifiers
@@ -443,6 +484,13 @@ DELETE from users WHERE id = 1;
 All JOINS queries will match and fill up the combined corresponding number of rows in our combined tables with null values if there is no matching data. Order will matter for directional joins based on which table is on the left and which table is on the right of the JOIN keyword.
 
 Although ON is similar to WHERE for filtering data, WHERE happens after the JOIN, which when dealing with outer joins will turn it into an inner join instead, when it detects NULL values for example. Placing the condition on ON will retain the unmatched rows with NULL values, due to ON being executed first before JOIN.
+
+| Feature                     | JOIN                                                     | UNION                                                                   |
+| --------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Purpose                     | Combines columns from multiple tables                    | Combines rows from multiple queries                                     |
+| When to Use                 | When you need data from related tables with a common key | When you need to merge results from two queries with the same structure |
+| Number of Columns in Output | Can be different for each table                          | Must be the same for both queries                                       |
+| Duplicates                  | Keeps all matching rows                                  | Removes duplicates unless UNION ALL is used                             |
 
 ```sql
 --select specifies the columns we want to retrieve from the 3rd imaginary table we created by joining tables. Select determines the order of these columns, if non are specified, then the order is based on the table order stated in the query. Select columns must be unique, and if they are the same name, you must specify the table name with dot notation (if certain libraries are still unable to recognize the difference use the AS keyword to rename a column or even rename a table itself).
@@ -877,17 +925,69 @@ FROM products
 
 ```
 
+### Unique
+
+**UNIQUE** works just like **DISTINCT** for queries. If you place it across multiple columns, it will apply unique to those combinations instead of individual ones.
+
+```sql
+
+-- Single column unique constraint
+CREATE TABLE table_name (
+  column1 VARCHAR(255),
+  UNIQUE (column1)
+)
+
+-- OR
+
+CREATE TABLE table_name (
+  column1 VARCHAR(255) UNIQUE
+);
+
+-- Create multi column unique constraint
+CREATE TABLE table_name (
+  column1 VARCHAR(255),
+  column2 VARCHAR(255),
+  column3 VARCHAR(255),
+  UNIQUE (column1, column2, column3)
+);
+
+ALTER TABLE table_name
+ADD UNIQUE (column1, column2, column3);
+```
+
+### Check
+
+Reminder that check only validates conditions on the same row of every respective row, and never crosses over.
+
+```sql
+-- check if est_delivery is greater than created_at
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(40) NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  est_delivery TIMESTAMP NOT NULL,
+  CHECK(est_delivery > created_at)
+)
+
+-- check if car color is red, green, or blue
+CREATE TABLE cars (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(20),
+	color VARCHAR(20) CHECK (color IN ('red', 'green', 'blue'))
+);
+```
+
 ## pgAdmin
 
 On PGAdmin, the data type is defaulted to the most appropriate data type, however you can reassign it manually for ex: `SELECT (2::DECIMAL)` and postgres will throw an error if the data type is incorrect / out of range.
 
-To find your tables in database: 
+To find your tables in database:
 
 1. Schemas
 2. Public
 3. Tables
 
-We can edit table columns and rows by clicking them, then save on the top with the grid icon. 
+We can edit table columns and rows by clicking them, then save on the top with the grid icon.
 
 ## pg library
 
