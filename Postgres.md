@@ -881,7 +881,7 @@ FROM products
 
 On PGAdmin, the data type is defaulted to the most appropriate data type, however you can reassign it manually for ex: `SELECT (2::DECIMAL)` and postgres will throw an error if the data type is incorrect / out of range.
 
-To find your tables in database:
+To find your tables in database: 
 
 1. Schemas
 2. Public
