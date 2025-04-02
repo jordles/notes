@@ -353,26 +353,42 @@ When interacting with a database, theres an order that SQL follows:
 | Many libraryies handle validation automatically | Can only apply new validation rules if all existing rows satisfy the rule             |
 
 **Web Server:**
-- __Easier to express more complex validation__  
+- ✅ __Easier to express more complex validation__  
 Web servers can use JavaScript logic or validation libraries like Joi, Validator.js, or Express-Validator to enforce complex rules (e.g., password strength, email formats, business logic).
 
-- __Far easier to apply new validation rules__  
+- ✅ __Far easier to apply new validation rules__  
 Validation logic can be updated without affecting existing data in the database.  
 Example: If you want to enforce a stronger password policy, you can just update the validation logic in Express without modifying the database.
 
-- __Many libraries handle validation automatically__  
+- ✅ __Many libraries handle validation automatically__  
 Example: If you're using Mongoose (for MongoDB) or Sequelize (for SQL), they have built-in validation rules for schemas, making it easier to enforce consistency.
 
+- ❌ Validation at the web server level only works if every client follows the API rules.
 
+- ❌ If someone connects directly to the database (e.g., through psql or another API), they could bypass these checks.
 
 **Database:**
 
 Database-level validation ensures data integrity, even if a client bypasses the web server.
 
-- __Validation is always applied__  
+- ✅ __Validation is always applied__  
 If someone directly connects to PostgreSQL using psql, pgAdmin, or another tool, the database enforces constraints.
-- __Guaranteed schema enforcement__  
+- ✅ __Guaranteed schema enforcement__  
 Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database.
+- ✅ __Ensures consistency across multiple clients__  
+Even if multiple services write to the same database, all of them must follow database constraints.
+
+- ❌ __Applying new validation rules is harder__  
+If you add a new validation rule on an existing table, all existing rows must comply before the change is allowed.
+
+- ❌ __Complex validations are harder__   
+PostgreSQL constraints work well for basic validation (e.g., NOT NULL, CHECK), but complex rules (like "password must contain a special character") are better handled at the web server level.
+
+**Best practice: <ins>Use both</ins>.**
+
+__Web Server (Express/Node.js)__: Handles business logic and complex validations.
+
+__Database (PostgreSQL)__: Ensures data integrity and prevents bad data at the lowest level.
 
 ---
 ## Postgres Examples
