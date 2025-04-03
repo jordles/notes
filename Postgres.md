@@ -463,6 +463,16 @@ UPDATE cities SET population = 39505000 WHERE name = 'Tokyo';
 DELETE FROM cities WHERE name = 'Tokyo';
 ```
 
+```sql
+-- find the ids of the top five most liked posts
+SELECT posts.id
+FROM posts
+JOIN likes ON posts.id = likes.post_id
+GROUP BY posts.id
+ORDER BY COUNT(*) DESC
+LIMIT 5;
+```
+
 ### Keys
 
 ```sql
@@ -497,9 +507,11 @@ DELETE from users WHERE id = 1;
 
 ### Joins
 
-All JOINS queries will match and fill up the combined corresponding number of rows in our combined tables with null values if there is no matching data. Order will matter for directional joins based on which table is on the left and which table is on the right of the JOIN keyword.
+All __JOINS__ queries will match and fill up the combined corresponding number of rows in our combined tables with null values if there is no matching data. Order will matter for directional joins based on which table is on the left and which table is on the right of the JOIN keyword.
 
-Although ON is similar to WHERE for filtering data, WHERE happens after the JOIN, which when dealing with outer joins will turn it into an inner join instead, when it detects NULL values for example. Placing the condition on ON will retain the unmatched rows with NULL values, due to ON being executed first before JOIN.
+REMEMBER __ON__ is the matching condition applied to every row, starting from the left initial table matching to the right. ON essentially orders the rows according to its condition. THIS NOT NOT MEAN __ON__ WILL ENFORCE SERIAL ORDERING. 
+
+Although __ON__ is similar to __WHERE__ for filtering data, __WHERE__ happens after the __JOIN__, which when dealing with outer joins will turn it into an inner join instead, when it detects __NULL__ values for example. Placing the condition on __ON__ will retain the unmatched rows with NULL values, due to __ON__ being executed first before __JOIN__.
 
 | Feature                     | JOIN                                                     | UNION                                                                   |
 | --------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
@@ -1039,3 +1051,15 @@ export default pool;
 | Performance           | Can be slower with many queries due to frequent connection overhead | More efficient with many simultaneous queries due to connection reuse      |
 | Overhead              | Higher overhead for each query (opens/closes connection each time)  | Lower overhead as connections are reused                                   |
 | Concurrency           | Limited to one query at a time per client instance                  | Allows multiple queries to run concurrently (through multiple connections) |
+
+
+Ids of top five most liked posts
+
+```sql
+SELECT posts.id
+FROM posts
+JOIN likes ON posts.id = likes.post_id
+GROUP BY post_id
+
+
+```
