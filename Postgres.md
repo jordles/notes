@@ -54,6 +54,8 @@ Important questions to ask?
 
 Postgres uses tables to store data.
 
+---
+
 ## Keys
 
 **Primary Keys** - Identifies unique rows in a table.  
@@ -69,6 +71,8 @@ Postgres uses tables to store data.
 
 Data Consistency - Data is consistent and line up with each other.
 
+---
+
 ## Relationships
 
 | Relationships | Description  |
@@ -78,6 +82,145 @@ Data Consistency - Data is consistent and line up with each other.
 | N:1           | Many-to-one  |
 | N:N           | Many-to-many |
 
+├── [Polymorphic Association](#polymorphic-association)  
+├── [Concrete Table Inheritance](#concrete-table-inheritance-multiple-foreign-key-columns)  
+└── [Association Table per Model](#association-table-per-model-join-table-per-association)
+
+### Polymorphic Association
+
+**Polymorphic Association** - One table column can be associated with multiple tables. This method can't use foreign key columns. Instead, it uses a discriminator column. This method is an alternative to using many foreign key columns in one table, assuming those foreign key columns all reference the same column.
+
+However, its not recommended in data designs like postgres which require its foreign key relationships to exist beforehand to ensure data consistency, so its not common to see. This design is however common with **Ruby on Rails** for example.
+
+#### A polymorphic table will typically have:
+
+**target_id** – the primary key of the associated record; no longer a foreign key column since it can reference multiple tables
+
+**target_type** – the name of the associated table/model
+
+✅ Pros:
+
+- Reduces duplication (no need for post_likes, comment_likes, etc.)
+- Flexible and extensible
+
+❌ Cons:
+
+- Harder to enforce foreign key constraints, which can lead to data inconsistency
+- Queries can get more complex, causing a performance penalty. 
+
+_`the likes table here showcases a liked_type for posts and comments, because both those tables have likes functionality`_
+| **likes** |
+|---------------------------------------|
+
+| id  | user_id | liked_id | liked_type |
+| --- | ------- | -------- | ---------- |
+| 1   | 3       | 2        | post       |
+| 2   | 3       | 1        | comment    |
+| 3   | 4       | 2        | post       |
+| 4   | 4       | 1        | comment    |
+
+### Concrete Table Inheritance (Multiple Foreign Key Columns)
+
+We implement multiple separate foreign key columns instead, and have the rest be filled with nulls to represent the type for that row.
+
+| **likes** |
+| --------- |
+
+| id  | user_id | post_id | comment_id |
+| --- | ------- | ------- | ---------- |
+| 1   | 3       | 2       | NULL       |
+| 2   | 3       | NULL    | 1          |
+| 3   | 4       | 2       | NULL       |
+| 4   | 4       | 1       | NULL       |
+
+❌ Cons:
+* Not flexible; What if we allow more types of likes in the future?
+
+To ensure correct data consistency, we need to add a check to ensure that only one of the columns is not null.
+```sql
+
+CREATE TABLE likes (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  post_id INTEGER,
+  comment_id INTEGER,
+  CHECK (post_id IS NOT NULL OR comment_id IS NOT NULL)
+);
+
+-- OR
+
+CREATE TABLE likes (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  post_id INTEGER REFERENCES posts(id),
+  comment_id INTEGER REFERENCES comments(id),
+  CHECK (COALESCE((post_id)::BOOLEAN::INTEGER, 0) + COALESCE((comment_id)::BOOLEAN::INTEGER, 0) = 1)
+)
+
+-- OR
+
+ALTER TABLE likes
+ADD CHECK (COALESCE((post_id)::BOOLEAN::INTEGER, 0) + COALESCE((comment_id)::BOOLEAN::INTEGER, 0) = 1);
+
+-- keep in mind, type casting a null value to boolean or integer will result in null. But if you type cast a non-null value to boolean or integer, it will result in 1. 
+---
+
+```
+
+### Association Table per Model (Join Table per Association)
+
+We can create a join table per association. This is the most common method for creating a many-to-many relationship.
+
+| posts_likes |
+| ----------- |
+
+| id | user_id | post_id |
+| --- | ------- | ------- |
+| 1  | 3       | 2       |
+| 2  | 3       | 1       |
+| 3  | 4       | 2       |
+| 4  | 4       | 1       |
+
+| comments_likes |
+| -------------- |
+
+| id | user_id | comment_id |
+| --- | ------- | ---------- |
+| 1  | 3       | 2          |
+| 2  | 3       | 1          |
+| 3  | 4       | 2          |
+| 4  | 4       | 1          |
+
+So if users can like posts and comments. We can create a separate table for each association. 
+
+✅ Pros:
+* Allows us to set specific constraints on every association, compared to the limitations of using one table for all associations. It also allows us to easily branch those association tables, into other nested association tables.
+
+❌ Cons:
+* Not flexible; What if we allow more types of likes in the future? We would need to create more association tables.
+* If you want the total number of likes involving posts and comments, you'd need to do a union or a view, which is more complex.
+```sql 
+-- union of post_likes and comment_likes to get the total number of likes
+SELECT COUNT(*) AS total_likes
+FROM (
+  SELECT user_id FROM post_likes
+  UNION ALL
+  SELECT user_id FROM comment_likes
+) AS all_likes;
+
+-- sum the count from each query
+SELECT
+  (SELECT COUNT(*) FROM post_likes) +
+  (SELECT COUNT(*) FROM comment_likes) AS total_likes;
+
+-- create a view (template)
+CREATE VIEW all_likes AS
+SELECT user_id, post_id AS liked_item_id, 'post' AS liked_type FROM post_likes
+UNION ALL
+SELECT user_id, comment_id AS liked_item_id, 'comment' AS liked_type FROM comment_likes;
+
+SELECT COUNT(*) FROM all_likes;
+```
 ## Operators
 
 | Math Operators | Description    |
@@ -102,7 +245,7 @@ Data Consistency - Data is consistent and line up with each other.
 | <=                   | less than or equal to                                        |
 |                      |                                                              |
 | BETWEEN              | value between two other values                               |
-| IN ()                | value is in a list of values                                 |
+| IN()                 | value is in a list of values                                 |
 | EXISTS               | checks if a value exists, performs faster than IN()          |
 | AND                  | logical AND                                                  |
 | OR                   | logical OR                                                   |
@@ -112,22 +255,25 @@ Data Consistency - Data is consistent and line up with each other.
 
 \* ALL/SOME/ANY require a comparison operator preceding them.
 
-| String Operators / Functions | Description                                          |
-| ---------------------------- | ---------------------------------------------------- |
-| \|\|                         | Concatenation                                        |
-| CONCAT()                     | Concatenation                                        |
-| LOWER()                      | Convert to lowercase string                          |
-| UPPER()                      | Convert to uppercase string                          |
-| SUBSTRING()                  | Extract a substring from a string                    |
-| LENGTH()                     | Get the length of a string                           |
-| REPLACE()                    | Replace a substring in a string                      |
-| TRIM()                       | Remove leading and trailing whitespace from a string |
-| LTRIM()                      | Remove leading whitespace from a string              |
-| RTRIM()                      | Remove trailing whitespace from a string             |
-| INSTR()                      | Find the position of a substring in a string         |
-| LEFT()                       | Get the leftmost characters of a string              |
-| RIGHT()                      | Get the rightmost characters of a string             |
-| REPEAT()                     | Repeat a string a certain number of times            |
+| String Operators / Functions | Description                                           |
+| ---------------------------- | ----------------------------------------------------- |
+| \|\|                         | Concatenation                                         |
+| CONCAT()                     | Concatenation                                         |
+| LOWER()                      | Convert to lowercase string                           |
+| UPPER()                      | Convert to uppercase string                           |
+| SUBSTRING()                  | Extract a substring from a string                     |
+| LENGTH()                     | Get the length of a string                            |
+| REPLACE()                    | Replace a substring in a string                       |
+| TRIM()                       | Remove leading and trailing whitespace from a string  |
+| LTRIM()                      | Remove leading whitespace from a string               |
+| RTRIM()                      | Remove trailing whitespace from a string              |
+| INSTR()                      | Find the position of a substring in a string          |
+| LEFT()                       | Get the leftmost characters of a string               |
+| RIGHT()                      | Get the rightmost characters of a string              |
+| REPEAT()                     | Repeat a string a certain number of times             |
+| COALESCE()                   | returns the first non-null value from the list of arg |
+
+---
 
 ## Data Types
 
@@ -194,6 +340,8 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | DOUBLE PRECISION                       | 1E-307 to 1E+308, minimum of 15 decimal digits of precision.                                    |
 | FLOAT                                  | Same as REAL or DOUBLE PRECISION                                                                |
 | DEFAULT <default value>                | Set a default value for your data type after setting a data type, null if not set.              |
+
+---
 
 ## Queries / Actions
 
@@ -271,6 +419,8 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                |
 
+---
+
 ### Constraints
 
 To find your constraints of a table, use pgAdmin to inspect those constraints or this query:
@@ -301,6 +451,8 @@ WHERE conrelid = 'your_table_name'::regclass;
 | ADD CHECK                         | Add a conditional statement with ALTER                                                          |
 | DROP CONSTRAINT <constraint_name> | Remove a constraint from the table with ALTER                                                   |
 
+---
+
 ### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
 
 Aggregate Functions are functions that are applied to a group of data in columns. It reduces rows to a single row and therefore take in columns.
@@ -317,6 +469,8 @@ Aggregate Functions are functions that are applied to a group of data in columns
 | STRING_AGG (column name, delimiter) | Aggregate data into a single string.                         |
 | ARRAY_AGG (column name)             | Aggregate data into an array.                                |
 
+---
+
 ### Row Level Functions
 
 Row Level Functions are functions that are applied to each row of data. It reads a single row at a time.
@@ -325,6 +479,8 @@ Row Level Functions are functions that are applied to each row of data. It reads
 | --------------------------------- | ----------------------------------------------------------- |
 | [GREATEST()](#greatest-and-least) | Returns the largest value from a list of values in the row  |
 | LEAST()                           | Returns the smallest value from a list of values in the row |
+
+---
 
 ### SQL Query Execution Order
 
@@ -342,7 +498,7 @@ When interacting with a database, theres an order that SQL follows:
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
 
---- 
+---
 
 ## Validation
 
@@ -353,15 +509,16 @@ When interacting with a database, theres an order that SQL follows:
 | Many libraryies handle validation automatically | Can only apply new validation rules if all existing rows satisfy the rule             |
 
 **Web Server:**
-- ✅ __Easier to express more complex validation__  
-Web servers can use JavaScript logic or validation libraries like Joi, Validator.js, or Express-Validator to enforce complex rules (e.g., password strength, email formats, business logic).
 
-- ✅ __Far easier to apply new validation rules__  
-Validation logic can be updated without affecting existing data in the database.  
-Example: If you want to enforce a stronger password policy, you can just update the validation logic in Express without modifying the database.
+- ✅ **Easier to express more complex validation**  
+  Web servers can use JavaScript logic or validation libraries like Joi, Validator.js, or Express-Validator to enforce complex rules (e.g., password strength, email formats, business logic).
 
-- ✅ __Many libraries handle validation automatically__  
-Example: If you're using Mongoose (for MongoDB) or Sequelize (for SQL), they have built-in validation rules for schemas, making it easier to enforce consistency.
+- ✅ **Far easier to apply new validation rules**  
+  Validation logic can be updated without affecting existing data in the database.  
+  Example: If you want to enforce a stronger password policy, you can just update the validation logic in Express without modifying the database.
+
+- ✅ **Many libraries handle validation automatically**  
+  Example: If you're using Mongoose (for MongoDB) or Sequelize (for SQL), they have built-in validation rules for schemas, making it easier to enforce consistency.
 
 - ❌ Validation at the web server level only works if every client follows the API rules.
 
@@ -371,27 +528,29 @@ Example: If you're using Mongoose (for MongoDB) or Sequelize (for SQL), they hav
 
 Database-level validation ensures data integrity, even if a client bypasses the web server.
 
-- ✅ __Validation is always applied__  
-If someone directly connects to PostgreSQL using psql, pgAdmin, or another tool, the database enforces constraints.
-- ✅ __Guaranteed schema enforcement__  
-Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database.
-- ✅ __Ensures consistency across multiple clients__  
-Even if multiple services write to the same database, all of them must follow database constraints.
+- ✅ **Validation is always applied**  
+  If someone directly connects to PostgreSQL using psql, pgAdmin, or another tool, the database enforces constraints.
+- ✅ **Guaranteed schema enforcement**  
+  Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database.
+- ✅ **Ensures consistency across multiple clients**  
+  Even if multiple services write to the same database, all of them must follow database constraints.
 
-- ❌ __Applying new validation rules is harder__  
-If you add a new validation rule on an existing table, all existing rows must comply before the change is allowed.
+- ❌ **Applying new validation rules is harder**  
+  If you add a new validation rule on an existing table, all existing rows must comply before the change is allowed.
 
-- ❌ __Complex validations are harder__   
-PostgreSQL constraints work well for basic validation (e.g., NOT NULL, CHECK), but complex rules (like "password must contain a special character") are better handled at the web server level.
+- ❌ **Complex validations are harder**  
+  PostgreSQL constraints work well for basic validation (e.g., NOT NULL, CHECK), but complex rules (like "password must contain a special character") are better handled at the web server level.
 
 **Best practice: <ins>Use both</ins>.**
 
-__Web Server (Express/Node.js)__: Handles business logic and complex validations.
+**Web Server (Express/Node.js)**: Handles business logic and complex validations.
 
-__Database (PostgreSQL)__: Ensures data integrity and prevents bad data at the lowest level.
+**Database (PostgreSQL)**: Ensures data integrity and prevents bad data at the lowest level.
 
 ---
+
 ## Postgres Examples
+
 ```sql
 
 -- keywords  identifiers
@@ -507,11 +666,11 @@ DELETE from users WHERE id = 1;
 
 ### Joins
 
-All __JOINS__ queries will match and fill up the combined corresponding number of rows in our combined tables with null values if there is no matching data. Order will matter for directional joins based on which table is on the left and which table is on the right of the JOIN keyword.
+All **JOINS** queries will match and fill up the combined corresponding number of rows in our combined tables with null values if there is no matching data. Order will matter for directional joins based on which table is on the left and which table is on the right of the JOIN keyword.
 
-REMEMBER __ON__ is the matching condition applied to every row, starting from the left initial table matching to the right. ON essentially orders the rows according to its condition. THIS NOT NOT MEAN __ON__ WILL ENFORCE SERIAL ORDERING. 
+REMEMBER **ON** is the matching condition applied to every row, starting from the left initial table matching to the right. ON essentially orders the rows according to its condition. THIS NOT NOT MEAN **ON** WILL ENFORCE SERIAL ORDERING.
 
-Although __ON__ is similar to __WHERE__ for filtering data, __WHERE__ happens after the __JOIN__, which when dealing with outer joins will turn it into an inner join instead, when it detects __NULL__ values for example. Placing the condition on __ON__ will retain the unmatched rows with NULL values, due to __ON__ being executed first before __JOIN__.
+Although **ON** is similar to **WHERE** for filtering data, **WHERE** happens after the **JOIN**, which when dealing with outer joins will turn it into an inner join instead, when it detects **NULL** values for example. Placing the condition on **ON** will retain the unmatched rows with NULL values, due to **ON** being executed first before **JOIN**.
 
 | Feature                     | JOIN                                                     | UNION                                                                   |
 | --------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------- |
@@ -661,7 +820,7 @@ SELECT manufacturer
 FROM phones
 WHERE price < 170
 
-union
+UNION
 
 SELECT manufacturer
 FROM phones
@@ -1051,7 +1210,6 @@ export default pool;
 | Performance           | Can be slower with many queries due to frequent connection overhead | More efficient with many simultaneous queries due to connection reuse      |
 | Overhead              | Higher overhead for each query (opens/closes connection each time)  | Lower overhead as connections are reused                                   |
 | Concurrency           | Limited to one query at a time per client instance                  | Allows multiple queries to run concurrently (through multiple connections) |
-
 
 Ids of top five most liked posts
 
