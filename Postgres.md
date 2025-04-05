@@ -82,9 +82,55 @@ Data Consistency - Data is consistent and line up with each other.
 | N:1           | Many-to-one  |
 | N:N           | Many-to-many |
 
+### Schema Designs 
+├── [Join Table](#join-tables)  
 ├── [Polymorphic Association](#polymorphic-association)  
-├── [Concrete Table Inheritance](#concrete-table-inheritance-multiple-foreign-key-columns)  
-└── [Association Table per Model](#association-table-per-model-join-table-per-association)
+├── [Single Table Inheritance](#single-table-inheritance-multiple-foreign-key-columns)  
+└── [Concrete Table Inheritance (Association Table per Model)](#concrete-table-inheritance-join-table-per-association)
+
+What should you choose? Well if specificity matters, then go for concrete table inheritance of association tables. Between those two, If these specifics are even more specified, then go for association table per model.
+
+Something like likes for both posts or comments, is more appropriate with concrete table inheritance. Reaction type liking is more appropriate for association table per model since those likes are more specific and different and warrant multiple tables.
+
+We should consider other factors like:
+
+- **optimizing** - as association table per model is more performant, because we can isolate the specific table for optimizing, instead of running queries on a cumulative table. Association table per model offers more flexible changes at the table level, since each type has its own and changes wont affect the other types.
+
+- **complexity of queries** - if we only require a very general query pertaining to all types, then go for polymorphic association. Otherwise, go for concrete table inheritance of association tables. An example is hashtags, which is really only used in social media apps under a search feature. For instagram in particular, we need to separate the model for posts, from comments and users, since its search feature is focused on hashtags for posts. This implies concrete table inheritance for posts only, but since its the only one with queries being needed, its really just the single table being created.
+
+### Join Tables
+__AKA Junction Tables or Association Tables__  
+
+A table that connects two tables together. It is used to represent many-to-many relationships.  
+
+Join tables is often used to __reduce the number of queries and improve performance__. If we have a many-to-many relationship, we can often repeat the same data in multiple tables. Instead of doing a query for each table, we can join the tables together and get the data we need in a single query. This can be done using a join table.
+
+| **hashtags** |
+| ------------ |
+
+| id  | title  |
+| --- | ------ |
+| 1   | cat    |
+| 2   | dog    |
+| 3   | catdog |
+
+| **hashtags_posts** | 
+| ------------------ |
+<!-- storing integers for hashtags is more space efficient than storing strings, esp for repeated data. -->
+| id  | hashtag_id | post_id |
+| --- | ---------- | ------- |
+| 1   | 1          | 1       |
+| 2   | 2          | 1       |
+| 3   | 2          | 2       |
+
+| **posts** |
+| -------- |
+
+| id | url | user_id |
+| -- | --- | ------- |
+| 1  | ... | 1       |
+| 2  | ... | 1       |
+| 3  | ... | 2       |
 
 ### Polymorphic Association
 
@@ -106,7 +152,7 @@ However, its not recommended in data designs like postgres which require its for
 ❌ Cons:
 
 - Harder to enforce foreign key constraints, which can lead to data inconsistency
-- Queries can get more complex, causing a performance penalty. 
+- Queries can get more complex, causing a performance penalty.
 
 _`the likes table here showcases a liked_type for posts and comments, because both those tables have likes functionality`_
 | **likes** |
@@ -119,7 +165,7 @@ _`the likes table here showcases a liked_type for posts and comments, because bo
 | 3   | 4       | 2        | post       |
 | 4   | 4       | 1        | comment    |
 
-### Concrete Table Inheritance (Multiple Foreign Key Columns)
+### Single Table Inheritance (Multiple Foreign Key Columns)
 
 We implement multiple separate foreign key columns instead, and have the rest be filled with nulls to represent the type for that row.
 
@@ -134,9 +180,11 @@ We implement multiple separate foreign key columns instead, and have the rest be
 | 4   | 4       | 1       | NULL       |
 
 ❌ Cons:
-* Not flexible; What if we allow more types of likes in the future?
+
+- Not flexible; What if we allow more types of likes in the future?
 
 To ensure correct data consistency, we need to add a check to ensure that only one of the columns is not null.
+
 ```sql
 
 CREATE TABLE likes (
@@ -162,44 +210,47 @@ CREATE TABLE likes (
 ALTER TABLE likes
 ADD CHECK (COALESCE((post_id)::BOOLEAN::INTEGER, 0) + COALESCE((comment_id)::BOOLEAN::INTEGER, 0) = 1);
 
--- keep in mind, type casting a null value to boolean or integer will result in null. But if you type cast a non-null value to boolean or integer, it will result in 1. 
+-- keep in mind, type casting a null value to boolean or integer will result in null. But if you type cast a non-null value to boolean or integer, it will result in 1.
 ---
 
 ```
 
-### Association Table per Model (Join Table per Association)
+### Concrete Table Inheritance (Join Table per Association)
 
 We can create a join table per association. This is the most common method for creating a many-to-many relationship.
 
 | posts_likes |
 | ----------- |
 
-| id | user_id | post_id |
+| id  | user_id | post_id |
 | --- | ------- | ------- |
-| 1  | 3       | 2       |
-| 2  | 3       | 1       |
-| 3  | 4       | 2       |
-| 4  | 4       | 1       |
+| 1   | 3       | 2       |
+| 2   | 3       | 1       |
+| 3   | 4       | 2       |
+| 4   | 4       | 1       |
 
 | comments_likes |
 | -------------- |
 
-| id | user_id | comment_id |
+| id  | user_id | comment_id |
 | --- | ------- | ---------- |
-| 1  | 3       | 2          |
-| 2  | 3       | 1          |
-| 3  | 4       | 2          |
-| 4  | 4       | 1          |
+| 1   | 3       | 2          |
+| 2   | 3       | 1          |
+| 3   | 4       | 2          |
+| 4   | 4       | 1          |
 
-So if users can like posts and comments. We can create a separate table for each association. 
+So if users can like posts and comments. We can create a separate table for each association.
 
 ✅ Pros:
-* Allows us to set specific constraints on every association, compared to the limitations of using one table for all associations. It also allows us to easily branch those association tables, into other nested association tables.
+
+- Allows us to set specific constraints on every association, compared to the limitations of using one table for all associations. It also allows us to easily branch those association tables, into other nested association tables.
 
 ❌ Cons:
-* Not flexible; What if we allow more types of likes in the future? We would need to create more association tables.
-* If you want the total number of likes involving posts and comments, you'd need to do a union or a view, which is more complex.
-```sql 
+
+- Not flexible; What if we allow more types of likes in the future? We would need to create more association tables.
+- If you want the total number of likes involving posts and comments, you'd need to do a union or a view, which is more complex.
+
+```sql
 -- union of post_likes and comment_likes to get the total number of likes
 SELECT COUNT(*) AS total_likes
 FROM (
@@ -221,6 +272,7 @@ SELECT user_id, comment_id AS liked_item_id, 'comment' AS liked_type FROM commen
 
 SELECT COUNT(*) FROM all_likes;
 ```
+
 ## Operators
 
 | Math Operators | Description    |
