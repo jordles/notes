@@ -92,5 +92,19 @@ ALTER TABLE caption_tags ADD FOREIGN KEY ("post_id") REFERENCES "posts" ("id");
 
 /* ------------------------- MAKING A HASHTAG SYSTEM ------------------------ */
 
--- You can get away with using polymorphic associations for hashtags, since they will most likely function similarly across multiple mediums: posts, comments, etc.
+-- Since instagram only uses posts in their search feature for hashtags, thats a table we can focus on. We will use a join table to create a many to many relationship between posts and hashtags.
+
+CREATE TABLE hashtags (
+  "id" SERIAL PRIMARY KEY,
+  "created_at" TIMESTAMP,
+  "tag" VARCHAR(30)
+)
+
+CREATE TABLE hashtags_posts (
+  "id" SERIAL PRIMARY KEY,
+  "hashtag_id" INTEGER,
+  "post_id" INTEGER
+)
+ALTER TABLE hashtags_posts ADD FOREIGN KEY ("hashtag_id") REFERENCES "hashtags" ("id");
+ALTER TABLE hashtags_posts ADD FOREIGN KEY ("post_id") REFERENCES "posts" ("id");
 
