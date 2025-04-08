@@ -56,7 +56,7 @@ Postgres uses tables to store data.
 
 ---
 
-## Keys
+## ==Keys==
 
 **Primary Keys** - Identifies unique rows in a table.  
 **Foreign Keys** - Identifies/references unique rows in another table. It helps us connect the data between tables. Usually 'many' side gets the foreign key column of the other tables. Foreign keys are always checked for consistency, and will return an error if they are not consistent (foreign key constraints). Any action will be interrupted until the foreign key is consistent. If we dont have a foreign key ready yet, the null value can be used to indicate this relationship does not exist yet. You can specify delete behavior using
@@ -73,7 +73,7 @@ Data Consistency - Data is consistent and line up with each other.
 
 ---
 
-## Relationships
+## ==Relationships==
 
 | Relationships | Description  |
 | ------------- | ------------ |
@@ -87,6 +87,8 @@ Data Consistency - Data is consistent and line up with each other.
 ├── [Polymorphic Association](#polymorphic-association)  
 ├── [Single Table Inheritance](#single-table-inheritance-multiple-foreign-key-columns)  
 └── [Concrete Table Inheritance (Association Table per Model)](#concrete-table-inheritance-join-table-per-association)
+
+In general, we never want to store derived data (data that can be calculated through queries)
 
 What should you choose? Well if specificity matters, then go for concrete table inheritance of association tables. Between those two, If these specifics are even more specified, then go for association table per model.
 
@@ -273,7 +275,7 @@ SELECT user_id, comment_id AS liked_item_id, 'comment' AS liked_type FROM commen
 SELECT COUNT(*) FROM all_likes;
 ```
 
-## Operators
+## ==Operators==
 
 | Math Operators | Description    |
 | -------------- | -------------- |
@@ -307,6 +309,8 @@ SELECT COUNT(*) FROM all_likes;
 
 \* ALL/SOME/ANY require a comparison operator preceding them.
 
+## ==Functions==
+
 | String Operators / Functions | Description                                           |
 | ---------------------------- | ----------------------------------------------------- |
 | \|\|                         | Concatenation                                         |
@@ -327,7 +331,7 @@ SELECT COUNT(*) FROM all_likes;
 
 ---
 
-## Data Types
+## ==Data Types==
 
 **General Rules:**
 
@@ -395,7 +399,7 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 
 ---
 
-## Queries / Actions
+## ==Queries / Actions==
 
 | SQL Queries                              | Description                                                                                     |
 | ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -473,7 +477,7 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 
 ---
 
-### Constraints
+### ==Constraints==
 
 To find your constraints of a table, use pgAdmin to inspect those constraints or this query:
 
@@ -505,7 +509,7 @@ WHERE conrelid = 'your_table_name'::regclass;
 
 ---
 
-### [Aggregate Functions](#grouping-and-aggregating) <a id="aggregate-function"></a>
+### ==[Aggregate Functions](#grouping-and-aggregating)== <a id="aggregate-function"></a>
 
 Aggregate Functions are functions that are applied to a group of data in columns. It reduces rows to a single row and therefore take in columns.
 
@@ -523,7 +527,7 @@ Aggregate Functions are functions that are applied to a group of data in columns
 
 ---
 
-### Row Level Functions
+### ==Row Level Functions==
 
 Row Level Functions are functions that are applied to each row of data. It reads a single row at a time.
 
@@ -534,7 +538,7 @@ Row Level Functions are functions that are applied to each row of data. It reads
 
 ---
 
-### SQL Query Execution Order
+### ==SQL Query Execution Order==
 
 When interacting with a database, theres an order that SQL follows:  
 1️⃣ FROM → Determine the source tables  
@@ -552,7 +556,7 @@ When interacting with a database, theres an order that SQL follows:
 
 ---
 
-## Validation
+## ==Validation==
 
 | Web Server                                      | Database                                                                              |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -601,7 +605,7 @@ Database-level validation ensures data integrity, even if a client bypasses the 
 
 ---
 
-## Postgres Examples
+## ==Postgres Examples==
 
 ```sql
 
@@ -1216,7 +1220,40 @@ CREATE TABLE cars (
 );
 ```
 
-## pgAdmin
+---
+
+## ==pgAdmin==
+├── [Introduction](#introduction-to-pgadmin)  
+├── [Data Storage](#data-storage)  
+├── [Ports](#ports)  
+└── [Navigation/Settings](#navigation--settings)
+
+### Introduction to pgAdmin
+1. __What is PostgreSQL 17?__  
+    Yes, PostgreSQL 17 is the latest version of the PostgreSQL database server engine. It is:
+    The software that runs a PostgreSQL database server.  
+    Responsible for storing, managing, and querying data.  
+    When installed locally, it creates a data directory (where all databases and metadata live).  
+    You can think of PostgreSQL like a car engine, and databases are the passengers. The engine (PostgreSQL 17) lets you run and manage multiple databases on your local machine.
+
+2. __Does PostgreSQL 17 Store Databases Locally?__  
+    Yes — if you've installed PostgreSQL 17 locally, it:  
+    Stores databases on your machine (usually inside a data directory it manages).  
+    Runs a server process that listens on a specific port (default is 5432).  
+    Allows tools like pgAdmin4, psql, or Docker containers to connect to it.
+
+### Data Storage 
+Docker Postgres is storing data in the Docker-managed volume `db_data` located in the `docker-compose.yml` file.
+Local PostgreSQL 17 is storing data in `C:/Program Files/PostgreSQL/17/data`
+__These are independent — so changes in one don't affect the other__
+
+### Ports
+If you want to change the __port__ number, you can change it in the `docker-compose.yml` file.
+If you want to change the __port__ number on pgadmin, you can change it by going to `C:/Program Files/PostgreSQL/17/data/postgresql.conf`. 
+
+
+### Navigation / Settings
+If you cannot access your server, make sure its running in the first place. Search under `services` on windows for `postgres` and start it.
 
 On PGAdmin, the data type is defaulted to the most appropriate data type, however you can reassign it manually for ex: `SELECT (2::DECIMAL)` and postgres will throw an error if the data type is incorrect / out of range.
 
@@ -1228,7 +1265,23 @@ To find your tables in database:
 
 We can edit table columns and rows by clicking them, then save on the top with the grid icon.
 
-## pg library
+To have content display on __new tabs instead of a separate window__: 
+
+1. Open pgAdmin 4.
+2. Access Preferences:
+    * Click on the "File" menu in the top-left corner.​
+    * Select "Preferences" from the dropdown.​
+3. Navigate to User Interface Settings:
+    * In the Preferences dialog, expand the "Miscellaneous" node.​
+    * Click on "User Interface".​
+4. Change the Layout:
+    * Find the option labeled "Layout".​
+    * By default, this is set to "Workspace".​
+5. Change this to "Classic" to revert to the previous interface behavior.
+
+--- 
+
+## ==pg library==
 
 #### Connecting to the database using the pg library:
 
@@ -1273,3 +1326,5 @@ GROUP BY post_id
 
 
 ```
+
+---

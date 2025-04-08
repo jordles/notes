@@ -7,6 +7,12 @@ CREATE TABLE "users" (
   "created_at" TIMESTAMP,
   "updated_date" TIMESTAMP,
   "username" VARCHAR(30)
+  "bio" VARCHAR(400),
+  "profile_picture" VARCHAR(200),
+  "phone_number" VARCHAR(25), --treated as string because we dont expect to do math on it
+  "email" VARCHAR(40),
+  "password" VARCHAR(50),
+  "status" VARCHAR(15)
 );
 
 CREATE TABLE "posts" (
@@ -108,3 +114,18 @@ CREATE TABLE hashtags_posts (
 ALTER TABLE hashtags_posts ADD FOREIGN KEY ("hashtag_id") REFERENCES "hashtags" ("id");
 ALTER TABLE hashtags_posts ADD FOREIGN KEY ("post_id") REFERENCES "posts" ("id");
 
+/* ------------------------ MAKING A FOLLOWER SYSTEM ------------------------ */
+
+CREATE TABLE followers (
+  "id" SERIAL PRIMARY KEY,
+  "created_at" TIMESTAMP,
+  "user_id" INTEGER,
+  "follower_id" INTEGER,
+  UNIQUE ("user_id", "follower_id"),
+  -- this is a composite key, we want to make sure that a user cannot follow the same person twice
+  CHECK ("user_id" != "follower_id")
+  -- this is a check constraint, we want to make sure that a user cannot follow themselves
+)
+
+ALTER TABLE followers ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE followers ADD FOREIGN KEY ("follower_id") REFERENCES "users" ("id");
