@@ -1841,7 +1841,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     <li><code>.concat(array)</code> => used to combine two arrays together</li>
     <li><code>.splice(startIndex, number of elements to delete starting from the startIndex [left to right], the other values we will add at the startIndex)</code> 
       => removes/add any number of consecutive elements from anywhere in an array (MODIFIES THE ORIGINAL ARRAY)</li>
-    <li><code>.slice(startIndex, endIndex (but doesnt include the endIndex))</code> 
+    <li><code>.slice(startIndex, endIndex (but doesnt include the endIndex)) works on strings as well.</code> 
       => copy or extract a given number of elements to a new array. Using only one parameter means it will extract from the startIndex until the end. <br>
       If you use negative numbers the method starts from the end of the string instead. <br>
 
@@ -6462,6 +6462,8 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     </ul>
     <li><code>git clone {remote repository}</code> - clone remote repository into your current folder/directory, this implies your local is empty<br>
       You can grab the clone link url from the clone or download button on github (on right side)
+      1. Creates a new local repo with the project files.
+      2. Adds the remote called origin that points to the repo you cloned.
     </li>
     <p>If you make a gh-pages branch and go to your {user}.github.io/{html file} You can see your html live on github</p>
   </ul>

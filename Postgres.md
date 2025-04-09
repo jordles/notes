@@ -1,6 +1,6 @@
 # Postgres (PostgreSQL)
 
-Postgres is one of the most popular open source relational databases. It is a SQL database that supports ACID transactions and is written in C. It is also known as PostgreSQL.
+Postgres is one of the most popular open source relational databases. It is a SQL database engine that supports ACID transactions and is written in C. It is also known as PostgreSQL.
 
 PostgreSQL is the database server itself. When you install PostgreSQL locally or run it in a Docker container, you're setting up a database server that listens for connections (e.g., on localhost:5432).
 
@@ -82,7 +82,8 @@ Data Consistency - Data is consistent and line up with each other.
 | N:1           | Many-to-one  |
 | N:N           | Many-to-many |
 
-### Schema Designs 
+### Schema Designs
+
 ├── [Join Table](#join-tables)  
 ├── [Polymorphic Association](#polymorphic-association)  
 ├── [Single Table Inheritance](#single-table-inheritance-multiple-foreign-key-columns)  
@@ -101,11 +102,12 @@ We should consider other factors like:
 - **complexity of queries** - if we only require a very general query pertaining to all types, then go for polymorphic association. Otherwise, go for concrete table inheritance of association tables. An example is hashtags, which is really only used in social media apps under a search feature. For instagram in particular, we need to separate the model for posts, from comments and users, since its search feature is focused on hashtags for posts. This implies concrete table inheritance for posts only, but since its the only one with queries being needed, its really just the single table being created.
 
 ### Join Tables
-__AKA Junction Tables or Association Tables__  
 
-A table that connects two tables together. It is used to represent many-to-many relationships.  
+**AKA Junction Tables or Association Tables**
 
-Join tables is often used to __reduce the number of queries and improve performance__. If we have a many-to-many relationship, we can often repeat the same data in multiple tables. Instead of doing a query for each table, we can join the tables together and get the data we need in a single query. This can be done using a join table.
+A table that connects two tables together. It is used to represent many-to-many relationships.
+
+Join tables is often used to **reduce the number of queries and improve performance**. If we have a many-to-many relationship, we can often repeat the same data in multiple tables. Instead of doing a query for each table, we can join the tables together and get the data we need in a single query. This can be done using a join table.
 
 | **hashtags** |
 | ------------ |
@@ -116,9 +118,11 @@ Join tables is often used to __reduce the number of queries and improve performa
 | 2   | dog    |
 | 3   | catdog |
 
-| **hashtags_posts** | 
+| **hashtags_posts** |
 | ------------------ |
+
 <!-- storing integers for hashtags is more space efficient than storing strings, esp for repeated data. -->
+
 | id  | hashtag_id | post_id |
 | --- | ---------- | ------- |
 | 1   | 1          | 1       |
@@ -126,13 +130,13 @@ Join tables is often used to __reduce the number of queries and improve performa
 | 3   | 2          | 2       |
 
 | **posts** |
-| -------- |
+| --------- |
 
-| id | url | user_id |
-| -- | --- | ------- |
-| 1  | ... | 1       |
-| 2  | ... | 1       |
-| 3  | ... | 2       |
+| id  | url | user_id |
+| --- | --- | ------- |
+| 1   | ... | 1       |
+| 2   | ... | 1       |
+| 3   | ... | 2       |
 
 ### Polymorphic Association
 
@@ -488,6 +492,39 @@ FROM pg_constraint
 WHERE conrelid = 'your_table_name'::regclass;
 ```
 
+**No Constraint** : It doesn't matter if the value exist.   
+**NOT NULL** : We always want to provide a value  
+**NOT NULL + DEFAULT** : We always want a value, but its optional.   
+
+```sql
+CHECK((value2 IS NULL) = (value2 IS NULL))
+```
+: Both values are required to be provided or not provided. If one value is given, the other is required.   
+```sql 
+CHECK(COALESCE(value1, value2) IS NOT NULL)
+```
+: Either value1 or value2 must have a value, but there is no hard check for both having a value.  
+```sql
+CHECK(
+  COALESCE((value1)::BOOLEAN::INTEGER, 0)
+  +
+  COALESCE((value2)::BOOLEAN::INTEGER, 0) 
+  = 1
+)
+```
+```sql
+CHECK((value1 IS NULL) != (value2 IS NULL))
+-- does not scale beyond 2 values
+```   
+```sql
+CHECK (
+  (value1 IS NOT NULL)::int +
+  (value2 IS NOT NULL)::int +
+  (value3 IS NOT NULL)::int = 1
+)  
+```
+: Either value1 or value2 must be not null
+
 | SQL CONSTRAINTS                   | Description                                                                                     |
 | --------------------------------- | ----------------------------------------------------------------------------------------------- |
 | PRIMARY KEY                       | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
@@ -497,7 +534,7 @@ WHERE conrelid = 'your_table_name'::regclass;
 | ON DELETE CASCADE                 | Delete the row if it has a foreign key                                                          |
 | ON DELETE SET NULL                | Set the foreign key to NULL                                                                     |
 | ON DELETE SET DEFAULT             | Set the foreign key to a custom DEFAULT value                                                   |
-| NOT NULL                          | Prevent NULL values in the column. will error if existing null values                           |
+| NOT NULL                          | Prevent NULL values in the column. will error if existing null values or no values given        |
 | DEFAULT                           | Set a default value for the column                                                              |
 | SET DEFAULT                       | Set a default value for the column with ALTER                                                   |
 | [UNIQUE](#unique)                 | Prevent duplicate values in the column                                                          |
@@ -587,7 +624,7 @@ Database-level validation ensures data integrity, even if a client bypasses the 
 - ✅ **Validation is always applied**  
   If someone directly connects to PostgreSQL using psql, pgAdmin, or another tool, the database enforces constraints.
 - ✅ **Guaranteed schema enforcement**  
-  Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database.
+  Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database. Consistent data types and the domain like ranges also fall into this category.  
 - ✅ **Ensures consistency across multiple clients**  
   Even if multiple services write to the same database, all of them must follow database constraints.
 
@@ -1223,36 +1260,40 @@ CREATE TABLE cars (
 ---
 
 ## ==pgAdmin==
+
 ├── [Introduction](#introduction-to-pgadmin)  
 ├── [Data Storage](#data-storage)  
 ├── [Ports](#ports)  
 └── [Navigation/Settings](#navigation--settings)
 
 ### Introduction to pgAdmin
-1. __What is PostgreSQL 17?__  
-    Yes, PostgreSQL 17 is the latest version of the PostgreSQL database server engine. It is:
-    The software that runs a PostgreSQL database server.  
-    Responsible for storing, managing, and querying data.  
-    When installed locally, it creates a data directory (where all databases and metadata live).  
-    You can think of PostgreSQL like a car engine, and databases are the passengers. The engine (PostgreSQL 17) lets you run and manage multiple databases on your local machine.
 
-2. __Does PostgreSQL 17 Store Databases Locally?__  
-    Yes — if you've installed PostgreSQL 17 locally, it:  
-    Stores databases on your machine (usually inside a data directory it manages).  
-    Runs a server process that listens on a specific port (default is 5432).  
-    Allows tools like pgAdmin4, psql, or Docker containers to connect to it.
+1. **What is PostgreSQL 17?**  
+   Yes, PostgreSQL 17 is the latest version of the PostgreSQL database server engine. It is:
+   The software that runs a PostgreSQL database server.  
+   Responsible for storing, managing, and querying data.  
+   When installed locally, it creates a data directory (where all databases and metadata live).  
+   You can think of PostgreSQL like a car engine, and databases are the passengers. The engine (PostgreSQL 17) lets you run and manage multiple databases on your local machine.
 
-### Data Storage 
+2. **Does PostgreSQL 17 Store Databases Locally?**  
+   Yes — if you've installed PostgreSQL 17 locally, it:  
+   Stores databases on your machine (usually inside a data directory it manages).  
+   Runs a server process that listens on a specific port (default is 5432).  
+   Allows tools like pgAdmin4, psql, or Docker containers to connect to it.
+
+### Data Storage
+
 Docker Postgres is storing data in the Docker-managed volume `db_data` located in the `docker-compose.yml` file.
 Local PostgreSQL 17 is storing data in `C:/Program Files/PostgreSQL/17/data`
-__These are independent — so changes in one don't affect the other__
+**These are independent — so changes in one don't affect the other**
 
 ### Ports
-If you want to change the __port__ number, you can change it in the `docker-compose.yml` file.
-If you want to change the __port__ number on pgadmin, you can change it by going to `C:/Program Files/PostgreSQL/17/data/postgresql.conf`. 
 
+If you want to change the **port** number, you can change it in the `docker-compose.yml` file.
+If you want to change the **port** number on pgadmin, you can change it by going to `C:/Program Files/PostgreSQL/17/data/postgresql.conf`.
 
 ### Navigation / Settings
+
 If you cannot access your server, make sure its running in the first place. Search under `services` on windows for `postgres` and start it.
 
 On PGAdmin, the data type is defaulted to the most appropriate data type, however you can reassign it manually for ex: `SELECT (2::DECIMAL)` and postgres will throw an error if the data type is incorrect / out of range.
@@ -1265,21 +1306,21 @@ To find your tables in database:
 
 We can edit table columns and rows by clicking them, then save on the top with the grid icon.
 
-To have content display on __new tabs instead of a separate window__: 
+To have content display on **new tabs instead of a separate window**:
 
 1. Open pgAdmin 4.
 2. Access Preferences:
-    * Click on the "File" menu in the top-left corner.​
-    * Select "Preferences" from the dropdown.​
+   - Click on the "File" menu in the top-left corner.​
+   - Select "Preferences" from the dropdown.​
 3. Navigate to User Interface Settings:
-    * In the Preferences dialog, expand the "Miscellaneous" node.​
-    * Click on "User Interface".​
+   - In the Preferences dialog, expand the "Miscellaneous" node.​
+   - Click on "User Interface".​
 4. Change the Layout:
-    * Find the option labeled "Layout".​
-    * By default, this is set to "Workspace".​
+   - Find the option labeled "Layout".​
+   - By default, this is set to "Workspace".​
 5. Change this to "Classic" to revert to the previous interface behavior.
 
---- 
+---
 
 ## ==pg library==
 
