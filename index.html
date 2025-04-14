@@ -4399,7 +4399,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
         <li><code>npm init -y</code> - initialize the node project</li>
         <li><code>const http = require('http') / import http from 'http'</code> - import http module, allows node to transfer data over the HTTP protocol</li>
         <li><code>http.createServer((req, res) => ).listen(3000)</code> - create a server with the http module with the http module and listen on port 3000</code></li>
-        <pre> Response object allows us to set the HTTP status code, headers, content, and more. We use the url property to create different endpoints, but this can be simplified with express routes. 
+        <pre> Response object allows us to set the HTTP status code, headers, content, and more. We use the url property to create different endpoints, but this can be simplified with express routes. Express Routes tell the server what to do when a request is made to a specific URL
           http
             .createServer((req, res) => {
               res.statusCode = 200;

@@ -73,13 +73,16 @@ More about websites here: [Websites](Website.md)
 A web hosting service we have used in the past is Render.com Render gives us web servers for our backend services through its cloud hosting service.
 
 ## Internet Protocols (Core Internet Technologies)
-To Learn more about [HTTP](<HTTP.md>)
+
+To Learn more about [HTTP](HTTP.md)
 
 - **Core internet technologies** are the basic building blocks of internet. They are used to build the internet. They are used to build the web. They are used to build the web servers
 - Core internet technologies include : **HTTP, HTTPS, FTP, DNS**
+- Protocols are used to **transfer data** between **computers** on the **internet**. They are essentially **rules** that are used to **communicate** between **computers**.
+- **DNS (Domain Name System)** is a protocol that converts domain names to IP addresses. This process is called **name resolution** and it is used to convert a human-readable domain name into a machine-readable IP address.
 - **IP Addresses** function much like real addresses in a postal system that make it possible for information to be delivered to you.
-- **Every computer** on the internet (network) <ins>has an __IP address__</ins> which is a __unique identifier__.
-- **IP Routing** is ip packets being routed, much like the postal system figuring out the physical path from your house to the destination.
+- **Every computer** on the internet (network) <ins>has an **IP address**</ins> which is a **unique identifier**.
+- **IP Routing** are __IP packets__ being routed to the __IP address__, much like the postal system figuring out the physical path from your house to the destination. IP routing happens before express sees the request. 
 - Computers are the destination that request and receive data, while the network is the roots that the data travels on
 - **Internet Protocol (IP) (Internet Layer)** is a protocol that is used to send and receive web data. They assign IP Addresses, and they are responsible for delivering IP Packets to the IP Addresses.
 - The IP uses version 4 or version 6 which is widely used in the internet protocol. They are separated by periods or dots on version 4 and contains four octet for example: 192.0.2.235, and version 6 has eight groups of hexadecimal digits separated by colons for example: 2b5b:1e49:8d01:c2ac:fffd:833e:dfee:13a4
@@ -89,11 +92,12 @@ To Learn more about [HTTP](<HTTP.md>)
   - **Transmission Control Protocol - TCP (Transport Layer)**- ensures that data is sent in order, not damaged, and that it arrives at the destination. This is at the cost of speed however. This protocol is best used for text or image files
   - **User Datagram Protocol - UDP** - ensures that data won't be damaged/corrupted, but it cant guarantee it wont be lost or out of order. This protocol is used for data that tolerate some data loss, like voice calls or live video streaming.
   - These protocols contain payload data that further contain further protocols inside of them.
-  - Its important to note __HTTP requests cannot use UDP__, as the protocol DEPENDS ON GUARANTEED DELIVERY. Sending api requests will automatically __use TCP under the hood__ (HTTP will pick it for you regardless). 
+  - Its important to note **HTTP requests cannot use UDP**, as the protocol DEPENDS ON GUARANTEED DELIVERY. Sending api requests will automatically **use TCP under the hood** (HTTP will pick it for you regardless).
   - UDP is used in apps that implement their own data-handling logic, like video streaming or multiplayer games (often using WebRTC or custom UDP protocols).
+
   ### Protocol Stack / Flow / Hierarchy:
 
-  **Wi-Fi ➡ IP ➡ TCP ➡ HTTP ➡ Your backend code** (e.g., Express handles it)  
+  **Wi-Fi ➡ IP/ IP packet ➡ TCP ➡ HTTP ➡ Your backend code** (e.g., Express handles it)  
   This means our HTTP request is wrapped in a TCP packet, which is wrapped in an IP packet, then sent over the Wi-Fi network.
 
   | Layer          | Purpose                                       |
@@ -103,4 +107,32 @@ To Learn more about [HTTP](<HTTP.md>)
   | IP             | Routing packets across networks               |
   | Ethernet/Wi-Fi | Physical transmission over cables or wireless |
 
-## HTTP and HTTPS
+**Port Numbers** are endpoints for communication. Port numbers handle different services and protocols. When you send a request to an IP, the port number tells the system which service to go to. Without port numbers, the system wouldn’t know which service should handle which data.
+
+If a computer is an office building, then IP address is the address of the building, and port numbers are the office numbers to direct people to. 
+
+Express for example when setting the port to 3000, listens on port 3000 for any requests coming in.
+
+| Port  | Service                           |
+| ----- | --------------------------------- |
+| 80    | HTTP (web)                        |
+| 443   | HTTPS (secure web)                |
+| 21    | FTP (file transfer)               |
+| 22    | SSH (remote login)                |
+| 25    | SMTP (email sending)              |
+| 3000  | Custom dev servers (like Express) |
+| 5432  | PostgreSQL DB                     |
+| 27017 | MongoDB                           |
+
+
+__TCP/IP Model__ 
+
+__Layer 1 (Network Access)__: Combines the functionalities of OSI's Physical and Data Link layers. It deals with the physical connection between devices and the framing of data for transmission.
+
+__Layer 2 (Internet)__: Similar to OSI's Network layer, it handles IP addressing and routing of packets across networks.
+
+__Layer 3 (Transport)__: Also known as the Host-to-Host layer, it manages end-to-end communication between hosts. Protocols like TCP and UDP operate here. Ports are also assigned here. 
+
+__Layer 4 (Application/Network)__: Combines the functionalities of OSI's Application, Presentation, and Session layers. It deals with application-specific protocols like HTTP, FTP, and SMTP. IP Routing happens here. 
+
+![](web-network.png)
