@@ -2,9 +2,12 @@
 
 Website vs Web Application vs Native Apps
 
-**Website:** Primarily serves as a source of information. Users mostly consume content rather than interact with it.
+If it’s mostly static and displays information → It’s a website.  
+If users interact, modify data, or require authentication → It’s a web app.
 
-**Web App:** Focuses on user interaction and performing specific tasks, often requiring login and real-time updates.
+**Website:** Primarily serves as a source of information. Users mostly consume content rather than interact with it.  
+**Web App:** Focuses on user interaction and performing specific tasks, often requiring login and real-time updates.  
+**Native App:** Focuses on user interaction and performing specific tasks, requiring login and real-time updates on a specific platform.  
 
 | Feature                      | Website                                      | Web App                                                       | Native App (Mobile/Desktop)                                 |
 | ---------------------------- | -------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
