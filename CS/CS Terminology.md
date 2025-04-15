@@ -1,11 +1,10 @@
 Terminology
 
 ├── [Programming](#programming)  
-├── [Postgres Snippets](#postgres-examples)  
+├── [Operating System](#operating-system)  
 ├── [pgAdmin](#pgadmin)  
 └── [pg library](#pg-library)
 
-## Programming
 
 ## Programming
 
@@ -40,3 +39,19 @@ Terminology
 | Throughput                              | The amount of work a system can process in a given time.                                    |
 | Scalability                             | A system’s ability to handle growth (e.g., users, data, traffic).                           |
 | Fault tolerance                         | The ability of a system to continue operating when components fail.                         |
+
+
+### 3 Basic Logic Structures that describe how to write code in Programming:
+1. Sequence; An action or event leads to another action or event in a predetermined order. The sequence can contain any number of actions, but cannot be skipped. 
+2. Selection; Referring to if-then-else statements and logic. Depending on the answer, the program takes one of two courses of action, after which the program moves on to the next event.
+3. Iteration; describes the logic of loops. A set of instructions that the program repeats until a condition is met or count is reached. Each pass in a loop is called an iteration. 
+
+## Operating Systems
+
+Operating Systems:
+Process vs Thread – Units of execution; thread is part of a process.  
+Scheduling – How CPU time is divided among processes (FCFS, Round Robin, etc.)  
+Memory Management – Virtual memory, paging, segmentation.  
+File Systems – FAT, NTFS, ext4 — how data is stored and organized.  
+System Calls – How user programs interact with the OS.  
+Multitasking / Context Switching – How OS handles multiple running processes.  
