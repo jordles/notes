@@ -55,3 +55,32 @@ Memory Management – Virtual memory, paging, segmentation.
 File Systems – FAT, NTFS, ext4 — how data is stored and organized.  
 System Calls – How user programs interact with the OS.  
 Multitasking / Context Switching – How OS handles multiple running processes.  
+
+
+## Hardware
+
+
+### CPU: Central Processing Unit
+Executes instructions and performs calculations on data with programs.
+
+Subcomponents: 
+- ALU (Arithmetic Logic Unit) – performs calculations and logic.
+- CU (Control Unit) – directs the operation of the processor.
+- Registers – small, fast storage used during instruction execution.
+
+
+Relevance to programming:
+- CPU architecture (e.g., x86, ARM) affects instruction sets, binary compatibility.
+- Clock speed, cores, and threading impact performance.
+- Programmers sometimes optimize for CPU-intensive operations.
+
+
+RAM: Random Access Memory
+ROM: Read Only Memory
+GPU: Graphics Processing Unit
+USB: Universal Serial Bus
+HDMI: High-Definition Multimedia Interface
+SSD: Solid State Drive
+HDD: Hard Disk Drive
+SSD vs HDD: SSD is faster, HDD is more reliable
+RAM vs ROM: RAM is volatile, ROM is non-volatile
