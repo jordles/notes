@@ -1,7 +1,7 @@
 # Stacks
 
 A linear data structure that follows the **LIFO (Last In First Out) principle**.  
-Stacks should be __O(1)__ 
+Stacks should be __O(1)__  
 
 Stacks are used in:
 - The Event Loop
