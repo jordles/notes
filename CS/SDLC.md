@@ -10,7 +10,7 @@
 
 ## 1. Planning / Business Analysis
 
-==“What are we building, and why?”==  
+<mark>“What are we building, and why?”</mark>  
 Stakeholders gather to define the goals, scope, budget, and timeline.  
 Key outcomes:
 * Feasibility study
