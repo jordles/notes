@@ -28,7 +28,7 @@ Key outcomes:
 
 ## 2. Requirements Analysis
 
-==“What does the system need to do?”==
+<mark>“What does the system need to do?”</mark>
 
 Business analysts and developers work with stakeholders/customers to define functional and non-functional requirements:
 - Functional: What features must the system have?
@@ -51,7 +51,7 @@ Business analysts and developers work with stakeholders/customers to define func
 
 ## 3. Design
 
-==“How will we build the system?”==
+<mark>“How will we build the system?”</mark>
 
 Architects and developers define:
 - System architecture (frontend/backend separation)
@@ -101,7 +101,7 @@ Architects and developers define:
 
 ## 4. Implementation / Coding/ Development
 
-==“Coding time!!!”==
+<mark>“Coding time!!!”</mark>
 
 Developers break the system into modules and write code based on the design.
 
@@ -122,7 +122,7 @@ Use of:
 
 ## 5. Testing
 
-==“Does it work correctly and reliably?”==
+<mark>“Does it work correctly and reliably?”</mark>
 
 QA engineers or developers run tests to find bugs.
 Types of testing:
@@ -160,7 +160,7 @@ Types of testing:
 
 ## 6. Deployment
 
-==“Let’s put it into the real world.”==
+<mark>“Let’s put it into the real world.”</mark>
 
 Code is released to:
 
@@ -181,7 +181,7 @@ Code is released to:
 
 ## 7. Maintenance
 
-==“Keep it running and improving.”==
+<mark>“Keep it running and improving.”</mark>
 
 Monitor for:
 
