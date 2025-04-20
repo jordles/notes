@@ -12,27 +12,25 @@ Pseudocode:
 * After we run out of values in either array, push all the remaining values from the other array into our results.
 
 ```js
-function merge(left, right){ //uses the multiple pointers pattern
+function merge(left, right){ //uses the multiple pointers pattern; achieves O(n) 
   let result = [];
   let leftIndex = 0;
   let rightIndex = 0;
   while(leftIndex < left.length && rightIndex < right.length){
     if(left[leftIndex] < right[rightIndex]){
-      result.push(left[leftIndex]);
-      leftIndex++;
+      result.push(left[leftIndex++]);
     }
     else{
-      result.push(right[rightIndex])
-      rightIndex++;
+      result.push(right[rightIndex++])
     }
   }
   return [...result, ...left.slice(leftIndex), ...right.slice(rightIndex)] //return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 }
 
-function merge(left, right) {
+function merge(left, right) { //O(n^2)
   let result = [];
   while (left.length && right.length) {
-    result.push(left[0] < right[0] ? left.shift() : right.shift());
+    result.push(left[0] < right[0] ? left.shift() : right.shift()); //O(n) being added from shift()
   }
   return [...result, ...left, ...right];
 }
@@ -40,13 +38,13 @@ function merge(left, right) {
 
 
 ```js
-function mergeSort(arr){
+function mergeSort(arr){ //O(n^2) from merge + O(logn) from divide half recursively = O(n^2logn)
   if(arr.length <= 1) return arr;
 
   const mid = Math.floor(arr.length / 2);
   const left = mergeSort(arr.slice(0, mid));
   const right = mergeSort(arr.slice(mid));
 
-  return merge(left, right);
+  return merge(left, right); //O(n^2)
 }
 ```

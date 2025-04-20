@@ -1,6 +1,12 @@
 # Stacks
 
-A linear data structure that follows the **LIFO (Last In First Out) principle**.
+A linear data structure that follows the **LIFO (Last In First Out) principle**.  
+Stacks should be __O(1)__ 
+
+Stacks are used in:
+- The Event Loop
+- Undo/Redo
+- routing (history object)
 
 ```js
 // using linked lists O(1)
@@ -11,6 +17,11 @@ class ListNode{
   }
 }
 
+// we had to create our own version of linked list here, 
+// because our version thinks of linked list from left to right. 
+// So traversing a singly linked list to pop is O(n) not O(1). 
+// Stack doesn't care what direction the linked list is pointing in 
+// so we can make pop O(1) here. 
 class Stack{
   constructor(val = null){
     if(val){

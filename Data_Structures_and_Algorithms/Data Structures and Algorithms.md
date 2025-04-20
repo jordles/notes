@@ -42,7 +42,7 @@ Algorithms sometimes involve time complexity which uses [Logarithms](../Logarith
 [Max Profit](<../Max Profit.md>) - an algorithm that finds the maximum profit by comparing the prices of consecutive days through buying low and selling high only once. The running time is linear.   
 [Two Sum](<../Two Sum.md>) - an algorithm that finds two numbers in an array that sum up to a target value. The running time is linear.   
 [Reverse Linked List](<Linked Lists.md>) - an algorithm that reverses a linked list by swapping the next and previous pointers of each node. The running time is linear.  
-[Min Stack](../Stacks.md) - an algorithm that keeps track of the minimum element in a stack. The running time is linear or constant for optimized implementations.  
+[Min Stack](Stacks.md) - an algorithm that keeps track of the minimum element in a stack. The running time is linear or constant for optimized implementations.  
 [Valid Parentheses](<../Valid Parentheses>) - an algorithm that checks if a string of parentheses is valid. The running time is linear.  
 [Word Counter](<../Word Counter>) - an algorithm that counts the frequency of each word in a string. The running time is linear.  
 
@@ -71,7 +71,7 @@ With Linked Lists its easier to insert and delete because you can just point the
 
 Usually Arrays and Linked Lists are the building blocks for much more complex hybrid data structures. 
 
-[Stacks](../Stacks.md) - a linear data structure that allows you to push and pop elements from the top of the stack. It follows the LIFO (Last In First Out) principle.
+[Stacks](Stacks.md) - a linear data structure that allows you to push and pop elements from the top of the stack. It follows the LIFO (Last In First Out) principle.
 
 [Queues](../Queues.md) - a linear data structure that allows you to enqueue and dequeue elements from the front of the queue, and acts like a waiting line. It follows the FIFO (First In First Out) principle.
 

@@ -11,7 +11,8 @@
 ├── [Power Supply Unit](#power-supply-unit-the-power-source)  
 ├── [Network Interface Card (NIC)](#network-interface-card-nic-the-network-connection)  
 ├── [Graphics Processing Unit (GPU)](#graphics-processing-unit-gpu-the-video-card)  
-└── [BIOS / UEFI](#bios-uefi-the-bootloader)  
+├── [BIOS / UEFI](#bios-uefi-the-bootloader)   
+└── [Clocking](#clocking) 
 
 ### Motherboard: The Physical Structure of a Computer
 
@@ -259,6 +260,7 @@ Common connectors include:
 
 ### Network Interface Card (NIC): The Network Connection
 
+Hardware that allows computers to communicate over a network.  
 The network interface card (NIC) is responsible for connecting the computer to the internet or other networks.
 
 __Network Interfaces:__ Ethernet, WiFi, Bluetooth, etc.
@@ -289,4 +291,33 @@ __Bootloaders:__ BIOS (Basic Input/Output System), UEFI (Unified Extensible Firm
 
 __Boot Protocols:__ EFI (Extensible Firmware Interface), GRUB (GNU's replacement for the Linux kernel bootloader), etc.
 
+### Clocking
 
+Clocking refers to the synchronization of the internal components of a computer system to ensure they run at the same speed. This is important for accurate performance and energy efficiency.
+
+The System Clock:
+
+- At the heart of clocking is a system clock, which is an electronic circuit (typically a crystal oscillator) that generates a precise and constant electrical signal in the form of a square wave.   
+- This signal oscillates at a specific frequency, measured in Hertz (Hz). One Hertz means one cycle (or pulse) per second.   
+- In modern computers, clock frequencies are typically measured in gigahertz (GHz), which means billions of cycles per second. For example, a CPU might have a clock speed of 3.5 GHz, meaning its internal circuits cycle 3.5 billion times every second.
+
+The Clock Cycle:
+
+- Each complete cycle of the clock signal is called a clock cycle.   
+- These clock cycles act as discrete time intervals that synchronize the various operations within the CPU and other digital components.
+
+The Clock Signal:
+
+- The clock signal is a continuous electrical signal that runs through all the components of the system and is used to synchronize their operations.
+
+Synchronization of Operations:
+
+- Digital circuits, like those in the CPU, are composed of sequential logic elements (like flip-flops and registers) that change their state based on the input signals they receive.
+- The clock signal acts as a trigger or a synchronization point for these state changes. Typically, these elements will only update their outputs on a specific edge of the clock signal (either the rising edge or the falling edge). 
+- This ensures that different parts of the CPU perform their operations in a coordinated and orderly manner. For example, the Control Unit might fetch an instruction during one clock cycle, the ALU might perform an operation on it during the next, and the result might be stored in a register during a subsequent cycle.   
+
+Clock Speed and Performance:
+
+- The clock speed (frequency) of the system clock is a crucial factor in determining the performance of the CPU.   
+- A higher clock speed generally means that the CPU can execute more instructions per second (assuming the instructions take a fixed number of clock cycles).   
+- However, clock speed is not the only determinant of performance. The architecture of the CPU (how efficiently it can execute instructions per cycle - IPC) also plays a significant role. A CPU with a lower clock speed but a more efficient architecture can sometimes outperform a CPU with a higher clock speed.

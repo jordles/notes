@@ -4,9 +4,16 @@ a data structure that stores data in a hierarchical way. It represents a collect
 
 **Full trees** either has no children (leaf node) or exactly two children. 
 
+![](https://cdn.programiz.com/sites/tutorial2program/files/full-binary-tree_0.png)
+
 **Perfect Tree** - Full + Balance 
 Balance - All the leaf nodes are at the same level (distance from the root) This means the tree is completely filled with no gaps at any level. 
 
+A complete binary tree is just like a full binary tree, but with two major differences:
+- All the leaf elements must lean towards the left.
+- The last leaf element might not have a right sibling i.e. a complete binary tree doesn't have to be a full binary tree.
+
+![](https://www.programiz.com/sites/tutorial2program/files/perfect-binary-tree_0.png)
 
 **Complete Tree** - 
 Almost Full Levels - All levels except possibly the last one are completely filled with nodes.
