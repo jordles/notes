@@ -42,9 +42,9 @@ Terminology
 
 
 ### 3 Basic Logic Structures that describe how to write code in Programming:
-1. Sequence; An action or event leads to another action or event in a predetermined order. The sequence can contain any number of actions, but cannot be skipped. 
-2. Selection; Referring to if-then-else statements and logic. Depending on the answer, the program takes one of two courses of action, after which the program moves on to the next event.
-3. Iteration; describes the logic of loops. A set of instructions that the program repeats until a condition is met or count is reached. Each pass in a loop is called an iteration. 
+1. __Sequence;__ An action or event leads to another action or event in a predetermined order. The sequence can contain any number of actions, but cannot be skipped. 
+2. __Selection;__ Referring to if-then-else statements and logic. Depending on the answer, the program takes one of two courses of action, after which the program moves on to the next event.
+3. __Iteration;__ describes the logic of loops. A set of instructions that the program repeats until a condition is met or count is reached. Each pass in a loop is called an iteration. 
 
 ## Operating Systems
 
@@ -55,19 +55,3 @@ Memory Management – Virtual memory, paging, segmentation.
 File Systems – FAT, NTFS, ext4 — how data is stored and organized.  
 System Calls – How user programs interact with the OS.  
 Multitasking / Context Switching – How OS handles multiple running processes.  
-
-
-
-
-
-
-
-RAM: Random Access Memory
-ROM: Read Only Memory
-GPU: Graphics Processing Unit
-USB: Universal Serial Bus
-HDMI: High-Definition Multimedia Interface
-SSD: Solid State Drive
-HDD: Hard Disk Drive
-SSD vs HDD: SSD is faster, HDD is more reliable
-RAM vs ROM: RAM is volatile, ROM is non-volatile
