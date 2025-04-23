@@ -16,5 +16,16 @@ __Accent Colors__ are used to highlight specific elements in a design.
 ## Color Schemes
 ![](https://images.ctfassets.net/h6goo9gw1hh6/59kC2ZcHxB35t8QCkAw4DO/a8925c91a7a97f82a78bcafca8ec010d/Image-3.jpg?w=1094&h=854&fl=progressive&q=70&fm=jpg)
 ![](https://img1.wsimg.com/isteam/ip/6cfa2cb5-2c52-444a-b1b8-043829b39d8f/color-wheel-schemes-types-complementary-worksh.jpg/:/rs=w:1280)
-
 ![](https://www.realtimecolors.com/images/types-of-color-schemes.png)
+
+
+We can have a brand and website color schemes, that are different in their own ways! 
+
+Some websites to create color schemes:   
+[Coolors](https://coolors.co/)   
+[Adobe Colors](https://color.adobe.com/)    
+[Grab from Image: Coolors](https://coolors.co/image-picker)  
+[Grab from Image: Adobe Colors](https://color.adobe.com/image-picker)  
+[Grab from Image: Canva](https://www.canva.com/colors/color-palette-generator/)
+
+Chillax and synonym
