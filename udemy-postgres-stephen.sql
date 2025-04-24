@@ -11,7 +11,7 @@ CREATE TABLE users (
 	avatar VARCHAR(200),
 	phone VARCHAR(25), --this application signs up with either a phone number or an email so we dont need a not null constraint
 	email VARCHAR(40),
-	password VARCHAR(50) NOT NULL,
+	password VARCHAR(50), --NOT NULL,
 	status VARCHAR(15),
   CHECK (COALESCE(phone, email) IS NOT NULL),
   -- this is a check constraint, we want to make sure that a user has either a phone number or an email
@@ -103,7 +103,7 @@ CREATE TABLE hashtags_posts (
 CREATE TABLE followers (
 	id SERIAL PRIMARY KEY,
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-	user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+	leader_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 	follower_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 	UNIQUE(user_id, follower_id) -- were making sure a user can only follow a user once
 )

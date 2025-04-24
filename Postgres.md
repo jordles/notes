@@ -431,7 +431,8 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | DROP ...                                 | Delete a part of a database.                                                                    |
 | DROP TABLE                               | Delete a database.                                                                              |
 | AS                                       | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional          |
-| TO                                       | Rename a table officially (used with ALTER)                                                     |
+| RENAME TO                                | Rename a database (used with ALTER)                                                             |
+| RENAME <target> TO                       | Rename a table, column, row, etc. (used with ALTER)                                             |
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | SELECT                                   | Retrieve data from a database.                                                                  |
 | FROM                                     | Specify the table or tables to select.                                                          |
@@ -478,6 +479,8 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | [subqueries](#subqueries)                | Execute a SELECT statement within a SELECT statement with parentheses.                          |
 | ───────────────                          | ────────────────────────────────────────                                                        |
 | CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                |
+| WITH ... AS ...                          | Create a named subquery with a temporary table. Also known as a common table expression (CTE).  |
+| WHERE ... LIKE <pattern>                 | Match a pattern.                                                                                |
 
 ---
 
@@ -486,43 +489,68 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 To find your constraints of a table, use pgAdmin to inspect those constraints or this query:
 
 ```sql
-SELECT conname AS constraint_name, contype AS constraint_type,
-       pg_get_constraintdef(oid) AS definition
-FROM pg_constraint
-WHERE conrelid = 'your_table_name'::regclass;
+SELECT
+    conname AS constraint_name,
+    contype AS constraint_type,
+    pg_get_constraintdef(c.oid) AS definition
+FROM
+    pg_constraint c
+JOIN
+    pg_namespace n ON n.oid = c.connamespace
+JOIN
+    pg_class t ON t.oid = c.conrelid
+WHERE
+    t.relname = 'table_name';
+
+-- or go on psql tool with this query:
+\d+ <table_name>
 ```
 
-**No Constraint** : It doesn't matter if the value exist.   
+**No Constraint** : It doesn't matter if the value exist.  
 **NOT NULL** : We always want to provide a value  
-**NOT NULL + DEFAULT** : We always want a value, but its optional.   
+**NOT NULL + DEFAULT** : We always want a value, but its optional.
 
 ```sql
 CHECK((value2 IS NULL) = (value2 IS NULL))
 ```
-: Both values are required to be provided or not provided. If one value is given, the other is required.   
-```sql 
+
+: Both values are required to be provided or not provided. If one value is given, the other is required.
+
+```sql
 CHECK(COALESCE(value1, value2) IS NOT NULL)
 ```
-: Either value1 or value2 must have a value, but there is no hard check for both having a value.  
+
+: Either value1 or value2 must have a value, but there is no hard check for both having a value.
+
 ```sql
 CHECK(
   COALESCE((value1)::BOOLEAN::INTEGER, 0)
   +
-  COALESCE((value2)::BOOLEAN::INTEGER, 0) 
+  COALESCE((value2)::BOOLEAN::INTEGER, 0)
   = 1
 )
 ```
+
 ```sql
 CHECK((value1 IS NULL) != (value2 IS NULL))
 -- does not scale beyond 2 values
-```   
+```
+
 ```sql
 CHECK (
   (value1 IS NOT NULL)::int +
   (value2 IS NOT NULL)::int +
   (value3 IS NOT NULL)::int = 1
-)  
+)
 ```
+
+```sql
+-- dropping a not null constraint on a column
+ALTER TABLE pets
+ALTER COLUMN name DROP NOT NULL;
+
+```
+
 : Either value1 or value2 must be not null
 
 | SQL CONSTRAINTS                   | Description                                                                                     |
@@ -624,7 +652,7 @@ Database-level validation ensures data integrity, even if a client bypasses the 
 - ✅ **Validation is always applied**  
   If someone directly connects to PostgreSQL using psql, pgAdmin, or another tool, the database enforces constraints.
 - ✅ **Guaranteed schema enforcement**  
-  Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database. Consistent data types and the domain like ranges also fall into this category.  
+  Constraints like NOT NULL, UNIQUE, CHECK, and FOREIGN KEY always apply, preventing bad data from entering the database. Consistent data types and the domain like ranges also fall into this category.
 - ✅ **Ensures consistency across multiple clients**  
   Even if multiple services write to the same database, all of them must follow database constraints.
 
@@ -1270,9 +1298,11 @@ CREATE TABLE cars (
 
 1. **What is PostgreSQL 17?**  
    Yes, PostgreSQL 17 is the latest version of the PostgreSQL database server engine. It is:
-   The software that runs a PostgreSQL database server.  
-   Responsible for storing, managing, and querying data.  
-   When installed locally, it creates a data directory (where all databases and metadata live).  
+
+   - The software that runs a PostgreSQL database server.
+   - Responsible for storing, managing, and querying data.
+   - When installed locally, it creates a data directory (where all databases and metadata live).
+
    You can think of PostgreSQL like a car engine, and databases are the passengers. The engine (PostgreSQL 17) lets you run and manage multiple databases on your local machine.
 
 2. **Does PostgreSQL 17 Store Databases Locally?**  
@@ -1281,11 +1311,26 @@ CREATE TABLE cars (
    Runs a server process that listens on a specific port (default is 5432).  
    Allows tools like pgAdmin4, psql, or Docker containers to connect to it.
 
+3. **What is a Session?**
+   A session is a temporary connection between a client (pgAdmin4, psql, or Docker container) and a database server. It's a way to run SQL commands on a database.
+
+   - Locked Resources: If someone (or something) is connected to the database and is using a table, PostgreSQL might lock those resources.
+   - Can't Drop Database: You can’t drop (delete) a database if any session is currently connected to it — even your own.
+   - Restore Safety: If you're restoring a DB and another session is active, it might cause conflicts or errors (like duplicate data, schema mismatches, etc.).
+
+  pgAdmin will create new sessions for integrated query and psql shell tools. It will also create new sessions for Docker containers.
+
 ### Data Storage
 
 Docker Postgres is storing data in the Docker-managed volume `db_data` located in the `docker-compose.yml` file.
-Local PostgreSQL 17 is storing data in `C:/Program Files/PostgreSQL/17/data`
+Local PostgreSQL 17 is storing data in `C:/Program Files/PostgreSQL/17/data`  
+(you can also find out through the command `pg_config --data` on psql or on a query tool. Doing this establishes a new connection to the database server.)
 **These are independent — so changes in one don't affect the other**
+
+Inside the `data` folder:
+
+- `base` folder contains the database files. To find out our database names with the oid: `SELECT oid, datname FROM pg_database;`
+- Once youre inside our database folder. You can find out more about these internal files: `SELECT * FROM pg_class;`
 
 ### Ports
 
@@ -1306,6 +1351,8 @@ To find your tables in database:
 
 We can edit table columns and rows by clicking them, then save on the top with the grid icon.
 
+### Display Layout
+
 To have content display on **new tabs instead of a separate window**:
 
 1. Open pgAdmin 4.
@@ -1321,6 +1368,38 @@ To have content display on **new tabs instead of a separate window**:
 5. Change this to "Classic" to revert to the previous interface behavior.
 
 ---
+
+### Transferring / Adding Data to a blank database
+
+Right click on the database and click on `Restore`.
+
+If we transfer data from a database to another, a .backup file contains a snapshot of the database state at a specific point in time. We need to use restore to restore the database to that state.
+
+Restore in the UI is also used to add data (.sql files) to a database.
+
+Restore Settings:
+
+- Data Options ➡ Type of Objects ➡ Only Data
+- Data Options ➡ Do not save ➡ Owner
+- Query Options ➡ Single transaction
+- Options ➡ Disable ➡ Triggers
+
+### Resetting/Restoring a database to original state w/.sql file
+
+**Make sure your active sessions is just one client, or you'll get an error. When restoring or dropping, there should be no other connections to the DB.**
+
+1. Right click on database, then click on `Delete`.
+1. Then right click on the database server and click on `Create` to create a new empty database.
+1. Right click on the new database and click on `Restore`.
+1. Select the .sql file you want to restore.
+
+Restore Settings:
+
+- Data Options ➡ Do not save ➡ Owner
+- Query Options ➡ Single transaction
+- Options ➡ Disable ➡ Triggers
+
+
 
 ## ==pg library==
 
