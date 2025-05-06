@@ -16,6 +16,10 @@ Quick Sort Pseudocode:
 - Base case: If the length of the array is 1 or 0, return the array
 - When the helper returns to you the updated pivot index, recursively call the pivot helper on the subarray to the left of that index, and the subarray to the right of that index.
 
+![](https://media.geeksforgeeks.org/wp-content/uploads/20240926172924/Heap-Sort-Recursive-Illustration.webp)
+
+![](https://wendalfspells.files.wordpress.com/2016/08/lomuto_2.jpg?w=840&h=630)
+![](https://wendalfspells.files.wordpress.com/2016/08/lomuto_3.jpg?w=840&h=630)
 ```js
 // in place sort, time: O(nlogn) space: O(logn)
 
@@ -47,7 +51,7 @@ Partition / Pivot Pseudocode:
 - Swap the pivot with the pivot index
 - Return the pivot index
 
-**Lomuto's partition scheme** - the pivot is always the first/last element  
+**Lomuto's partition scheme** - the pivot is always the last element  
 **Hoare's partition scheme** - the pivot is always somewhere in the middle, and uses two pointers
 
 **For random pivot:**
@@ -76,7 +80,7 @@ If you want simple, readable code → Lomuto (swap pivot to edge of array)
 If you want fewer swaps and better performance → Hoare (keep pivot in place)
 
 ```js
-// Lomuto
+// Lomuto 
 function pivot(arr, start = 0, end = arr.length - 1) {
 	let pivotIndex = start;
 	for (let i = start + 1; i <= end; i++) {
@@ -94,13 +98,28 @@ function lomutoPartition(arr, left, right) {
     let pivot = arr[right];
     let i = left;
     for (let j = left; j < right; j++) {
-        if (arr[j] < pivot) {
+        if (arr[j] <= pivot) { //accommodate same numbers
             [arr[i], arr[j]] = [arr[j], arr[i]];
             i++;
         }
     }
     [arr[i], arr[right]] = [arr[right], arr[i]];
     return i; // pivot is at index i now
+}
+
+function partition(arr, left, right){ // not lomuto, uses the beginning as a pivot. 
+  let pivot = arr[left];
+  let i = left + 1;
+
+  for(let j = left + 1; j <= right; j++){
+    if(arr[j] < pivot){
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      i++;
+    }
+  }
+
+  [arr[left], arr[i - 1]] = [arr[i - 1], arr[left]];
+  return i - 1;
 }
 
 // with a comparitor function

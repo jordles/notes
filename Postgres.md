@@ -481,6 +481,12 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                |
 | WITH ... AS ...                          | Create a named subquery with a temporary table. Also known as a common table expression (CTE).  |
 | WHERE ... LIKE <pattern>                 | Match a pattern.                                                                                |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| [BEGIN](#transactions)                   | starts a transaction                                                                            |
+| COMMIT                                   | commits a transaction (finalizes and saves)                                                     |
+| ROLLBACK                                 | undo changes in a transaction if anything fails                                                 |
+| SAVEPOINT                                | create a named checkpoint in a transaction                                                      |
+| RELEASE                                  | release a named checkpoint in a transaction                                                     |
 
 ---
 
@@ -1285,7 +1291,11 @@ CREATE TABLE cars (
 );
 ```
 
----
+### Transactions
+
+A transaction is a sequence of SQL operations that are treated as a single unit. All the operations in a transaction either succeed together or fail together.
+
+## It's important to use transactions to ensure both tables stay in sync. Without transactions, it’s harder to guarantee atomicity (i.e., that all related updates succeed or fail together).
 
 ## ==pgAdmin==
 
@@ -1318,7 +1328,7 @@ CREATE TABLE cars (
    - Can't Drop Database: You can’t drop (delete) a database if any session is currently connected to it — even your own.
    - Restore Safety: If you're restoring a DB and another session is active, it might cause conflicts or errors (like duplicate data, schema mismatches, etc.).
 
-  pgAdmin will create new sessions for integrated query and psql shell tools. It will also create new sessions for Docker containers.
+pgAdmin will create new sessions for integrated query and psql shell tools. It will also create new sessions for Docker containers.
 
 ### Data Storage
 
@@ -1330,7 +1340,59 @@ Local PostgreSQL 17 is storing data in `C:/Program Files/PostgreSQL/17/data`
 Inside the `data` folder:
 
 - `base` folder contains the database files. To find out our database names with the oid: `SELECT oid, datname FROM pg_database;`
-- Once youre inside our database folder. You can find out more about these internal files: `SELECT * FROM pg_class;`
+- Once youre inside our database folder. You can find out more about these internal files (heap files): `SELECT * FROM pg_class;`
+
+**Heap / Heap File** contains all the data (rows) of our table. This is NOT related to a heap data structure.  
+**Tuple / Item** is an individual row from the table  
+**Block / Page** is a collection of tuples (rows). Heap files can have many blocks or pages.
+
+[More about Database Structure](https://www.linkedin.com/pulse/decoding-postgres-deep-dive-database-internals-prasenjit-sutradhar-e2x6c/)
+
+![alt text](image-1.png)
+
+Each of these blocks or pages are **eight kilobytes in size**, and each block or page can contain up to 1,048,576 tuples.
+
+![](https://media.licdn.com/dms/image/v2/D5612AQEKs6jrwHU5PA/article-inline_image-shrink_1000_1488/article-inline_image-shrink_1000_1488/0/1704650070457?e=1750291200&v=beta&t=j-c0wMI1m8yaKJ11oSNcSluoHLgs4FeVlxCX8riwCP0)
+
+Each Block is assigned a number inside the heap file. Below is a physical representation of data being stored on the hard drive, and taking up certain slots of space / memory.
+
+- The very top has information about the block itself, just a bunch of binary numbers
+- The next blocks have data about the actual rows's location / storage within the block. `loc` means location.
+- Free space is empty space, eventually it will be used to store data.
+- The bottom data section has information about the actual data, where the `Loc` above, was referencing the locations of the data right here.
+
+![](https://media.licdn.com/dms/image/v2/D5612AQHQbtdqjXs5pg/article-inline_image-shrink_1000_1488/article-inline_image-shrink_1000_1488/0/1704650119577?e=1750291200&v=beta&t=ezJABe41jaDmaYmEvSIrRSADQGAX83qzOC_aM3_9_AM)
+
+[More Details about the Heap files and internal structures that map out the hex data of how its stored on the heap file](https://www.postgresql.org/docs/current/storage-page-layout.html)  
+[To view heap files, we can download the hex editor extension on vscode](https://www.hexed.it/)
+
+---
+
+### Indexes
+
+When we do queries, usually <ins>postgres has to load rows from the heap file into memory</ins>, which takes a lot of time and resources. The solution is to use indexes to speed up queries.
+
+__Index__ is a data structure that maps keys to rows in a table. The keys are the block/index numbers of the rows in the heap file (for example: block 1 and index 2). It's a way to make queries faster by telling us directly where the data is located instead of us having to load it into memory and looking it up one by one.
+
+We know blocks contain many rubles or rows, those rows are also indexed.
+
+__Full Table Scan__: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)  
+
+__Index Scan__: Scans only the rows in the index to find a specific row.
+
+![alt text](image-2.png)
+
+- index name is automatically created when there isnt one given. Naming convention: name of table, name of column, and _index.
+- we created an index for the username column. 
+- internally postgres looks for all the usernames and their corresponding rows in the heap file and creates a reference to the block number and their index number. 
+- Postgres will organized this data into a B-tree structure to make searching faster.
+- The root node is given helper nodes. They are conditions to sort the data which divide the results of searching. Effectively making indexes act like O(log(n)) time complexity.
+```sql
+CREATE INDEX ON users (username);
+DROP INDEX user_username_idx; 
+
+```
+---
 
 ### Ports
 
@@ -1399,8 +1461,6 @@ Restore Settings:
 - Query Options ➡ Single transaction
 - Options ➡ Disable ➡ Triggers
 
-
-
 ## ==pg library==
 
 #### Connecting to the database using the pg library:
@@ -1448,3 +1508,32 @@ GROUP BY post_id
 ```
 
 ---
+
+## ==pg_cron==
+
+| Feature                      | pg_cron (Postgres cron)                                 | node-cron (Node.js cron)                                  |
+| ---------------------------- | ------------------------------------------------------- | --------------------------------------------------------- |
+| Where it runs                | Inside Postgres database                                | Inside your Node.js server                                |
+| What it triggers             | SQL queries directly inside DB (very fast, independent) | Any Node.js code (queries, HTTP requests, file ops, etc.) |
+| Resilient if server crashes? | Yes (Postgres stays alive)                              | No (depends on Node.js app staying alive)                 |
+| Setup effort                 | Higher (need pg_cron installed + configured)            | Easier (just install npm package)                         |
+| Precision                    | Very high (Postgres timing)                             | Good enough (Node.js event loop timing)                   |
+| Deployment                   | Needs Postgres extensions                               | Just needs Node.js                                        |
+| Example tasks                | Delete old rows, database maintenance                   | Fetch APIs, clean files, send emails, delete rows         |
+
+pg_cron = Your database sets its own alarm clock to wake up and clean itself
+node-cron = Your Node server sets an alarm and then tells the database what to clean
+
+`cron.schedule` - schedules a task to run on a schedule
+`SELECT * FROM pg_extension;` - check what extensions are installed
+`SELECT * FROM cron.job;` - check what schedules jobs are running
+
+Cron Expression:
+
+| Field        | Value | Meaning           |
+| ------------ | ----- | ----------------- |
+| Minute       | 0     | At minute 0       |
+| Hour         | 0     | At 12 AM          |
+| Day of month | *    | Every day         |
+| Month        | *    | Every month       |
+| Day of week  | *    | Every day of week |

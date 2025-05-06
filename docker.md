@@ -5,6 +5,10 @@ Docker Desktop is designed with Windows environments, so **powershell, cmd, and 
 
 WSL allows Windows to run a real Linux environment inside your Windows environment.
 
+Docker Images are built from Dockerfiles, which are text files that define the instructions for creating a Docker image. They are read-only, packaged unit of software that includes everything needed to run an application, including code, dependencies, and configuration files. It serves as a blueprint for creating Docker containers, which are runtime instances of Docker Images. 
+
+Think of it as a __recipe for building a cake (the container) from a set of instructions (the image)__.
+
 ## Steps to run docker compose file:
 
 Make sure you have the appropriate env variables set in your .env file.
@@ -25,7 +29,7 @@ docker compose down -v
 # an example docker compose file
 services:
   db: # creates a container for postgres 
-    image: postgres:latest
+    image: postgres:latest #this image is the latest version of postgres and managed by docker team
     container_name: postgres_container
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -35,7 +39,10 @@ services:
     # It is the port used by PostgreSQL to accept database connections from clients like psql, pgAdmin, or your application (e.g., Express server). Browsers cannot directly interact with PostgreSQL because it doesn't serve HTTP traffic. 
       - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data # this ensures the database data is persisted across container restarts
+    command: >
+      postgres -c shared_preload_libraries=pg_cron
+    # This tells Postgres to preload pg_cron when it boots / on startup
 
   # pgadmin service in this file is creating a pgAdmin application inside the docker container. This containerized pgAdmin functions just like a standalone pgAdmin application, but its hosted in the docker environment. 
   pgadmin: # creates a container for pgadmin 
@@ -55,6 +62,18 @@ volumes:
   pgadmin_data:
 ```
 
+## Using a Dockerfile to add extensions to our image: 
+
+```
+# Start from the official Postgres image managed by Docker Hub
+FROM postgres:latest
+
+# Install pg_cron and any dependencies
+RUN apt-get update && apt-get install -y postgresql-17-cron
+
+# (Optional) Clean up to keep the image small
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+```
 
 ### Commands
 
