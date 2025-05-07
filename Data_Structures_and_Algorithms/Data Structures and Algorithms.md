@@ -14,8 +14,9 @@ Big O notation is a way of expressing the time complexity / running time of an a
 To calculate on a calculator using log<sub>10</sub> use log<sub>10</sub>number / log<sub>10</sub>base with our base being 2. 
 
 ## Algorithms
-A process or set of steps to solve a problem/accomplish a certain task. 
-Algorithms sometimes involve time complexity which uses [Logarithms](../Logarithms.md)
+A process or set of steps to solve a problem/accomplish a certain task.   
+Algorithms sometimes involve time complexity which uses [Logarithms](../Logarithms.md)  
+Usually any comparison sort will result in the average time complexity of O(n log n).
 
 | Algorithm | Description | Time Complexity | Space Complexity |
 | --- | --- | --- | --- |
