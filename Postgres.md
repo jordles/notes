@@ -487,6 +487,8 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | ROLLBACK                                 | undo changes in a transaction if anything fails                                                 |
 | SAVEPOINT                                | create a named checkpoint in a transaction                                                      |
 | RELEASE                                  | release a named checkpoint in a transaction                                                     |
+| ───────────────                          | ────────────────────────────────────────                                                        |
+| EXPLAIN ANALYZE ... SELECT               | Explain and analyze a query. It gives us more information, like planning and execution times.   |
 
 ---
 
@@ -625,6 +627,13 @@ When interacting with a database, theres an order that SQL follows:
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
 
+### SQL Query Processing Steps:
+1. Parser - ensure we have valid syntax. Builds a query tree, which breaks apart the query into its component parts/steps that can be understood by the database
+2. Rewriter - rewrite the query to make it more efficient. Usually it applies views to the query tree to make it more efficient. 
+3. Planner - determine the best execution plan for the query. It optimizes the query to make it more efficient.
+    - `EXPLAIN` - builds up the execution plan for the query and displays infor about it.
+    - `EXPLAIN ANALYZE` - builds up the execution plan for the query, runs it, and displays info about it.
+4. Executor - execute the query on the database.
 ---
 
 ## ==Validation==
@@ -1372,26 +1381,53 @@ Each Block is assigned a number inside the heap file. Below is a physical repres
 
 When we do queries, usually <ins>postgres has to load rows from the heap file into memory</ins>, which takes a lot of time and resources. The solution is to use indexes to speed up queries.
 
-__Index__ is a data structure that maps keys to rows in a table. The keys are the block/index numbers of the rows in the heap file (for example: block 1 and index 2). It's a way to make queries faster by telling us directly where the data is located instead of us having to load it into memory and looking it up one by one.
+**Index** is a data structure that maps keys to rows in a table. The keys are the block/index numbers of the rows in the heap file (for example: block 1 and index 2). It's a way to make queries faster by telling us directly where the data is located instead of us having to load it into memory and looking it up one by one.
 
 We know blocks contain many rubles or rows, those rows are also indexed.
 
-__Full Table Scan__: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)  
+**Full Table Scan**: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)
 
-__Index Scan__: Scans only the rows in the index to find a specific row.
+**Index Scan**: Scans only the rows in the index to find a specific row.
 
 ![alt text](image-2.png)
 
-- index name is automatically created when there isnt one given. Naming convention: name of table, name of column, and _index.
-- we created an index for the username column. 
-- internally postgres looks for all the usernames and their corresponding rows in the heap file and creates a reference to the block number and their index number. 
+- index name is automatically created when there isnt one given. Naming convention: name of table, name of column, and \_index.
+- we created an index for the username column.
+- internally postgres looks for all the usernames and their corresponding rows in the heap file and creates a reference to the block number and their index number.
 - Postgres will organized this data into a B-tree structure to make searching faster.
 - The root node is given helper nodes. They are conditions to sort the data which divide the results of searching. Effectively making indexes act like O(log(n)) time complexity.
-```sql
-CREATE INDEX ON users (username);
-DROP INDEX user_username_idx; 
 
+| Index Types | Description                                                                                                          |
+| ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| btree       | A B-tree is a self-balancing binary tree. General purpose index. 99% of the time you want this.                      |
+| hash        | Speeds up simple equality queries. A hash table is a data structure that uses a hash function to map keys to values. |
+| GiST        | Geometry, full-text search, and spatial indexing.                                                                    |
+| SP-GIST     | Clustered data, such as dates - many rows might have the same year                                                   |
+| GIN         | For columns that contain arrays or JSON data.                                                                        |
+| BRIN        | Specialized for really large datasets                                                                                |
+
+Postgres **automatically creates indexes** for primary keys and unique keys.  
+To see all indexes, we can run `SELECT * FROM pg_indexes;` or `SELECT relname, relkind FROM pg_class WHERE relkind = 'i';`  
+
+```sql
+-- creating an index
+CREATE INDEX ON users (username);
+DROP INDEX user_username_idx;
 ```
+
+**Cons**
+
+1. We still take up space by making a file in our hard drive to store all the index data.  
+   `SELECT pg_size_pretty(pg_database_size('users'));` - this command is useful to check how much space we take up in a users table.  
+   `SELECT pg_size_pretty(pg_database_size('users_username_idx'));` - this command is useful to check how much space our index for username take up in a users table.
+
+   ==The indexes we add can be <ins>A DOWNSIDE</ins>, because of the added storage size to accommodate these indexes. With extremely large data, adding indexes everywhere can make the database take up a lot of space and money.==
+
+2. Slows down insert/update/delete operations.
+   Our indexes have to be updated along with our database.
+
+3. Index might not get used!!
+
 ---
 
 ### Ports
@@ -1524,8 +1560,8 @@ GROUP BY post_id
 pg_cron = Your database sets its own alarm clock to wake up and clean itself
 node-cron = Your Node server sets an alarm and then tells the database what to clean
 
-`cron.schedule` - schedules a task to run on a schedule
-`SELECT * FROM pg_extension;` - check what extensions are installed
+`cron.schedule` - schedules a task to run on a schedule  
+`SELECT * FROM pg_extension;` - check what extensions are installed  
 `SELECT * FROM cron.job;` - check what schedules jobs are running
 
 Cron Expression:
@@ -1534,6 +1570,6 @@ Cron Expression:
 | ------------ | ----- | ----------------- |
 | Minute       | 0     | At minute 0       |
 | Hour         | 0     | At 12 AM          |
-| Day of month | *    | Every day         |
-| Month        | *    | Every month       |
-| Day of week  | *    | Every day of week |
+| Day of month | \*    | Every day         |
+| Month        | \*    | Every month       |
+| Day of week  | \*    | Every day of week |
