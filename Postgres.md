@@ -405,90 +405,90 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 
 ## ==Queries / Actions==
 
-| SQL Queries                              | Description                                                                                     |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| CREATE                                   | Create a database.                                                                              |
-| CREATE TABLE                             | Create a table in a database.                                                                   |
-| CREATE INDEX                             | Create an index in a database.                                                                  |
-| CREATE VIEW                              | Create a view in a database.                                                                    |
-| CREATE FUNCTION                          | Create a function in a database.                                                                |
-| CREATE TRIGGER                           | Create a trigger in a database.                                                                 |
-| CREATE DOMAIN                            | Create a domain in a database.                                                                  |
-| CREATE ROLE                              | Create a role in a database.                                                                    |
-| CREATE SCHEMA                            | Create a schema in a database.                                                                  |
-| CREATE SEQUENCE                          | Create a sequence in a database.                                                                |
-| ALTER ...                                | Alter a part of a database.                                                                     |
-| ALTER TABLE                              | Alter a table in a database.                                                                    |
-| ALTER COLUMN                             | Alter a column in a table.                                                                      |
-| ALTER INDEX                              | Alter an index in a database.                                                                   |
-| ALTER VIEW                               | Alter a view in a database.                                                                     |
-| ALTER FUNCTION                           | Alter a function in a database.                                                                 |
-| ALTER TRIGGER                            | Alter a trigger in a database.                                                                  |
-| ALTER DOMAIN                             | Alter a domain in a database.                                                                   |
-| ALTER ROLE                               | Alter a role in a database.                                                                     |
-| ALTER SCHEMA                             | Alter a schema in a database.                                                                   |
-| ALTER SEQUENCE                           | Alter a sequence in a database.                                                                 |
-| DROP ...                                 | Delete a part of a database.                                                                    |
-| DROP TABLE                               | Delete a database.                                                                              |
-| AS                                       | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional          |
-| RENAME TO                                | Rename a database (used with ALTER)                                                             |
-| RENAME <target> TO                       | Rename a table, column, row, etc. (used with ALTER)                                             |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| SELECT                                   | Retrieve data from a database.                                                                  |
-| FROM                                     | Specify the table or tables to select.                                                          |
-| JOINS ... ON                             | Join data from multiple tables and used when needed to find data from multiple sources.         |
-| WHERE                                    | Filter data/rows based on a condition.                                                          |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| INSERT                                   | Insert data into a database.                                                                    |
-| INTO                                     | Specify the table to insert data into.                                                          |
-| VALUES                                   | Specify the data to insert.                                                                     |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| UPDATE                                   | Update data in a database.                                                                      |
-| SET                                      | Set a value in a database.                                                                      |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| DELETE                                   | Delete data from a database.                                                                    |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| [JOIN / INNER JOIN](#joins)              | Join data from multiple tables that share a common column. This is known as an inner join.      |
-| LEFT JOIN / LEFT OUTER JOIN              | Join all the data from the left table and the matching data from the right table.               |
-| RIGHT JOIN / RIGHT OUTER JOIN            | Join all the data from the right table and the matching data from the left table.               |
-| FULL JOIN / FULL OUTER JOIN              | Join all the data from the left and right tables, regardless of matching data.                  |
-| ON                                       | Specify the condition for joining tables / matching data                                        |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| [AGGREGATION](#grouping-and-aggregating) | Group data and perform operations on it through SELECT queries. (most, average, least, etc...)  |
-| [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                       |
-| GROUP BY ... HAVING                      | Filter the grouped data                                                                         |
-| DISTINCT                                 | Remove duplicate rows. Always placed after the SELECT clause.                                   |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| [ORDER BY](#order-by)                    | Sort data based on one or more columns.                                                         |
-| DESC                                     | Sort data in descending order.                                                                  |
-| ASC                                      | Sort data in ascending order. (this is default)                                                 |
-| NULLS FIRST                              | Sort NULL values first.                                                                         |
-| NULLS LAST                               | Sort NULL values last.                                                                          |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| [LIMIT](#limits-and-offsets)             | Limit the number of rows returned.                                                              |
-| [OFFSET](#limits-and-offsets)            | Skip the first n rows in the result set.                                                        |
-| FETCH                                    | Fetch the first n rows in the result set.                                                       |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| [UNION](#unions)                         | Combine the result sets / rows of two or more SELECT statements.                                |
-| UNION ALL                                | Combine the result sets / rows of two or more SELECT statements without removing duplicates.    |
-| INTERSECT                                | Return the rows that are common to all SELECT statements.                                       |
-| INTERSECT ALL                            | Return the rows that are common to all SELECT statements without removing duplicates.           |
-| EXCEPT                                   | Removes commonalities between the queries, showing only unique values from the first query      |
-| EXCEPT ALL                               | Return the rows that are only unique to the first SELECT statement without removing duplicates. |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| [subqueries](#subqueries)                | Execute a SELECT statement within a SELECT statement with parentheses.                          |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                |
-| WITH ... AS ...                          | Create a named subquery with a temporary table. Also known as a common table expression (CTE).  |
-| WHERE ... LIKE <pattern>                 | Match a pattern.                                                                                |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| [BEGIN](#transactions)                   | starts a transaction                                                                            |
-| COMMIT                                   | commits a transaction (finalizes and saves)                                                     |
-| ROLLBACK                                 | undo changes in a transaction if anything fails                                                 |
-| SAVEPOINT                                | create a named checkpoint in a transaction                                                      |
-| RELEASE                                  | release a named checkpoint in a transaction                                                     |
-| ───────────────                          | ────────────────────────────────────────                                                        |
-| EXPLAIN ANALYZE ... SELECT               | Explain and analyze a query. It gives us more information, like planning and execution times.   |
+| SQL Queries                              | Description                                                                                               |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| CREATE                                   | Create a database.                                                                                        |
+| CREATE TABLE                             | Create a table in a database.                                                                             |
+| CREATE INDEX                             | Create an index in a database.                                                                            |
+| CREATE VIEW                              | Create a view in a database.                                                                              |
+| CREATE FUNCTION                          | Create a function in a database.                                                                          |
+| CREATE TRIGGER                           | Create a trigger in a database.                                                                           |
+| CREATE DOMAIN                            | Create a domain in a database.                                                                            |
+| CREATE ROLE                              | Create a role in a database.                                                                              |
+| CREATE SCHEMA                            | Create a schema in a database.                                                                            |
+| CREATE SEQUENCE                          | Create a sequence in a database.                                                                          |
+| ALTER ...                                | Alter a part of a database.                                                                               |
+| ALTER TABLE                              | Alter a table in a database.                                                                              |
+| ALTER COLUMN                             | Alter a column in a table.                                                                                |
+| ALTER INDEX                              | Alter an index in a database.                                                                             |
+| ALTER VIEW                               | Alter a view in a database.                                                                               |
+| ALTER FUNCTION                           | Alter a function in a database.                                                                           |
+| ALTER TRIGGER                            | Alter a trigger in a database.                                                                            |
+| ALTER DOMAIN                             | Alter a domain in a database.                                                                             |
+| ALTER ROLE                               | Alter a role in a database.                                                                               |
+| ALTER SCHEMA                             | Alter a schema in a database.                                                                             |
+| ALTER SEQUENCE                           | Alter a sequence in a database.                                                                           |
+| DROP ...                                 | Delete a part of a database.                                                                              |
+| DROP TABLE                               | Delete a database.                                                                                        |
+| AS                                       | Temporarily Alias/name a database, table, column, row, etc. Keyword itself is optional                    |
+| RENAME TO                                | Rename a database (used with ALTER)                                                                       |
+| RENAME <target> TO                       | Rename a table, column, row, etc. (used with ALTER)                                                       |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| SELECT                                   | Retrieve data from a database.                                                                            |
+| FROM                                     | Specify the table or tables to select.                                                                    |
+| JOINS ... ON                             | Join data from multiple tables and used when needed to find data from multiple sources.                   |
+| WHERE                                    | Filter data/rows based on a condition.                                                                    |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| INSERT                                   | Insert data into a database.                                                                              |
+| INTO                                     | Specify the table to insert data into.                                                                    |
+| VALUES                                   | Specify the data to insert.                                                                               |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| UPDATE                                   | Update data in a database.                                                                                |
+| SET                                      | Set a value in a database.                                                                                |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| DELETE                                   | Delete data from a database.                                                                              |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [JOIN / INNER JOIN](#joins)              | Join data from multiple tables that share a common column. This is known as an inner join.                |
+| LEFT JOIN / LEFT OUTER JOIN              | Join all the data from the left table and the matching data from the right table.                         |
+| RIGHT JOIN / RIGHT OUTER JOIN            | Join all the data from the right table and the matching data from the left table.                         |
+| FULL JOIN / FULL OUTER JOIN              | Join all the data from the left and right tables, regardless of matching data.                            |
+| ON                                       | Specify the condition for joining tables / matching data                                                  |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [AGGREGATION](#grouping-and-aggregating) | Group data and perform operations on it through SELECT queries. (most, average, least, etc...)            |
+| [GROUP BY](#grouping-and-aggregating)    | Group data based on one or more columns. It merges multiple rows together                                 |
+| GROUP BY ... HAVING                      | Filter the grouped data                                                                                   |
+| DISTINCT                                 | Remove duplicate rows. Always placed after the SELECT clause.                                             |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [ORDER BY](#order-by)                    | Sort data based on one or more columns.                                                                   |
+| DESC                                     | Sort data in descending order.                                                                            |
+| ASC                                      | Sort data in ascending order. (this is default)                                                           |
+| NULLS FIRST                              | Sort NULL values first.                                                                                   |
+| NULLS LAST                               | Sort NULL values last.                                                                                    |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [LIMIT](#limits-and-offsets)             | Limit the number of rows returned.                                                                        |
+| [OFFSET](#limits-and-offsets)            | Skip the first n rows in the result set.                                                                  |
+| FETCH                                    | Fetch the first n rows in the result set.                                                                 |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [UNION](#unions)                         | Combine the result sets / rows of two or more SELECT statements.                                          |
+| UNION ALL                                | Combine the result sets / rows of two or more SELECT statements without removing duplicates.              |
+| INTERSECT                                | Return the rows that are common to all SELECT statements.                                                 |
+| INTERSECT ALL                            | Return the rows that are common to all SELECT statements without removing duplicates.                     |
+| EXCEPT                                   | Removes commonalities between the queries, showing only unique values from the first query                |
+| EXCEPT ALL                               | Return the rows that are only unique to the first SELECT statement without removing duplicates.           |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [subqueries](#subqueries)                | Execute a SELECT statement within a SELECT statement with parentheses.                                    |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| CASE WHEN ... THEN ... ELSE ... END      | Perform a conditional statement.                                                                          |
+| WITH ... AS ...                          | Create a named subquery with a temporary table. Also known as a common table expression (CTE).            |
+| WHERE ... LIKE <pattern>                 | Match a pattern.                                                                                          |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [BEGIN](#transactions)                   | starts a transaction                                                                                      |
+| COMMIT                                   | commits a transaction (finalizes and saves)                                                               |
+| ROLLBACK                                 | undo changes in a transaction if anything fails                                                           |
+| SAVEPOINT                                | create a named checkpoint in a transaction                                                                |
+| RELEASE                                  | release a named checkpoint in a transaction                                                               |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
+| [EXPLAIN ANALYZE](#explain--analyze) ...                      | Explain and analyze a query. It gives us more information like: query plan, planning and execution times. |
 
 ---
 
@@ -627,13 +627,15 @@ When interacting with a database, theres an order that SQL follows:
 **Keywords** - tell the database what we want to do. Its always written in CAPITAL LETTERS.  
 **Identifiers** - tell the database what this is called. Its always written in lowercase.
 
-### SQL Query Processing Steps:
+### SQL Query Processing Steps / Pipeline:
+
 1. Parser - ensure we have valid syntax. Builds a query tree, which breaks apart the query into its component parts/steps that can be understood by the database
-2. Rewriter - rewrite the query to make it more efficient. Usually it applies views to the query tree to make it more efficient. 
+2. Rewriter - rewrite the query to make it more efficient. Usually it applies views to the query tree to make it more efficient.
 3. Planner - determine the best execution plan for the query. It optimizes the query to make it more efficient.
-    - `EXPLAIN` - builds up the execution plan for the query and displays infor about it.
-    - `EXPLAIN ANALYZE` - builds up the execution plan for the query, runs it, and displays info about it.
+   - `EXPLAIN` - builds up the execution plan for the query and displays infor about it.
+   - `EXPLAIN ANALYZE` - builds up the execution plan for the query, runs it, and displays info about it.
 4. Executor - execute the query on the database.
+
 ---
 
 ## ==Validation==
@@ -1379,13 +1381,14 @@ Each Block is assigned a number inside the heap file. Below is a physical repres
 
 ### Indexes
 
-When we do queries, usually <ins>postgres has to load rows from the heap file into memory</ins>, which takes a lot of time and resources. The solution is to use indexes to speed up queries.
+A __heap__ in PostgreSQL refers to the default storage format for tables.   
+When we do queries, usually <ins>postgres has to load rows from the heap file into memory</ins>, which takes a lot of time and resources. The solution is to use indexes to speed up queries. These indexes are built on top of the heap file.
 
 **Index** is a data structure that maps keys to rows in a table. The keys are the block/index numbers of the rows in the heap file (for example: block 1 and index 2). It's a way to make queries faster by telling us directly where the data is located instead of us having to load it into memory and looking it up one by one.
 
 We know blocks contain many rubles or rows, those rows are also indexed.
 
-**Full Table Scan**: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)
+**Full Table Scan / Sequential Scan**: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)
 
 **Index Scan**: Scans only the rows in the index to find a specific row.
 
@@ -1407,7 +1410,7 @@ We know blocks contain many rubles or rows, those rows are also indexed.
 | BRIN        | Specialized for really large datasets                                                                                |
 
 Postgres **automatically creates indexes** for primary keys and unique keys.  
-To see all indexes, we can run `SELECT * FROM pg_indexes;` or `SELECT relname, relkind FROM pg_class WHERE relkind = 'i';`  
+To see all indexes, we can run `SELECT * FROM pg_indexes;` or `SELECT relname, relkind FROM pg_class WHERE relkind = 'i';`
 
 ```sql
 -- creating an index
@@ -1427,6 +1430,45 @@ DROP INDEX user_username_idx;
    Our indexes have to be updated along with our database.
 
 3. Index might not get used!!
+
+
+### Explain / Analyze
+
+To get more information about a query, we can run `EXPLAIN` or `EXPLAIN ANALYZE`.
+
+We get information on query plan, planning and execution times.
+
+The query plan details multiple query nodes and how they are connected. Each node represents a stage of the query execution.
+```sql
+EXPLAIN ANALYZE SELECT username, contents 
+FROM users
+JOIN comments ON comments.user_id = users.id
+WHERE username = 'Alyson14';
+```
+
+![alt text](explain-analyze.png)
+
+Hash represents a hash table lookup. Hash tables are a data structure that uses a hash function to map keys to values. Since were using an equality query, were using a hash table lookup.  
+The index scan goes through the hash table to find the row. The hash table contains the indexes.  
+The Hash Join is basically combining the results from the results from an index scan and a sequential scan.
+
+
+![alt text](hash-details.png)
+
+
+With `EXPLAIN` alone, Postgres is still able to make an execution plan even though it doesnt actually execute anything, because its actively tracking statistics of the table through `pg_stats`. This command will give us an average stat for each column which will help return a good idea of the results we get when we do actually execute the query with `EXPLAIN ANALYZE`.
+
+```sql
+SELECT *
+FROM pg_stats
+WHERE tablename = 'users';
+```
+
+Inside the Planning stage, lets say we want to find the ID's of users who have a username of `Alyson14`.
+
+What happens inside?:
+1. We get the root node. The root node is the first node in the query plan. The root node is given helper nodes. They are conditions to sort the data which divide the results of searching. Effectively making indexes act like O(log(n)) time complexity.
+2. 
 
 ---
 
