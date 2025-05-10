@@ -1355,7 +1355,7 @@ Inside the `data` folder:
 
 **Heap / Heap File** contains all the data (rows) of our table. This is NOT related to a heap data structure.  
 **Tuple / Item** is an individual row from the table  
-**Block / Page** is a collection of tuples (rows). Heap files can have many blocks or pages.
+**Block / Page** is a collection of tuples (rows). Heap files can have many blocks/pages.
 
 [More about Database Structure](https://www.linkedin.com/pulse/decoding-postgres-deep-dive-database-internals-prasenjit-sutradhar-e2x6c/)
 
@@ -1388,17 +1388,53 @@ When we do queries, usually <ins>postgres has to load rows from the heap file in
 
 We know blocks contain many rubles or rows, those rows are also indexed.
 
+**Cost** in queries are determined by the number of rows and the number of pages in the heap file we have to go through in our scan. In the planning stage, cost is considered so that postgres can choose which operation to use. The estimated cost formula is around `(# of pages * 1.0) + (# of rows * 0.01)`
+The actual real formula is: 
+```
+cost = 
+(# pages read sequentially) * seg_page_cost
++ (# pages read at random) * random_page_cost
++ (# rows scanned) * cpu_tuple_cost
++ (# index entries scanned) * cpu_index_tuple_cost
++ (# times function / operator evaluated) * cpu_operator_cost
+
+-- reminder this is merely an accumulative cost formula, but say a sequential scan, it will only focus on seg_page_cost and cpu_tuple_cost
+```
+
+![alt text](query-costs.png)
+
+More information about estimated default cost values can be found in postgresql.org/docs/current/runtime-config-query.html. These costs are all relative to the `seq_page_cost` so if that value changes, the other costs will change as well (in theory, nothing will actually happen if you change the default value manually).
+
+
 **Full Table Scan / Sequential Scan**: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)
+
+- All Postgres tables are stored as a heap file on disk. Data is always unordered, and each row/tuple is stored in a data block/page. Blocks are linked together on disk. 
+- Postgres will start at block 0 and read every single row, then move on to the next block and repeat the process.
+
+![alt text](sequential-scan.png)
 
 **Index Scan**: Scans only the rows in the index to find a specific row.
 
 ![alt text](image-2.png)
-
+==the index itself stores <ins>only the indexed column value and the pointer to the full row in the heap file</ins>. The pointer is known as the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).==
+- indexes are stored as a b-tree on disk.
 - index name is automatically created when there isnt one given. Naming convention: name of table, name of column, and \_index.
-- we created an index for the username column.
+- we created an index for the username column. These indexes are built on top of the heap file.
 - internally postgres looks for all the usernames and their corresponding rows in the heap file and creates a reference to the block number and their index number.
 - Postgres will organized this data into a B-tree structure to make searching faster.
 - The root node is given helper nodes. They are conditions to sort the data which divide the results of searching. Effectively making indexes act like O(log(n)) time complexity.
+- The root node eventually lands on a leaf node which matches the indexed column value we are searching for.
+- The leaf node will give us the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).
+- Postgres will fetch the data from the heap file with that tuple ID and retrieve/load the row. 
+
+==There are performance tradeoffs for indexes sometimes compared to sequential scans. Due to i/o operations, and indexes jumping to a random block/page in the heap file, it can be slower than a sequential scan. They don’t help reduce I/O if you're fetching many rows, because the heap pages could be all over the disk. That’s why index scans are often labeled random access, while sequential scans are sequential access.==
+
+Each TID points to a specific (block number, offset) — and unless you're using a clustered index or the table was recently freshly loaded in index order, those blocks are likely:
+- Scattered across the heap
+- On non-contiguous disk pages
+- So each fetch becomes a random access to a heap page
+
+
 
 | Index Types | Description                                                                                                          |
 | ----------- | -------------------------------------------------------------------------------------------------------------------- |
