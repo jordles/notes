@@ -164,6 +164,6 @@ The request includes:
     - It listens on a port (like 3000)
     - express() is listening for HTTP requests
     - The method is matched: router.get("/api/users")
-    - If the method and path match, your route logic runs
+    - ==If the method and path match, your route logic runs==
 
 ![](web-network.png)

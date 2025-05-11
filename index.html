@@ -2109,6 +2109,11 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
   <fieldset id="js-date">
     <legend>Date</legend>
     <ul>
+      <pre>
+        function useLocalTime(dateString) {
+          return new Date(dateString).toLocaleString();
+        }
+      </pre>
       <li><code>date.toLocaleTimeString(locales, options)</code> - a language-sensitive representation of the time portion of this date in the local timezone
         <ul>
           <li>locales - the default is using the host's locale, but you can specify a BCP 47 language tag (look online). </li>
