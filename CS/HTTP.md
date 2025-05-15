@@ -48,7 +48,7 @@ The common response headers are:
 - The `Content-Type` header describes the media type of the resource returned (e.g. HTML document, image, video).
 
 The status code is a 3-digit number that indicates the result of the request. The status message is a text representation of the status code:
-- __100-199 - Informational__ - Request received, continuing process. Provisional, may be followed by another message later. The most common is `100 CONTINUE` - the web client should continue the request or ignore the response if it is not necessary.
+- __100-199 - Informational__ - Request received, continuing process. Provisional, may be followed by another message later. The most common is `100 CONTINUE` - the web client should continue the request or ignore the response if it is not necessary
 
 - __200-299 - Success__ - Request completed successfully. The most common is `200 OK` - the request was successful
 
