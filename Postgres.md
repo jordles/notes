@@ -448,6 +448,8 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | ───────────────                          | ────────────────────────────────────────                                                                  |
 | DELETE                                   | Delete data from a database.                                                                              |
 | ───────────────                          | ────────────────────────────────────────                                                                  |
+| ... RETURNING <columns>                  | Used with INSERT, UPDATE, and DELETE queries so you dont need a separate SELECT query to output data.     |
+| ───────────────                          | ────────────────────────────────────────                                                                  |
 | [JOIN / INNER JOIN](#joins)              | Join data from multiple tables that share a common column. This is known as an inner join.                |
 | LEFT JOIN / LEFT OUTER JOIN              | Join all the data from the left table and the matching data from the right table.                         |
 | RIGHT JOIN / RIGHT OUTER JOIN            | Join all the data from the right table and the matching data from the left table.                         |
@@ -488,7 +490,7 @@ Null is not an actual value, as it represents an unknown value. So equality stat
 | SAVEPOINT                                | create a named checkpoint in a transaction                                                                |
 | RELEASE                                  | release a named checkpoint in a transaction                                                               |
 | ───────────────                          | ────────────────────────────────────────                                                                  |
-| [EXPLAIN ANALYZE](#explain--analyze) ...                      | Explain and analyze a query. It gives us more information like: query plan, planning and execution times. |
+| [EXPLAIN ANALYZE](#explain--analyze) ... | Explain and analyze a query. It gives us more information like: query plan, planning and execution times. |
 
 ---
 
@@ -1381,17 +1383,20 @@ Each Block is assigned a number inside the heap file. Below is a physical repres
 
 ### Indexes
 
-A __heap__ in PostgreSQL refers to the default storage format for tables.   
+A **heap** in PostgreSQL refers to the default storage format for tables.  
 When we do queries, usually <ins>postgres has to load rows from the heap file into memory</ins>, which takes a lot of time and resources. The solution is to use indexes to speed up queries. These indexes are built on top of the heap file.
 
 **Index** is a data structure that maps keys to rows in a table. The keys are the block/index numbers of the rows in the heap file (for example: block 1 and index 2). It's a way to make queries faster by telling us directly where the data is located instead of us having to load it into memory and looking it up one by one.
 
 We know blocks contain many rubles or rows, those rows are also indexed.
 
+### Costs
+
 **Cost** in queries are determined by the number of rows and the number of pages in the heap file we have to go through in our scan. In the planning stage, cost is considered so that postgres can choose which operation to use. The estimated cost formula is around `(# of pages * 1.0) + (# of rows * 0.01)`
-The actual real formula is: 
+The actual real formula is:
+
 ```
-cost = 
+cost =
 (# pages read sequentially) * seg_page_cost
 + (# pages read at random) * random_page_cost
 + (# rows scanned) * cpu_tuple_cost
@@ -1406,9 +1411,23 @@ cost =
 More information about estimated default cost values can be found in postgresql.org/docs/current/runtime-config-query.html. These costs are all relative to the `seq_page_cost` so if that value changes, the other costs will change as well (in theory, nothing will actually happen if you change the default value manually).
 
 
+When talking about costs we also have access to see startup vs total costs.
+
+Startup costs look at the initial/first row costs of processing, since it gets immediately passed on to the next processing steps.
+
+Sequential Scan's startup cost is __0__ because it [doesnt require any preparation steps](https://postgrespro.com/blog/pgsql/5969403). __It can read and return row 1 right away.__
+
+While index scan's startup cost is __0.5__ because it requires a preparation step before it can return any row. __It needs to traverse the B-tree to locate the first matching entry.__
+
+__Preparation__ is different from __processing__.
+
+__Preparation__ refers to the steps a query must take before it can return any row. __Processing__ includes reading rows, applying filters, and returning results — essentially the ongoing work during query execution.
+
+![alt text](cost-diff.png)
+
 **Full Table Scan / Sequential Scan**: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)
 
-- All Postgres tables are stored as a heap file on disk. Data is always unordered, and each row/tuple is stored in a data block/page. Blocks are linked together on disk. 
+- All Postgres tables are stored as a heap file on disk. Data is always unordered, and each row/tuple is stored in a data block/page. Blocks are linked together on disk.
 - Postgres will start at block 0 and read every single row, then move on to the next block and repeat the process.
 
 ![alt text](sequential-scan.png)
@@ -1417,6 +1436,7 @@ More information about estimated default cost values can be found in postgresql.
 
 ![alt text](image-2.png)
 ==the index itself stores <ins>only the indexed column value and the pointer to the full row in the heap file</ins>. The pointer is known as the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).==
+
 - indexes are stored as a b-tree on disk.
 - index name is automatically created when there isnt one given. Naming convention: name of table, name of column, and \_index.
 - we created an index for the username column. These indexes are built on top of the heap file.
@@ -1425,16 +1445,15 @@ More information about estimated default cost values can be found in postgresql.
 - The root node is given helper nodes. They are conditions to sort the data which divide the results of searching. Effectively making indexes act like O(log(n)) time complexity.
 - The root node eventually lands on a leaf node which matches the indexed column value we are searching for.
 - The leaf node will give us the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).
-- Postgres will fetch the data from the heap file with that tuple ID and retrieve/load the row. 
+- Postgres will fetch the data from the heap file with that tuple ID and retrieve/load the row.
 
 ==There are performance tradeoffs for indexes sometimes compared to sequential scans. Due to i/o operations, and indexes jumping to a random block/page in the heap file, it can be slower than a sequential scan. They don’t help reduce I/O if you're fetching many rows, because the heap pages could be all over the disk. That’s why index scans are often labeled random access, while sequential scans are sequential access.==
 
 Each TID points to a specific (block number, offset) — and unless you're using a clustered index or the table was recently freshly loaded in index order, those blocks are likely:
+
 - Scattered across the heap
 - On non-contiguous disk pages
 - So each fetch becomes a random access to a heap page
-
-
 
 | Index Types | Description                                                                                                          |
 | ----------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -1467,7 +1486,6 @@ DROP INDEX user_username_idx;
 
 3. Index might not get used!!
 
-
 ### Explain / Analyze
 
 To get more information about a query, we can run `EXPLAIN` or `EXPLAIN ANALYZE`.
@@ -1475,8 +1493,9 @@ To get more information about a query, we can run `EXPLAIN` or `EXPLAIN ANALYZE`
 We get information on query plan, planning and execution times.
 
 The query plan details multiple query nodes and how they are connected. Each node represents a stage of the query execution.
+
 ```sql
-EXPLAIN ANALYZE SELECT username, contents 
+EXPLAIN ANALYZE SELECT username, contents
 FROM users
 JOIN comments ON comments.user_id = users.id
 WHERE username = 'Alyson14';
@@ -1488,9 +1507,7 @@ Hash represents a hash table lookup. Hash tables are a data structure that uses 
 The index scan goes through the hash table to find the row. The hash table contains the indexes.  
 The Hash Join is basically combining the results from the results from an index scan and a sequential scan.
 
-
 ![alt text](hash-details.png)
-
 
 With `EXPLAIN` alone, Postgres is still able to make an execution plan even though it doesnt actually execute anything, because its actively tracking statistics of the table through `pg_stats`. This command will give us an average stat for each column which will help return a good idea of the results we get when we do actually execute the query with `EXPLAIN ANALYZE`.
 
@@ -1503,8 +1520,10 @@ WHERE tablename = 'users';
 Inside the Planning stage, lets say we want to find the ID's of users who have a username of `Alyson14`.
 
 What happens inside?:
+
 1. We get the root node. The root node is the first node in the query plan. The root node is given helper nodes. They are conditions to sort the data which divide the results of searching. Effectively making indexes act like O(log(n)) time complexity.
-2. 
+2. The root node eventually lands on a leaf node which matches the indexed column value we are searching for. The leaf node will give us the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).
+3. The TID is used to fetch the row from the heap file.
 
 ---
 
@@ -1574,6 +1593,23 @@ Restore Settings:
 - Data Options ➡ Do not save ➡ Owner
 - Query Options ➡ Single transaction
 - Options ➡ Disable ➡ Triggers
+
+## Other Useful pg Objects
+
+https://www.postgresql.org/docs/current/catalogs.html
+
+`information_schema` - contains information about the database.
+
+```sql
+-- grabbing table names from database for example
+SELECT DISTINCT table_name
+FROM information_schema.columns
+WHERE column_name IN ('pet_id', 'stat_id')
+  AND table_schema = 'public'
+  AND table_name NOT IN ('user_pet', 'active_activity', 'stat');
+```
+
+`pg_catalog` - contains information about the database.
 
 ## ==pg library==
 
