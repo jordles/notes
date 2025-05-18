@@ -70,8 +70,21 @@ A framework for Node.js
 
 Middlewares are functions that happen between a request and a response.
 
-Express Routers allow us to create multiple types of request routes at the same endpoint
+Express Routers allow us to create multiple types of request routes at the same endpoint.  
+We mount the router at the specified route path, importing the router we created.  
+The __mount path__ is the path at which the router is mounted.  
+The __sub routes__ are the paths at which the router handles requests (doesnt contain the mount path).  
+The __route/endpoint__ is a combination of the mount path and the sub route.  
 
+?type for human-readable development and testing  
+?typeId for faster, stable, database-safe filtering
+
+| Thing | Naming Convention | Example |
+| --- | --- | --- |
+| Route paths | kebab-case | /pet-breeds, /pet-species |
+| Route parameters | camelCase | /pets/:petId, /users/:userId |
+| Database columns | snake_case | pet_id, activity_type_id |
+| JS variables | camelCase | petId, activityType |
 # Installation
 
 # Setup
