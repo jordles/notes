@@ -567,7 +567,7 @@ ALTER COLUMN name DROP NOT NULL;
 | --------------------------------- | ----------------------------------------------------------------------------------------------- |
 | PRIMARY KEY                       | A unique identifier for each row in a table. (Also increases performance when looking up by PK) |
 | REFERENCES <table(col)>           | A foreign key, which is a reference to another table in the database.                           |
-| ON DELETE ...                     | Specify the action to take when deleting                                                        |
+| ON DELETE/UPDATE/INSERT ...       | Specify the action to take in regards to the foreign key                                        |
 | ON DELETE RESTRICT                | Prevent deletion of the referenced row with foreign key                                         |
 | ON DELETE CASCADE                 | Delete the row if it has a foreign key                                                          |
 | ON DELETE SET NULL                | Set the foreign key to NULL                                                                     |
@@ -1410,18 +1410,17 @@ cost =
 
 More information about estimated default cost values can be found in postgresql.org/docs/current/runtime-config-query.html. These costs are all relative to the `seq_page_cost` so if that value changes, the other costs will change as well (in theory, nothing will actually happen if you change the default value manually).
 
-
 When talking about costs we also have access to see startup vs total costs.
 
 Startup costs look at the initial/first row costs of processing, since it gets immediately passed on to the next processing steps.
 
-Sequential Scan's startup cost is __0__ because it [doesnt require any preparation steps](https://postgrespro.com/blog/pgsql/5969403). __It can read and return row 1 right away.__
+Sequential Scan's startup cost is **0** because it [doesnt require any preparation steps](https://postgrespro.com/blog/pgsql/5969403). **It can read and return row 1 right away.**
 
-While index scan's startup cost is __0.5__ because it requires a preparation step before it can return any row. __It needs to traverse the B-tree to locate the first matching entry.__
+While index scan's startup cost is **0.5** because it requires a preparation step before it can return any row. **It needs to traverse the B-tree to locate the first matching entry.**
 
-__Preparation__ is different from __processing__.
+**Preparation** is different from **processing**.
 
-__Preparation__ refers to the steps a query must take before it can return any row. __Processing__ includes reading rows, applying filters, and returning results — essentially the ongoing work during query execution.
+**Preparation** refers to the steps a query must take before it can return any row. **Processing** includes reading rows, applying filters, and returning results — essentially the ongoing work during query execution.
 
 ![alt text](cost-diff.png)
 
