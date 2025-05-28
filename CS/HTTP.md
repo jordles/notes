@@ -62,7 +62,7 @@ The status code is a 3-digit number that indicates the result of the request. Th
   
     - A clear distinction between 400 and 404 is that: 
       - 400 is a request level issue. The endpoint itself works, but the content or parameters are wrong.
-      - 404 is a server level issue. The endpoint simply does not exist or cannot be found. 
+      - 404 is a server level issue. The endpoint simply does not exist or cannot be found. Client made a valid request, but your resource was not found or does not exist.
 
 - __500-599 - Server Error__ - The server failed to fulfill an apparently valid request.
   - `500 Internal Server Error` - A generic error status code given when an unexpected error or condition occurred while processing the request.
