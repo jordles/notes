@@ -52,7 +52,7 @@ The status code is a 3-digit number that indicates the result of the request. Th
 
 - __200-299 - Success__ - Request completed successfully. The most common is `200 OK` - the request was successful
 
-- __300-399 - Redirection__ - Further action needs to be taken in order to complete the request. It indicates that the requested resource has been moved to a new URL/path. The most common is `301 MOVED PERMANENTLY` & `302 FOUND` 302 represents a temporary redirect and 301 represents a permanent redirect. For temporary redirects, the browser will perform a GET request on the new URL.
+- __300-399 - Redirection__ - Further action needs to be taken in order to complete the request. It indicates that the requested resource has been moved to a new URL/path. The most common is `301 MOVED PERMANENTLY` & `302 FOUND` 302 represents a temporary redirect and 301 represents a permanent redirect. For temporary redirects, the browser will perform a GET request on the new URL. 
 
 - __400-499 - Client Error__ - The request contains bad syntax and cannot be fulfilled by the server. The most common: 
   - `400 BAD REQUEST` - the request was invalid because of bad data sent to the web server. 
