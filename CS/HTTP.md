@@ -2,7 +2,7 @@
 - __HTTP__ is a core operational protocol of the internet. They allow your web browser to communicate with a web server that hosts a website. HTTP is a communication protocol you use whenever you browse the web and transfers web data/resources. It is a request-response based protocol (HTTP request - HTTP response).
 - HTTP are used on top of TCP to transfer webpages and content from websites. WHAT IS THE DIFFERENCE? __HTTP vs TCP__?:  
   - HTTP (application layer) is concerned with the content of the data that's being sent. HTTP defines the syntax and semantics of the messages being exchanged. TCP (transport layer) is focused on the deliver of data packets.
-- The __HTTP request__ consists of a method, path, version, and header and optionally a body.
+- The __HTTP request__ consists of a method, path, version, and header and optionally a body. 
 
 ```js
   GET / HTTP/1.1 //method, path, version
