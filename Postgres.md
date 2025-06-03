@@ -633,7 +633,7 @@ When interacting with a database, theres an order that SQL follows:
 
 1. Parser - ensure we have valid syntax. Builds a query tree, which breaks apart the query into its component parts/steps that can be understood by the database
 2. Rewriter - rewrite the query to make it more efficient. Usually it applies views to the query tree to make it more efficient.
-3. Planner - determine the best execution plan for the query. It optimizes the query to make it more efficient.
+3. [Planner](#explain--analyze) - determine the best execution plan for the query. It optimizes the query to make it more efficient.
    - `EXPLAIN` - builds up the execution plan for the query and displays infor about it.
    - `EXPLAIN ANALYZE` - builds up the execution plan for the query, runs it, and displays info about it.
 4. Executor - execute the query on the database.
@@ -1408,7 +1408,7 @@ cost =
 
 ![alt text](query-costs.png)
 
-More information about estimated default cost values can be found in postgresql.org/docs/current/runtime-config-query.html. These costs are all relative to the `seq_page_cost` so if that value changes, the other costs will change as well (in theory, nothing will actually happen if you change the default value manually).
+More information about estimated default cost values can be found in [here](https://postgresql.org/docs/current/runtime-config-query.html). These costs are all relative to the `seq_page_cost` so if that value changes, the other costs will change as well (in theory, nothing will actually happen if you change the default value manually).
 
 When talking about costs we also have access to see startup vs total costs.
 
@@ -1416,7 +1416,7 @@ Startup costs look at the initial/first row costs of processing, since it gets i
 
 Sequential Scan's startup cost is **0** because it [doesnt require any preparation steps](https://postgrespro.com/blog/pgsql/5969403). **It can read and return row 1 right away.**
 
-While index scan's startup cost is **0.5** because it requires a preparation step before it can return any row. **It needs to traverse the B-tree to locate the first matching entry.**
+While index scan's startup cost is greater than 0 because it requires a preparation step before it can return any row. **It needs to traverse the B-tree to locate the first matching entry.**
 
 **Preparation** is different from **processing**.
 
@@ -1491,7 +1491,9 @@ To get more information about a query, we can run `EXPLAIN` or `EXPLAIN ANALYZE`
 
 We get information on query plan, planning and execution times.
 
-The query plan details multiple query nodes and how they are connected. Each node represents a stage of the query execution.
+The query plan details multiple query nodes and how they are connected. Each node represents a stage of the query execution and indicated by the `->` symbol. The top line of the query plan is also technically a query node.
+
+PGADMIN also has a gui for `EXPLAIN` and `EXPLAIN ANALYZE` which gives a more graphical representation of the query plan. Located on the right side of the query window.
 
 ```sql
 EXPLAIN ANALYZE SELECT username, contents
@@ -1501,10 +1503,39 @@ WHERE username = 'Alyson14';
 ```
 
 ![alt text](explain-analyze.png)
+![alt text](explain-analyze2.png)
+
+1. Index Scan on users: Efficiently fetches rows where username = 'Alyson14'.
+1. Hash: Builds a hash table in memory using users.id as the key.
+1. Seq Scan on comments: Reads all rows in comments.
+1. Hash Join: For each row in comments, uses comments.user_id to look up matches in the hash table.
 
 Hash represents a hash table lookup. Hash tables are a data structure that uses a hash function to map keys to values. Since were using an equality query, were using a hash table lookup.  
 The index scan goes through the hash table to find the row. The hash table contains the indexes.  
-The Hash Join is basically combining the results from the results from an index scan and a sequential scan.
+
+The Hash Join is basically combining the results from the results from an index scan (hash table) and a sequential scan. The index scan is info from users table and the sequential scan is info from comments table.
+
+In a Hash Join, PostgreSQL chooses one input to be the "build side", which that side will be hashed into memory and used to build the hash table. The other side is called the "probe side"The Hash Join is a join that uses a hash table to speed up the join operation by making `O(n*m)` nested loops into an almost `O(n+m)` operations.
+
+1. The Hash node builds a temporary lookup dictionary (users.id → user row)
+1. The Hash Join goes through comments, does fast lookups in the hash table, and yields combined rows
+1. The output of the join is what becomes visible in the final result (or passed up to another node, like Sort, Aggregate, or the Output node)
+
+<ins>If say for example we only find two results where username = 'Alyson14' on the users table.</ins> A hash table is created with 2 buckets, containing only the filtered `users` rows hashed by the `id` column. Its essentially a temporary lookup structure that is useful to find matches in the comments table: 
+
+```sql
+Hash Table (keyed by users.id):
+--We hash on users.id (the join key)
+Bucket A (hash = hash(1)):
+  → { id: 1, username: 'Alyson14' }
+
+Bucket B (hash = hash(3)):
+  → { id: 3, username: 'Alyson14' }
+```
+
+We can then probe through comments table and plug in the hash table to get efficient matches to do a final join. ex. `hash(comment.user_id)`. The join itself is merely an output from the hash table (not the hash table itself and is not stored).
+
+---
 
 ![alt text](hash-details.png)
 
@@ -1524,7 +1555,7 @@ What happens inside?:
 2. The root node eventually lands on a leaf node which matches the indexed column value we are searching for. The leaf node will give us the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).
 3. The TID is used to fetch the row from the heap file.
 
----
+--- 
 
 ### Ports
 
