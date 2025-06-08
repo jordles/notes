@@ -73,8 +73,30 @@
 - Stakeholder - entity with an interest in the outcome of a project.
 - Customer (purchaser) - entity that pays for a service or product. The entity determines how valuable the service is.
 - End-user / User (consumer) - entity that uses a product or service. The user may or may not be the customer. (like a company needing a product for their employees, the customer is the company, and the end-user is the employees)
-- Supplier - entity that provides a service or product used in creation or delivery of product/service to end users. (How do users get the product)
-- Service Provider - entity that provides a service to customers and users to enhance productivity. May be own by the customer or external entity (ex. support chat)
+- Supplier - entity that provides a service or product used in creation or delivery of product/service to end users. (How do users get the product) Think of them as products you use. (They provide goods, components, or services that support another organization’s service but don’t interact with the end customer directly.)
+
+| Example | Description |
+| --- | --- |
+| Intel | Supplies CPUs to laptop manufacturers like Dell or Apple. |
+| Cisco | Sells network routers and switches used by service providers or internal IT teams. |
+| Twilio | Supplies communication APIs (SMS, voice) that other services (e.g., Uber) use. |
+| Electric company | Supplies electricity to a data center — not responsible for how services are delivered to end users. |
+| Contract developer | Supplies code to a software firm building an app — but isn’t the service provider to the customer. |
+| Data center colocation provider | Provides physical space and power for servers, but the customer is served by someone else. |
+
+
+- Service Provider - entity that provides a service to customers and users to enhance productivity. May be own by the customer or external entity (ex. support chat). They do something for you for the purpose of improvement. (They deliver complete services directly to the customer and are responsible for both utility and warranty.)
+
+| Example | Description |
+| --- | --- |
+| Microsoft 365 | Provides email, file storage, and productivity apps with uptime guarantees. |
+| AWS (when used as cloud host) | Provides infrastructure-as-a-service with SLAs, monitoring, and support. |
+| Managed IT Service Companies | Handle IT support, monitoring, patching, and maintenance for client businesses. |
+| Google Workspace | Delivers email, docs, calendar, and cloud storage with support and availability. |
+| Zoom | Offers video conferencing service with a reliable platform and support. |
+| Salesforce | Provides a CRM platform, including system uptime, customer support, and software updates. |
+
+
 - Determining Stakeholder Level of Involvement
   - Access the influence that a stakeholder could have on project
   - Access the interest that a stakeholder has on the project
@@ -125,12 +147,12 @@
   - Affordable mix of features
   - Achievement of Objectives
   - Value changes over time and circumstances
-- Utility - functionality offered by product or service to meet a particular need; fit for purpose (improve Customer Performance OR Reduce/Remove Customer Constraints)
+- Utility - functionality offered by product or service to meet a particular need; fit for purpose (improve Customer Performance OR Reduce/Remove Customer Constraints); how well it meets user needs. functionality offered by product or service to meet a particular need;
   - Fit for purpose (works as designed)
   - Improves probability of achieving outcomes
   - Improves customer performance capability
   - Reduces customer constraints
-- Warranty - fit for use (guaranteed consistency of delivery; Assurance & Quality of product/service), Decreases Performance Variation (Attributes of the system)
+- Warranty - fit for use (guaranteed consistency of delivery; Assurance & Quality of product/service), Decreases Performance Variation (Attributes of the system); Quality of the service or product; how well it meets user needs in terms of performance, reliability, and support. You trust it to be available, supported, and secure.
   - Availability - when needed
   - Capacity - Adequate for business needs
   - IT Service Continuity - Major disruption recovery
@@ -141,9 +163,9 @@
 
 ### Types of Service Providers
 
-- Internal Service Providers - different entities owned by the organization; each individual entity provides services to a single customer
-- Shared Services Unit - provides services to multiple internal customers
-- External Service Providers - Provides services to multiple customers, could exist as either internal or external
+- Internal Service Providers - different entities owned by the organization; each individual entity provides services to a single customer; An internal unit within the same organization that provides services exclusively to one business unit.
+- Shared Services Unit - provides services to multiple internal customers; A service provider that serves multiple business units within the same organization.
+- External Service Providers - Provides services to multiple customers, could exist as either internal or external; A third-party or external company that provides services to external customers or multiple organizations.
 
 ## Software Development Life Cycle (SDLC)
 
