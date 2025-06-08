@@ -164,7 +164,7 @@
 ### Types of Service Providers
 
 - Internal Service Providers - different entities owned by the organization; each individual entity provides services to a single customer; An internal unit within the same organization that provides services exclusively to one business unit.
-- Shared Services Unit - provides services to multiple internal customers; A service provider that serves multiple business units within the same organization.
+- Shared Services Unit - provides services to multiple internal customers of the same organization; A service provider that serves multiple business units within the same organization.
 - External Service Providers - Provides services to multiple customers, could exist as either internal or external; A third-party or external company that provides services to external customers or multiple organizations.
 
 ## Software Development Life Cycle (SDLC)
@@ -210,3 +210,52 @@
     **Preparation of end-users with training and documentation (other support); Compatibility Testing is necessary to ensure that the new functionality is compatible with the live environment**
 
 Waterfall has the following phases: Planning, Execution, Implementation, Closure
+
+
+# Software Development Hierarchy
+
+
+[ SDLC ] — the process of building software  
+        ↓  
+[ Methodology ] — mindset (e.g., Agile, Waterfall)  
+        ↓  
+[ Framework ] — practical structure (e.g., Scrum, Kanban)  
+        ↓  
+[ Tools ] — how you carry it out (e.g., Jira, Trello, Gantt)
+
+🧪 Example:
+Let’s say your team is:  
+Using Agile (methodology),  
+Following the Scrum framework (sprints, roles),  
+Managing work in Jira (tool).  
+
+# SDLC
+
+### **==The General Process==**
+> What steps should happen to build software?
+
+Its a generic structured life cycle - providing a guideline for every phase for software project. Think of it like a roadmap, blueprint, or recipe.
+
+# Framework 
+
+### **==The Practical Toolbox==** 
+
+> How do we actually carry out those steps in a practical way? Using what tools? 
+
+A framework provides: 
+- Roles 
+- Rituals / Activities
+- Artifacts
+- Rules 
+
+Some frameworks include: 
+- Scrum
+- Kanban
+
+Tools used to support/carry out these frameworks include:
+- Jira
+- Trello
+- Asana
+- GitHub
+- Gantt Chart
+
