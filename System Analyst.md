@@ -256,6 +256,6 @@ Tools used to support/carry out these frameworks include:
 - Jira
 - Trello
 - Asana
-- GitHub
+- GitHub Projects
 - Gantt Chart
 
