@@ -109,6 +109,11 @@
   - informed or kept up to date regarding progress
 - The RACI Matrix/Model is a tool used to identify stakeholders and their involvement in the project or activity (there is only 1 A for each activity)
 
+#### Stakeholder Analysis Matrix
+- Not the same as the RACI Matrix
+- The Stakeholder Analysis Matrix is a tool used to identify stakeholders and their involvement in the project or activity.
+![](https://tools4dev.org/wp-content/uploads/stakeholder-analysis-matrix-screenshot.png)
+
 ---
 
 ### What every business wants
@@ -258,4 +263,11 @@ Tools used to support/carry out these frameworks include:
 - Asana
 - GitHub Projects
 - Gantt Chart
+
+
+Scrum Process:
+![](/media/scrum-process.png)
+
+Scrum Artifact Hierarchy:   
+User Stories -> Product Backlog -> Sprint Backlog -> Task Board -> Burn-Down Chart
 

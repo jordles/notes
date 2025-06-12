@@ -1361,7 +1361,7 @@ Inside the `data` folder:
 
 [More about Database Structure](https://www.linkedin.com/pulse/decoding-postgres-deep-dive-database-internals-prasenjit-sutradhar-e2x6c/)
 
-![alt text](image-1.png)
+![alt text](media/image-1.png)
 
 Each of these blocks or pages are **eight kilobytes in size**, and each block or page can contain up to 1,048,576 tuples.
 
@@ -1406,7 +1406,7 @@ cost =
 -- reminder this is merely an accumulative cost formula, but say a sequential scan, it will only focus on seg_page_cost and cpu_tuple_cost
 ```
 
-![alt text](query-costs.png)
+![alt text](media/query-costs.png)
 
 More information about estimated default cost values can be found in [here](https://postgresql.org/docs/current/runtime-config-query.html). These costs are all relative to the `seq_page_cost` so if that value changes, the other costs will change as well (in theory, nothing will actually happen if you change the default value manually).
 
@@ -1422,18 +1422,18 @@ While index scan's startup cost is greater than 0 because it requires a preparat
 
 **Preparation** refers to the steps a query must take before it can return any row. **Processing** includes reading rows, applying filters, and returning results — essentially the ongoing work during query execution.
 
-![alt text](cost-diff.png)
+![alt text](media/cost-diff.png)
 
 **Full Table Scan / Sequential Scan**: Scans all rows in a table to find a specific row. PG will load many or all rows from heap file into memory. (this is similar to O(n) time complexity)
 
 - All Postgres tables are stored as a heap file on disk. Data is always unordered, and each row/tuple is stored in a data block/page. Blocks are linked together on disk.
 - Postgres will start at block 0 and read every single row, then move on to the next block and repeat the process.
 
-![alt text](sequential-scan.png)
+![alt text](media/sequential-scan.png)
 
 **Index Scan**: Scans only the rows in the index to find a specific row.
 
-![alt text](image-2.png)
+![alt text](media/image-2.png)
 ==the index itself stores <ins>only the indexed column value and the pointer to the full row in the heap file</ins>. The pointer is known as the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).==
 
 - indexes are stored as a b-tree on disk.
@@ -1502,8 +1502,8 @@ JOIN comments ON comments.user_id = users.id
 WHERE username = 'Alyson14';
 ```
 
-![alt text](explain-analyze.png)
-![alt text](explain-analyze2.png)
+![alt text](media/explain-analyze.png)
+![alt text](media/explain-analyze2.png)
 
 1. Index Scan on users: Efficiently fetches rows where username = 'Alyson14'.
 1. Hash: Builds a hash table in memory using users.id as the key.
@@ -1537,7 +1537,7 @@ We can then probe through comments table and plug in the hash table to get effic
 
 ---
 
-![alt text](hash-details.png)
+![alt text](media/hash-details.png)
 
 With `EXPLAIN` alone, Postgres is still able to make an execution plan even though it doesnt actually execute anything, because its actively tracking statistics of the table through `pg_stats`. This command will give us an average stat for each column which will help return a good idea of the results we get when we do actually execute the query with `EXPLAIN ANALYZE`.
 
