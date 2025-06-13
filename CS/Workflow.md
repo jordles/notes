@@ -1,4 +1,15 @@
-# Flowchart
+# Workflow / Diagrams
+
+├── [Data Flow Diagram](#1-planning--business-analysis)  
+├── [Use Case Diagram](#2-requirements-analysis)  
+├── [Flowchart](#flowchart)  
+├── [Implementation](#4-implementation--coding--development)  
+├── [Testing](#5-testing)   
+├── [Deployment](#6-deployment)  
+└── [Maintenance](#7-maintenance)
+
+
+## Flowchart
 
 **Flowchart** is a diagrammatic representation of a process or workflow. It is a visual representation of a series of steps or actions that are executed in a specific order to achieve a specific outcome. In computer science, we use flowcharts for designing algorithms, data structures, and software applications.
 
@@ -92,22 +103,22 @@ They are used to:
 
 Example: Login Logic Flowchart (Web App)
 
-[Start]
-|
-[User enters credentials]
-|
-[Validate input fields]
-|
-[Are fields valid?] ─────No────→ [Show error] → [End]
-|
-Yes
-|
-[Check credentials in DB]
-|
-[Are credentials correct?] ──No──→ [Show login failed] → [End]
-|
-Yes
-|
-[Log in user → redirect to dashboard]
-|
+[Start]  
+|  
+[User enters credentials]  
+|  
+[Validate input fields]  
+|  
+[Are fields valid?] ─────No────→ [Show error] → [End]  
+|  
+Yes  
+|  
+[Check credentials in DB]  
+|  
+[Are credentials correct?] ──No──→ [Show login failed] → [End]  
+|  
+Yes  
+|  
+[Log in user → redirect to dashboard]  
+|  
 [End]

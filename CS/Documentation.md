@@ -29,7 +29,7 @@ They're essential for:
 
 ## Flowcharts
 
-You can learn more [here](<Flowchart.md>)
+You can learn more [here](Workflow.md)
 
 We visualize the control flow and the data flow of a program.
 

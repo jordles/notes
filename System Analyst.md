@@ -217,57 +217,7 @@
 Waterfall has the following phases: Planning, Execution, Implementation, Closure
 
 
-# Software Development Hierarchy
 
 
-[ SDLC ] — the process of building software  
-        ↓  
-[ Methodology ] — mindset (e.g., Agile, Waterfall)  
-        ↓  
-[ Framework ] — practical structure (e.g., Scrum, Kanban)  
-        ↓  
-[ Tools ] — how you carry it out (e.g., Jira, Trello, Gantt)
 
-🧪 Example:
-Let’s say your team is:  
-Using Agile (methodology),  
-Following the Scrum framework (sprints, roles),  
-Managing work in Jira (tool).  
-
-# SDLC
-
-### **==The General Process==**
-> What steps should happen to build software?
-
-Its a generic structured life cycle - providing a guideline for every phase for software project. Think of it like a roadmap, blueprint, or recipe.
-
-# Framework 
-
-### **==The Practical Toolbox==** 
-
-> How do we actually carry out those steps in a practical way? Using what tools? 
-
-A framework provides: 
-- Roles 
-- Rituals / Activities
-- Artifacts
-- Rules 
-
-Some frameworks include: 
-- Scrum
-- Kanban
-
-Tools used to support/carry out these frameworks include:
-- Jira
-- Trello
-- Asana
-- GitHub Projects
-- Gantt Chart
-
-
-Scrum Process:
-![](/media/scrum-process.png)
-
-Scrum Artifact Hierarchy:   
-User Stories -> Product Backlog -> Sprint Backlog -> Task Board -> Burn-Down Chart
 
