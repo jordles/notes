@@ -1,6 +1,6 @@
 # Workflow / Diagrams
 
-├── [Data Flow Diagram](#1-planning--business-analysis)  
+├── [Data Flow Diagram](#data-flow-diagram)  
 ├── [Use Case Diagram](#2-requirements-analysis)  
 ├── [Flowchart](#flowchart)  
 ├── [Implementation](#4-implementation--coding--development)  
@@ -8,8 +8,86 @@
 ├── [Deployment](#6-deployment)  
 └── [Maintenance](#7-maintenance)
 
+# Data Flow Diagram
 
-## Flowchart
+[More here](https://www.rudderstack.com/blog/data-flow-diagram/)
+
+Show how data moves through a system (no decision logic).
+
+A DFD is a visual tool used to map how data moves through a system—where it comes from, how it's processed, where it’s stored, and where it ultimately goes. It outlines the flow of information between different components such as sources, processes, databases, and outputs. DFDs are valuable for analyzing existing systems, designing new ones, and aligning technical and non-technical stakeholders around how data is handled across an organization.
+
+__Logical DFDs__: These diagrams focus on what data is being processed and moved in the system, without emphasizing the specific technology used. They represent the business processes and the data required and produced by those processes.
+
+<details>
+<summary>image</summary>
+
+![alt text](../media/logicalDFD.png)
+</details>
+
+__Physical DFDs__: These diagrams illustrate how the data flow is implemented, including specific hardware, software, files, and personnel involved in the data processing and storage. They provide a more technical perspective on the system and are often used during the design and implementation phases.
+
+<details>
+<summary>image</summary>
+![alt text](../media/physicalDFD.png)
+
+</details>
+
+| Symbol | Meaning | Notes | Examples | 
+| --- | --- | --- | --- |
+| 🔵 (circles or rounded rectangles) | Process | Show where data is transformed or interacted upon within the system; Transforms inputs to outputs | Transform Event Data, Sync to CRM |
+| 🟧 (open-ended rectangles or parallel lines) | Data Store / Storage | Where data is held (e.g., DB table) | User Profiles, Sales Database |
+| 🟩 (rectangles) | External Entity | Source/destination outside the system that provide input or consume output | Mobile App, Payment Gateway |
+| ➡️ (directional arrows)| Data Flow | Arrows show movement of data. Each arrow is labeled to describe the type of data in transit. | Order Info, User Events |
+
+<details>
+
+<summary>
+DFD Symbols and Notations
+</summary>
+
+![alt text](../media/DFDsymbols.png)
+
+</details>
+
+✅ Good for:
+- Understanding logical flow
+- Requirement validation
+- Showing system boundaries
+
+__Diagram Levels__:  
+- Level 0 DFDs, are context diagrams, the most basic data flow diagrams. Easily digestable but providing little detail. Level 0 data flow diagrams show a single process node and its connections to external entities.  
+- Level 1 DFDs are more detailed and can be used to show the logical flow of data within a system. Process nodes from the context diagram is broken down into sub-processes. As these processes are added, the diagram will need additional data flows and data stores to link them together.  
+- Level 2 DFDs are more complex and provide a more in-depth view of the system's architecture. Simply break processes down into more detailed sub-processes. In theory, DFDs could go beyond level 3, but they rarely do. Level 3 data flow diagrams are detailed enough that it doesn’t usually make sense to break them down further. 
+
+<details>
+<summary>
+Level 0: This example shows the hotel reservation process with the flow of information between admin and guests.
+</summary>
+
+![alt text](../media/lv0DFD.png)
+
+</details>
+
+
+<details>
+<summary>
+Level 1: Include adding the room selection and inquiry processes to the reservation system, as well as data stores. 
+</summary>
+
+![alt text](../media/lv1DFD.png)
+
+</details>
+
+<details>
+<summary>
+Level 2: The level 2 diagram below expands on the hotel reservation process to include more granular processes involved, such as the cancellation and confirmation processes and subsequent connected data flows. 
+</summary>
+
+![alt text](../media/lv2DFD.png)
+
+</details>
+
+# Flowchart
 
 **Flowchart** is a diagrammatic representation of a process or workflow. It is a visual representation of a series of steps or actions that are executed in a specific order to achieve a specific outcome. In computer science, we use flowcharts for designing algorithms, data structures, and software applications.
 

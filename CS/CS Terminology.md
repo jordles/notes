@@ -42,8 +42,8 @@ Terminology
 
 
 ### 3 Basic Logic Structures that describe how to write code in Programming:
-1. __Sequence;__ An action or event leads to another action or event in a predetermined order. The sequence can contain any number of actions, but cannot be skipped. 
-2. __Selection;__ Referring to if-then-else statements and logic. Depending on the answer, the program takes one of two courses of action, after which the program moves on to the next event.
+1. __Sequence;__ An action or event leads to another action or event in a predetermined order. The sequence can contain any number of actions, but cannot be skipped. The order we want the computer to execute the instructions we provide as programmers. For example, do this first, then do this, then do that, and so forth.
+2. __Selection;__ Referring to if-then-else statements and logic. Depending on the answer, the program takes one of two courses of action, after which the program moves on to the next event. Selecting which path of an algorithm to execute depending on some criteria.
 3. __Iteration;__ describes the logic of loops. A set of instructions that the program repeats until a condition is met or count is reached. Each pass in a loop is called an iteration. 
 
 ## Operating Systems
