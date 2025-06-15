@@ -1,7 +1,7 @@
 # Workflow / Diagrams
 
-├── [Data Flow Diagram](#data-flow-diagram)  
-├── [Use Case Diagram](#2-requirements-analysis)  
+├── [Data Flow Diagram (DFD)](#data-flow-diagram)  
+├── [Unified Modelling Language (UML)](#unified-modelling-language)  
 ├── [Flowchart](#flowchart)  
 ├── [Implementation](#4-implementation--coding--development)  
 ├── [Testing](#5-testing)   
@@ -10,7 +10,8 @@
 
 # Data Flow Diagram
 
-[More here](https://www.rudderstack.com/blog/data-flow-diagram/)
+[More here](https://www.rudderstack.com/blog/data-flow-diagram/)  
+[LucidChart](https://www.lucidchart.com/blog/data-flow-diagram-tutorial#data-flow-diagrams-symbols-and-notation)
 
 Show how data moves through a system (no decision logic).
 
@@ -87,6 +88,77 @@ Level 2: The level 2 diagram below expands on the hotel reservation process to i
 
 </details>
 
+# Unified Modelling Language
+
+[More here](https://www.lucidchart.com/blog/types-of-UML-diagrams)
+
+UMLs describe how users interact with the system
+
+UML is a standardized modeling language that can be used across different programming languages and development processes, so the majority of software developers will understand it and be able to apply it to their work.
+
+UML standards identify 13 types of diagrams that are divided into two groups, defined below:
+
+__Structural UML diagrams__, as the name would suggest, show how the system is structured, including the classes, objects, packages, components, etc. in the system and the relationships between those elements.
+
+- __Class Diagrams__ focus on the classes and their relationships within the system (OOP). Class diagrams show the static structure of a system, including classes, their attributes and behaviors, and the relationships between each class.
+  - [More here](https://youtu.be/6XrL5jXmTwM)
+  - [More here](https://www.geeksforgeeks.org/system-design/unified-modeling-language-uml-class-diagrams/)
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-class-sym.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-class-ex.png)
+    </details>
+
+- __Component Diagrams__ is a more specialized version of the class diagram (same notation rules). It shows the structure of a system, including components, their attributes and behaviors, and the relationships between each component.  
+  - [More here](https://www.lucidchart.com/pages/uml-component-diagram?usecase=uml)
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-component-sym.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-component-ex.png)
+    ![alt text](../media/UML-component-ex2.png)
+    </details>
+
+- __Deployment Diagrams__ shows how software is deployed on hardware components, such as servers, databases, and storage devices. Describes servers, network, runtime environments, and other hardware components. These diagrams are most useful for systems engineers, and they usually show performance, scalability, maintainability, and portability. When hardware components are displayed in relation to each other, it’s easier to keep track of your entire hardware mesh and make sure that all elements are accounted for in a deployment.  
+  - [More here](https://www.lucidchart.com/pages/uml-deployment-diagram?usecase=uml)
+  - [More here](https://www.conceptdraw.com/examples/diagram-of-business-environment-that-shows-all-the-elements)
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-deployment-sym.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-deployment-ex.png)
+    ![alt text](../media/UML-deployment-ex2.png)
+
+    This example shows a basic deployment diagram for Lucidchart. There is a web server, a database server, and the machine where the user views the website. 
+
+    ![alt text](../media/UML-deployment-ex3.png)
+    </details>
+
+- __Composite Structure Diagrams__ Shows the internal structure of a class or component, including its parts, ports, and connectors. They are blueprints for the internal structure of a classifier. They can also be used to show the behavior of a collaboration or the classifier interactions with their environments through ports. They can easily depict the internal components of any hardware to more thoroughly understand the inner workings. It acts as a look inside a given structured classifier, defining its configuration classes, interfaces, packages, and the relationships between them at a micro-level.
+  - [More here](https://www.lucidchart.com/pages/uml-composite-structure-diagram)
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-composite-sym.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-class-ex.png)
+    </details>  
 # Flowchart
 
 **Flowchart** is a diagrammatic representation of a process or workflow. It is a visual representation of a series of steps or actions that are executed in a specific order to achieve a specific outcome. In computer science, we use flowcharts for designing algorithms, data structures, and software applications.
