@@ -201,13 +201,6 @@ Show how the system is structured, including the classes, objects, packages, com
     </details>
 
 - __Profile Diagrams__ show the structure of a profile. Profiles are used to specify the features of a classifier, such as its attributes, operations, and associations.
-
-## Behavioral UML Diagrams
-
-Visualize how the system behaves and interacts with itself and with users, other systems, and other entities. 
-
-- __Timing Diagrams__ - shows how objects interact with each other in a given timeframe. Use these diagrams to see how long each step of a process takes and find areas for improvement.
-  - [More here](https://www.lucidchart.com/pages/uml-timing-diagram?usecase=uml)
 # Flowchart
 
 **Flowchart** is a diagrammatic representation of a process or workflow. It is a visual representation of a series of steps or actions that are executed in a specific order to achieve a specific outcome. In computer science, we use flowcharts for designing algorithms, data structures, and software applications.
