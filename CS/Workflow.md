@@ -98,6 +98,8 @@ UML is a standardized modeling language that can be used across different progra
 
 UML standards identify 13 types of diagrams that are divided into two groups, defined below:
 
+![alt text](../media/UML-diagrams.png)
+
 __Structural UML diagrams__, as the name would suggest, show how the system is structured, including the classes, objects, packages, components, etc. in the system and the relationships between those elements.
 
 - __Class Diagrams__ focus on the classes and their relationships within the system (OOP). Class diagrams show the static structure of a system, including classes, their attributes and behaviors, and the relationships between each class.
@@ -114,7 +116,7 @@ __Structural UML diagrams__, as the name would suggest, show how the system is s
     ![alt text](../media/UML-class-ex.png)
     </details>
 
-- __Component Diagrams__ is a more specialized version of the class diagram (same notation rules). It shows the structure of a system, including components, their attributes and behaviors, and the relationships between each component.  
+- __Component Diagrams__ is a more specialized version of the class diagram (same notation rules). It shows the structure of a system, including components, their attributes and behaviors, and the relationships between each component. Describe what components do, not how they’re deployed
   - [More here](https://www.lucidchart.com/pages/uml-component-diagram?usecase=uml)
   - <details>
     <summary>symbols</summary>
@@ -128,7 +130,7 @@ __Structural UML diagrams__, as the name would suggest, show how the system is s
     ![alt text](../media/UML-component-ex2.png)
     </details>
 
-- __Deployment Diagrams__ shows how software is deployed on hardware components, such as servers, databases, and storage devices. Describes servers, network, runtime environments, and other hardware components. These diagrams are most useful for systems engineers, and they usually show performance, scalability, maintainability, and portability. When hardware components are displayed in relation to each other, it’s easier to keep track of your entire hardware mesh and make sure that all elements are accounted for in a deployment.  
+- __Deployment Diagrams__ shows how software is deployed on hardware components, such as servers, databases, and storage devices. Physical deployment of software onto hardware nodes. Describes servers, network, runtime environments, and other hardware components. These diagrams are most useful for systems engineers, and they usually show performance, scalability, maintainability, and portability. When hardware components are displayed in relation to each other, it’s easier to keep track of your entire hardware mesh and make sure that all elements are accounted for in a deployment.  
   - [More here](https://www.lucidchart.com/pages/uml-deployment-diagram?usecase=uml)
   - [More here](https://www.conceptdraw.com/examples/diagram-of-business-environment-that-shows-all-the-elements)
   - <details>
@@ -147,8 +149,11 @@ __Structural UML diagrams__, as the name would suggest, show how the system is s
     ![alt text](../media/UML-deployment-ex3.png)
     </details>
 
-- __Composite Structure Diagrams__ Shows the internal structure of a class or component, including its parts, ports, and connectors. They are blueprints for the internal structure of a classifier. They can also be used to show the behavior of a collaboration or the classifier interactions with their environments through ports. They can easily depict the internal components of any hardware to more thoroughly understand the inner workings. It acts as a look inside a given structured classifier, defining its configuration classes, interfaces, packages, and the relationships between them at a micro-level.
+- __Composite Structure Diagrams__ Shows the internal structure of a class or component, including its parts, ports, and connectors. They are blueprints for the internal structure of a classifier. Internal structure of a class/component at runtime. They can also be used to show the behavior of a collaboration or the classifier interactions with their environments through ports. They can easily depict the internal components of any hardware to more thoroughly understand the inner workings. It acts as a look inside a given structured classifier, defining its configuration classes, interfaces, packages, and the relationships between them at a micro-level.
+- They are different from class diagrams, because class diagrams are more system wide, covering a wide range of classes, while composite locks in on a single class or component. 
+- Composite structure diagrams are more specific and less ambiguous than class diagrams. A composite structure diagram allows users to more clearly model the implementations of an artifact’s activity within a runtime. They’re also more adept in depicting decomposition in context, describing the internal structure of multiple classes and the set relationships between them. Simply put, if you’d like to convey concrete, explicit information about the behaviors and relationships within your system, a composite structure diagram is your best choice.
   - [More here](https://www.lucidchart.com/pages/uml-composite-structure-diagram)
+  - [More here](https://www.researchgate.net/figure/UML-composite-structure-and-class-diagrams_fig11_279382071)
   - <details>
     <summary>symbols</summary>
 
@@ -157,7 +162,27 @@ __Structural UML diagrams__, as the name would suggest, show how the system is s
   - <details>
     <summary>example</summary>
 
-    ![alt text](../media/UML-class-ex.png)
+    ![alt text](../media/UML-composite-ex.png)
+    ![alt text](../media/UML-composite-ex2.png)
+    ![alt text](../media/UML-composite-ex3.png)
+
+    </details>  
+
+- __Object Diagrams__ represents a specific instance of a class diagram at a certain moment in time. You could use a class diagram to show a structure and then use object diagrams as test cases to verify the completeness of your class diagram. Or you could create an object diagram to discover information about model elements and their links.
+- Object diagrams are simple to create: they're made from objects, represented by rectangles, linked together with lines. Objects are instances of a class.
+  - [More here](https://www.lucidchart.com/pages/uml-object-diagram?usecase=uml)
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-composite-sym.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-composite-ex.png)
+    ![alt text](../media/UML-composite-ex2.png)
+    ![alt text](../media/UML-composite-ex3.png)
+
     </details>  
 # Flowchart
 
