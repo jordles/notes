@@ -100,7 +100,9 @@ UML standards identify 13 types of diagrams that are divided into two groups, de
 
 ![alt text](../media/UML-diagrams.png)
 
-__Structural UML diagrams__, as the name would suggest, show how the system is structured, including the classes, objects, packages, components, etc. in the system and the relationships between those elements.
+## Structural UML diagrams
+
+Show how the system is structured, including the classes, objects, packages, components, etc. in the system and the relationships between those elements.
 
 - __Class Diagrams__ focus on the classes and their relationships within the system (OOP). Class diagrams show the static structure of a system, including classes, their attributes and behaviors, and the relationships between each class.
   - [More here](https://youtu.be/6XrL5jXmTwM)
@@ -183,7 +185,29 @@ __Structural UML diagrams__, as the name would suggest, show how the system is s
     ![alt text](../media/UML-composite-ex2.png)
     ![alt text](../media/UML-composite-ex3.png)
 
-    </details>  
+    </details> 
+
+- __Package Diagrams__ shows dependencies between different packages in a system. A package, depicted as a file folder, organizes model elements, such as use cases or classes, into groups. A package is a grouping of related UML elements, such as diagrams, documents, classes, or even other packages. Each element is nested within the package, which is depicted as a file folder within the diagram, then arranged hierarchically within the diagram.
+  - [More here](https://www.lucidchart.com/pages/uml-package-diagram)
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-package-sym.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-package-ex.png)
+    </details>
+
+- __Profile Diagrams__ show the structure of a profile. Profiles are used to specify the features of a classifier, such as its attributes, operations, and associations.
+
+## Behavioral UML Diagrams
+
+Visualize how the system behaves and interacts with itself and with users, other systems, and other entities. 
+
+- __Timing Diagrams__ - shows how objects interact with each other in a given timeframe. Use these diagrams to see how long each step of a process takes and find areas for improvement.
+  - [More here](https://www.lucidchart.com/pages/uml-timing-diagram?usecase=uml)
 # Flowchart
 
 **Flowchart** is a diagrammatic representation of a process or workflow. It is a visual representation of a series of steps or actions that are executed in a specific order to achieve a specific outcome. In computer science, we use flowcharts for designing algorithms, data structures, and software applications.
