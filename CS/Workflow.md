@@ -29,6 +29,7 @@ __Physical DFDs__: These diagrams illustrate how the data flow is implemented, i
 
 <details>
 <summary>image</summary>
+
 ![alt text](../media/physicalDFD.png)
 
 </details>
@@ -90,7 +91,8 @@ Level 2: The level 2 diagram below expands on the hotel reservation process to i
 
 # Unified Modelling Language
 
-[More here](https://www.lucidchart.com/blog/types-of-UML-diagrams)
+[More here](https://www.lucidchart.com/blog/types-of-UML-diagrams)  
+[More here](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/overview-of-the-14-uml-diagram-types/)
 
 UMLs describe how users interact with the system
 
@@ -99,6 +101,13 @@ UML is a standardized modeling language that can be used across different progra
 UML standards identify 13 types of diagrams that are divided into two groups, defined below:
 
 ![alt text](../media/UML-diagrams.png)
+
+We could interpret the results of the UML survey by assuming that, if a diagram is
+
+widely used, if it ≥ 60% of the sources
+scarcely used if it is ≤ 40% of the sources
+
+![alt text](../media/UML-diagram-survey.png)
 
 ## Structural UML diagrams
 
@@ -152,8 +161,8 @@ Show how the system is structured, including the classes, objects, packages, com
     </details>
 
 - __Composite Structure Diagrams__ Shows the internal structure of a class or component, including its parts, ports, and connectors. They are blueprints for the internal structure of a classifier. Internal structure of a class/component at runtime. They can also be used to show the behavior of a collaboration or the classifier interactions with their environments through ports. They can easily depict the internal components of any hardware to more thoroughly understand the inner workings. It acts as a look inside a given structured classifier, defining its configuration classes, interfaces, packages, and the relationships between them at a micro-level.
-- They are different from class diagrams, because class diagrams are more system wide, covering a wide range of classes, while composite locks in on a single class or component. 
-- Composite structure diagrams are more specific and less ambiguous than class diagrams. A composite structure diagram allows users to more clearly model the implementations of an artifact’s activity within a runtime. They’re also more adept in depicting decomposition in context, describing the internal structure of multiple classes and the set relationships between them. Simply put, if you’d like to convey concrete, explicit information about the behaviors and relationships within your system, a composite structure diagram is your best choice.
+  - They are different from class diagrams, because class diagrams are more system wide, covering a wide range of classes, while composite locks in on a single class or component. 
+  - Composite structure diagrams are more specific and less ambiguous than class diagrams. A composite structure diagram allows users to more clearly model the implementations of an artifact’s activity within a runtime. They’re also more adept in depicting decomposition in context, describing the internal structure of multiple classes and the set relationships between them. Simply put, if you’d like to convey concrete, explicit information about the behaviors and relationships within your system, a composite structure diagram is your best choice.
   - [More here](https://www.lucidchart.com/pages/uml-composite-structure-diagram)
   - [More here](https://www.researchgate.net/figure/UML-composite-structure-and-class-diagrams_fig11_279382071)
   - <details>
@@ -171,7 +180,7 @@ Show how the system is structured, including the classes, objects, packages, com
     </details>  
 
 - __Object Diagrams__ represents a specific instance of a class diagram at a certain moment in time. You could use a class diagram to show a structure and then use object diagrams as test cases to verify the completeness of your class diagram. Or you could create an object diagram to discover information about model elements and their links.
-- Object diagrams are simple to create: they're made from objects, represented by rectangles, linked together with lines. Objects are instances of a class.
+  - Object diagrams are simple to create: they're made from objects, represented by rectangles, linked together with lines. Objects are instances of a class.
   - [More here](https://www.lucidchart.com/pages/uml-object-diagram?usecase=uml)
   - <details>
     <summary>symbols</summary>
@@ -201,6 +210,181 @@ Show how the system is structured, including the classes, objects, packages, com
     </details>
 
 - __Profile Diagrams__ show the structure of a profile. Profiles are used to specify the features of a classifier, such as its attributes, operations, and associations.
+
+## Behavioral UML Diagrams
+
+Visualize how the system behaves and interacts with itself and with users, other systems, and other entities. 
+
+- __State / State Machine Diagrams__ - depict states and transitions between various objects. A state refers to the different combinations of information that an object can hold, and this UML diagram can visualize all possible states and the way the object transitions from one state to the next.
+  - [More here](https://www.lucidchart.com/pages/uml-state-machine-diagram?usecase=uml)
+  - [More here](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-state-diagram/)
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-state-sym.png)
+    ![alt text](../media/UML-state-sym2.png)
+
+    ![alt text](../media/UML-state-sym3.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    This state diagram shows the process of enrollment and classes at a university. The composite state “Enrollment” is made up of various substates that will lead students through the enrollment process. Once the student has enrolled, they will proceed to “Being taught” and finally to “Final exams.”
+
+    ![alt text](../media/UML-state-ex.png)
+
+    The following example simplifies the steps required to check in at an airport. For airlines, a state diagram can help to streamline processes and eliminate unnecessary steps.
+    ![alt text](../media/UML-state-ex2.png)
+
+    This example illustrates a state machine diagram derived from a Class - "BookCopy":
+    ![alt text](../media/UML-state-ex3.png)
+    </details>
+
+- __Use Case Diagrams__ - how users, displayed as stick figures called “actors,” interact with the system. Summarize and demonstrate the different ways that a user might interact with a system. This type of UML diagram should be a high-level overview of the relationships between actors and systems, so it can be a great tool for explaining your system to a non-technical audience. 
+  - <details>
+    <summary>symbols</summary>
+
+    - It only summarizes some of the relationships between use cases, actors, and systems.
+    - It does not show the order in which steps are performed to achieve the goals of each use case.
+
+    ---
+
+    - Actors: The users that interact with a system. An actor can be a person, an organization, or an outside system that interacts with your application or system. They must be external objects that produce or consume data.
+    - System: A specific sequence of actions and interactions between actors and the system. A system may also be referred to as a scenario.
+    - Goals: The end result of most use cases. A successful diagram should describe the activities and variants used to reach the goal.
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-uc-ex.png)
+
+    This use case diagram is a visual representation of the process required to write and publish a book. Whether you’re an author, an agent, or a bookseller, inserting this diagram into your use case scenario can help your team publish the next big hit.
+
+    ![alt text](../media/UML-uc-ex2.png)
+
+    You can adapt this template for any process where a customer purchases a service. With attractive color schemes, text that’s easy to read and edit.
+
+    ![alt text](../media/UML-uc-ex3.png)
+
+    A man with a chainsaw interacts with the environment around him. Depending on the situation and the context of the situation, he might fall into one of many different use cases. Does he seem to be on his way to work? Is there anything ominous about the way he is wielding his chainsaw?
+
+    ![alt text](../media/UML-uc-ex4.png)
+### Interaction Diagram 
+
+Capture the interactive behavior of a system. Interaction diagrams focus on describing the flow of messages within a system, providing context for one or more lifelines within a system. In addition, interaction diagrams can be used to represent the ordered sequences within a system and act as a means of visualizing real-time data via UML.
+
+It Includes: 
+- __Sequence Diagrams__ - Show elements as they interact over time and they are organized according to object (horizontally) and time (vertically). Interaction diagrams that detail how operations are carried out. They capture the interaction between objects in the context of a collaboration. Sequence Diagrams are time focus and they show the order of the interaction visually by using the vertical axis of the diagram to represent time what messages are sent and when.
+  - [More here](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-sequence-diagram/)
+  - [More here]()
+  - <details>
+    <summary>symbols</summary>
+
+    ![](../media/UML-sequence-sym.png)
+
+    Message and Focus of Control
+    An Event is any point in an interaction where something occurs.
+    Focus of control: also called execution occurrence, an execution occurrence
+    It shows as tall, thin rectangle on a lifeline
+    It represents the period during which an element is performing an operation. The top and the bottom of the rectangle are aligned with the initiation and the completion time respectively.
+
+    ![alt text](../media/UML-sequence-sym2.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    Below is a sequence diagram for making a hotel reservation. The object initiating the sequence of messages is a Reservation window.
+
+    ![alt text](../media/UML-sequence-ex.png)
+
+    A scenario is one path or flow through a use case that describes a sequence of events that occurs during one particular execution of a system which is often represented by a sequence diagram.
+
+    ![alt text](../media/UML-sequence-ex2.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    An ATM allows patrons to access their bank accounts through a completely automated process. You can examine the steps of this process in a manageable way by drawing or viewing a sequence diagram. The example below outlines the sequential order of the interactions in the ATM system. 
+
+    ![alt text](../media/UML-sequence-ex3.png)
+
+    A hospital information system, also known as a hospital information system, helps doctors, administrators, and hospital staff managing all of the activities and information collected at a hospital, including checkups, prescriptions, appointments, and information on the patients and their caretakers. The diagram below provides a simple view of how the primary processes operate with each other over time. 
+
+    ![alt text](../media/UML-sequence-ex4.png)
+    </details>
+
+- __Timing Diagrams__ - shows how objects interact with each other in a given timeframe. Use these diagrams to see how long each step of a process takes and find areas for improvement.
+  - [More here](https://www.lucidchart.com/pages/uml-timing-diagram?usecase=uml)
+  - <details>
+    <summary>example</summary>
+
+    This simplified example of a boat manufacturing plant, a timing diagram shows that too much time is spent on the upholstery stages of production. As a result, factory administrators may assign more employees to the upholstery stations or seek out ways to increase efficiency. If administrators can effectively use a timing diagram to increase efficiency, the process can be significantly improved, decreasing both time and money spent on the process.
+    ![alt text](../media/UML-timing-ex.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    This timing diagram example shows a simplified version of the water cycle. Since the timing diagram focuses on how long each step takes, not on the system itself, you could think of this as a diagram of the different phases that a water droplet cycles through. If this were a manufacturing process, viewers could easily identify areas for improvement. Timing diagrams are powerful tools for making a system as efficient as possible.
+    ![alt text](../media/UML-timing-ex2.png)
+    </details>
+
+- __Interaction Overview Diagram__ - Interaction overview diagrams focus on the overview of the flow of control where the nodes are interactions (sd) or interaction use (ref). This diagram overviews the flow of control between interacting nodes. They include initial nodes, flow final nodes, activity final nodes, decision nodes, merge nodes, fork nodes, and join nodes.  
+  - Interaction (sd) - An Interaction diagram of any kind may appear inline as an Activity Invocation.
+  - Interaction Use (ref) - Large and complex sequence diagrams could be simplified with interaction uses. It is also common to reuse some interaction between several other interactions.
+  - [More here](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-interaction-overview-diagram/)
+  - <details>
+    <summary>example</summary>
+
+    ![alt text](../media/UML-interaction-ex.png)
+    ![alt text](../media/UML-interaction-ex2.png)
+
+    The example above shows a student who has been accepted into a university. First the student must be accept or decline admission. After accepting, the student must both register for classes and apply for housing. After both of those are complete, the student must pay the registrar. If payment is not received in time the student is excluded by the registrar.
+    </details>
+
+- __Communication Diagram__ - identical to sequence diagrams, its an extension of object diagram that shows the objects' interactions, along with the messages that travel from one to another. While a sequence diagram emphasizes the time and order of events, a communication diagram emphasizes the messages exchanged between objects in an application. In addition to the associations among objects, communication diagram shows the messages the objects send each other.
+  - [More here](https://www.lucidchart.com/pages/uml-communication-diagram)
+  - [More here](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-communication-diagram/)
+  - <details>
+    <summary>symbols</summary>
+
+    - Rectangles represent objects that make up the application.
+    - Lines between class instances represent the relationships between different parts of the application.
+    - Arrows represent the messages that are sent between objects.
+    - Numbering lets you know in what order the messages are sent and how many messages are required to finish a process.
+
+    Objects participating in a collaboration come in two flavors: supplier and client.
+
+    Supplier objects are the objects that supply the method that is being called, and therefore receive the message.
+    Client objects call methods on supplier objects, and therefore send messages.
+    Links
+
+    The connecting lines drawn between objects in a communication diagram are links.
+    These links are what set communication diagrams apart from sequence diagrams. They enable you to see the relationships between objects.
+    Each link represents a relationship between objects and symbolizes the ability of objects to send messages to each other.
+    If an object sends messages to itself, the link carrying these messages is represented as a loop icon. This loop can be seen on both the UI object and the Transaction object.
+    Messages in communication diagrams are shown as arrows pointing from the Client object to the Supplier object. Typically, messages represent a client invoking an operation on a supplier object. They can be modeled along with the objects in the following manner:
+
+    Message icons have one or more messages associated with them.
+    Messages are composed of message text prefixed by a sequence number.
+    This sequence number indicates the time-ordering of the message.
+    For example, in the communication diagram in the figure below, you can follow the sequence numbers to determine the order of messages between objects:
+
+    ![alt text](../media/UML-communication-sym.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    In the example below, the communication diagram explains the process to add an event to a calendar. Even in simple examples like this one, you’ll notice the exact commands and requests being shared between various steps in the process. The numbers on each line represent the order and options in which they are activated. We know that some actions happen concurrently because of the use of letters.
+
+    ![alt text](../media/UML-communication-ex.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    Sequence diagram vs Communication (Library Item Overdue)
+
+    ![alt text](../media/UML-communication-ex2.png)
+    ![alt text](../media/UML-communication-ex3.png)
 # Flowchart
 
 **Flowchart** is a diagrammatic representation of a process or workflow. It is a visual representation of a series of steps or actions that are executed in a specific order to achieve a specific outcome. In computer science, we use flowcharts for designing algorithms, data structures, and software applications.
