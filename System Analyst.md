@@ -71,31 +71,6 @@
 ### Understanding Stakeholders
 
 - Stakeholder - entity with an interest in the outcome of a project.
-- Customer (purchaser) - entity that pays for a service or product. The entity determines how valuable the service is.
-- End-user / User (consumer) - entity that uses a product or service. The user may or may not be the customer. (like a company needing a product for their employees, the customer is the company, and the end-user is the employees)
-- Supplier - entity that provides a service or product used in creation or delivery of product/service to end users. (How do users get the product) Think of them as products you use. (They provide goods, components, or services that support another organization’s service but don’t interact with the end customer directly.)
-
-| Example | Description |
-| --- | --- |
-| Intel | Supplies CPUs to laptop manufacturers like Dell or Apple. |
-| Cisco | Sells network routers and switches used by service providers or internal IT teams. |
-| Twilio | Supplies communication APIs (SMS, voice) that other services (e.g., Uber) use. |
-| Electric company | Supplies electricity to a data center — not responsible for how services are delivered to end users. |
-| Contract developer | Supplies code to a software firm building an app — but isn’t the service provider to the customer. |
-| Data center colocation provider | Provides physical space and power for servers, but the customer is served by someone else. |
-
-
-- Service Provider - entity that provides a service to customers and users to enhance productivity. May be own by the customer or external entity (ex. support chat). They do something for you for the purpose of improvement. (They deliver complete services directly to the customer and are responsible for both utility and warranty.)
-
-| Example | Description |
-| --- | --- |
-| Microsoft 365 | Provides email, file storage, and productivity apps with uptime guarantees. |
-| AWS (when used as cloud host) | Provides infrastructure-as-a-service with SLAs, monitoring, and support. |
-| Managed IT Service Companies | Handle IT support, monitoring, patching, and maintenance for client businesses. |
-| Google Workspace | Delivers email, docs, calendar, and cloud storage with support and availability. |
-| Zoom | Offers video conferencing service with a reliable platform and support. |
-| Salesforce | Provides a CRM platform, including system uptime, customer support, and software updates. |
-
 
 - Determining Stakeholder Level of Involvement
   - Access the influence that a stakeholder could have on project
@@ -113,6 +88,47 @@
 - Not the same as the RACI Matrix
 - The Stakeholder Analysis Matrix is a tool used to identify stakeholders and their involvement in the project or activity.
 ![](https://tools4dev.org/wp-content/uploads/stakeholder-analysis-matrix-screenshot.png)
+
+--- 
+
+- Customer (purchaser) - entity that pays for a service or product. The entity determines how valuable the service is.
+- End-user / User (consumer) - entity that uses a product or service. The user may or may not be the customer. (like a company needing a product for their employees, the customer is the company, and the end-user is the employees)
+- Supplier - entity that provides a service or product used in creation or delivery of product/service to end users. (How do users get the product) Think of them as products you use, very tangible, without user engagement or support. (They provide goods, components, or services that support another organization’s service but don’t interact with the end customer directly.)
+
+| Example | Description |
+| --- | --- |
+| Intel | Supplies CPUs to laptop manufacturers like Dell or Apple. |
+| Cisco | Sells network routers and switches used by service providers or internal IT teams. |
+| Twilio | Supplies communication APIs (SMS, voice) that other services (e.g., Uber) use. |
+| Electric company | Supplies electricity to a data center — not responsible for how services are delivered to end users. |
+| Contract developer | Supplies code to a software firm building an app — but isn’t the service provider to the customer. |
+| Data center colocation provider | Provides physical space and power for servers, but the customer is served by someone else. |
+
+
+- Service Provider - entity that provides a service to customers and users to enhance productivity. May be own by the customer or external entity (ex. support chat). They do something for you for the purpose of improvement. Build a service around the supplier.(They deliver complete services directly to the customer and are responsible for both utility and warranty.)
+
+| Example | Description |
+| --- | --- |
+| Microsoft 365 | Provides email, file storage, and productivity apps with uptime guarantees. |
+| AWS (when used as cloud host) | Provides infrastructure-as-a-service with SLAs, monitoring, and support. |
+| Managed IT Service Companies | Handle IT support, monitoring, patching, and maintenance for client businesses. |
+| Google Workspace | Delivers email, docs, calendar, and cloud storage with support and availability. |
+| Zoom | Offers video conferencing service with a reliable platform and support. |
+| Salesforce | Provides a CRM platform, including system uptime, customer support, and software updates. |
+
+__Imagine a food delivery startup__:
+  - They hire a contract developer to build their delivery app → that developer is the supplier.
+  - The startup then uses the app to provide delivery services → the startup is the service provider.
+  - The customers ordering food are the users.
+
+__Imagine a Laptop Manufacturer__:
+  - Intel supplied hardware components to their customer (Apple for example) → Intel is the supplier.
+  - Apple uses those components to build their laptops and provide them to users → Apple is the service provider.
+  - The end users are the customers.
+
+The supplier builds or provides something (non supportive or no warranty).  
+The service provider uses that something to delivers ongoing value/service to end users (utility and warranty).  
+The app itself is a product or tool.
 
 ---
 
@@ -214,7 +230,7 @@
   - What steps are necessary after deployment into the live environment to allow users to utilize the new functionality?
     **Preparation of end-users with training and documentation (other support); Compatibility Testing is necessary to ensure that the new functionality is compatible with the live environment**
 
-Waterfall has the following phases: Planning, Execution, Implementation, Closure
+Waterfall has the following phases: Planning, Execution, Implementation, Closure (which is the same as Project Management)
 
 
 

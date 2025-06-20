@@ -158,11 +158,43 @@ Types of testing:
 
 
 Requirements Traceability Matrix:  
+A project management and software QA tool that ensures each requirement is accounted for throughout the software development lifecycle — from definition to testing.
 We update the pass fail status on the test execution report.
+
+Types of Traceability: 
+| Type                     | What It Does                                  | Example                                                         |
+|--------------------------|-----------------------------------------------|-----------------------------------------------------------------|
+| Forward Traceability     | From requirement → design/code/test           | “This requirement is implemented in X and tested in Y.”         |
+| Backward Traceability    | From test/code → original requirement         | “Why does this function exist? Oh, it maps to RQ-05.”           |
+| Bidirectional Traceability | Both directions                              | “Every requirement has code + test, and every test/code maps to a requirement.” |
 
 ![rtm](/media/rtm.png)
 
+A typical RTM table maps a requirement to:
+
+- Where it's designed
+- Where it's implemented
+- How it's tested
+- Whether it’s complete
+
+Imagine a requirement:
+
+RQ-02: Users must be able to reset their password.  
+With traceability, you can link that requirement to:  
+
+- 📄 A design doc that explains the UI/flow
+- 🧑‍💻 A developer task to implement the feature
+- 🧪 A test case that validates it works
+- 🔁 A deployment ticket that released it to production
+
+So if someone later asks:  
+“Do we have test coverage for password resets?”  
+You can trace RQ-02 all the way to TC-05 (test case), see its status, and know for sure.  
+
+
 More about workflows and diagrams [here](Workflow.md)
+
+
 
 ## 6. Deployment
 

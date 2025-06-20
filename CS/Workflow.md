@@ -252,6 +252,8 @@ Visualize how the system behaves and interacts with itself and with users, other
     - Actors: The users that interact with a system. An actor can be a person, an organization, or an outside system that interacts with your application or system. They must be external objects that produce or consume data.
     - System: A specific sequence of actions and interactions between actors and the system. A system may also be referred to as a scenario.
     - Goals: The end result of most use cases. A successful diagram should describe the activities and variants used to reach the goal.
+    - Extends: (optional)Specifies that a use case extends the same behavior from another use case based on a condition. To model optional or conditional behavior that may extend a base use case at runtime only under certain conditions. The arrow points to the parent, showing the child use case is extended from the parent. The extend relationship is used to include optional behavior from an extending use case in an extended use case. (extending -> base)`ex: Apply Discount -extends-> Place Order means that the discount is optional logic, the order will still automatically be placed regardless.`
+    - Includes: (mandatory) Specifies that a use case includes/requires the same behavior from another use case. To extract common behavior that is shared across multiple use cases. The arrow points to the child, showing the parent use case requires the child use case. (base -> included)`ex: Place Order -includes-> Calculate Total means that place an order will always calculate the total cost of the order.`
     </details>
   - <details>
     <summary>example</summary>
@@ -269,6 +271,70 @@ Visualize how the system behaves and interacts with itself and with users, other
     A man with a chainsaw interacts with the environment around him. Depending on the situation and the context of the situation, he might fall into one of many different use cases. Does he seem to be on his way to work? Is there anything ominous about the way he is wielding his chainsaw?
 
     ![alt text](../media/UML-uc-ex4.png)
+
+    ![alt text](../media/UML-uc-ex5.png)
+
+    </details>
+
+- __Activity Diagram__ - visualize the steps performed in a use case — the activities can be sequential, branched, or concurrent. This type of UML diagram is used to show the dynamic behavior of a system, but it can also be useful in business process modeling. 
+- Activity Diagrams describe how activities are coordinated to provide a service which can be at different levels of abstraction. Typically, an event needs to be achieved by some operations, particularly where the operation is intended to achieve a number of different things that require coordination, or how the events in a single use case relate to one another, in particular, use cases where activities may overlap and require coordination. It is also suitable for modeling how a collection of use cases coordinate to represent business workflows
+  - <details>
+    <summary>symbols</summary>
+
+    ![alt text](../media/UML-activity-sym.png)
+    ![alt text](../media/UML-activity-sym2.png)
+    ![alt text](../media/UML-activity-sym3.png)
+  
+    </details>
+  - <details>
+    <summary>example</summary>
+
+    Many of the activities people want to accomplish online—checking email, managing finances, ordering clothes, etc.—require them to log into a website. This activity diagram shows the process of logging into a website, from entering a username and password to successfully logging in to the system. It uses different container shapes for activities, decisions, and notes. 
+
+    ![alt text](../media/UML-activity-ex.png)
+
+    This diagram shows the process of either withdrawing money from or depositing money into a bank account. An advantage of representing the workflow visually in UML is the ability to show withdrawals and deposits on one chart.
+
+    ![alt text](../media/UML-activity-ex2.png)
+    </details>
+  - <details>
+    <summary>example</summary>
+    Activity Diagram - Modeling a Word Processor
+    The activity diagram example below describes the workflow for a word process to create a document through the following steps:
+
+    - Open the word processing package.
+    - Create a file.
+    - Save the file under a unique name within its directory.
+    - Type the document.
+    - If graphics are necessary, open the graphics package, create the graphics, and paste the graphics into the document.
+    - If a spreadsheet is necessary, open the spreadsheet package, create the spreadsheet, and paste the spreadsheet into the document.
+    - Save the file.
+    - Print a hard copy of the document.
+    - Exit the word processing package.
+
+    ![alt text](../media/UML-activity-ex3.png)
+
+    Once the order is received, the activities split into two parallel sets of activities. One side fills and sends the order while the other handles the billing.
+
+    On the Fill Order side, the method of delivery is decided conditionally. Depending on the condition either the Overnight Delivery activity or the Regular Delivery activity is performed.
+
+    Finally the parallel activities combine to close the order.
+
+    ![alt text](../media/UML-activity-ex4.png)
+
+    Activity Diagram Example - Student Enrollment
+    This UML activity diagram example describes a process for student enrollment in a university as follows:
+
+    - An applicant wants to enroll in the university.
+    - The applicant hands a filled out copy of Enrollment Form.
+    - The registrar inspects the forms.
+    - The registrar determines that the forms have been filled out properly.
+    - The registrar informs student to attend in university overview presentation.
+    - The registrar helps the student to enroll in seminars
+    - The registrar asks the student to pay for the initial tuition.
+
+    ![alt text](../media/UML-activity-ex5.png)
+    </details>
 ### Interaction Diagram 
 
 Capture the interactive behavior of a system. Interaction diagrams focus on describing the flow of messages within a system, providing context for one or more lifelines within a system. In addition, interaction diagrams can be used to represent the ordered sequences within a system and act as a means of visualizing real-time data via UML.
