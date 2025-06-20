@@ -1,4 +1,4 @@
-# Project Management
+d# Project Management
 
 ## Intro to Project Management
 
@@ -230,10 +230,126 @@ The app itself is a product or tool.
   - What steps are necessary after deployment into the live environment to allow users to utilize the new functionality?
     **Preparation of end-users with training and documentation (other support); Compatibility Testing is necessary to ensure that the new functionality is compatible with the live environment**
 
-Waterfall has the following phases: Planning, Execution, Implementation, Closure (which is the same as Project Management)
+
+# Go/ No-go Criteria
+
+A Go/No-Go decision determines whether a project or system solution should move forward at a certain checkpoint — or be halted, postponed, or canceled.
+
+The purpose is to make sure we’re spending our time, money, and resources on the opportunities that have the greatest viability of propelling our business forward.
+
+🔁 When It Happens:
+- After feasibility studies
+- After proof of concept (PoC) or pilot testing
+- Before committing major resources
+
+- Do we know ALL of the decision-makers and do they know US? In today’s world, decision-making power is no longer in the hands of just one individual. Every purchasing decision requires, on average, five to seven different people to say “yes, I want them.” The CEO, the department director, the project manager, the subject matter expert, the procurement manager, the attorney, and more all have a say in who is hired. Do we know each of those decision-makers? Do we just know one? Are they REALLY the ultimate decision-maker? Will they advocate for us? Also, it should be noted here that many people like to think that we know everyone in the client organization and that we have all the right relationships in place. Sure, that may be true. But, it’s often an overstatement and we’re often over confident. Digging into who our relationships are with and how strong they are deserves some attention and is a critical part of risk management with your RFP resources.
+- Do we know what’s keeping our client up at night? Sure, some RFPs might include background information on the project requirements, initiative, or need, but it definitely doesn’t tell the whole story. Do we know what’s really driving this project? Are there schedule constraints the client must meet to avoid regulatory penalties? Does the airport need to be in service before an international event? Is the local community at odds with the City’s decision to build a water treatment plant in their neighborhood? We have to know what’s important to the client, beyond the scope of work, in order to stand a true chance of winning. Ask yourself if you truly know something that no other firm knows… do you have insider knowledge that will help you win?
+- Speaking of…do we REALLY stand a chance of winning? There’s a difference between being able to DO the work, and being able to win. Sure, we have the resources to build a state-of-the-art facility, but so can our top tier competitors. Being honest and asking yourself if a: you know what’s most important to the client and going to drive their decision-making process and b: can you provide those solutions in a way that sets you apart from all the other companies out there? This helps you get a more clear understanding of the project risks and the right projects for your team. 
+- Do we have the resources to pursue? Too often, organizations are focused on making sure they have the right resources to execute the work. Well, the same should be true for making sure we have the right resources to pursue the work. Do we have the RIGHT capture manager with ample time to dedicate to leading a winning proposal? Do we have a proposal manager with bandwidth to lead strategy sessions, craft content, and keep the team on track? Do we have an up-to-date template to streamline the project kickoff? Or are we running on fumes, cranking out proposals left and right with little strategy or intention for the end game… to WIN?
+- Does this opportunity align with our long-term strategy? If our business plan outlined a focus on expanding into the Pacific Northwest, why do we continue to propose on projects in a non-strategic area, like the Southeast? If we’ve agreed to harness our experience, minds, and power into building a renewables business practice, why do we continue to propose on coal power plants? Remember, every opportunity we say “yes” to is another opportunity we are effectively saying “no” to, so choose wisely.
+
+# Build or Buy Decision
+
+A decision whether to build a custom software system in-house or buy an existing off-the-shelf solution (COTS — Commercial Off The Shelf).
+
+The ISA gathers requirements, evaluates the organization’s resources, and compares:
+
+- Customizability
+- Cost
+- Time to implement
+- Vendor support
+- Long-term scalability
+
+🔁 When It Happens:
+- During the requirements analysis or design phase
+- Before issuing RFPs or starting development
+
+| Task | Role of the ISA |
+| --- | --- |
+| Requirements gathering | Define functional & technical needs |
+| Cost/benefit analysis | Evaluate long-term value, licensing, dev cost |
+| Risk assessment | Identify legal, operational, and tech risks |
+| Vendor assessment (for Buy) | Evaluate RFP responses, SLAs, support levels |
+| Architecture planning (for Build) | Help design the system internally |
+
+# RFPs - Request for Proposals
+
+A formal request issued to external vendors to propose solutions and bids for a problem or goal. It is a document that outlines a project's needs and invites vendors to submit detailed proposals outlining how they would fulfill those needs. It's a formal process used to gather solutions and select the best vendor for a specific project or purchase. Essentially, it's a structured way for organizations to solicit bids and evaluate potential suppliers. 
+
+
+1. Business Need Identified  
+        ↓
+2. **RFP (Request for Proposal)**  
+        ↓
+3. Vendor Proposals Submitted  
+        ↓
+4. Evaluation & Selection  
+        ↓
+5. Contract Negotiation
+     └─ Includes: ✅ Pricing, ✅ Scope, ✅ Terms, ✅ **SLAs**  
+        ↓
+6. Contract Signed  
+        ↓
+7. **Project Charter** Finalized / Created  
 
 
 
+# Service Level Agreement
+
+A contract between a service provider and a user (or another team within an organization) that defines the level of service expected. It outlines specific, measurable, achievable, relevant, and time-bound (SMART) metrics for performance, availability, and other aspects of the service. SLAs ensure both parties understand the agreement and provide a mechanism for addressing performance issues. 
+
+# Change Request Form
+A change request form is a document used to formally propose and track modifications to a project's scope, requirements, or other aspects. It serves as a central point for capturing details about the requested change, its rationale, potential impact, and approval status, ensuring a structured and controlled approach to project modifications. 
+
+<details>
+<summary>Example</summary>
+
+| Field | Entry Example |
+| --- | --- |
+| Change Request ID | CR-2025-004 |
+| Date Submitted | June 20, 2025 |
+| Submitted By | Maria Sanchez (Business Analyst) |
+| Project Name | Online Food Ordering System – Web Platform |
+| Change Title | Add support for PayPal as a new payment option |
+
+__Describe the proposed change:__  
+
+Currently, the system only accepts credit/debit card payments via Stripe. This change would integrate PayPal as an additional payment option during checkout, allowing users more flexibility.
+
+__Justification / Business Reason__ 
+Market analysis shows that 32% of users prefer PayPal. Adding PayPal is expected to increase conversion rate and reduce cart abandonment.
+
+__Impact Analysis__
+| Area | Impact |
+| --- | --- |
+| Scope | Requires updates to the checkout page, backend payment controller |
+| Schedule | May extend current sprint by 2–3 days |
+| Cost | Minor developer cost (~$1,200 for implementation & testing) |
+| Risk | Medium – Risk of API integration issues, requires sandbox testing |
+| Dependencies | Must be implemented before marketing team runs July promo |
+
+__Change Category__
+ - Emergency
+ - ✅ Enhancement
+ - Bug Fix
+ - Regulatory/Compliance
+
+__Approvals__
+Role	Name	Decision	Date	Comments
+Project Manager	John Doe	✅ Approve	06/21/2025	Adjust sprint backlog accordingly
+Technical Lead	Priya Patel	✅ Approve	06/21/2025	Test in staging before release
+Product Owner	Kim Wong	✅ Approve	06/21/2025	Aligns with Q3 goals
+
+Final Decision & any final optional attachments
+✅ Approved
+Scheduled for inclusion in Sprint 12 (start date: June 24, 2025)
+- PayPal API documentation
+- Wireframe of updated checkout flow
+- Risk mitigation checklist
+
+</details>
 
 
+Logical Design (business)- Needs and Requirements (What)
+Physical Design (system) - How
 

@@ -34,6 +34,8 @@ Business analysts and developers work with stakeholders/customers to define func
 - Functional: What features must the system have?
 - Non-functional: Performance, scalability, security, etc.
 
+__Requirements__ are statements of what the system should do (functional) or how it should perform (non-functional)
+
 🛠 Tools: User stories, use cases, requirement specs, diagrams
 
 
@@ -246,9 +248,9 @@ Patch updates, scale infrastructure, refactor code
 # Software Development Hierarchy
 
 
-[ SDLC ] — the process of building software  
+[ SDLC ] — the process / practice of building software  
         ↓  
-[ Methodology ] — mindset (e.g., Agile, Waterfall)  
+[ Models / Methodology ] — mindset (e.g., Agile, Waterfall, Spiral, Hybrid, Incremental)  
         ↓  
 [ Framework ] — practical structure (e.g., Scrum, Kanban)  
         ↓  
@@ -296,3 +298,173 @@ Scrum Process:
 
 Scrum Artifact Hierarchy:   
 User Stories -> Product Backlog -> Sprint Backlog -> Task Board -> Burn-Down Chart
+
+
+# Models
+Each of the SDLC models, utilize the same phases from SDLC.  
+
+__Iterative__ (refinement/improvement)  
+__Incremental__ (new features, new requirements)
+
+# Waterfall (Linear, Sequential)
+> “Plan everything upfront, build everything once.”
+
+- give deliverables all at once before getting feedback on iteration. Rigid and not very flexible.
+- linear, sequential process; each phase is completed before moving to the next phase.
+- great for small projects with fixed requirements, and well defined scopes.
+- ❌ not very flexible 
+
+# V-Model (Testing: Verification + Validation)
+> “Design and test in parallel — every development step has a matching test.”
+- An extension of Waterfall, but testing is planned in parallel with every development phase.
+- Each development phase has a corresponding test phase.
+- Testing is built-in from the start
+- Very structured and disciplined
+- ❌ Inflexible to changes, Costly for smaller projects
+
+![alt text](../media/v-model.png)
+
+From this diagram, every finished the phases of verification, we go back up the validation phase, and start from unit testing to acceptance testing.
+
+Validation Phases:
+
+__Unit Testing → Module Design (LLD)__
+  - Test individual units/components of code in isolation.
+  - Validate the logic, algorithms, and expected outputs.
+
+__Integration Testing → Architecture Design (HLD)__
+  - Ensure that different modules or services interact correctly.
+  - Identify interface issues between components.
+  - Test ex: Communication between login and dashboard modules
+  - Test ex: API requests/responses between front-end and back-end
+  - Test ex: Data flow across subsystems
+  
+__System Testing → System Design (functional + technical specifications)__
+  - Test the whole system as a complete application.
+  - Ensure that it meets the specified functional and non-functional requirements.
+  - Performed by Independent QA/test teams
+  
+__Acceptance Testing → Requirements Analysis (business/user requirements)__
+  - Validate the system against business/user requirements.
+  - Ensure that the system is user-friendly and easy to use.
+  - Determine whether to accept or reject the product.
+  - Performed by end users, stakeholders, or clients (sometimes with help from testers)
+
+<details>
+<summary>Example: Hospital Patient Management System</summary>
+This system should allow:
+
+- Registering patients
+- Assigning doctors
+- Scheduling treatments
+- Billing and generating reports
+
+Because it’s safety-critical and must comply with healthcare regulations, the V-Model is ideal.
+
+1. ✅ Requirements Analysis    
+Define what the system should do:  
+e.g., “Doctors must be able to view assigned patients.”  
+- 🔁 Corresponding Test: Acceptance Testing
+  - After full development, test if system meets user needs
+  - e.g., “Verify doctors can access their assigned patient list.”
+
+2. 🧠 System Design  
+Define system modules and interactions  
+e.g., modules for Patients, Doctors, Scheduling, Billing
+- 🔁 Corresponding Test: System Testing 
+  - Test end-to-end flows through multiple modules
+  - e.g., register patient → schedule treatment → generate bill
+
+3. 🏗️ Architecture Design / High-Level Design  
+Define interfaces and communication between subsystems
+e.g., How Scheduling module talks to the Calendar API
+
+- 🔁 Corresponding Test: Integration Testing  
+  - Test interactions between modules
+  - e.g., Verify Scheduling updates Calendar correctly
+
+4. ⚙️ Module Design / Low-Level Design  
+Define internal logic of each module
+e.g., Logic inside the Billing module (fee + insurance adjustments)
+
+- 🔁 Corresponding Test: Unit Testing
+  - Test individual components
+  - e.g., Ensure Billing module calculates fees accurately
+
+5. 💻 Coding  
+Write actual code for all modules
+- After this, you execute the matching tests from the right side of the "V" (bottom up).
+</details>
+
+
+# Iterative (Classic Repetition (Iterative), ?Incremental)
+> “Build a feature or core slice, refine it through cycles before moving on.”
+
+- Starts with a small set of requirements and grows through multiple iterations.
+- Each iteration focuses on a requirement or set of requirements.
+- Each iteration includes design, development, and testing.
+- Each iteration adds functionality on top of the previous version for the same requirement.
+- Iterative can be __optionally incremental__, where each iteration adds a new feature or requirement. 
+- Each cycle has design → code → test — like a mini waterfall.
+- Feedback is collected after each release / iteration.
+- No need to design everything upfront — only what’s needed now
+- Allows flexibility and ongoing improvement
+- ❌ Not great for projects with strict scope or budget. Architecture might not be planned ahead of time.
+
+Example (Iterative):
+- Sprint 1: Build basic login (email + password)
+- Sprint 2: Improve UI + add password strength meter
+- Sprint 3: Add multi-factor authentication  
+==→ You’re revisiting and improving the same feature.==
+
+Difference from Agile: 
+
+| Feature | Iterative Model | Agile Model |
+| --- | --- | --- |
+| ✅ Is it iterative? | ✅ Yes | ✅ Yes (and also incremental) |
+| 🔁 Feedback frequency | At the end of each iteration | Continuous — throughout the iteration |
+| 📋 Planning approach | All iterations are often pre-planned | Plans change dynamically based on feedback |
+| 💡 Customer involvement | Limited — usually at iteration review | High — customers are involved in every sprint |
+| 🧱 Structure | Can be rigid: fixed iterations and phases | Flexible, allows changing priorities |
+| 📦 Delivery model | Delivers full or partial system per iteration | Delivers working features frequently |
+| 🧭 Focus | Focus on refining the system gradually | Focus on delivering business value continuously |
+
+Iterative is about repeating the process to improve the product.  
+
+Agile is about collaborating closely, delivering frequently, and adapting constantly (a much more collaborative and larger methodology). — and it happens to be iterative.
+
+# Spiral (Iterative + Incremental)
+
+> “Plan cautiously, build gradually — only after managing the risks.”
+
+A risk-driven model combining iterative and waterfall approaches.
+
+- Strong focus on risk management
+- Flexible and allows incremental delivery
+- Each loop (spiral) plans, accesses risks, builds, and reviews
+- each loop increases scope and complexity. 
+- Useful for complex, high-risk projects
+- ❌ Requires expertise in risk assessment, and can be expensive and time-consuming
+
+The main difference from Iterative models, is Risk. All else is very similar to iterative Model.  
+You target features that pose the most risk first, and mitigate the risk as you go.
+
+Imagine you're building a healthcare system:
+
+🔁 Iterative:
+- Iteration 1: Basic patient record system
+- Iteration 2: Add appointment scheduler
+- Iteration 3: Add prescriptions module
+
+Risks may be considered informally, but the focus is on building and refining features.
+
+🌀 Spiral:
+- Loop 1: Identify highest risk (e.g., HIPAA compliance) → Build secure record storage
+- Loop 2: Next risk (e.g., downtime) → Add auto-backup and monitoring
+- Loop 3: Add appointments only after risk of patient mix-ups is assessed and mitigated
+
+Every feature is planned only after evaluating risks, making it ideal for safety-critical environments.
+
+# Agile Model: Iterative + Incremental + Adaptive
+
+> “Deliver value fast, adapt constantly, and grow with feedback.”

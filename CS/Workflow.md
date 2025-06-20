@@ -49,6 +49,9 @@ DFD Symbols and Notations
 
 ![alt text](../media/DFDsymbols.png)
 
+Processes are given IDs for easy referencing
+
+![alt text](../media/DFD-sym2.png)
 </details>
 
 ✅ Good for:
@@ -241,6 +244,7 @@ Visualize how the system behaves and interacts with itself and with users, other
     </details>
 
 - __Use Case Diagrams__ - how users, displayed as stick figures called “actors,” interact with the system. Summarize and demonstrate the different ways that a user might interact with a system. This type of UML diagram should be a high-level overview of the relationships between actors and systems, so it can be a great tool for explaining your system to a non-technical audience. 
+  - Use Cases - describe how a user interacts with a system to perform a task.
   - <details>
     <summary>symbols</summary>
 
