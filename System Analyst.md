@@ -351,5 +351,5 @@ Scheduled for inclusion in Sprint 12 (start date: June 24, 2025)
 
 
 Logical Design (business)- Needs and Requirements (What)
-Physical Design (system) - How
+Physical Design (system) - How 
 
