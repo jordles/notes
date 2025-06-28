@@ -74,3 +74,4 @@ Functions are always camelCase.
 __Function Declarations__ are always hoisted to the top of their scope. `function add(x, y) {...}`  
 __Function Expressions / Arrow Functions__ are not hoisted, `var` keyword rules apply here as well, so only var is hoisted. `var add = function(x, y) {...}`
 
+On __Arrow Functions__ the `this` keyword refers to the parent scope. If your function is only returning a single value, you may remove the wrapping curly braces and the `return` keyword, but returning an object must be wrapped in parenthesis instead. If theres more than one line, you must keep the curly braces. 
