@@ -71,7 +71,7 @@ Variables with __let__ and __const__ are block scoped (if, for, anything with br
 
 ## Functions
 
-Functions are always camelCase.
+Functions are always camelCase. Functions are always locally scoped.
 
 __Function Declarations__ are always hoisted to the top of their scope. `function add(x, y) {...}`  
 __Function Expressions / Arrow Functions__ are not hoisted, `var` keyword rules apply here as well, so only var is hoisted. `var add = function(x, y) {...}`
@@ -141,3 +141,20 @@ function handleTimeout(callback) {
 
 ```
 
+We can also simulate our own function that calls another function at a later time. We pass in the function as a value, and later execute the function. 
+
+```js
+function greet(greetFn){
+  greetFn(); //call to execute the function
+}
+greet(() => console.log(`here is my code`));
+
+```
+
+## Reference vs Primitive
+
+Primitive types are passed by value, Reference (Non-primitive) types like arrays, objects, functions are passed by reference. 
+
+Reference types allow change of value, but not reassignment.  Each reference will have its own address memory, so no two objects are the same, unless they're pointed to the same address. 
+
+If there is a no reference to memory, then garbage collector will remove the variables. 
