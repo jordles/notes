@@ -2,6 +2,7 @@
 
 https://academind.com/courses
 
+__JSX__ = JavaScript XML (Extensible Markup Language) or Javascript Syntax Extension
 
 __Declarative__ approach to building UIs: Use JSX to describe what the UI should look like. Its about what you want to achieve, instead of how to do it. Define the target UI state(s) and let React handle the details.
   - Declarative programming in React allows developers to focus on the logic of the program, rather than the implementation details. 
@@ -102,3 +103,55 @@ Create React App has `react-script` and `react-app-rewired` packages. `react-app
 Create React App combines all jsx files into one js file, removing the need for modules.
 
 Vite has `@vitejs/plugin-react` package which allows us to use JSX in our JS files.
+
+We dont need `nodemon` for React, because the build tools automatically reload the page when changes are made to the code. This is called hot reloading, and it allows developers to see changes in real-time without having to manually refresh the page.
+
+
+React are build by combining components. 
+  - React components are really javascript functions that return JSX.
+  - React components are made from JSX, props, and state. 
+  - Components are reusable pieces of code that can be used to build complex UIs. 
+  - Components can be functional or class-based. 
+  - Functional components are simpler and easier to read, while class-based components are more powerful and allow for more complex logic.
+  - Components allow related code to be grouped together, making it easier to maintain and understand. Each component can have its own html, and js code (possibly css code as well), which makes it easier to manage and reuse code. 
+  - Components allow separation of concerns, where each component is responsible for a specific part of the UI.
+  - Components allow for easy testing and debugging, as they can be isolated and tested independently.
+
+![alt text](media/components.png)
+
+React components always follows these rules:
+  - Components must return a single root element, meaning that they cannot return multiple elements.
+  - Components must be named with a capital letter. (important for JSX to recognize them as custom components and not built-in HTML elements / components)
+
+![alt text](media/react-components.png)
+
+__ReactDOM__ is the bridge between React and the DOM. It allows React to update the DOM when the state of a component changes. ReactDOM is used to render components to the DOM, and it also provides methods for updating and unmounting components. __ReactDOM.createRoot()__ and __ReactDOM.render()__ are two methods used to render React components to the DOM.
+
+__ReactDOM.createRoot()__ is the method used to create a root element for a React application. It takes a single argument, which is the DOM element to render the React application to. This method is used to create a root element for the React application, and it is typically called in the entry point of the application.
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById('root'));
+```
+
+__ReactDOM.render()__ is the method used to render a React component, designated to be the root component, to the DOM. It takes two arguments: the component to render and the DOM element to render it to.
+
+React will traverse the component tree and render each component to the DOM. It will also update the DOM when the state of a component changes.
+
+
+It derives a component tree, which is then used to perform commands that update the website DOM. 
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+// import { createRoot } from 'react-dom/client';
+// createRoot(document.getElementById('root')).render(<App />);
+```
+
+Components can be nested inside other components, allowing for complex UIs to be built from simple building blocks. 
+
+A __React Element__ is a description of what to render. It is a plain object that describes a DOM node or a component instance. It contains information about the type of element, its properties, and its children. React elements are immutable, meaning that once they are created, they cannot be changed.
+
+HTML elements nested inside JSX are called __React elements__. They are the building blocks of React applications. React elements are created using JSX syntax, which allows developers to write HTML-like code inside JavaScript files. 
+
+```jsx

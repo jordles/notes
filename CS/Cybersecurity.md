@@ -15,6 +15,7 @@
 | Intrusion Detection System (IDS)  | Monitors for and alerts about suspicious activity                         |
 | Hashing                           | One-way function to verify data integrity (e.g., hashed passwords)        |
 | Public/Private Key Cryptography   | Asymmetric encryption system for secure communication                     |
+| Serialization                    | Converting data structures into a format for storage or transmission   (in binary format / )    |
 
 ## Common Cybersecurity Risks
 
