@@ -1935,11 +1935,12 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
     
     <li><code>.filter(function ex: word => word.length > 6)</code> => return a filtered copy of an array that satisfies the provided function <br>
       <pre>
+        // our custom filter function
         Array.prototype.myFilter = function(callback) {
           const newArray = [];
           // Only change code below this line
           for(let i = 0; i < this.length; i++){
-          if(Boolean(callback(this[i], i, this))==true){ //if the callback satisfies the condition, push the value into the new array
+          if(Boolean(callback(this[i], i, this))){ //if the callback satisfies the condition, push the value into the new array
             newArray.push(this[i]);
           }
           }

@@ -1,5 +1,7 @@
 # Javascript
 
+A general review of Javascript
+
 ## Sharing Code Blocks: Exports & Imports
 
 Without modules:
@@ -75,3 +77,67 @@ __Function Declarations__ are always hoisted to the top of their scope. `functio
 __Function Expressions / Arrow Functions__ are not hoisted, `var` keyword rules apply here as well, so only var is hoisted. `var add = function(x, y) {...}`
 
 On __Arrow Functions__ the `this` keyword refers to the parent scope. If your function is only returning a single value, you may remove the wrapping curly braces and the `return` keyword, but returning an object must be wrapped in parenthesis instead. If theres more than one line, you must keep the curly braces. 
+
+## Array Methods
+
+## Destructuring
+
+```js
+// Array Destructuring
+const [a, b, c] = [1, 2, 3];
+console.log(a, b, c); // 1, 2, 3
+
+// Object Destructuring; must use the same name as the objects' keys or use aliases with syntax `key: alias`
+const {a, b, c : alias} = {a: 1, b: 2, c: 3};
+console.log(a, b, alias); // 1, 2, 3
+
+// If we know objects can be destructured, then when using objects as parameters, we can also destructure them inside the parameters, to get their values directly. This reduces the need for dot notation when accessing an object's properties and/or saves us some steps of destructuring them later. 
+
+function add(object){
+  return object.a + object.b; // let {a, b} = object; return a + b; 
+}
+
+function add({a, b}) {
+  return a + b;
+}
+```
+
+## Spread Operators
+
+Pull out elements of an array or object and spread them out into a new array or object.
+
+```js
+//Spread arrays
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const arr3 = [...arr1, ...arr2];
+console.log(arr3); // [1, 2, 3, 4, 5, 6] 
+
+//Spread objects
+const obj1 = {a: 1, b: 2};
+const obj2 = {c: 3, d: 4};
+const obj3 = {...obj1, ...obj2};
+console.log(obj3); // {a: 1, b: 2, c: 3, d: 4} 
+```
+
+## Control Flow / Structures
+
+## DOM Manipulation
+
+## Utilizing Functions as Values
+
+When using functions as values, we can use them as parameters, return values, or even create new functions with them. 
+
+Its important to know that using functions with the parenthesis will execute the function immediately, but using them without the parenthesis will define the function and execute it at a later time.
+
+An anonymous function is also viable as a value, and doesnt execute immediately. If you did though, you would use an IIFE (Immediately Invoked Function Expression) to execute the function immediately, which is useful for creating private variables.
+
+```js
+
+function handleTimeout(callback) {
+  setTimeout(callback, 1000);
+}
+// notice callback does not have the parenthesis
+
+```
+
