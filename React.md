@@ -124,7 +124,7 @@ React components always follows these rules:
   - Components must return a single root element, meaning that they cannot return multiple elements.
   - Components must be named with a capital letter. (important for JSX to recognize them as custom components and not built-in HTML elements / host components)
 
-![alt text](media/react-components.png)
+![alt text](media/react-component-tree.png)
 
 __ReactDOM__ is the bridge between React and the DOM. It allows React to update the DOM when the state of a component changes. ReactDOM is used to render components to the DOM, and it also provides methods for updating and unmounting components. __ReactDOM.createRoot()__ and __ReactDOM.render()__ are two methods used to render React components to the DOM.
 
@@ -165,7 +165,7 @@ HTML elements nested inside JSX are called __React elements__. They are the buil
 <details>
 <summary>Host Components vs Custom Components</summary>
 
-![alt text](image.png)
+![alt text](media/react-components.png)
 
 </details>
 
@@ -206,4 +206,7 @@ React.createElement('div', null, 'Hello')
 document.createElement('div') → sets innerText to "Hello"
 ```
 
+# Dynamic Content
+
+![alt text](media/react-dynamic-content.png)
 
