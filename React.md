@@ -4,7 +4,7 @@ https://academind.com/courses
 
 __JSX__ = JavaScript XML (Extensible Markup Language) or Javascript Syntax Extension
 
-__Declarative__ approach to building UIs: Use JSX to describe what the UI should look like. Its about what you want to achieve, instead of how to do it. Define the target UI state(s) and let React handle the details.
+__Declarative__ approach to building UIs: Use JSX to describe what the UI / HTML code should look like. Its about what you want to achieve, instead of how to do it. Define the target UI state(s) and let React handle the details.
   - Declarative programming in React allows developers to focus on the logic of the program, rather than the implementation details. 
   - This makes it easier to create responsive, reusable, and testable components. 
   - It also allows for rapid development, since changes can be made without needing to rewrite the entire application.
@@ -107,8 +107,9 @@ Vite has `@vitejs/plugin-react` package which allows us to use JSX in our JS fil
 We dont need `nodemon` for React, because the build tools automatically reload the page when changes are made to the code. This is called hot reloading, and it allows developers to see changes in real-time without having to manually refresh the page.
 
 
-React are build by combining components. 
+React builds by combining components. 
   - React components are really javascript functions that return JSX.
+  - Components in JSX, are called the same way HTML elements are used in HTML files: With the same syntax for tagging.
   - React components are made from JSX, props, and state. 
   - Components are reusable pieces of code that can be used to build complex UIs. 
   - Components can be functional or class-based. 
@@ -121,7 +122,7 @@ React are build by combining components.
 
 React components always follows these rules:
   - Components must return a single root element, meaning that they cannot return multiple elements.
-  - Components must be named with a capital letter. (important for JSX to recognize them as custom components and not built-in HTML elements / components)
+  - Components must be named with a capital letter. (important for JSX to recognize them as custom components and not built-in HTML elements / host components)
 
 ![alt text](media/react-components.png)
 
@@ -135,8 +136,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 __ReactDOM.render()__ is the method used to render a React component, designated to be the root component, to the DOM. It takes two arguments: the component to render and the DOM element to render it to.
 
-React will traverse the component tree and render each component to the DOM. It will also update the DOM when the state of a component changes.
-
+React will traverse the component tree and render each component to the DOM. Inside each of these components, React will render the hosted components. It will also update the DOM when the state of a component changes.
 
 It derives a component tree, which is then used to perform commands that update the website DOM. 
 
@@ -150,8 +150,60 @@ root.render(<App />);
 
 Components can be nested inside other components, allowing for complex UIs to be built from simple building blocks. 
 
-A __React Element__ is a description of what to render. It is a plain object that describes a DOM node or a component instance. It contains information about the type of element, its properties, and its children. React elements are immutable, meaning that once they are created, they cannot be changed.
+A __React Element__ is a description of what to render (any valid JSX basically). It is a plain object that describes a DOM node or a component instance. It contains information about the type of element, its properties, and its children. React elements are immutable, meaning that once they are created, they cannot be changed.
 
 HTML elements nested inside JSX are called __React elements__. They are the building blocks of React applications. React elements are created using JSX syntax, which allows developers to write HTML-like code inside JavaScript files. 
 
+## React Rendering Process: 
+
+1. JSX is compiled, becoming nested calls to `React.createElement()`. This will create a React element, which is a plain object that describes the component and its properties.
+1. The calls start at the root component, recursively calling the components, creating React elements for each custom component / host component, forming a tree structure: the Virtual DOM. 
+1. React compares the virtual DOM tree to the previous version of the virtual DOM tree (if it exists) using a process called reconciliation.
+1. React updates the actual DOM based on the differences between the two virtual DOM trees. This is done by React through `ReactDOM`, which creates real DOM nodes (created with `document.createElement()`) and updates their properties (e.g. innerText, className) based on the React elements and updates the actual DOM accordingly.
+1. Repeat steps 2-4 whenever the state of a component changes, or when a component is re-rendered.
+
+<details>
+<summary>Host Components vs Custom Components</summary>
+
+![alt text](image.png)
+
+</details>
+
 ```jsx
+function App() {
+  return (
+    <div>
+      <h1>Hello</h1>
+      <Greeting name="Jacky" />
+    </div>
+  );
+}
+```
+```jsx
+// under the hood
+React.createElement(
+  'div',
+  null,
+  React.createElement('h1', null, 'Hello'),
+  React.createElement(Greeting, { name: 'Jacky' })
+);
+```
+```jsx
+//example of a host component
+// JSX
+<div>Hello</div>
+
+// ↓ compiles to ↓
+React.createElement('div', null, 'Hello')
+
+// ↓ React builds virtual DOM tree
+{
+  type: 'div',
+  props: { children: 'Hello' }
+}
+
+// ↓ ReactDOM reconciles & renders to real DOM
+document.createElement('div') → sets innerText to "Hello"
+```
+
+
