@@ -23,8 +23,110 @@ Exploratory testing is an informal testing approach where testers explore the ap
   - Test features from a real user perspective
   - Quickly learn how a new system behaves
 
+🛠 Example:
+  - You're testing a new chat app. Instead of following a step-by-step checklist, you:
+  - Open multiple chats
+  - Switch networks mid-message
+  - Send huge files
+  - Try weird characters (e.g., emojis, scripts)
+  - Navigate backward/forward rapidly
 
+💡 When to use:
+  - Early in development
+  - When documentation is lacking
+  - When validating new features
 
+### Test Case Execution
+Test case execution involves running predefined test cases to verify that the application behaves as expected. Test cases are designed based on requirements and specifications.
+
+🧠 Goal:
+Verify known functionality works as expected
+
+Ensure requirements are met
+
+Provide consistent, repeatable test coverage
+
+🛠 Example:
+For a login form, a test case might be:
+  - Open the login page
+  - Enter valid credentials
+  - Click "Login"
+  - Assert you’re redirected to the dashboard
+  - If one step fails, the case fails, and a bug is reported.
+
+💡 When to use:
+  - During regression testing
+  - After feature development
+  - To verify bug fixes
+  - When compliance and traceability are required
+
+### Usability Testing
+
+Usability testing evaluates how user-friendly and intuitive the application is. It focuses on the user experience, ensuring that the application is easy to navigate and understand.
+
+🧠 Goal:
+  - Identify confusing workflows
+  - Spot UI/UX design flaws
+  - Understand how real users behave
+
+🛠 Example:
+  - You're testing a signup process:
+  - Is the "Sign Up" button easy to find?
+  - Are error messages clear and helpful?
+  - Does the form feel overwhelming?
+  - Do users abandon the process halfway through?
+  - This is often done by asking users (or QA testers) to complete tasks and give feedback.
+
+💡 When to use:
+  - During UI design reviews
+  - Before a product launch
+  - In collaboration with designers and product managers
+
+### Cross-browser & Cross-device Testing
+Cross-browser and cross-device testing ensure that the application works correctly across different web browsers and devices.
+
+🧠 Goal:
+  - Catch UI bugs or layout issues
+  - Verify feature compatibility
+  - Ensure good mobile responsiveness
+
+🛠 Example:
+  - You test a shopping cart feature on:
+  - Chrome (desktop, latest)
+  - Firefox (older version)
+  - Safari on iPhone
+  - Android tablet
+  - Edge on Windows
+
+> You might find that a button works in Chrome but not on Safari, or a layout breaks on smaller screens.
+
+💡 When to use:
+  - Before releases
+  - When adding frontend features
+  - When working with responsive designs
+
+### Ad-hoc Testing
+Ad-hoc testing is an informal testing approach where testers explore the application without any formal test cases or documentation. It is often used to quickly identify defects in the application.
+
+🧠 Goal:
+  - Quickly identify glaring issues
+  - Perform one-off checks
+  - Complement structured testing
+
+🛠 Example:
+  - After a new feature is deployed to staging, 
+  the tester plays around with it freely:
+  - Clicks buttons randoml
+  - Inputs strange values
+  - Navigates quickly between screens
+  - Forces edge cases (e.g., log in with no internet)
+
+It’s often based on gut feeling and past experience.
+
+💡 When to use:
+  - During last-minute checks
+  - After code merges
+  - For bug triaging and smoke testing
 
 Tools:  
 
