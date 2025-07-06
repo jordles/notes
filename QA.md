@@ -15,10 +15,20 @@ Types of Testing in Manual QA:
 - 📱 Cross-browser & Cross-device Testing  
 - 🎯 Ad-hoc Testing
 
+### Exploratory Testing
+Exploratory testing is an informal testing approach where testers explore the application without predefined test cases. It allows for discovering defects that may not be captured in scripted tests.
 
-Tools: 
+🧠 Goal:
+  - Discover unexpected bugs or edge cases
+  - Test features from a real user perspective
+  - Quickly learn how a new system behaves
 
-	- TestRail
+
+
+
+Tools:  
+
+  - TestRail
   - Jira
   - Postman (for API manual testing)
   - Excel/Google Sheets
