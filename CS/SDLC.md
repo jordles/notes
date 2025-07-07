@@ -128,7 +128,6 @@ Use of:
 
 QA engineers or developers run tests to find bugs.
 Types of testing:
-
 - Unit testing (individual functions)
 - Integration testing (between modules)
 - System testing (whole app)
@@ -309,7 +308,7 @@ __Incremental__ (new features, new requirements)
 # Waterfall (Linear, Sequential)
 > “Plan everything upfront, build everything once.”
 
-- give deliverables all at once before getting feedback on iteration. Rigid and not very flexible.
+- give deliverables all at once before getting feedback on the iteration. Rigid and not very flexible.
 - linear, sequential process; each phase is completed before moving to the next phase.
 - great for small projects with fixed requirements, and well defined scopes.
 - ❌ not very flexible 
