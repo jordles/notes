@@ -156,7 +156,7 @@ Smoke testing is a preliminary test to check the basic functionality of the appl
 Tools:  
 
   - TestRail (for test case management)
-  - Jira (for bug tracking)
+  - Jira (for bug tracking, validate test cases and workflows)
   - Postman (for API manual testing)
   - Excel/Google Sheets (for simple test case tracking)
   - Browser dev tools
@@ -185,3 +185,41 @@ Types of Testing in Automated QA:
 
 For JS, we use Jest or Mocha to test individual functions or components.
 For Java, we use JUnit or TestNG.
+
+Jest is installed through npm and is used to run tests on JavaScript code. It provides a simple and easy-to-use API for writing tests. `npm install -D jest`
+
+Update the package.json file to include a test script:
+```json
+"scripts": {
+  "test": "jest"
+}
+```
+
+Run the tests with `npm run test`
+
+```js
+// sum.js
+function sum(a, b) {
+  return a + b;
+}
+
+module.exports = sum;
+```
+
+```js
+// sum.test.js
+const sum = require('./sum');
+
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+
+test('adds -5 + 5 to equal 0', () => {
+  expect(sum(-5, 5)).toBe(0);
+});
+
+test('adds 0 + 0 to equal 0', () => {
+  expect(sum(0, 0)).toBe(0);
+});
+
+```

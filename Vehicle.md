@@ -17,13 +17,13 @@
 
 Because oil lubricates the engine, it is essential to change it regularly to prevent engine wear and tear. Old oil can become contaminated with dirt, debris, and other particles, which can lead to engine damage if not changed regularly. Oil can deteriorate over time, losing its ability to lubricate and protect the engine. Regular oil changes help maintain the engine's performance and extend its lifespan.
 
-- **Frequency**: Every 3,000 to 5,000 miles or as recommended by the manufacturer. 5 years usually. Oil filter should be changed every oil change or every other oil change.
+- **Frequency**: Every 3 to 5 years or as recommended by the manufacturer. 5 years usually. Oil filter should be changed every oil change or every other oil change.
 - **Purpose**: To keep the engine lubricated and running smoothly.
 - **Procedure**:
   1. Check the oil level using the dipstick. Make sure the oil color is not dark brown or black, and that it is not gritty. Check the oil level against the minimum and maximum marks on the dipstick to determine if it is low.
   2. If the oil is clean and at the proper level, you can leave it as is.
   3. If the oil is dirty or low, drain the old oil at the bottom of the tank and replace it with new oil at the top of the tank.
-  4. Replace the oil filter if necessary. (found near the oil tank below, or on the side of the engine)
+  4. Replace the __oil filter__ if necessary. (found near the oil tank below, or on the side of the engine)
 
 ## Fluid Levels
 
