@@ -9,6 +9,8 @@
 - Tire Pressure - Check and maintain proper tire pressure for safety and fuel efficiency.
 - Brake Pads - Inspect brake pads for wear and replace them if necessary to ensure safe braking. 
 - Brake Fluid - Check and change brake fluid to ensure the brakes are working properly.
+- Spark Plugs - Replace spark plugs to ensure the engine is running smoothly and efficiently.
+- Air Filter - Check and replace air filters to ensure the vehicle is free of air pollution and polluting particles.
 
 ## Oil Change
 
