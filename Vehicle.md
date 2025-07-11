@@ -59,3 +59,20 @@ Checking tire pressure is important for safety and fuel efficiency. Under-inflat
 ## Spark Plugs
 
 Used to ignite the air-fuel mixture in the engine's cylinders. Located at the top of the engine. They wear out over time and need to be replaced to ensure proper engine performance. Spark plugs should be replaced every 30k to 100k miles, depending on the type of spark plug and the manufacturer's recommendations. 
+
+## Signs
+
+[link](http://dot.ca.gov/programs/safety-programs/sign-charts)
+
+__Diamond-shaped Sign__  
+Warns you of specific road conditions and dangers ahead.
+
+__White Rectangular Sign__  
+Communicates many important rules you must obey.
+
+__Warning Signs__  
+Warns of conditions related to pedestrians, bicyclists, schools, playgrounds, school buses, and school passenger loading zones.  
+
+![alt text](media/driving-signs.png)
+
+![alt text](media/driving-signs2.png)
