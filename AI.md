@@ -1,4 +1,4 @@
-i# AI
+# AI
 
 Computer programs that can complete cognitive tasks typically associated with human intelligence. 
 
@@ -252,6 +252,8 @@ __Jupyter AI__
 
 <br>
 
+__Multimodal models__ are AI models that can process and generate multiple types of data, such as text, images, and audio. They can be used to create more complex and sophisticated AI tools that can perform a wider range of tasks. Some examples of multimodal models include OpenAI's GPT-4, Google's Gemini, and Meta's LLaMA.
+
 **Generative AI tools** include:
 - __Standalone tools__: These are AI tools that can be used independently, such as text generators, image generators, and code generators. They can be used to create content, automate tasks, and assist with various tasks.
 - __Integrated tools__: These are AI tools that are integrated into existing software applications, such as chatbots, virtual assistants, and recommendation systems. They can be used to enhance the functionality of existing software applications and provide users with a more personalized experience.
@@ -329,7 +331,232 @@ Assess whether to apply generative AI to a task:
   - Are there resources to provide human oversight and feedback? (is there a human in the loop?)
 
 
-# Prompt Engineering
+# LLMs 
 
 __Prompt engineering__ is the process of designing and optimizing prompts to achieve desired outcomes from AI models. It involves crafting clear, concise, and specific prompts that guide the AI model to generate relevant and accurate responses.
 
+Important aspects of prompt engineering include:
+  - specifying the desired output format.
+  - iterating on prompts to refine the model's responses.
+  - __few-shot prompting__, which involves providing examples in the prompt to guide the model's responses.
+
+__Large Language Models (LLMs)__ are a type of AI model that is trained on vast amounts of text data to understand and generate human-like language (words, concepts, and phrases) in response to prompts. They are capable of performing a wide range of natural language processing tasks, such as text generation, translation, summarization, and question answering.
+
+When being trained on the text data, LLMs learn to recognize patterns in language and generate responses that are coherent and contextually relevant. They can also be fine-tuned for specific tasks or domains to improve their performance.
+
+LLMs use statistics to analyze the relationships between words and phrases in the training data. They learn to predict the next word in a sentence based on the context of the previous words, which allows them to generate coherent and contextually relevant responses. 
+
+Factors that contribute to hallucinations in LLMs include:
+  - Lack of context: LLMs may generate responses that are not relevant to the prompt if they do not have enough context to understand the user's intent.
+  - Bias in training data: If the training data contains biases, the LLM may generate biased responses.
+  - Limitations of the model: LLMs are not perfect and may generate responses that are factually incorrect or nonsensical.
+  - Quality of the training data: If the training data is of low quality or contains errors, the LLM may generate responses that are inaccurate or nonsensical.
+  - Phrasing of the prompt: The way the prompt is phrased can also affect the quality of the response. If the prompt is ambiguous or unclear, the LLM may generate a response that does not meet the user's expectations.
+  - Method an LLM uses to generate responses: LLMs use different methods to generate responses, such as sampling or beam search. These methods can affect the quality of the response and may lead to hallucinations if not used correctly.
+  
+Effective Prompting: 
+
+Specify the task
+Specifying your task is the foundation of every prompt. Describe in detail what you want the AI tool to do, be clear and avoid ambiguity. If you write a task with vague instructions, it can result in an output that’s irrelevant or incorrect.  Your task may include a persona and a format preference so that the task is specific: 
+
+Task: What action do you want the tool to help you with? For example, you might ask the tool to write an email or create an image. 
+
+Persona: What expertise do you want the AI tool to draw from, and who is the audience? For example, you might ask the tool to complete the task with the expertise of an IT professional, or ask it to create an output geared towards a specific audience like your manager or team. 
+
+Format: How do you want the output to be formatted? For example, you might ask the AI tool to create a bulleted list or a comparison table.
+
+Here's an example of a prompt that includes a specific task, a persona and a format:
+
+You're a concert promoter specializing in raising ticket sales in the alternative rock music industry. Create a social media post about an upcoming music festival that speaks to the local music community while attracting out-of-state festival-goers. Limit the post to 125-characters. Include 5 relevant hashtags.
+
+Provide necessary context
+Including detailed context in your prompts can narrow an AI tool's focus, enabling it to produce more tailored and effective output. Contextual information in your prompts might include:
+
+Reasons and objectives for performing the task
+
+Rules or guidelines that the output must follow
+
+Relevant background information the tool should consider
+
+These details can help an AI tool better understand your needs. Here's an example of a prompt that provides necessary context:
+
+You're a concert promoter specializing in raising ticket sales in the alternative rock music industry. Create a social media post about an upcoming music festival that speaks to the local music community while attracting out-of-state festival-goers. Limit the post to 125-characters. Include 5 relevant hashtags. The local audience is primarily college students and young professionals (age 21-35) who follow indie rock. The festival features 12 bands over 2 days, with camping options and local food vendors.
+
+This prompt will likely generate a more engaging and effective output that's tailored to a specific audience—without requiring additional time spent iterating on the initial prompt.
+
+Include references as examples
+References provide examples or resources that illustrate what you want an AI tool to produce. They specify details about your desired output, such as the style, tone, and format. Depending on the AI tool, you can include text, images, audio, or even video as references.
+
+When including references in your prompts, consider these suggestions:
+
+Briefly explain how the references relate to the task.
+
+Use 2-5 high-quality examples that closely align with your needs.
+
+Include your own work or open-source examples if relevant.
+
+Here's an example of a prompt that includes references:
+
+You're a concert promoter specializing in raising ticket sales in the alternative rock music industry. Create a social media post about an upcoming music festival that speaks to the local music community while attracting out-of-state festival-goers. Limit the post to 125-characters. Include 5 relevant hashtags. The local audience is primarily college students and young professionals (age 21-35) who follow indie rock. The festival features 12 bands over 2 days, with camping options and local food vendors. Here are examples of successful posts from similar events:
+
+- Example 1: Where mountains meet music: Indie Rocks Festival returns! Your favorite local bands + national acts. Good eats & Sleep under the stars! #Indie Rocks #SupportLocalMusic
+
+- Example 2: Join Indie Fest under the desert skies! 2 nights of raw sound 2 move you + camping vibes #RoadTrip #CampLife #RockOn
+
+Note: Later in the course, you'll learn more about prompting techniques which leverage references. 
+
+Evaluate your output
+AI tools vary in their training and capabilities. Each tool has unique strengths and limitations, which can influence the quality of their output. After receiving a response from an AI tool, it's essential to carefully evaluate the quality and effectiveness of the AI-generated content before using it or sharing the output with others.
+
+When evaluating an output, focus on factors such as:
+
+Accuracy
+
+Bias
+
+Relevancy
+
+Consistency
+
+AI-generated content should serve as a starting point, not a final product. Sometimes while assessing and validating an AI output, you might determine that it's unacceptable or not useful. When that's the case, you should continue on to the next step of the prompting framework.
+
+Iterate for better results
+Even well-crafted prompts may not produce ideal results on the first try. This is where iteration comes in—the process of refining your prompt based on the AI's output. Think of iteration like having a back-and-forth conversation with an AI tool. The exchange typically flows like this:
+
+You provide an initial prompt.
+
+The AI tool responds with an output.
+
+You evaluate the effectiveness of the AI-generated response.
+
+You refine your request based on what worked and what didn't.
+
+The cycle repeats until you produce the desired results.
+
+Effective prompting is not about getting a perfect result on the first try, but about being willing to refine and improve your approach. It's important to be patient, provide clear feedback, and keep prompting until you reach the desired outcome.
+
+Examples of LLMs usage at work:
+
+  - Content Creation: LLMs can generate high-quality content for blogs, articles, and social media posts, saving time and effort for content creators.
+  - Summarization: LLMs can summarize long documents, reports, or articles, making it easier for users to digest large amounts of information quickly.
+  - Classification: LLMs can classify text into categories, such as spam detection in emails or sentiment analysis in customer reviews.
+  - Extraction: LLMs can extract relevant information from unstructured text, such as extracting key entities or relationships from documents, to structure data thats easily consumed.
+  - Translation: LLMs can translate text from one language to another, enabling cross-lingual communication and understanding.
+  - Editing: LLMs can assist with editing and proofreading text, providing suggestions for grammar, style, and clarity improvements.
+  - Problem Solving: LLMs can help solve complex problems by analyzing large datasets, identifying patterns, and generating insights that inform decision-making.
+
+  ![alt text](media/LLM-use-cases.png)
+
+  Iterative Process is using LLMs to generate content, evaluate the output, and refine the prompt based on the results. This iterative process allows users to improve the quality of the generated content over time.
+
+  There are cases where LLMs are not producing useful output even with clear, specific prompts. Differences in LLMs capabilities and limitations produces different results. In these cases, users can try different LLMs or adjust their prompts to see if they can achieve better results.
+
+__Few-shot prompting__ is a technique that involves providing the LLM with a few examples of the desired output in the prompt. This helps the LLM understand the context and generate more relevant responses. Few-shot prompting can be particularly useful when working with LLMs that have limited training data or when the task requires specific knowledge or expertise. __"shot"__ refers to the number of examples provided in the prompt, which can range from one to a few examples. Variations include: zero-shot prompting (no examples), one-shot prompting (one example), and few-shot prompting (multiple examples).
+
+__Chain-of-thought prompting__ is a technique that involves breaking down complex tasks into smaller, manageable steps. This helps the LLM understand the problem better and generate more accurate responses. Chain-of-thought prompting can be particularly useful when working with LLMs that have limited training data or when the task requires specific knowledge or expertise.
+
+__React prompting__ is a technique that asks the models to react to its own output. This technique can be used to improve the quality of the generated content by allowing the LLM to evaluate its own responses and make adjustments as needed. React prompting can be particularly useful when working with LLMs that have limited training data or when the task requires specific knowledge or expertise.
+
+__Chain-of-thought prompting__ is a prompting technique that involves requesting a large language model to explain its reasoning processes. It asks an AI tool to trace a path through the reasoning it applied to generate its output—step by step, from input to output. This technique makes the LLM's reasoning process more accurate.
+
+To use chain-of-thought prompting, simply include key phrases in your prompt, such as:
+
+Explain your reasoning
+
+Go step by step
+
+These additions to your prompts encourage the AI to trace its thought process, making its output more informative. Chain-of-thought prompting can also help you validate the accuracy and reliability of an AI tool's output.
+
+![alt text](media/AI-chain-of-thought-prompt.png)
+
+For example, consider an HR manager who's developing onboarding materials for one of their organization's departments. Here's a brief example of how chain-of-thought prompting can be used to identify actionable steps to handle the task:
+
+Create a bulleted list outlining the major duties and responsibilities of a new entry-level design hire at an ad agency. Explain your reasoning step by step.
+
+By breaking down the onboarding process into stages and outlining specific activities, the AI can provide a more structured and comprehensive plan. This can help the HR manager identify potential gaps in their current onboarding process and make informed decisions about how to improve it.
+
+Prompt chaining
+Prompt chaining is a technique that links connected prompts together, like connecting links in a chain. It's another useful technique for solving complex tasks. Rather than using a single prompt, prompt chaining works by building upon the concept of iteration, taking AI interactions to a new level.
+
+Using this technique involves three steps:
+
+Task analysis. Start by breaking down your complex task into logical steps.
+
+Initial prompting. Craft a prompt that effectively addresses the first step.
+
+Input/output flow. Use the output from one prompt as input for the next, iterating along the way, until you complete the task.
+
+Combining prompt chaining with chain-of-thought
+While prompt chaining provides a structured approach to complex tasks, combining it with chain-of-thought prompting can significantly enhance the problem-solving process.
+
+Consider the example of an HR manager who's developing onboarding materials for a new entry-level design hire at an ad agency.
+
+Here’s an example of the potential output from their initial prompt:
+
+Onboarding Course Outline for Entry-Level Hires at an Advertising Agency
+
+Introduce agency culture and values
+
+Summarize duties and responsibilities
+
+Explain advertising industry fundamentals
+
+Break down agency tools and technology
+
+Detail client relationships and communication practices
+
+And here's how they might apply prompt chaining to that output:
+
+Based on your initial breakdown, let's focus on understanding the role of an entry-level designer at an ad agency. What are the key responsibilities and skills required for this position? Please provide a detailed list.
+
+This iterative process of using the output from one prompt as input for the next would continue until all aspects of the project are addressed. By breaking down the complex task with prompt chaining and incorporating chain-of-thought, you can tackle more difficult problems while ensuring more accurate results.
+
+Pro tip: When using prompt chaining, keep track of outputs that might be relevant in later steps. This helps maintain consistency throughout the chain as you progress through the task. Additionally, don't hesitate to use chain-of-thought at any step along the way to validate the accuracy and relevancy of the AI tool's output.
+
+# Data Bias and AI Ethics
+
+Responsible AI is the principle of developing and using AI ethically, with the intent of benefiting people and society while avoiding harm. It involves considering the potential impact of AI on society and ensuring that AI systems are designed to be fair, unbiased, and respectful of user privacy.
+
+__AI user__ is someone who leverages AI to complete a personal or professional task. 
+
+__AI system__ is an AI model that is used to complete a task.
+
+For example, flying the plane is a task that requires an AI system to be trained on data about flying, such as flight patterns, weather conditions, and air traffic control procedures. The AI user is the pilot who uses the AI system to fly the plane.
+
+__AI bias__ includes:
+
+__Systemic bias:__ Bias that is built into the AI system itself, such as biased training data or algorithms that favor certain groups over others. A tendency upheld by institutions that favors or disadvantages certain outcomes or groups. 
+- Example: An AI system that is trained on biased data may produce biased results, such as favoring white people over black people.
+
+__Data bias:__ Bias that is introduced into the AI system through the data used to train it, such as biased data sources or data that is not representative of the population. A circumstance in which systemic errors or prejudices lead to unfair or inaccurate information, resulting in biased outputs. 
+
+AI harms include:
+
+__Allocative harm:__ Harm that occurs when an AI system allocates resources or opportunities in a way that is unfair or discriminatory to a persons' well-being, such as denying access to healthcare or education based on biased data or algorithms. A situation in which an AI system unfairly allocates resources or opportunities, such as jobs, loans, or housing, to certain groups over others.
+
+__Quality-of-service harm:__ Harm that occurs when an AI system provides a lower quality of service to certain groups and identities, such as providing less accurate or reliable information to marginalized communities. A situation in which an AI system provides a lower quality of service to certain groups, such as people with disabilities or non-native speakers, resulting in unequal access to services. Another example is speech recognition systems that perform poorly for certain accents or dialects, leading to misunderstandings and miscommunications.
+
+__Representational harm:__ Harm that occurs when an AI system misrepresents or stereotypes certain groups, such as perpetuating harmful stereotypes or biases in media or advertising. A situation in which an AI system misrepresents or stereotypes certain groups, such as people of color or women, leading to bias and discrimination in society.
+
+__Social System harm:__ Harm that occurs when an AI system reinforces or perpetuates existing social inequalities (macro level), such as discrimination or bias in hiring or lending practices. A situation in which an AI system reinforces or perpetuates existing social inequalities, such as discrimination against marginalized groups, leading to systemic bias and discrimination.
+
+__Interpersonal harm:__ Harm that occurs when an AI system causes harm to individuals or groups, such as harassment or discrimination in online platforms or social media. The use of technology to create a disadvantage to certain people that negatively affects their relationships with others or causes a loss of one's sense of self and agency. 
+
+__Deepfakes:__ Harm that occurs when an AI system creates realistic but fake images, videos, or audio recordings that can be used to deceive or manipulate people, such as creating fake news or propaganda. A situation in which an AI system creates realistic but fake images, videos, or audio recordings that can be used to deceive or manipulate people, leading to misinformation and distrust in media, causing social system harm for example.
+
+__Privacy__ is the right for a user to have control over how their personal information and data are collected, stored, and used by AI systems. It involves ensuring that users' personal information is protected and that they have the ability to access, correct, or delete their data as needed.
+
+__Security__ is the act of safeguarding personal information and private data from unauthorized access, use, or disclosure. It involves implementing measures to protect AI systems and user data from cyber threats, such as hacking or data breaches.
+
+Measures to take to protect privacy and security include:
+  - Be aware of an AI tool's terms of use or service, privacy policy, and any associated risks. 
+  - Dont input personal or sensitive information into AI tools, such as passwords, financial information, or personal identification numbers.
+
+
+# 5 Step Framework for Prompting: 
+
+1. __Task__: Define the task you want the AI tool to perform. Be clear and specific about what you want the AI to do. Tasks include a __persona__ and a __format preference__ so that the task is specific. The persona is the expertise you want the AI tool to draw from, and the audience for the output (for example: an IT professional, or a specific audience like your manager or team). The format is how you want the output to be formatted, such as a bulleted list or a comparison table.
+2. __Context__: Provide any necessary context or background information that the AI tool needs to understand the task. This can include relevant details, examples, or guidelines that will help the AI generate a more accurate and relevant response.
+3. __References__: Include any references or examples that can help the AI tool understand the desired output. This can include links to relevant resources, documents, or examples of similar tasks.
+4. __Evaluate__: After receiving the AI-generated output, evaluate its quality and relevance. Check for accuracy, completeness, and alignment with your expectations.
+5. __Iterate__: If the output is not satisfactory, refine your prompt and repeat the process.
