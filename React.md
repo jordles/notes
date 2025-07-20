@@ -206,7 +206,47 @@ React.createElement('div', null, 'Hello')
 document.createElement('div') → sets innerText to "Hello"
 ```
 
+---
+
 # Dynamic Content
 
 ![alt text](media/react-dynamic-content.png)
 
+Expressions do not accept statements, loops, function declarations, or any other code that does not evaluate to a value. 
+
+# Loading Images
+
+Using `import` to load images is the recommended way in React, as it allows the build tool to optimize the image loading process. This is because the build tool can analyze the image and generate a unique hash for it, which can be used to cache the image in the browser. This is unique to React's build process and is not a standard JavaScript feature.
+
+Using the standard `src` attribute to load images is not recommended in React, as it does not allow the build tool to optimize the image loading process. This can lead to slower loading times and larger bundle sizes. It <ins>might not load the image at all</ins>. 
+
+Because importing is a value, it can be used inside JSX expressions. ==This allows you to dynamically load images based on the component's state or props.==
+
+```jsx
+import logo from './logo.png';
+
+function App() {
+  return (
+    <div>
+      <img src={logo} alt="Logo" />
+    </div>
+  )
+}
+```
+
+--- 
+
+# Props
+
+Props (short for properties) are a way to pass data from a parent component to a child component in React. They are used to configure the child component and can be any valid JavaScript value, including strings, numbers, arrays, objects, and functions.
+
+Props are passed to a component using the `props` object that is passed to the component. You can access props using the `this.props` keyword inside a class component.
+
+```jsx
+function App(props) {
+  return (
+    <div>
+      <h1>Hello, {props.name}!</h1>
+    </div>
+  );
+}
