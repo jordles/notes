@@ -238,6 +238,8 @@ function App() {
 
 # Props
 
+Any function (component) created on React accepts a single argument, which is an object containing the properties passed to the component. This object is called `props`. It can be called anything, but `props` is the convention.
+
 Props (short for properties) are a way to pass data from a parent component to a child component in React. They are used to configure the child component and can be any valid JavaScript value, including strings, numbers, arrays, objects, and functions.
 
 Props are passed to a component using the `props` object that is passed to the component. You can access props using the `this.props` keyword inside a class component.
@@ -250,3 +252,100 @@ function App(props) {
     </div>
   );
 }
+```
+
+![alt text](media/react-props.png)
+![alt text](media/react-props2.png)
+
+"props" are passed to a component as attributes in JSX, similar to how HTML attributes are passed to HTML elements. Components can accept any number of props, and they can be of any type. 
+
+We can destructure props to extract specific values from the props object. This is a common practice in React to make the code more readable and concise. Instead of destructing every prop, we can use __rest parameters__ to collect all remaining props into an object (==though that would be the same as passing props to a component, since props is already an object==).
+
+```jsx
+function App({ name }) {
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+    </div>
+  );
+}
+```
+
+__Rest Parameters__ can be used to collect all remaining props into an object. This is useful when you want to pass all props to a child component without explicitly defining each prop (which is already done with props itself). Though this is uncommon, it can be useful in some cases like when you want to pass all props to a third-party component that accepts a lot of props.
+
+```jsx
+function App(props) {
+  return (
+    <div>
+      <Greeting name={props.name} age={props.age} />
+    </div>
+  );
+}
+
+function Greeting({ ...props }) {
+  return (
+    <div>
+      <h1>Hello, {props.name}!</h1>
+      <p>Age: {props.age}</p>
+    </div>
+  );
+}
+
+// HOC, Higher Order Component example: 
+function withLogging(WrappedComponent) {
+  return function LoggedComponent(...args) {
+    console.log('Rendering with props:', args);
+    return <WrappedComponent {...args[0]} />;
+  };
+}
+```
+
+__Spread Operators__ can also be used to pass props to a component. They are syntactically the same as the spread operator in JavaScript.
+
+==When you spread props, you spread HTML-like attributes basically.==
+
+```jsx
+function App(props) {
+  return (
+    <div>
+      <Greeting {...props} />
+    </div>
+  );
+}
+
+is the same as:
+
+function App(props) {
+  return (
+    <div>
+      <Greeting name={props.name} age={props.age} />
+    </div>
+  );
+}
+```
+
+__Default Parameters__ can be used to set default values for props. This is useful when you want to provide a default value for a prop if it is not passed to the component.
+
+```jsx
+function App({ name = 'John' }) {
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+    </div>
+  );
+}
+```
+
+```jsx
+//without destructuring
+function App(props) {
+  const { name = 'John' } = props;
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+    </div>
+  );
+}
+```
+
+
