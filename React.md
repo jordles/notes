@@ -214,6 +214,8 @@ document.createElement('div') → sets innerText to "Hello"
 
 Expressions do not accept statements, loops, function declarations, or any other code that does not evaluate to a value. 
 
+==Expressions are anything that produces a value==
+
 # Loading Images
 
 Using `import` to load images is the recommended way in React, as it allows the build tool to optimize the image loading process. This is because the build tool can analyze the image and generate a unique hash for it, which can be used to cache the image in the browser. This is unique to React's build process and is not a standard JavaScript feature.
@@ -240,9 +242,9 @@ function App() {
 
 Any function (component) created on React accepts a single argument, which is an object containing the properties passed to the component. This object is called `props`. It can be called anything, but `props` is the convention.
 
-Props (short for properties) are a way to pass data from a parent component to a child component in React. They are used to configure the child component and can be any valid JavaScript value, including strings, numbers, arrays, objects, and functions.
+Props (short for properties) / custom attributes are a way to pass data from a parent component to a child component in React. They are used to configure the child component and can be any valid JavaScript value, including strings, numbers, arrays, objects, and functions.
 
-Props are passed to a component using the `props` object that is passed to the component. You can access props using the `this.props` keyword inside a class component.
+__Props are passed to a component using the `props` object.__ You can access props using the `this.props` keyword inside a class component.
 
 ```jsx
 function App(props) {
@@ -348,4 +350,51 @@ function App(props) {
 }
 ```
 
+__children__ is a special prop that is used to pass child elements to a component. It is used to render the content inside a component. The `props.children` prop can be any valid React element, including strings, numbers, arrays, and other components.
+
+![alt text](media/react-props3.png)
+
+Using children props vs attribute props really <ins>comes down to preference</ins>. 
+
+![alt text](media/react-props4.png)
+
+# Modular Components and CSS
+
+Reminder that even though you can make css modular, they are not scoped to the component even if you import them to the component file specifically. This is because the css is still global, and it will apply to all elements that match the css selectors.
+
+Styles can be scope to a component by using ==CSS Modules== that are interpreted by the build tool, which allows you to write CSS that is scoped to a specific component. This is done by importing the CSS file as a module and using the class names as properties of the imported object.
+
+__Behind the scenes__, the build tool uses a CSS Modules loader that:
+
+- Parses the CSS
+- Generates scoped, hashed class names
+- Replaces the import with an object like:
+
+```js
+{
+  container: 'App_container__1a2b3',
+  title: 'App_title__4d5e6'
+}
+```
+
+```jsx
+import styles from './App.module.css';
+
+//app.module.css
+.container {
+  text-align: center;
+}
+.title {
+  color: blue;
+}
+
+
+function App() {
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Hello, World!</h1>
+    </div>
+  );
+}
+```
 
