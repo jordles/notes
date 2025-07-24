@@ -242,7 +242,9 @@ function App() {
 
 Any function (component) created on React accepts a single argument, which is an object containing the properties passed to the component. This object is called `props`. It can be called anything, but `props` is the convention.
 
-Props (short for properties) / custom attributes are a way to pass data from a parent component to a child component in React. They are used to configure the child component and can be any valid JavaScript value, including strings, numbers, arrays, objects, and functions.
+Props (short for properties) / custom attributes are a way to pass data from a parent component to a child component in React. They are used to configure the child component and can be any valid JavaScript value, including strings, numbers, arrays, objects, and functions. 
+
+==Recall that html elements inside JSX are technically React components, so attributes passed to html elements in JSX are also props.==
 
 __Props are passed to a component using the `props` object.__ You can access props using the `this.props` keyword inside a class component.
 
@@ -356,6 +358,11 @@ __children__ is a special prop that is used to pass child elements to a componen
 
 Using children props vs attribute props really <ins>comes down to preference</ins>. 
 
+In general:
+
+__Attribute props__ are used for configuration, to give components attributes as well (other html elements that can accept attributes for example).  
+__Children props__ are more for passing content to a component, like text or other jsx elements.
+
 ![alt text](media/react-props4.png)
 
 # Modular Components and CSS
@@ -398,3 +405,44 @@ function App() {
 }
 ```
 
+# CSS Classes 
+
+When using class attributes in JSX, you must use `className` instead of `class`. This is because `class` is a reserved keyword in JavaScript, and React uses `className` to avoid conflicts. ==Other attributes will follow the same camelCase syntax.==
+
+# Event Handlers
+
+We do not manipulate the DOM directly in React, so we use attribute handlers to handle events. This is done by passing a function to the event handler attribute, which will be called when the event occurs.
+
+We do not use any javascript event handlers like `onclick` or `onchange` in JSX. Instead, we use camelCase syntax for event handlers, like `onClick`, `onChange`, etc. 
+
+When calling a function from an event handler, its <ins>important to know when to use parentheses and when not to use them.</ins>  
+
+ - `onClick={handleClick}` Using without parentheses means that the event is ONLY calling the function only when the event occurs. 
+ - `onClick={handleClick()}` Using with parentheses means that the function is called immediately when the component is rendered / runtime, which is not what we want. This will cause the function to be executed immediately, instead of waiting for the event to occur.
+ - `onClick={() => handleClick()}` Creating an anonymous function here allows you to pass arguments to a function, but restrict its call to the event handler only. The anon function acts as the value being passed. This is useful when you want to pass additional data to the event handler or additional logic to the function. 
+
+# React Hooks
+__React hooks__ are functions that allow you to use React features in functional components. They are used to manage state, side effects, and other React features without using class components.
+
+React hooks must be called at the top level of a functional component, and they cannot be called inside loops, conditions, or nested functions. This is because React needs to keep track of the order in which hooks are called, and calling them conditionally or inside loops would break that order.
+
+![alt text](media/react-hooks.png)
+
+# React State
+React only executes the code inside a component when it is first rendered. Having states allows us to change the component's output when the state changes, without having to re-render the entire component.
+
+States can be used to store data that is local to the component. This data is private to the component and cannot be accessed outside of the component.
+
+`useState` is a React hook that allows you to add state to a functional component. It returns an array with two elements: the current state value and a function to update the state value. 
+
+useState accepts a current initial value, and since its a function, it ==returns an array with two elements: the current state value and a function to update the state value.==
+
+![alt text](media/react-state.png)
+
+With array destructuring, we can assign the two elements to variables for example:
+
+```jsx
+const [count, setCount] = useState(0);
+```
+
+The `count` variable will hold the current state value, and the `setCount` function will be used to update the state value.
