@@ -446,3 +446,12 @@ const [count, setCount] = useState(0);
 ```
 
 The `count` variable will hold the current state value, and the `setCount` function will be used to update the state value.
+
+__Derived state__ is a value that is calculated based on other state values. It is not stored in the component's state, but it is calculated when the component is rendered. This is useful when you want to avoid storing redundant data in the component's state. ==These values get recalculated per render because the state is updated whenever the component re-renders.==
+
+```jsx
+const [count, setCount] = useState(0);
+const doubleCount = count * 2; //doubleCount is derived from count, so its a derived state. It is also a computed value because it is calculated during rendering and not stored in state. 
+```
+
+__Computed values__ is a value that is calculated during rendering using current state or props. You compute on the fly, rather than storing it in state. Like `doubleCount`, it is stored in the component's state, but they are calculated when the component is rendered. This is useful when you want to avoid storing redundant data in the component's state. ==Computed values are calculated only once during render based on current props/state. Important to note that computed values are not stored in state, because its easy for a derived state to get out of sync, should the original state change.== BASICALLY computed values ARE JUST NORMAL VARIABLES. Computed values CAN be derived states, if they derive value from state or props.
