@@ -120,6 +120,21 @@ const obj3 = {...obj1, ...obj2};
 console.log(obj3); // {a: 1, b: 2, c: 3, d: 4} 
 ```
 
+## Operators
+
+Logical AND `&&` 
+
+In javascript, AND works exactly like its truth table. JS will evaluate the values based on the boolean:
+- The first falsy value
+- The last value, if all other values are truthy
+
+
+Logical OR `||`
+
+In javascript, OR works exactly like its truth table. JS will evaluate the values based on the boolean:
+- The first truthy value
+- The last value, if all other values are falsy
+
 ## Control Flow / Structures
 
 ## DOM Manipulation

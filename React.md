@@ -454,4 +454,28 @@ const [count, setCount] = useState(0);
 const doubleCount = count * 2; //doubleCount is derived from count, so its a derived state. It is also a computed value because it is calculated during rendering and not stored in state. 
 ```
 
-__Computed values__ is a value that is calculated during rendering using current state or props. You compute on the fly, rather than storing it in state. Like `doubleCount`, it is stored in the component's state, but they are calculated when the component is rendered. This is useful when you want to avoid storing redundant data in the component's state. ==Computed values are calculated only once during render based on current props/state. Important to note that computed values are not stored in state, because its easy for a derived state to get out of sync, should the original state change.== BASICALLY computed values ARE JUST NORMAL VARIABLES. Computed values CAN be derived states, if they derive value from state or props.
+__Computed values__ is a value that is calculated during rendering using current state or props. You compute on the fly, rather than storing it in state. Like `doubleCount`, it is stored in the component's state, but they are calculated when the component is rendered. This is useful when you want to avoid storing redundant data in the component's state. ==Computed values are calculated only once during render based on current props/state. Important to note that computed values are not stored in state, because its easy for a derived state to get out of sync, should the original state change.== <ins>BASICALLY computed values ARE JUST NORMAL VARIABLES. Computed values CAN be derived states, if they derive value from state or props.</ins>
+
+# Rendering with Conditions
+
+If we want to use a ternary operator to conditionally render a component, we can use `&&` instead of `?`, because `&&` is a short-circuiting operator. It evaluates the left side first, and if it is false, it short-circuits and does not evaluate the right side. 
+
+We have the option to use fragment syntax, which is a shorthand for `React.Fragment`. This allows us to return multiple elements without adding an extra node to the DOM. ==We need either a fragment or a single root element to return multiple elements from a component.==
+
+```jsx
+return (
+  <>
+    {isLoggedIn ? <UserProfile /> : <LoginForm />}
+  </>
+)
+
+```
+
+```jsx 
+
+{isLoggedIn ? <p>Welcome!</p> : null}
+
+// is replaced with:
+
+{isLoggedIn && <p>Welcome!</p>}
+```
