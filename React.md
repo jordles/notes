@@ -478,4 +478,14 @@ return (
 // is replaced with:
 
 {isLoggedIn && <p>Welcome!</p>}
+
+// or you can also use a variable that holds JSX code: 
+
+const message = isLoggedIn ? <p>Welcome!</p> : null;
+
+return (
+  <>
+    {message}
+  </>
+)
 ```
