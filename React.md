@@ -433,6 +433,8 @@ React only executes the code inside a component when it is first rendered. Havin
 
 States can be used to store data that is local to the component. This data is private to the component and cannot be accessed outside of the component.
 
+With vanilla JS, we would have to update the actual DOM manually for every change in the state with `document.getElement` methods. With React, we can use the `useState` hook to manage the state of a component that updates the virtual DOM first and later updates the actual DOM.
+
 `useState` is a React hook that allows you to add state to a functional component. It returns an array with two elements: the current state value and a function to update the state value. 
 
 useState accepts a current initial value, and since its a function, it ==returns an array with two elements: the current state value and a function to update the state value.==
