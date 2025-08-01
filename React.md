@@ -96,6 +96,9 @@ The build process:
   - `type="module"` is not needed for connecting js files to html files. It will instead bundle all the js files and inject them into the html file (using old syntax in the right order, which is done to accommodate older browsers that might not support es modules). The browser only needs to download a couple big files, instead of multiple small files. This basically eliminates the need for developers to write out a script tag for each js file.
   - node.js is used to run the build process.
 
+![alt text](media/react-build-process.png)
+
+
 These tools allow us to convert JSX to JavaScript and also minify the code when js files are built for optimized production when served to the browser. The most popular build tool is [Create React App](https://create-react-app.dev/) and [Vite](https://vitejs.dev/).
 
 Create React App has `react-script` and `react-app-rewired` packages. `react-app-rewired` is a custom webpack configuration that allows us to use JSX in our JS files.
@@ -156,7 +159,7 @@ HTML elements nested inside JSX are called __React elements__. They are the buil
 
 ## React Rendering Process: 
 
-1. JSX is compiled, becoming nested calls to `React.createElement()`. This will create a React element, which is a plain object that describes the component and its properties.
+1. JSX is compiled, becoming nested calls to `React.createElement()`. This will create a React element, which is a plain object that describes the component and its properties. ==This means that JSX isnt necessary to write React code, but it is a syntax sugar that makes it easier to write and read. We can use createElement() as an alternative to JSX. This also removes the need for a build process entirely.==
 1. The calls start at the root component, recursively calling the components, creating React elements for each custom component / host component, forming a tree structure: the Virtual DOM. 
 1. React compares the virtual DOM tree to the previous version of the virtual DOM tree (if it exists) using a process called reconciliation.
 1. React updates the actual DOM based on the differences between the two virtual DOM trees. This is done by React through `ReactDOM`, which creates real DOM nodes (created with `document.createElement()`) and updates their properties (e.g. innerText, className) based on the React elements and updates the actual DOM accordingly.
@@ -172,7 +175,7 @@ HTML elements nested inside JSX are called __React elements__. They are the buil
 ```jsx
 function App() {
   return (
-    <div>
+    <div id="content">
       <h1>Hello</h1>
       <Greeting name="Jacky" />
     </div>
@@ -183,7 +186,7 @@ function App() {
 // under the hood
 React.createElement(
   'div',
-  null,
+  { id: 'content' },
   React.createElement('h1', null, 'Hello'),
   React.createElement(Greeting, { name: 'Jacky' })
 );
