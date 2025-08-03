@@ -120,7 +120,8 @@ React builds by combining components.
   - Components allow related code to be grouped together, making it easier to maintain and understand. Each component can have its own html, and js code (possibly css code as well), which makes it easier to manage and reuse code. 
   - Components allow separation of concerns, where each component is responsible for a specific part of the UI.
   - Components allow for easy testing and debugging, as they can be isolated and tested independently.
-
+  - You might want to split components into smaller components to make them easier to read and maintain. This is called component composition, and it allows you to build complex UIs from simple building blocks. This also avoids unintended rerenders, as each component can be updated independently without affecting the rest of the application.  
+  
 ![alt text](media/components.png)
 
 React components always follows these rules:
