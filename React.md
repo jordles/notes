@@ -494,3 +494,31 @@ return (
   </>
 )
 ```
+
+# React Fragments
+
+React fragments are a way to group multiple elements without adding an extra node to the actual DOM. This is useful when you want to return multiple elements from a component without wrapping them in a div or another element.
+
+==Reminder that we do need a parent element when returning JSX from a component, so we can use fragments to avoid adding an extra node to the DOM.==
+
+The official syntax for fragments is `React.Fragment`, but you can also use the shorthand syntax `<>` and `</>`. 
+
+```jsx
+return (
+  <Fragment>
+    <h1>Hello</h1>
+    <p>Welcome to my website!</p>
+  </Fragment>
+)
+
+```
+
+```jsx
+return (
+  <>
+    <h1>Hello</h1>
+    <p>Welcome to my website!</p>
+  </>
+)
+```
+
