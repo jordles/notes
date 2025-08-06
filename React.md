@@ -121,7 +121,7 @@ React builds by combining components.
   - Components allow separation of concerns, where each component is responsible for a specific part of the UI.
   - Components allow for easy testing and debugging, as they can be isolated and tested independently.
   - You might want to split components into smaller components to make them easier to read and maintain. This is called component composition, and it allows you to build complex UIs from simple building blocks. This also avoids unintended rerenders, as each component can be updated independently without affecting the rest of the application.  
-  
+
 ![alt text](media/components.png)
 
 React components always follows these rules:
@@ -368,6 +368,41 @@ __Attribute props__ are used for configuration, to give components attributes as
 __Children props__ are more for passing content to a component, like text or other jsx elements.
 
 ![alt text](media/react-props4.png)
+
+# Forwarding / Proxy Props
+
+__Forwarding props__ is a technique used to pass props from one component to another, without having to explicitly define each prop in the child component. This is useful when you want to pass all props to a child component without having to define each prop individually. This is done by using the `...props` syntax, which spreads the props object into the child component, which is the syntax of the rest parameters.
+
+```jsx
+function App(props) {
+  return (
+    <div>
+      <Greeting {...props} />
+    </div>
+  )
+}
+```
+```jsx
+function Greeting ({name, ...props}) {
+  return (
+    <div {...props}>
+      <h1>Hello, {name}!</h1>
+    </div>
+  )
+}
+```
+
+```jsx
+export default function Input({richText, ...props}) {
+  
+    return(
+        <>
+        {richText ? <textarea {...props} ></textarea> : <input {...props} ></input>}
+        </>
+    )
+  
+}
+```
 
 # Modular Components and CSS
 
