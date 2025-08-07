@@ -528,7 +528,7 @@ return (
   <>
     {message}
   </>
-)
+) 
 ```
 
 # React Fragments
