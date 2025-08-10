@@ -248,6 +248,8 @@ Any function (component) created on React accepts a single argument, which is an
 
 Props (short for properties) / custom attributes are a way to pass data from a parent component to a child component in React. They are used to configure the child component and can be any valid JavaScript value, including strings, numbers, arrays, objects, and functions. 
 
+Props can receive values like JSX code, strings, numbers, arrays, objects, and functions. They are passed to a component as attributes in JSX, similar to how HTML attributes are passed to HTML elements.
+
 ==Recall that html elements inside JSX are technically React components, so attributes passed to html elements in JSX are also props.==
 
 __Props are passed to a component using the `props` object.__ You can access props using the `this.props` keyword inside a class component.
@@ -266,6 +268,36 @@ function App(props) {
 ![alt text](media/react-props2.png)
 
 "props" are passed to a component as attributes in JSX, similar to how HTML attributes are passed to HTML elements. Components can accept any number of props, and they can be of any type. 
+
+Props can even be used as tags to <ins>change component types dynamically</ins>. However they must follow the same syntax for React components. The reason is because the compiler will try to convert the prop itself containing the actual value of the prop, so capitalization will be important to treat it like a component or else `createElement()` will treat it like its undefined (because it doesn't exist). 
+
+```jsx
+function Button({ buttonContainer: ButtonContainer}){ //we are merely renaming the prop to ButtonContainer using a new variable. 
+    return(
+      <>
+        <ButtonContainer> Hello </ButtonContainer>
+      </>
+    )
+}
+function Button({ buttonContainer}){
+    const ButtonContainer = buttonContainer
+    return(
+      <>
+        <ButtonContainer> Hello </ButtonContainer>
+      </>
+    )
+}
+
+function Button({ ButtonContainer}){ //this works as well 
+  return (
+    <ButtonContainer> Hello </ButtonContainer> 
+  )
+}
+
+<Button buttonContainer="menu" /> //React recognizes the string as built-in elements and tries to look for one with that name. React.createElement("menu", null, buttons);
+<Button buttonContainer="a" />
+<Button buttonContainer= {Section}/> //Section component being passed as a prop
+```
 
 We can destructure props to extract specific values from the props object. This is a common practice in React to make the code more readable and concise. Instead of destructing every prop, we can use __rest parameters__ to collect all remaining props into an object (==though that would be the same as passing props to a component, since props is already an object==).
 
@@ -495,7 +527,7 @@ const [count, setCount] = useState(0);
 const doubleCount = count * 2; //doubleCount is derived from count, so its a derived state. It is also a computed value because it is calculated during rendering and not stored in state. 
 ```
 
-__Computed values__ is a value that is calculated during rendering using current state or props. You compute on the fly, rather than storing it in state. Like `doubleCount`, it is stored in the component's state, but they are calculated when the component is rendered. This is useful when you want to avoid storing redundant data in the component's state. ==Computed values are calculated only once during render based on current props/state. Important to note that computed values are not stored in state, because its easy for a derived state to get out of sync, should the original state change.== <ins>BASICALLY computed values ARE JUST NORMAL VARIABLES. Computed values CAN be derived states, if they derive value from state or props.</ins>
+__Computed values__ is a value that is calculated during rendering using current state or props. You compute on the fly, rather than storing it in state. Like `doubleCount`, it is stored in the component's state, but they are calculated when the component is rendered. This is useful when you want to avoid storing redundant data in the component's state. ==Computed values are calculated only once during render based on current props/state. Important to note that computed values are not stored in state, because its easy for a derived state to get out of sync, should the original state change and therefore causes unintended re-renders and bugs.== <ins>BASICALLY computed values ARE JUST NORMAL VARIABLES. Computed values CAN be derived states, if they derive value from state or props.</ins>
 
 # Rendering with Conditions
 
