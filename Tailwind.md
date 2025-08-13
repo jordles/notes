@@ -1,5 +1,9 @@
 # Tailwind
 
+## Why
+
+- Rigid classes allow you to create a consistent look and feel for your project, without manually styling each element.
+- We can apply css class styles with Tailwind on specific states, like hover, focus, etc compared to normal inline styles.
 
 ## Installation
 
