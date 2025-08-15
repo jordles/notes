@@ -760,7 +760,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
           <li><code>background-attachment</code> - set whether a background scrolls with the rest of the page
             <ul>
               <li><code>scroll</code> - image will scroll with page (default)</li>
-              <li><code>fixed</code> - will not scroll with page</li>
+              <li><code>fixed</code> - will not scroll with page (great for shared background images across elements)</li>
               <li><code>local</code> - image will scroll with the element's contents</li>
             </ul>
           </li>
@@ -769,9 +769,10 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
               <li><code>border-box</code> - background extends to the edge of the border</li>
               <li><code>padding-box</code> - background extends to the edge of the padding</li>
               <li><code>content-box</code> - background extends to the edge of the content</li>
+              <li><code>text</code> - background extends to the edge of the text</li>
             </ul>
           </li>  
-          <li><code>background-origin</code> - background's starting edge/origin in terms of the box model; uses *-box values</li>
+          <li><code>background-origin</code> - background's starting position/edge/origin in terms of the box model; uses *-box values (used with background-position and background-clip)</li>
         </ul>
       </li>
       <hr>

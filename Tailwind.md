@@ -61,6 +61,32 @@ The order of the layers is important, as it determines the ==specificity of the 
 
 ### Utility Classes 
 
+### Colors
+
+`-red` - define red colors  
+`-orange` - define orange colors  
+`-amber` - define amber colors  
+`-yellow` - define yellow colors  
+`-lime` - define lime colors  
+`-green` - define green colors  
+`-emerald` - define emerald colors  
+`-teal` - define teal colors  
+`-cyan` - define cyan colors  
+`-sky` - define sky colors  
+`-blue` - define blue colors  
+`-indigo` - define indigo colors  
+`-violet` - define violet colors  
+`-purple` - define purple colors  
+`-fuchsia` - define fuchsia colors  
+`-pink` - define pink colors  
+`-rose` - define rose colors  
+`-slate` - define slate colors  
+`-gray` - define gray colors  
+`-zinc` - define zinc colors  
+`-neutral` - define neutral colors  
+`-stone` - define stone colors  
+  - `-{50|100|200|300|400|500|600|700|800|900}` - define shades of the color, where 50 is the lightest and 900 is the darkest
+
 ### Layout
 
 `-` - define negative values for properties  
@@ -73,4 +99,69 @@ The order of the layers is important, as it determines the ==specificity of the 
 `left` - define the left inset property in one class  
   - `-px` - define all 1px properties
   - `-{num}` - each number is a multiple of 4px, represented a grid system
+  - `-{fraction/4}` - defines percentage values 
+  - `-full` - defines 100% value
 
+### Background
+
+`bg` - define background properties
+
+1. Background Image
+  - `-{value}` - define a background image, where value is a URL or a custom property (e.g. `bg-image-url('path/to/image.jpg')`)
+  - `-{custom property}` - define a custom variable property for the background image (e.g. `bg-image-custom('my-image')`)
+  - `-none` - no background image
+  - `-linear` - defines a linear gradient background image
+  - `-radial` - defines a radial gradient background image
+  - `-gradient` - defines a gradient background image, where the gradient can be linear or radial
+
+1. Background Size
+  - `-auto` - background image will be displayed at its original size
+  - `-cover` - background image will cover the entire element, cropping if necessary
+  - `-contain` - background image will contain the entire element, cropping if necessary
+  - `-size-{custom properties}` - define a custom size for the background image
+  - `-size-{value}` - define a size for the background image, where value is a multiple of 4px (e.g. `bg-size-16` will set the background image size to 64px)
+
+2. Background Attachment
+
+  - `-fixed` - defines a fixed background image
+  - `-local` - defines a local background image
+  - `-scroll` - defines a scrollable background image 
+
+3. Background Clip
+  - `-clip-border` - background extends to the border of the element
+  - `-clip-padding` - background extends to the padding of the element
+  - `-clip-content` - background extends to the content of the element
+  - `-clip-text` - background extends to the text of the element
+
+4. Background Color
+  - `-transparent` - defines a transparent background
+  - `-current` - defines a current color background
+  - `-{color}-{shade}` - defines a background color, where color is one of the colors defined above and shade is one of the shades defined above
+
+5. Background Repeat
+  - `-repeat` - defines a repeated background image
+  - `-no-repeat` - defines a non-repeated background image
+  - `-repeat-x` - defines a repeated background image in the x direction
+  - `-repeat-y` - defines a repeated background image in the y direction
+  - `-repeat-round` - defines a repeated background image without clipping, stretching to fill the space
+  - `-repeat-space` - defines a repeated background image the edges first, then the rest of the image is spaced evenly (can leave gaps or white space between images)
+
+6. Background Position
+  - `-top-left` - defines the background position at the top left corner of the element
+  - `-top` - defines the background position at the top center of the element
+  - `-top-right` - defines the background position at the top right corner of the element
+  - `-left` - defines the background position at the left center of the element
+  - `-center` - defines the background position at the center of the element
+  - `-right` - defines the background position at the right center of the element
+  - `-bottom-left` - defines the background position at the bottom left corner of the element
+  - `-bottom` - defines the background position at the bottom center of the element
+  - `-bottom-right` - defines the background position at the bottom right corner of the element
+  - `-position-{custom properties}` - define a custom variable property for the background image
+  - `-position-{value}` - define a position for the background image, where value is a multiple of 4px (e.g. `bg-position-16` will set the background image position to 64px)
+
+7. Background Origin
+  - `-origin-border` - background origin is the border of the element
+  - `-origin-padding` - background origin is the padding of the element
+  - `-origin-content` - background origin is the content of the element
+
+  
