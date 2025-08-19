@@ -93,24 +93,28 @@ The order of the layers is important, as it determines the ==specificity of the 
   `-{custom property}` - define a custom variable property for the color (e.g. `color-custom('my-color')`)  
   `-{value}` - define a color, where value is a hex code, rgb/rgba value, or hsl/hsla value (e.g. `color-#ff0000` or `color-rgb(255, 0, 0)`)
 
-### Layout
+## Layout
 
-1. Aspect Ratio
+### Aspect Ratio
+
+Utilities for controlling the aspect ratio of an element.
 
 | Class                        | Styles                                            |
 | ---------------------------- | ------------------------------------------------- |
-| `aspect-<ratio>`             | aspect-ratio: &lt;ratio&gt;;                            |
+| `aspect-<ratio>`             | aspect-ratio: &lt;ratio&gt;;                      |
 | `aspect-square`              | aspect-ratio: 1 / 1;                              |
 | `aspect-video`               | aspect-ratio: var(--aspect-ratio-video); `16 / 9` |
 | `aspect-auto`                | aspect-ratio: auto;                               |
-| `aspect-(<custom-property>)` | aspect-ratio: var(&lt;custom-property&gt;);             |
-| `aspect-[<value>]`           | aspect-ratio: &lt;value&gt;;                            |
+| `aspect-(<custom-property>)` | aspect-ratio: var(&lt;custom-property&gt;);       |
+| `aspect-[<value>]`           | aspect-ratio: &lt;value&gt;;                      |
 
-1. Columns
+### Columns
+
+Utilities for controlling the number of columns within an element.
 
 | Class                         | Styles                                          |
 | ----------------------------- | ----------------------------------------------- |
-| `columns-<number>`            | columns: &lt;number of columns&gt;;                              |
+| `columns-<number>`            | columns: &lt;number of columns&gt;;             |
 | `columns-3xs`                 | columns: var(--container-3xs); `16rem (256px)`  |
 | `columns-2xs`                 | columns: var(--container-2xs); `18rem (288px)`  |
 | `columns-xs`                  | columns: var(--container-xs); `20rem (320px)`   |
@@ -126,7 +130,12 @@ The order of the layers is important, as it determines the ==specificity of the 
 | `columns-7xl`                 | columns: var(--container-7xl); `80rem (1280px)` |
 | `columns-auto`                | columns: auto;                                  |
 | `columns-(<custom-property>)` | columns: var(<custom-property>);                |
-| `columns-[<value>]`           | columns: &lt;value&gt;;                               |
+| `columns-[<value>]`           | columns: &lt;value&gt;;                         |
+
+### break-after
+
+Utilities for controlling how a column or page should break after an element.
+
 
 
 `-` - define negative values for properties  
