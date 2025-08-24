@@ -150,7 +150,7 @@ Utilities for controlling how a column or page should break after an element.
 - `-px` - define all 1px properties
 - `-{num}` - each number is a multiple of 4px, represented a grid system
 - `-{fraction/4}` - defines percentage values
-- `-full` - defines 100% value
+- `-full` - defines 100% value 
 
 ### Background
 
