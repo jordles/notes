@@ -8,7 +8,7 @@ AI is also a broad field that includes machine learning, deep learning, natural 
 
 AI is powered by __machine learning__ algorithms, which allow it to learn from data and improve its performance over time. These algorithms can be trained on large datasets to recognize patterns, make predictions, and perform tasks that would be difficult or impossible for humans to do manually.
 
-Machine learning is a subset of AI that focuses on the development of algorithms that can learn from and make predictions based on data. It involves training models on large datasets to recognize patterns and make decisions without being explicitly programmed. Its often used by AI to make sense of large amounts of data and to automate tasks that would be difficult or impossible for humans to do manually.
+__Machine learning__ is a subset of AI that focuses on the development of algorithms that can learn from and make predictions based on data. It involves training models on large datasets to recognize patterns and make decisions without being explicitly programmed. Its often used by AI to make sense of large amounts of data and to automate tasks that would be difficult or impossible for humans to do manually.
 
 Machine Learning is built using __Training Sets__, which are datasets that are used to train the model / AI. The model is then tested on a separate dataset called the Test Set, which is used to evaluate the performance of the model. The model is then fine-tuned based on the results of the test set.
 
@@ -28,19 +28,43 @@ Conversely, __ML techniques__ are better suited for tasks demanding flexibility 
 
 # Approaches to training ML programs
 
-__Supervised learning__
+__Supervised learning__ (inputs with labels)
 
 Using  this approach, AI designers provide the ML program with a labeled training set of data, and the program learns from that data. A labeled training set includes data that is labeled or tagged, which provides context and meaning to the data. For instance, an email spam filter that's trained with supervised learning would use a training set of emails that are labeled as “spam” or “not spam.” ==Supervised learning is often used when there's a specific output in mind.==
 
-__Unsupervised learning__
+<details>
+<summary>Examples</summary>
+
+Email spam filter: Input = email text; Output = spam/not spam.
+
+- Model: logistic regression or transformer fine-tune.
+
+- Metric: precision/recall so you don’t miss real emails.
+
+House price prediction: Features = sq ft, location; Output = price (regression).
+
+- Metric: MAE or RMSE.
+
+Fraud detection: Transaction features → fraud/not fraud.
+
+- Often class-imbalanced; use PR-AUC, cost-sensitive thresholds.
+
+</details>
+
+
+__Unsupervised learning__ (no labels)
 
 In this approach, AI designers provide the ML program with an unlabeled training set of data, and the program learns from that data. An unlabeled training set includes data that does not have labels or tags. For instance, ML might be used to analyze a dataset of unsorted  email messages and find patterns in topics, keywords, or contacts. In other words, ==unsupervised learning is used to identify patterns in data without a specific output in mind.==
 
-__Reinforcement learning__
+__Reinforcement learning__ (trial and error)
 
 In this approach, AI designers provide the ML program with data that allow it to learn by  trial-and-error. The program learns to do this by getting rewarded for making good choices that lead to the desired results. ==Reinforcement learning is commonly used by conversational AI tools. As these tools receive feedback from users and AI designers, they learn to generate effective responses.==
 
 Each ML technique has its own strengths and weaknesses. Depending on the type of data that's available and what's needed to solve the particular problem, AI designers may use one, two, or all three of these techniques to produce an AI-powered solution.
+
+__Self-supervised learning / deep learning__ are other techniques that are often used in conjunction with the three main techniques mentioned above. 
+- Image understanding: CNNs/ViTs trained on huge unlabeled corpora; fine-tune for your task.
+- Language models: LLMs trained to predict the next token; later fine-tuned for helpfulness/safety.
 
 # Generative AI
 
@@ -233,6 +257,7 @@ __Gemini Code Assist__
 __GitHub Copilot__
 
   - Description: A plugin for popular IDEs and built into GitHub, Copilot can write and suggest code, suggest descriptions for pull requests, translate multiple languages into code, and index repositories.
+  - Build on OpenAI's Codex model (a gpt-3 model trained on code)
   - Example industries: Data science, software development, web development
   - Stand-alone or integrated: Integrated
 
@@ -252,7 +277,8 @@ __Jupyter AI__
 
 <br>
 
-__Multimodal models__ are AI models that can process and generate multiple types of data, such as text, images, and audio. They can be used to create more complex and sophisticated AI tools that can perform a wider range of tasks. Some examples of multimodal models include OpenAI's GPT-4, Google's Gemini, and Meta's LLaMA.
+__Multimodal models__ are AI models that can process and generate multiple types of data, such as text, images, and audio. They can be used to create more complex and sophisticated AI tools that can perform a wider range of tasks. Some examples of multimodal models include OpenAI's GPT-4, Google's Gemini, and Meta's LLaMA. They are an extension of traditional LLMs (GPT-3, LLaMA, Claude), but with the ability to process and generate multiple types of data.
+
 
 **Generative AI tools** include:
 - __Standalone tools__: These are AI tools that can be used independently, such as text generators, image generators, and code generators. They can be used to create content, automate tasks, and assist with various tasks.
@@ -300,13 +326,13 @@ AI designers and engineers want to predict rain to help people stay dry when com
   AI designers and engineers prepare the data by labeling important features, such as outdoor temperature, humidity, and air pressure, and then noting whether it rained. It's also common to separate the data into two distinct sets: a training set and a validation set to test with later.
 
   1. __Train the model.__   
-  AI designers and engineers apply machine learning (ML) programs to the prepared training data. As the ML programs analyze the data, they begin learning how to recognize patterns that indicate the likelihood of rainfall, such as the combination of high temperatures, low air pressure, and high humidity.
+  AI designers and engineers apply machine learning (ML) programs to the prepared training data. As the ML programs analyze the data, they begin learning how to recognize patterns that indicate the likelihood of rainfall, such as the combination of high temperatures, low air pressure, and high humidity. They use algorithms like: logistic regression, decision trees, and random forests. __Loss functions__ (how wrong the model is) and __optimizers__ (adjusting the parameters to minimize the loss) are used to fine-tune the model's performance during training. The training process may take hours, days, or even weeks, depending on the complexity of the model and the size of the dataset.
 
   1. __Evaluate the model.__   
   AI designers and engineers use the validation set they prepared earlier to assess their model's ability to predict rainfall accurately and reliably. Analyzing a model's performance can uncover potential issues impacting the model, such as insufficient or biased training data. If any issues exist, the AI designers and engineers may revisit an earlier step in this process to try a different approach. Once the model performs well with its validation set, the process continues to the next step.
 
   1. __Deploy the model.__   
-  When the AI designers and engineers are satisfied with their model's performance, they deploy it in an AI tool—helping people in their city stay dry on their way to work!
+  When the AI designers and engineers are satisfied with their model's performance, they deploy it behind an API, app, device, or pipeline, making it accessible to users.
 
 Model training is an <ins>iterative process</ins>. AI designers and engineers can repeat each step as many times as necessary and make adjustments until they create the best model possible. 
 
@@ -340,7 +366,7 @@ Important aspects of prompt engineering include:
   - iterating on prompts to refine the model's responses.
   - __few-shot prompting__, which involves providing examples in the prompt to guide the model's responses.
 
-__Large Language Models (LLMs)__ are a type of AI model that is trained on vast amounts of text data to understand and generate human-like language (words, concepts, and phrases) in response to prompts. They are capable of performing a wide range of natural language processing tasks, such as text generation, translation, summarization, and question answering.
+__Large Language Models (LLMs)__ are a type of AI model that is trained on vast amounts of text data to understand and generate human-like language (words, concepts, and phrases) in response to prompts. This means they specialize in Natural Language Processing (NLP) or natural language understanding. They are capable of performing a wide range of natural language processing tasks, such as text generation, translation, summarization, and question answering.
 
 When being trained on the text data, LLMs learn to recognize patterns in language and generate responses that are coherent and contextually relevant. They can also be fine-tuned for specific tasks or domains to improve their performance.
 
@@ -356,7 +382,7 @@ Factors that contribute to hallucinations in LLMs include:
   
 Effective Prompting: 
 
-Specify the task
+Specify the task:  
 Specifying your task is the foundation of every prompt. Describe in detail what you want the AI tool to do, be clear and avoid ambiguity. If you write a task with vague instructions, it can result in an output that’s irrelevant or incorrect.  Your task may include a persona and a format preference so that the task is specific: 
 
 Task: What action do you want the tool to help you with? For example, you might ask the tool to write an email or create an image. 
