@@ -47,7 +47,7 @@ House price prediction: Features = sq ft, location; Output = price (regression).
 
 Fraud detection: Transaction features → fraud/not fraud.
 
-- Often class-imbalanced; use PR-AUC, cost-sensitive thresholds.
+- Often class-imbalanced; use PR-AUC, cost-sensitive thresholds. 
 
 </details>
 
