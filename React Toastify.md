@@ -24,6 +24,9 @@ ToastContainer
 | progressClassName | string                 | object    | Add optional classes to the progress bar                                                            |
 | draggable         | bool                   | true      | Allow toast to be draggable                                                                         |
 | draggablePercent  | number                 | 80        | The percentage of the toast's width it takes for a drag to dismiss a toast(value between 0 and 100) |
+| stacked           | bool                   | false     | When true, allows to stack multiple toasts on the same position                                     |
+| closeOnClick      | bool                   | true      | Dismiss toast on click                                                                              |
+| draggable         | bool                   | true      | Allow toast to be draggable                                                                         |
 
 `toast(content, options)`
 
@@ -48,61 +51,79 @@ Options is an optional object to override the `ToastContainer` props for this sp
 | draggablePercent  | number                 | 80        | The percentage of the toast's width it takes for a drag to dismiss a toast(value between 0 and 100)                                       |
 | render            | string/element         | -         | String or React element, only available when calling toast.update                                                                         |
 
-__Toast options supersede ToastContainer props__
+**Toast options supersede ToastContainer props**
 
-We can override css variables 
+We can override css variables
 
 ```css
-Below the list of the css variables that are exposed by the library.
+Below the list of the css variables that are exposed by the library. :root {
+	--toastify-color-light: #fff;
+	--toastify-color-dark: #121212;
+	--toastify-color-info: #3498db;
+	--toastify-color-success: #07bc0c;
+	--toastify-color-warning: #f1c40f;
+	--toastify-color-error: hsl(6, 78%, 57%);
+	--toastify-color-transparent: rgba(255, 255, 255, 0.7);
 
-:root {
-  --toastify-color-light: #fff;
-  --toastify-color-dark: #121212;
-  --toastify-color-info: #3498db;
-  --toastify-color-success: #07bc0c;
-  --toastify-color-warning: #f1c40f;
-  --toastify-color-error: hsl(6, 78%, 57%);
-  --toastify-color-transparent: rgba(255, 255, 255, 0.7);
-  
-  --toastify-icon-color-info: var(--toastify-color-info);
-  --toastify-icon-color-success: var(--toastify-color-success);
-  --toastify-icon-color-warning: var(--toastify-color-warning);
-  --toastify-icon-color-error: var(--toastify-color-error);
-  
-  --toastify-container-width: fit-content;
-  --toastify-toast-width: 320px;
-  --toastify-toast-offset: 16px;
-  --toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));
-  --toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));
-  --toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));
-  --toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));
-  --toastify-toast-background: #fff;
-  --toastify-toast-padding: 14px;
-  --toastify-toast-min-height: 64px;
-  --toastify-toast-max-height: 800px;
-  --toastify-toast-bd-radius: 6px;
-  --toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  --toastify-font-family: sans-serif;
-  --toastify-z-index: 9999;
-  --toastify-text-color-light: #757575;
-  --toastify-text-color-dark: #fff;
+	--toastify-icon-color-info: var(--toastify-color-info);
+	--toastify-icon-color-success: var(--toastify-color-success);
+	--toastify-icon-color-warning: var(--toastify-color-warning);
+	--toastify-icon-color-error: var(--toastify-color-error);
 
-  /* Used only for colored theme */
-  --toastify-text-color-info: #fff;
-  --toastify-text-color-success: #fff;
-  --toastify-text-color-warning: #fff;
-  --toastify-text-color-error: #fff;
+	--toastify-container-width: fit-content;
+	--toastify-toast-width: 320px;
+	--toastify-toast-offset: 16px;
+	--toastify-toast-top: max(
+		var(--toastify-toast-offset),
+		env(safe-area-inset-top)
+	);
+	--toastify-toast-right: max(
+		var(--toastify-toast-offset),
+		env(safe-area-inset-right)
+	);
+	--toastify-toast-left: max(
+		var(--toastify-toast-offset),
+		env(safe-area-inset-left)
+	);
+	--toastify-toast-bottom: max(
+		var(--toastify-toast-offset),
+		env(safe-area-inset-bottom)
+	);
+	--toastify-toast-background: #fff;
+	--toastify-toast-padding: 14px;
+	--toastify-toast-min-height: 64px;
+	--toastify-toast-max-height: 800px;
+	--toastify-toast-bd-radius: 6px;
+	--toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	--toastify-font-family: sans-serif;
+	--toastify-z-index: 9999;
+	--toastify-text-color-light: #757575;
+	--toastify-text-color-dark: #fff;
 
-  --toastify-spinner-color: #616161;
-  --toastify-spinner-color-empty-area: #e0e0e0;
-  --toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
-  --toastify-color-progress-dark: #bb86fc;
-  --toastify-color-progress-info: var(--toastify-color-info);
-  --toastify-color-progress-success: var(--toastify-color-success);
-  --toastify-color-progress-warning: var(--toastify-color-warning);
-  --toastify-color-progress-error: var(--toastify-color-error);
-  /* used to control the opacity of the progress trail */
-  --toastify-color-progress-bgo: 0.2;
+	/* Used only for colored theme */
+	--toastify-text-color-info: #fff;
+	--toastify-text-color-success: #fff;
+	--toastify-text-color-warning: #fff;
+	--toastify-text-color-error: #fff;
+
+	--toastify-spinner-color: #616161;
+	--toastify-spinner-color-empty-area: #e0e0e0;
+	--toastify-color-progress-light: linear-gradient(
+		to right,
+		#4cd964,
+		#5ac8fa,
+		#007aff,
+		#34aadc,
+		#5856d6,
+		#ff2d55
+	);
+	--toastify-color-progress-dark: #bb86fc;
+	--toastify-color-progress-info: var(--toastify-color-info);
+	--toastify-color-progress-success: var(--toastify-color-success);
+	--toastify-color-progress-warning: var(--toastify-color-warning);
+	--toastify-color-progress-error: var(--toastify-color-error);
+	/* used to control the opacity of the progress trail */
+	--toastify-color-progress-bgo: 0.2;
 }
 ```
 
@@ -187,4 +208,14 @@ If overriding the css variables and using your own component are not enough for 
 .Toastify__close-button:hover,
 .Toastify__close-button:focus {
 }
+```
+
+# Custom Components
+
+When you provide a component, four props are injected into your component.
+```
+closeToast
+data
+isPaused
+toastProps
 ```
