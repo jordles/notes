@@ -107,6 +107,7 @@ Types of generative AI tools include:
 __Text Generators__ are AI tools that can create text based on input prompts. They use generative AI techniques to analyze the patterns in the training data and generate new text that matches the input prompt. Some popular text generators include OpenAI's GPT-3, Google's BERT, and Facebook's RoBERTa.
 
 <details>
+
 <summary>Conversational AI tools</summary>
 
 ## Conversational AI tools  
