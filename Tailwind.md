@@ -136,8 +136,6 @@ Utilities for controlling the number of columns within an element.
 
 Utilities for controlling how a column or page should break after an element.
 
-
-
 `-` - define negative values for properties  
 `inset` - define all the inset properties (top, right, bottom, left) in one class  
 `inset-x` - define the horizontal inset properties (left and right) in one class  
@@ -150,7 +148,7 @@ Utilities for controlling how a column or page should break after an element.
 - `-px` - define all 1px properties
 - `-{num}` - each number is a multiple of 4px, represented a grid system
 - `-{fraction/4}` - defines percentage values
-- `-full` - defines 100% value 
+- `-full` - defines 100% value
 
 ### Background
 
@@ -222,3 +220,18 @@ Utilities for controlling how a column or page should break after an element.
    - `-origin-border` - background origin is the border of the element
    - `-origin-padding` - background origin is the padding of the element
    - `-origin-content` - background origin is the content of the element
+
+## Box-Shadow
+
+| Class                            | Style                                                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| shadow-2xs                       | box-shadow: var(--shadow-2xs); /_ 0 1px rgb(0 0 0 / 0.05) _/                                            |
+| shadow-xs                        | box-shadow: var(--shadow-xs); /_ 0 1px 2px 0 rgb(0 0 0 / 0.05) _/                                       |
+| shadow-sm                        | box-shadow: var(--shadow-sm); /_ 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) _/       |
+| shadow-md                        | box-shadow: var(--shadow-md); /_ 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) _/    |
+| shadow-lg                        | box-shadow: var(--shadow-lg); /_ 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) _/  |
+| shadow-xl                        | box-shadow: var(--shadow-xl); /_ 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) _/ |
+| shadow-2xl                       | box-shadow: var(--shadow-2xl); /_ 0 25px 50px -12px rgb(0 0 0 / 0.25) _/                                |
+| shadow-none                      | box-shadow: 0 0 #0000;                                                                                  |
+| shadow-(<custom-property>)       | box-shadow: var(<custom-property>);                                                                     |
+| shadow-(color:<custom-property>) | --tw-shadow-color: var(<custom-property>);                                                              |
