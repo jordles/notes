@@ -598,7 +598,8 @@ Aggregate Functions are functions that are applied to a group of data in columns
 | STDDEV()                            | Calculate the standard deviation of a column.                |
 | VAR()                               | Calculate the variance of a column.                          |
 | STRING_AGG (column name, delimiter) | Aggregate data into a single string.                         |
-| ARRAY_AGG (column name)             | Aggregate data into an array.                                |
+| ARRAY_AGG (column name)             | Aggregate data into an array. (a postgres array)             |
+| JSON_AGG (column name)              | Aggregate data into a JSON array.                            |
 
 ---
 
@@ -1511,7 +1512,7 @@ WHERE username = 'Alyson14';
 1. Hash Join: For each row in comments, uses comments.user_id to look up matches in the hash table.
 
 Hash represents a hash table lookup. Hash tables are a data structure that uses a hash function to map keys to values. Since were using an equality query, were using a hash table lookup.  
-The index scan goes through the hash table to find the row. The hash table contains the indexes.  
+The index scan goes through the hash table to find the row. The hash table contains the indexes.
 
 The Hash Join is basically combining the results from the results from an index scan (hash table) and a sequential scan. The index scan is info from users table and the sequential scan is info from comments table.
 
@@ -1521,7 +1522,7 @@ In a Hash Join, PostgreSQL chooses one input to be the "build side", which that 
 1. The Hash Join goes through comments, does fast lookups in the hash table, and yields combined rows
 1. The output of the join is what becomes visible in the final result (or passed up to another node, like Sort, Aggregate, or the Output node)
 
-<ins>If say for example we only find two results where username = 'Alyson14' on the users table.</ins> A hash table is created with 2 buckets, containing only the filtered `users` rows hashed by the `id` column. Its essentially a temporary lookup structure that is useful to find matches in the comments table: 
+<ins>If say for example we only find two results where username = 'Alyson14' on the users table.</ins> A hash table is created with 2 buckets, containing only the filtered `users` rows hashed by the `id` column. Its essentially a temporary lookup structure that is useful to find matches in the comments table:
 
 ```sql
 Hash Table (keyed by users.id):
@@ -1555,7 +1556,7 @@ What happens inside?:
 2. The root node eventually lands on a leaf node which matches the indexed column value we are searching for. The leaf node will give us the TID (tuple ID) which is the syntax (block number, index number/offset_within_block).
 3. The TID is used to fetch the row from the heap file.
 
---- 
+---
 
 ### Ports
 
