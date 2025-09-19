@@ -235,3 +235,22 @@ Utilities for controlling how a column or page should break after an element.
 | shadow-none                      | box-shadow: 0 0 #0000;                                                                                  |
 | shadow-(<custom-property>)       | box-shadow: var(<custom-property>);                                                                     |
 | shadow-(color:<custom-property>) | --tw-shadow-color: var(<custom-property>);                                                              |
+
+## Flexbox
+
+justify-content
+Utilities for controlling how flex and grid items are positioned along a container's main axis.
+
+| Class | Styles |
+| --- | --- |
+| justify-start | justify-content: flex-start; |
+| justify-end | justify-content: flex-end; |
+| justify-end-safe | justify-content: safe flex-end; |
+| justify-center | justify-content: center; |
+| justify-center-safe | justify-content: safe center; |
+| justify-between | justify-content: space-between; |
+| justify-around | justify-content: space-around; |
+| justify-evenly | justify-content: space-evenly; |
+| justify-stretch | justify-content: stretch; |
+| justify-baseline | justify-content: baseline; |
+| justify-normal | justify-content: normal; |
