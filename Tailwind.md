@@ -255,6 +255,7 @@ Utilities for controlling how flex and grid items are positioned along a contain
 | justify-baseline | justify-content: baseline; |
 | justify-normal | justify-content: normal; |
 
+place-self
 Utilities for controlling how an individual item is justified and aligned at the same time.
 
 | Class | Styles |
@@ -266,4 +267,17 @@ Utilities for controlling how an individual item is justified and aligned at the
 | place-self-center | place-self: center; |
 | place-self-center-safe | place-self: safe center; |
 | place-self-stretch | place-self: stretch; | 
+
+place-items
+Utilities for controlling how items are justified and aligned at the same time.
+
+| Class                         | Styles                        |
+| -------------------------------- | -------------------------------------- |
+| place-items-start              | place-items: start;              |
+| place-items-end                | place-items: end;                |
+| place-items-end-safe           | place-items: safe end;           |
+| place-items-center              | place-items: center;              |
+| place-items-center-safe        | place-items: safe center;        |
+| place-items-baseline           | place-items: baseline;           |
+| place-items-stretch             | place-items: stretch;             |
 
