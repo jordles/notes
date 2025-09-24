@@ -265,5 +265,5 @@ Utilities for controlling how an individual item is justified and aligned at the
 | place-self-end-safe | place-self: safe end; |
 | place-self-center | place-self: center; |
 | place-self-center-safe | place-self: safe center; |
-| place-self-stretch | place-self: stretch; |
+| place-self-stretch | place-self: stretch; | 
 
