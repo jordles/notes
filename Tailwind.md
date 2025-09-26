@@ -281,3 +281,18 @@ Utilities for controlling how items are justified and aligned at the same time.
 | place-items-baseline           | place-items: baseline;           |
 | place-items-stretch             | place-items: stretch;             |
 
+place-content
+Utilities for controlling how content is justified and aligned at the same time.
+
+| Class                         | Styles                        |
+| -------------------------------- | -------------------------------------- |
+| place-content-center          | place-content: center;          |
+| place-content-center-safe     | place-content: safe center;     |
+| place-content-start            | place-content: start;            |
+| place-content-end               | place-content: end;               |
+| place-content-end-safe         | place-content: safe end;         |
+| place-content-between           | place-content: space-between;    |
+| place-content-around             | place-content: space-around;      |
+| place-content-evenly           | place-content: space-evenly;    |
+| place-content-baseline         | place-content: baseline;         |
+| place-content-stretch           | place-content: stretch;           |
