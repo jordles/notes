@@ -309,3 +309,16 @@ Utilities for controlling the order of flex and grid items.
 | order-none                   | order: 0;                       |
 | order-(<custom-property>)   | order: var(<custom-property>); |
 | order-[<value>]              | order: <value>;                 |
+
+justify-self
+Utilities for controlling how an individual grid item is aligned along its inline axis.
+
+| Class                         | Styles                        |
+| -------------------------------- | -------------------------------------- |
+| justify-self-auto              | justify-self: auto;              |
+| justify-self-start              | justify-self: start;              |
+| justify-self-center              | justify-self: center;              |
+| justify-self-center-safe     | justify-self: safe center;     |
+| justify-self-end               | justify-self: end;               |
+| justify-self-end-safe         | justify-self: safe end;         |
+| justify-self-stretch           | justify-self: stretch;           |
