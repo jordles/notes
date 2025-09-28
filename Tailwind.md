@@ -296,3 +296,16 @@ Utilities for controlling how content is justified and aligned at the same time.
 | place-content-evenly           | place-content: space-evenly;    |
 | place-content-baseline         | place-content: baseline;         |
 | place-content-stretch           | place-content: stretch;           |
+
+order
+Utilities for controlling the order of flex and grid items.
+
+| Class                         | Styles                        |
+| -------------------------------- | -------------------------------------- |
+| order-<number>              | order: <number>;              |
+| order-<number>              | order: calc(<number> * -1);   |
+| order-first                  | order: -9999;                    |
+| order-last                    | order: 9999;                     |
+| order-none                   | order: 0;                       |
+| order-(<custom-property>)   | order: var(<custom-property>); |
+| order-[<value>]              | order: <value>;                 |
