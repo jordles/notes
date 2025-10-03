@@ -20,7 +20,7 @@ function chunk(arr, size){
   }
   return newArr;
 }
-```
+``` 
 
 ```js
 // using reduce
