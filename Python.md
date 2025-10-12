@@ -25,6 +25,19 @@
 
 [Uses for Automation](Uses%20for%20Automation.md)
 
+
+## Key Terms
+* **Platform-specific / OS specific scripting language** - Platform-specific scripting languages, like PowerShell (for Windows) and Bash (for Linux), are used by system administrators on those platforms.
+* **Client-side scripting language** - Client-side scripting languages, like JavaScript, are used mostly for web programming. The scripts are transferred from a web server to the end-user’s internet browser, then executed in the browser.
+* **Machine language** - Machine language is the lowest-level computer language. It communicates directly with computing machines in binary code (ones and zeros). In binary code, one equals a pulse of electricity and zero equals no electrical pulse. Machine language instructions are made from translating languages like Python into complex patterns of ones and zeros.
+* **Cross-platform language** - Programming language that is compatible with one or more platforms / operating systems (e.g., Windows, Linux, Mac, iOS, Android).
+* **Object-oriented programming language** - In object-oriented programming languages, most coding elements are considered to be objects with configurable properties. For example, a form field is an object that can be configured to accept only dates as input in the mm/dd/yy format, and can be configured to read from and write to a specific database.
+* **Python interpreter** - An interpreter is the program that reads and executes Python code by translating Python code into computer instructions.
+
+Interpreters are more interactive than codepads, but they are the same in that they both read and execute code one line at a time.
+
+First version of Python was released in 1991 by ==Guido van Rossum==. 
+
 ## String Methods
 
 __separator.join(words)__ - returns a string with the words separated by the separator
