@@ -38,6 +38,35 @@ Interpreters are more interactive than codepads, but they are the same in that t
 
 First version of Python was released in 1991 by ==Guido van Rossum==. 
 
+## Python Keywords
+
+Values: **True**, **False**, **None**  
+Conditions: **if**, **elif**, **else**  
+Logical operators: **and**, **or**, **not**  
+Loops: **for**, **in**, **while**, **break**, **continue**  
+Functions: **def**, **return**  
+
+You don't need to learn this whole list now. We'll dive into each keyword as we encounter them. There are additional reserved keywords in Python. If you would like to read about them, please visit the linked “Python Keywords” article in the Resources section at the end of this study guide. 
+
+## Arithmetic operators
+Python can calculate numbers using common mathematical operators, along with some special operators, too:  
+
+| Operator | Description |
+| --- | --- |
+| x + y | Addition + operator returns the sum of x plus y |
+| x - y | Subtraction - operator returns the difference of x minus y |
+| x * y | Multiplication * operator returns the product of x times y |
+| x / y | Division / operator returns the quotient of x divided by y |
+| x**y | Exponent ** operator returns the result of raising x to the power of y |
+| x**2 | Square expression returns x squared |
+| x**3 | Cube expression returns x cubed |
+| x**(1/2) | Square root (½) or (0.5) fractional exponent operator returns the square root of x |
+| x // y | Floor division operator returns the integer part of the integer division of x by y |
+| x % y | Modulo operator returns the remainder part of the integer division of x by y |
+
+IDEs have more features than code editors. IDEs often include a code editor, debugger, and build automation tools. Some IDEs also include a compiler or interpreter. Examples of popular IDEs include PyCharm, Visual Studio Code, and Eclipse. An IDE is a software application that provides comprehensive facilities for software development. 
+
+
 ## String Methods
 
 __separator.join(words)__ - returns a string with the words separated by the separator
