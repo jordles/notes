@@ -1,5 +1,26 @@
 # Python
 
+## Writing Python with IDEs
+**IDEs** have more features than code editors. IDEs often include a code editor, debugger, and build automation tools. Some IDEs also include a compiler or interpreter. Examples of popular IDEs include PyCharm, Visual Studio Code, and Eclipse. An IDE is a software application that provides comprehensive facilities for software development. 
+
+**IDLE** is an IDE that comes bundled with Python. It includes a code editor, debugger, and Python shell. Python IDLE is included with Python installations on Windows and MacOS. You can download IDLE using your package manager on Linux. Python IDLE is an interactive interpreter or file editor that allows you to easily write Python scripts and programs. IDLE provides syntax highlighting, code completion, and automatic indentation. 
+
+There are many different places and environments that you can use to write and run code.  In this video, you will learn more about JupyterLab and Jupyter Notebooks to write, run, and debug Python code. JupyterLab and Jupyter Notebooks are part of an open source project called 
+Project Jupyter
+ and are free to use. 
+
+__JupyterLab__ is a web-based interface (IDE) that allows you to use Jupyter Notebooks to write, run, and debug Python code. JupyterLab is an online environment that allows you to run your code in the cloud. 
+
+__Jupyter Notebook__ can be used and run in the web-based interface through JupyterLab
+or on your local machine. Jupyter Notebook allows you to create documents that contain live code. You can write Python programs and scripts using Jupyter Notebooks and see how they execute all in one place. It is a great tool for creating and understanding the code you are writing because you can see your input and output all in one spot.
+
+__Colab Notebooks__ are Jupyter Notebooks that are hosted by Google’s Colaboratory. In Colab, you can write and run Python code. In this reading, you will learn more about how to use Colab and its features.
+
+
+Colab is a web-based platform that allows you to write and run Python code really quickly in Google Drive. It is free and  ready to use with zero configuration required. 
+
+Colab provides all of the functionality that Python offers. The cells within Colab can include code, text, and images. The code cells include executable code and rich text which make it easy to write and run code. Colab also makes it easy to include markdown in your notebooks. This is a great feature for sharing notebooks because you can add headings, paragraphs, lists, mathematical formulas, and more. You can install Python packages using the pip command within the code cell. Colab Notebooks can easily be shared with other collaborators, too. When you create a Colab Notebook it is stored in your Google Drive. You can easily share using the share button in the upper right hand corner of the notebook. 
+
 ## Crash Course in Python w/ Automation
 **Programming code** - Programming code is a set of written computer instructions, guided by rules, using a computer programming language. It might help to think of the computer instructions as a detailed, step-by-step recipe for performing tasks. The instructions tell computers and machines how to perform an action. Programming code may also be referred to as source code or scripts.
 
@@ -64,7 +85,6 @@ Python can calculate numbers using common mathematical operators, along with som
 | x // y | Floor division operator returns the integer part of the integer division of x by y |
 | x % y | Modulo operator returns the remainder part of the integer division of x by y |
 
-IDEs have more features than code editors. IDEs often include a code editor, debugger, and build automation tools. Some IDEs also include a compiler or interpreter. Examples of popular IDEs include PyCharm, Visual Studio Code, and Eclipse. An IDE is a software application that provides comprehensive facilities for software development. 
 
 
 ## String Methods
