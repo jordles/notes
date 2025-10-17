@@ -5008,6 +5008,7 @@ Headings can consist of <code><h1></h1></code> to <code><h6></h6></code> each va
           useEffect(() => {}, [dependencies/value]) //runs when the dependencies change and checks if the component is mounted
         </pre>
       </li>
+      <li><code>useLayoutEffect</code> - is the same as useEffect, but it runs synchronously after all DOM mutations. https://refine.dev/blog/uselayouteffect-vs-useeffect/#introduction </li>
       <li><code>useReducer</code> - pass functions, handles more complex states, for removes prop drilling, pass information. It is conventional to use switches for your reducer function. It is more specifically for functions. 
         <a href="https://dev.to/emmaccen/react-usereducer-dhn" target="_blank">Usereducer Explained</a>
         <ul>

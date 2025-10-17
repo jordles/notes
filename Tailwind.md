@@ -241,84 +241,108 @@ Utilities for controlling how a column or page should break after an element.
 justify-content
 Utilities for controlling how flex and grid items are positioned along a container's main axis.
 
-| Class | Styles |
-| --- | --- |
-| justify-start | justify-content: flex-start; |
-| justify-end | justify-content: flex-end; |
-| justify-end-safe | justify-content: safe flex-end; |
-| justify-center | justify-content: center; |
-| justify-center-safe | justify-content: safe center; |
-| justify-between | justify-content: space-between; |
-| justify-around | justify-content: space-around; |
-| justify-evenly | justify-content: space-evenly; |
-| justify-stretch | justify-content: stretch; |
-| justify-baseline | justify-content: baseline; |
-| justify-normal | justify-content: normal; |
+| Class               | Styles                          |
+| ------------------- | ------------------------------- |
+| justify-start       | justify-content: flex-start;    |
+| justify-end         | justify-content: flex-end;      |
+| justify-end-safe    | justify-content: safe flex-end; |
+| justify-center      | justify-content: center;        |
+| justify-center-safe | justify-content: safe center;   |
+| justify-between     | justify-content: space-between; |
+| justify-around      | justify-content: space-around;  |
+| justify-evenly      | justify-content: space-evenly;  |
+| justify-stretch     | justify-content: stretch;       |
+| justify-baseline    | justify-content: baseline;      |
+| justify-normal      | justify-content: normal;        |
 
 place-self
 Utilities for controlling how an individual item is justified and aligned at the same time.
 
-| Class | Styles |
-| --- | --- |
-| place-self-auto | place-self: auto; |
-| place-self-start | place-self: start; |
-| place-self-end | place-self: end; |
-| place-self-end-safe | place-self: safe end; |
-| place-self-center | place-self: center; |
+| Class                  | Styles                   |
+| ---------------------- | ------------------------ |
+| place-self-auto        | place-self: auto;        |
+| place-self-start       | place-self: start;       |
+| place-self-end         | place-self: end;         |
+| place-self-end-safe    | place-self: safe end;    |
+| place-self-center      | place-self: center;      |
 | place-self-center-safe | place-self: safe center; |
-| place-self-stretch | place-self: stretch; | 
+| place-self-stretch     | place-self: stretch;     |
 
 place-items
 Utilities for controlling how items are justified and aligned at the same time.
 
-| Class                         | Styles                        |
-| -------------------------------- | -------------------------------------- |
-| place-items-start              | place-items: start;              |
-| place-items-end                | place-items: end;                |
-| place-items-end-safe           | place-items: safe end;           |
-| place-items-center              | place-items: center;              |
-| place-items-center-safe        | place-items: safe center;        |
-| place-items-baseline           | place-items: baseline;           |
-| place-items-stretch             | place-items: stretch;             |
+| Class                   | Styles                    |
+| ----------------------- | ------------------------- |
+| place-items-start       | place-items: start;       |
+| place-items-end         | place-items: end;         |
+| place-items-end-safe    | place-items: safe end;    |
+| place-items-center      | place-items: center;      |
+| place-items-center-safe | place-items: safe center; |
+| place-items-baseline    | place-items: baseline;    |
+| place-items-stretch     | place-items: stretch;     |
 
 place-content
 Utilities for controlling how content is justified and aligned at the same time.
 
-| Class                         | Styles                        |
-| -------------------------------- | -------------------------------------- |
-| place-content-center          | place-content: center;          |
-| place-content-center-safe     | place-content: safe center;     |
-| place-content-start            | place-content: start;            |
-| place-content-end               | place-content: end;               |
-| place-content-end-safe         | place-content: safe end;         |
-| place-content-between           | place-content: space-between;    |
-| place-content-around             | place-content: space-around;      |
-| place-content-evenly           | place-content: space-evenly;    |
-| place-content-baseline         | place-content: baseline;         |
-| place-content-stretch           | place-content: stretch;           |
+| Class                     | Styles                        |
+| ------------------------- | ----------------------------- |
+| place-content-center      | place-content: center;        |
+| place-content-center-safe | place-content: safe center;   |
+| place-content-start       | place-content: start;         |
+| place-content-end         | place-content: end;           |
+| place-content-end-safe    | place-content: safe end;      |
+| place-content-between     | place-content: space-between; |
+| place-content-around      | place-content: space-around;  |
+| place-content-evenly      | place-content: space-evenly;  |
+| place-content-baseline    | place-content: baseline;      |
+| place-content-stretch     | place-content: stretch;       |
 
 order
 Utilities for controlling the order of flex and grid items.
 
-| Class                         | Styles                        |
-| -------------------------------- | -------------------------------------- |
-| order-<number>              | order: <number>;              |
-| order-<number>              | order: calc(<number> * -1);   |
-| order-first                  | order: -9999;                    |
-| order-last                    | order: 9999;                     |
-| order-none                   | order: 0;                       |
-| order-(<custom-property>)   | order: var(<custom-property>); |
-| order-[<value>]              | order: <value>;                 |
+| Class                     | Styles                         |
+| ------------------------- | ------------------------------ |
+| order-<number>            | order: <number>;               |
+| order-<number>            | order: calc(<number> \* -1);   |
+| order-first               | order: -9999;                  |
+| order-last                | order: 9999;                   |
+| order-none                | order: 0;                      |
+| order-(<custom-property>) | order: var(<custom-property>); |
+| order-[<value>]           | order: <value>;                |
 
 justify-self
 Utilities for controlling how an individual grid item is aligned along its inline axis.
 
-| Class                         | Styles                        |
-| -------------------------------- | -------------------------------------- |
-| justify-self-auto              | justify-self: auto;              |
-| justify-self-start              | justify-self: start;              |
-| justify-self-center              | justify-self: center;              |
-| justify-self-center-safe     | justify-self: safe center;     |
-| justify-self-end               | justify-self: end;               |
-| justify-self-end-safe         | justify-self: safe end;         |
-| justify-self-stretch           | justify-self: stretch;           |
+| Class                    | Styles                     |
+| ------------------------ | -------------------------- |
+| justify-self-auto        | justify-self: auto;        |
+| justify-self-start       | justify-self: start;       |
+| justify-self-center      | justify-self: center;      |
+| justify-self-center-safe | justify-self: safe center; |
+| justify-self-end         | justify-self: end;         |
+| justify-self-end-safe    | justify-self: safe end;    |
+| justify-self-stretch     | justify-self: stretch;     |
+
+max-height
+Utilities for setting the maximum height of an element.
+
+| Class                     | Styles                                        |
+| ------------------------- | --------------------------------------------- |
+| max-h-<number>            | max-height: calc(var(--spacing) \* <number>); |
+| max-h-<fraction>          | max-height: calc(<fraction> \* 100%);         |
+| max-h-none                | max-height: none;                             |
+| max-h-px                  | max-height: 1px;                              |
+| max-h-full                | max-height: 100%;                             |
+| max-h-screen              | max-height: 100vh;                            |
+| max-h-dvh                 | max-height: 100dvh;                           |
+| max-h-dvw                 | max-height: 100dvw;                           |
+| max-h-lvh                 | max-height: 100lvh;                           |
+| max-h-lvw                 | max-height: 100lvw;                           |
+| max-h-svh                 | max-height: 100svh;                           |
+| max-h-svw                 | max-height: 100svw;                           |
+| max-h-min                 | max-height: min-content;                      |
+| max-h-max                 | max-height: max-content;                      |
+| max-h-fit                 | max-height: fit-content;                      |
+| max-h-lh                  | max-height: 1lh;                              |
+| max-h-(<custom-property>) | max-height: var(<custom-property>);           |
+| max-h-[<value>]           | max-height: <value>;                          |
