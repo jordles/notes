@@ -323,6 +323,9 @@ Utilities for controlling how an individual grid item is aligned along its inlin
 | justify-self-end-safe    | justify-self: safe end;    |
 | justify-self-stretch     | justify-self: stretch;     |
 
+height
+Utilities for setting the height of an element.
+
 max-height
 Utilities for setting the maximum height of an element.
 
