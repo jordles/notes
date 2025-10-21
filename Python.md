@@ -42,7 +42,26 @@ Colab provides all of the functionality that Python offers. The cells within Col
 
 **Functions** - A function is a reusable block of code that performs a specific task.
 
-**Variables** - Variables are used to temporarily store changeable values in programming code.
+```python
+def greet(name):
+    return f"Hello, {name}!"
+```
+
+**Variables** - Variables are used to temporarily store changeable values in programming code. Represent data stored as strings, tuples, dictionaries, lists, and objects (note: future readings explain these categories)
+
+**Conditionals** - Conditionals are used to perform different actions based on whether a certain condition is true or false.
+
+```python
+number = -4
+
+if number > 0:
+   print('Number is positive.')
+elif number == 0:
+   print('Number is zero.')
+else:
+   print('Number is negative.')
+```
+
 
 [Uses for Automation](Uses%20for%20Automation.md)
 
@@ -69,6 +88,21 @@ Functions: **def**, **return**
 
 You don't need to learn this whole list now. We'll dive into each keyword as we encounter them. There are additional reserved keywords in Python. If you would like to read about them, please visit the linked “Python Keywords” article in the Resources section at the end of this study guide. 
 
+## Naming Conventions
+
+Naming rules and conventions
+When assigning names to objects, programmers adhere to a set of rules and conventions which help to standardize code and make it more accessible to everyone. Here are some naming rules and conventions that you should know:
+
+Names cannot contain spaces.
+
+Names may be a mixture of upper and lower case characters.
+
+Names can’t start with a number but may contain numbers after the first character.
+
+Variable names and function names should be written in snake_case, which means that all letters are lowercase and words are separated using an underscore. 
+
+Descriptive names are better than cryptic abbreviations because they help other programmers (and you) read and interpret your code. For example, student_name is better than sn. It may feel excessive when you write it, but when you return to your code you’ll find it much easier to understand.
+
 ## Arithmetic operators
 Python can calculate numbers using common mathematical operators, along with some special operators, too:  
 
@@ -85,7 +119,16 @@ Python can calculate numbers using common mathematical operators, along with som
 | x // y | Floor division operator returns the integer part of the integer division of x by y |
 | x % y | Modulo operator returns the remainder part of the integer division of x by y |
 
+## Other operators
 
+| Operator | Description |
+| --- | --- |
+| x > y | Returns True if x is greater than y |
+| x < y | Returns True if x is less than y |
+| x >= y | Returns True if x is greater than or equal to y |
+| x <= y | Returns True if x is less than or equal to y |
+| x == y | Returns True if x is equal to y |
+| x != y | Returns True if x is not equal to y | 
 
 ## String Methods
 
