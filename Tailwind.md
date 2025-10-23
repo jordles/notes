@@ -349,3 +349,16 @@ Utilities for setting the maximum height of an element.
 | max-h-lh                  | max-height: 1lh;                              |
 | max-h-(<custom-property>) | max-height: var(<custom-property>);           |
 | max-h-[<value>]           | max-height: <value>;                          |
+
+transition-timing-function
+Utilities for controlling the easing of CSS transitions.
+
+| Class                    | Styles                                        |
+| ------------------------ | --------------------------------------------- |
+| ease-linear              | transition-timing-function: linear;       |
+| ease-in                  | transition-timing-function: var(--ease-in); /* cubic-bezier(0.4, 0, 1, 1) */ |
+| ease-out                 | transition-timing-function: var(--ease-out); /* cubic-bezier(0, 0, 0.2, 1) */ |
+| ease-in-out               | transition-timing-function: var(--ease-in-out); /* cubic-bezier(0.4, 0, 0.2, 1) */ |
+| ease-initial              | transition-timing-function: initial;          |
+| ease-(<custom-property>) | transition-timing-function: var(<custom-property>); |
+| ease-[<value>]           | transition-timing-function: <value>;                          |

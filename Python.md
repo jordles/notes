@@ -93,6 +93,10 @@ You don't need to learn this whole list now. We'll dive into each keyword as we 
 Naming rules and conventions
 When assigning names to objects, programmers adhere to a set of rules and conventions which help to standardize code and make it more accessible to everyone. Here are some naming rules and conventions that you should know:
 
+Python variables cannot have spaces, tabs, special characters, or keywords.
+
+Names must be made up of only letters (a-z, A-Z), numbers (0-9), and underscores (_).
+
 Names cannot contain spaces.
 
 Names may be a mixture of upper and lower case characters.
@@ -130,9 +134,150 @@ Python can calculate numbers using common mathematical operators, along with som
 | x == y | Returns True if x is equal to y |
 | x != y | Returns True if x is not equal to y | 
 
+
+## Annotating Types by Type
+
+How to annotate a variable   
+Think of annotating a variable as if you were to put a label on a container—and anything in that container should hold what the label is describing. Let’s take a look at an example:
+
+name: str = "Betty"
+
+The variable name is declared using a colon `:` which is annotated with the type str, indicating that the name variable should hold a string value. 
+
+==Annotating in general will add computational overhead at runtime, so it is best to use it only when necessary.==
+
+  #### Dynamic Typing
+  Type of variable can change at runtime
+
+  ```python
+  name = "Betty"  # name is a string
+  print(type(name))  # Output: <class 'str'>
+  name = 42  # name is now an integer
+  print(type(name))  # Output: <class 'int'>
+  ```
+
+  #### Duck Typing
+  This form of typing comes from the saying, “If it walks like a duck and quacks like a duck, it must be a duck.” Python will infer the variable type at runtime and decide which behaviors are available to the given object.
+
+  ```python
+  a = "Hello" #looks like a string
+  ```
+
+  #### Type Comments
+  Type comments are used to annotate types for variables, functions, classes, and other entities. They are not used for type checking at runtime.
+
+  ```python
+  name = "Betty"  # type: str
+  age = 30  # type: int
+  ```
+
+  #### Direct Type Annotations
+  Direct type annotations are used to specify the type of a variable, function, class, or other entity. They are used for type checking at runtime. It is useful for linters for example to check types before runtime.
+
+  ```python
+  import typing
+  # Define a variable of type str
+  z: str = "Hello, world!"
+  # Define a variable of type int
+  x: int = 10
+  # Define a variable of type float
+  y: float = 1.23
+  # Define a variable of type list
+  list_of_numbers: typing.List[int] = [1, 2, 3]
+  # Define a variable of type tuple
+  tuple_of_numbers: typing.Tuple[int, int, int] = (1, 2, 3)
+  # Define a variable of type dict
+  dictionary: typing.Dict[str, int] = {"key1": 1, "key2": 2}
+  # Define a variable of type set
+  set_of_numbers: typing.Set[int] = {1, 2, 3}
+  ```
+
+## Implicit Conversion (type casting)
+
+Implicit conversion is when Python automatically converts one data type to another data type.
+
+```python
+x = 5
+y = 2.5
+z = x + y # 5 is implicitly converted to 5.0
+print(z)  # Output: 7.5
+```
+
+## Explicit Conversion (type casting)
+
+Explicit conversion is when you convert one data type to another data type.
+
+```python
+x = 5
+y = 2.5
+z = int(y) # 2.5 is explicitly converted to 2
+print(z)  # Output: 2
+```
+
 ## String Methods
 
 __separator.join(words)__ - returns a string with the words separated by the separator
+
+`.format()` - returns a formatted string
+
+```python
+name = "John"
+age = 30
+print("Hello, {}. You are {} years old.".format(name, age))
+# Output: Hello, John. You are 30 years old.
+print("Hello, {0}. You are {1} years old.".format(name, age)) #indexed
+# Output: Hello, John. You are 30 years old.
+print("Hello, {name_}. You are {age_} years old.".format(name_=name, age_=age)) #keyword
+# Output: Hello, John. You are 30 years old.
+```
+
+`.type()` - returns the data type of a value
+
+```python
+print(type("Hello, World!"))  # Output: <class 'str'>
+print(type(42))                # Output: <class 'int'>
+print(type(3.14))              # Output: <class 'float'>
+print(type(True))              # Output: <class 'bool'>
+print(type(None))              # Output: <class 'NoneType'>
+```
+
+`str()` - converts a value (often numeric) to a string data type
+
+`int()` - converts a value (usually a float) to an integer data type
+
+`float()` - converts a value (usually an integer) to a float data type
+
+`print()` - outputs a value to the console, using commas to separate multiple values will add spaces between them. Commas can replace concatenation with `+` operator.
+
+```python
+name = "Alice"
+age = 30
+print("Hello, my name is", name, "and I am", age, "years old.")
+# Output: Hello, my name is Alice and I am 30 years old.
+```
+
+`sorted()` - returns a sorted list from the items in an iterable
+
+```python
+numbers = [5, 2, 9, 1, 5, 6]
+sorted_numbers = sorted(numbers)
+print(sorted_numbers)  # Output: [1, 2, 5, 5
+```
+
+`min()` - returns the smallest item in an iterable
+
+`max()` - returns the largest item in an iterable
+
+`sum()` - returns the sum of all items in an iterable
+
+`len()` - returns the length of an iterable
+
+`abs()` - returns the absolute value of a number
+
+`pow(number, power)` - returns the result of raising a number to a power
+
+`round()` - returns the nearest integer to a number
+
 
 ## String Literals
 
@@ -191,19 +336,6 @@ age = 30
 print("Hello, my name is %s and I am %d years old." % (name, age))
 
 # Output: Hello, my name is Alice and I am 30 years old.
-```
-
-**.format() method**
-
-```python
-name = "John"
-age = 30
-print("Hello, {}. You are {} years old.".format(name, age))
-# Output: Hello, John. You are 30 years old.
-print("Hello, {0}. You are {1} years old.".format(name, age)) #indexed
-# Output: Hello, John. You are 30 years old.
-print("Hello, {name_}. You are {age_} years old.".format(name_=name, age_=age)) #keyword
-# Output: Hello, John. You are 30 years old.
 ```
 
 **string.Template**
