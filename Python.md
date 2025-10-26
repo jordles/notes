@@ -78,6 +78,8 @@ Interpreters are more interactive than codepads, but they are the same in that t
 
 First version of Python was released in 1991 by ==Guido van Rossum==. 
 
+* **self-documenting code** - Self-documenting code is code that is written in a way that makes it easy to understand without needing additional comments or documentation. This is often achieved by using descriptive variable and function names, as well as clear and concise code structure. We call this practice **refactoring**. Comments are also used to explain complex or non-obvious parts of the code.   Self-documenting code is important because it makes it easier for other programmers (and yourself) to read and understand the code, which can save time and reduce errors when maintaining or modifying the code in the future.
+
 ## Python Keywords
 
 Values: **True**, **False**, **None**  
@@ -87,6 +89,22 @@ Loops: **for**, **in**, **while**, **break**, **continue**
 Functions: **def**, **return**  
 
 You don't need to learn this whole list now. We'll dive into each keyword as we encounter them. There are additional reserved keywords in Python. If you would like to read about them, please visit the linked “Python Keywords” article in the Resources section at the end of this study guide. 
+
+`return` - used inside a function to send a value back to the caller. It makes your code more reusable by allowing you to use the output of a function in other parts of your program. You can return multiple values by separating them with commas. Returning multiple values means we can assign multiple variables to the output of a function.
+
+## Python Data Types
+
+Common data types in Python include:
+* **int** - Integer data type represents whole numbers (e.g., -3, 0, 42).
+* **float** - Float data type represents decimal numbers (e.g., 3.14 or 2.718).
+* **bool** - Boolean data type represents logical values (e.g., True or False).
+* **str** - String data type represents text (e.g., "Hello, world!").
+* **list** - List data type represents an ordered collection of items (e.g., [1, 2, 3, 4, 5]).
+* **tuple** - Tuple data type represents an ordered collection of items (e.g., (1, 2, 3, 4, 5)).
+* **dict** - Dictionary data type represents a collection of key-value pairs (e.g., {"name": "John", "age": 30}).
+* **set** - Set data type represents an unordered collection of unique items (e.g., {1, 2, 3, 4, 5}).
+* **NoneType** - NoneType data type represents the absence of a value (e.g., None). (shows for example where is no return value from a function, or a variable that has not been assigned a value yet)
+
 
 ## Naming Conventions
 
@@ -134,6 +152,12 @@ Python can calculate numbers using common mathematical operators, along with som
 | x == y | Returns True if x is equal to y |
 | x != y | Returns True if x is not equal to y | 
 
+## Logical operators
+| Operator | Description |
+| --- | --- |
+| x and y | Returns True if both x and y are True |
+| x or y | Returns True if either x or y is True |
+| not x | Returns True if x is False |
 
 ## Annotating Types by Type
 
