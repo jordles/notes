@@ -94,6 +94,9 @@ You don't need to learn this whole list now. We'll dive into each keyword as we 
 
 `while` - A while loop will continuously execute code depending on the value of a condition. It begins with the keyword while, followed by a comparison to be evaluated, then a colon. On the next line is the code block to be executed, indented to the right. Similar to an if statement, the code in the body will only be executed if the comparison is evaluated to be true. What sets a while loop apart, however, is that this code block will keep executing as long as the evaluation statement is true. Once the statement is no longer true, the loop exits and the next line of code will be executed.  
 
+`break` - The break statement is used to exit a loop prematurely. When the break statement is encountered inside a loop, the loop will immediately terminate, and the program will continue executing the code that follows the loop. The break statement is often used in conjunction with conditional statements to exit a loop when a certain condition is met.
+
+
 ## Python Data Types
 
 Common data types in Python include:
