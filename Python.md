@@ -92,6 +92,8 @@ You don't need to learn this whole list now. We'll dive into each keyword as we 
 
 `return` - used inside a function to send a value back to the caller. It makes your code more reusable by allowing you to use the output of a function in other parts of your program. You can return multiple values by separating them with commas. Returning multiple values means we can assign multiple variables to the output of a function.
 
+`while` - A while loop will continuously execute code depending on the value of a condition. It begins with the keyword while, followed by a comparison to be evaluated, then a colon. On the next line is the code block to be executed, indented to the right. Similar to an if statement, the code in the body will only be executed if the comparison is evaluated to be true. What sets a while loop apart, however, is that this code block will keep executing as long as the evaluation statement is true. Once the statement is no longer true, the loop exits and the next line of code will be executed.  
+
 ## Python Data Types
 
 Common data types in Python include:
