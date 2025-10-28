@@ -126,7 +126,7 @@ Variable names and function names should be written in snake_case, which means t
 Descriptive names are better than cryptic abbreviations because they help other programmers (and you) read and interpret your code. For example, student_name is better than sn. It may feel excessive when you write it, but when you return to your code you’ll find it much easier to understand.
 
 ## Arithmetic operators
-Python can calculate numbers using common mathematical operators, along with some special operators, too:  
+Python can calculate numbers using common mathematical operators, along with some special operators, too:
 
 | Operator | Description |
 | --- | --- |
