@@ -96,6 +96,14 @@ You don't need to learn this whole list now. We'll dive into each keyword as we 
 
 `break` - The break statement is used to exit a loop prematurely. When the break statement is encountered inside a loop, the loop will immediately terminate, and the program will continue executing the code that follows the loop. The break statement is often used in conjunction with conditional statements to exit a loop when a certain condition is met.
 
+```python
+while True:
+    user_input = input("Enter 'exit' to quit: ")
+    if user_input == 'exit':
+        break
+    print("You entered:", user_input)
+```
+
 
 ## Python Data Types
 
