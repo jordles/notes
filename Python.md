@@ -104,6 +104,7 @@ while True:
     print("You entered:", user_input)
 ```
 
+`pass` - A pass statement in Python is a placeholder statement which is used when the syntax requires a statement, but you don't want to execute any code or command.
 
 ## Python Data Types
 
