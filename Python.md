@@ -94,6 +94,65 @@ You don't need to learn this whole list now. We'll dive into each keyword as we 
 
 `while` - A while loop will continuously execute code depending on the value of a condition. It begins with the keyword while, followed by a comparison to be evaluated, then a colon. On the next line is the code block to be executed, indented to the right. Similar to an if statement, the code in the body will only be executed if the comparison is evaluated to be true. What sets a while loop apart, however, is that this code block will keep executing as long as the evaluation statement is true. Once the statement is no longer true, the loop exits and the next line of code will be executed.  
 
+`for` - A for loop is used to iterate over a sequence (such as a list, tuple, dictionary, set, or string) or other iterable object. It allows you to execute a block of code multiple times, once for each item in the sequence. The syntax for a for loop in Python is as follows:
+
+
+```python
+for x in range(5): # 0, 1, 2, 3, 4
+    print(x)
+
+values = [ 23, 52, 59, 37, 48 ]
+sum = 0
+length = 0
+for value in values:
+    sum += value
+    length += 1
+
+print("Total sum: " + str(sum) + " - Average: " + str(sum/length))
+
+for left in range(7):
+  for right in range(left, 7):
+    print("[" + str(left) + "|" + str(right) + "]", end=" ")
+  print()
+
+for c in greeting:
+    print('the next character is:', c)
+
+for i in range(len(greeting)):
+	print(i)
+
+greeting = 'Hello'
+index = 0
+while index < len(greeting):
+    print(greeting[index:index+1])
+    index += 1
+
+``` 
+**recursion** - A function that calls itself in order to solve a problem. Its a repeated application of the same procedure to a smaller problem. Recursion is often used to solve problems that can be broken down into smaller, similar subproblems. A recursive function typically has two main components: a base case and a recursive case. The base case is the condition that stops the recursion, while the recursive case is where the function calls itself with a modified argument. <ins>Python only allows a maximum recursion depth of 1000 by default to prevent infinite recursion and stack overflow errors.</ins>
+
+  - **base case** - The base case is the condition that stops the recursion. It is the simplest version of the problem that can be solved without further recursion. When the base case is reached, the function returns a value without making any further recursive calls.
+
+  - **recursive case** - The recursive case is where the function calls itself with a modified argument. This is where the problem is broken down into smaller subproblems that can be solved recursively. The recursive case typically involves some form of computation or manipulation of the input data before making the recursive call.
+
+**Comprehensions** - A more concise way to create lists, sets, or dictionaries using a single line of code. Comprehensions can include conditions to filter items from the original iterable.
+
+```python
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = [x ** 2 for x in numbers]
+print(squared_numbers)
+
+#before
+sequence = range(10)
+new_list = []
+for x in sequence:
+    if x % 2 == 0:
+        new_list.append(x)
+
+#after
+sequence = range(10)
+new_list = [x for x in sequence if x % 2 == 0]
+```
+
 `break` - The break statement is used to exit a loop prematurely. When the break statement is encountered inside a loop, the loop will immediately terminate, and the program will continue executing the code that follows the loop. The break statement is often used in conjunction with conditional statements to exit a loop when a certain condition is met.
 
 ```python
@@ -252,6 +311,31 @@ z = int(y) # 2.5 is explicitly converted to 2
 print(z)  # Output: 2
 ```
 
+## String
+
+When you **slice** a string, you extract a subset of the original string—sometimes referred to as indexing a string. **Joining** strings is the process of linking two or more strings together to create a bigger string.
+
+Slicing strings is like js's bracket notation to get characters at specific indexes, but python also allows for slicing ranges with colons.
+
+```python
+string1 = "Greetings, Earthlings"
+print(string1[0])   # Prints “G”
+print(string1[4:8]) # Prints “ting”
+print(string1[11:]) # Prints “Earthlings”
+print(string1[:5])  # Prints “Greet”
+# Prints “Earthlings” again
+print(string1[-10:])
+# Prints “” 
+print(string1[55:])
+
+# a double colon can be used to specify a step value for slicing
+# Prints “Getns atlns”
+print(string1[0::2])
+
+# Prints “sgnilhtraE ,sgniteerG”
+print(string1[::-1])
+```
+
 ## String Methods
 
 __separator.join(words)__ - returns a string with the words separated by the separator
@@ -287,6 +371,12 @@ print(type(None))              # Output: <class 'NoneType'>
 
 `print()` - outputs a value to the console, using commas to separate multiple values will add spaces between them. Commas can replace concatenation with `+` operator.
 
+`<separator>.join()` - joins a list of strings into a single string, with a specified separator
+
+`split()` - splits a string into a list of substrings
+
+`end` - The end parameter in the print() function is used to specify what character or string should be printed at the end of the output. By default, the end parameter is set to a newline character (\n), which means that each print statement will start on a new line. However, you can change the value of the end parameter to any string you want, such as a space or a comma, to customize the output format.
+
 ```python
 name = "Alice"
 age = 30
@@ -316,6 +406,43 @@ print(sorted_numbers)  # Output: [1, 2, 5, 5
 
 `round()` - returns the nearest integer to a number
 
+`range()` - The range() function generates a sequence of numbers, which is commonly used in for loops to specify the number of iterations. It can take one, two, or three arguments: start, stop, and step. If only one argument is provided, it is treated as the stop value, and the sequence starts from 0. If two arguments are provided, the first is the start value and the second is the stop value. If three arguments are provided, the first is the start value, the second is the stop value, and the third is the step value (the difference between each number in the sequence).
+
+```python
+for i in range(5):  # Generates numbers from 0 to 4
+    print(i)  # Output: 0, 1, 2, 3, 4
+
+for i in range(1, 6):  # Generates numbers from 1 to 5
+    print(i)  # Output: 1, 2, 3, 4, 5
+
+for i in range(1, 10, 2):  # Generates odd numbers from 1 to 9
+    print(i)  # Output: 1, 3, 5, 7, 9
+```
+
+`map()` - applies a function to all items in an iterable
+
+```python
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = list(map(lambda x: x ** 2, numbers))
+print(squared_numbers)  # Output: [1, 4, 9, 16, 25]
+```
+
+`filter()` - filters items in an iterable based on a function
+
+```python
+numbers = [1, 2, 3, 4, 5]
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # Output: [2, 4]
+```
+
+`zip()` - creates an iterator that aggregates elements from multiple iterables
+
+```python
+names = ["Alice", "Bob", "Charlie"]
+ages = [25, 30, 35]
+zipped = list(zip(names, ages))
+print(zipped)  # Output: [('Alice', 25), ('Bob', 30), ('Charlie', 35)]
+```
 
 ## String Literals
 
