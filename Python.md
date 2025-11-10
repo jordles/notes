@@ -313,7 +313,9 @@ print(z)  # Output: 2
 
 ## String
 
-When you **slice** a string, you extract a subset of the original string—sometimes referred to as indexing a string. **Joining** strings is the process of linking two or more strings together to create a bigger string.
+When you **slice/substring** a string, you extract a subset of the original string—sometimes referred to as indexing a string. When we slice, we include the starting index and exclude the ending index. 
+
+**Joining** strings is the process of linking two or more strings together to create a bigger string.
 
 Slicing strings is like js's bracket notation to get characters at specific indexes, but python also allows for slicing ranges with colons.
 
