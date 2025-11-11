@@ -88,6 +88,8 @@ Logical operators: **and**, **or**, **not**
 Loops: **for**, **in**, **while**, **break**, **continue**  
 Functions: **def**, **return**  
 
+__Methods__ are functions that are associated with objects/classes. They are called using dot notation, where the method name is preceded by the object name and a dot. For example, in the expression `my_list.append(5)`, `append` is a method of the `my_list` object.
+
 You don't need to learn this whole list now. We'll dive into each keyword as we encounter them. There are additional reserved keywords in Python. If you would like to read about them, please visit the linked “Python Keywords” article in the Resources section at the end of this study guide. 
 
 `return` - used inside a function to send a value back to the caller. It makes your code more reusable by allowing you to use the output of a function in other parts of your program. You can return multiple values by separating them with commas. Returning multiple values means we can assign multiple variables to the output of a function.
@@ -313,7 +315,9 @@ print(z)  # Output: 2
 
 ## String
 
-When you **slice/substring** a string, you extract a subset of the original string—sometimes referred to as indexing a string. When we slice, we include the starting index and exclude the ending index. 
+When you **slice/substring** a string, you extract a subset of the original string—sometimes referred to as indexing a string. When we slice, we include the starting index and exclude the ending index. If only one is included, it will slice from the starting index to the end of the string, or from the beginning of the string to the ending index.
+
+String are immutable, meaning they cannot be changed after they are created. Any operation that modifies a string will create a new string.
 
 **Joining** strings is the process of linking two or more strings together to create a bigger string.
 
@@ -445,6 +449,89 @@ ages = [25, 30, 35]
 zipped = list(zip(names, ages))
 print(zipped)  # Output: [('Alice', 25), ('Bob', 30), ('Charlie', 35)]
 ```
+
+`.upper()` - converts all characters in a string to uppercase
+`.lower()` - converts all characters in a string to lowercase
+
+`.title()` - converts the first character of each word in a string to uppercase
+
+`.capitalize()` - converts the first character of a string to uppercase
+
+`.strip()` - removes leading and trailing whitespace from a string
+
+`.lstrip()` - removes leading whitespace from a string
+
+`.rstrip()` - removes trailing whitespace from a string
+
+`.replace(old, new)` - replaces all occurrences of a substring in a string with another substring
+
+```python
+name = "Alice"
+print(name.upper())  # Output: ALICE
+print(name.lower())  # Output: alice
+print(name.title())  # Output: Alice
+print(name.capitalize())  # Output: Alice
+print(name.strip())  # Output: Alice
+print(name.lstrip())  # Output: Alice
+print(name.rstrip())  # Output: Alice
+print(name.replace("Alice", "Bob"))  # Output: Bob
+```
+
+`.endswith()` - checks if a string ends with a specified suffix
+
+`.startswith()` - checks if a string starts with a specified prefix
+
+```python
+name = "Alice"
+print(name.endswith("ce"))  # Output: True
+print(name.startswith("A"))  # Output: True
+```
+
+`.split()` - splits a string into a list of substrings based on a delimiter
+
+```python
+name = "Alice, Bob, Charlie"
+print(name.split(","))  # Output: ['Alice', ' Bob', ' Charlie']
+```
+
+`.join()` - joins a list of strings into a single string using a delimiter  
+
+```python 
+names = ["Alice", "Bob", "Charlie"]
+print(", ".join(names))  # Output: Alice, Bob, Charlie
+```
+
+`.find()` - returns the index of the first occurrence of a substring in a string
+
+```python
+name = "Alice"
+print(name.find("li"))  # Output: 2
+```
+
+`.count()` - returns the number of occurrences of a substring in a string
+
+```python
+name = "Alice"
+print(name.count("l"))  # Output: 2
+```
+
+`.index()` - returns the index of the first occurrence of a substring in a string. If the substring is not found, it raises a ValueError
+
+```python
+name = "Alice"
+print(name.index("li"))  # Output: 2
+``` 
+
+`.isnumeric()` - checks if a string contains only numeric characters
+
+`.isalpha()` - checks if a string contains only alphabetic characters
+
+```python
+name = "Alice"
+print(name.isnumeric())  # Output: False
+print(name.isalpha())  # Output: True
+```
+
 
 ## String Literals
 
